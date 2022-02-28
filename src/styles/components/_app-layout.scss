@@ -9,6 +9,7 @@
     align-items: center;
     background: $white;
     border-bottom: 1px solid $grey-scale5;
+    z-index: 99;
     @include to(sm) {
       padding: 10px 0;
     }

@@ -1,0 +1,120 @@
+.details-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1080px;
+  margin: auto;
+  @include to(md) {
+    grid-template-columns: 1fr;
+  }
+  .nft-wrapper {
+    position: relative;
+    margin: 30px;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: 40px;
+    }
+    .nft-border-line {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: 200px;
+      height: 1px;
+    }
+    .nft-info {
+      position: absolute;
+      width: 100%;
+      height: 200px;
+      bottom: 0;
+      left: 0;
+      background: rgba($grey-scale3, 0.3);
+      border-radius: 0 0 40px 40px;
+      backdrop-filter: blur(16px);
+      padding: 30px;
+      h1 {
+        font-size: 32px;
+        font-weight: 800;
+        color: $white;
+      }
+      .nft-stats {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        align-items: center;
+        span {
+          font-size: 36px;
+          line-height: 36px;
+          font-weight: 700;
+          color: $main-jade;
+        }
+        button {
+          background: $main-jade;
+          color: $white;
+          border-radius: 20px;
+          width: 100%;
+          max-width: 150px;
+        }
+        h1 {
+          color: $white;
+          font-size: 20px;
+          font-weight: 400;
+        }
+        p {
+          color: $main-jade;
+          font-size: 14px;
+          font-weight: 500;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .details {
+    overflow: hidden;
+    .main-stats {
+      padding: 25px;
+      border-bottom: 1px solid $grey-scale5;
+      h1 {
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .stat-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        .name {
+          font-size: 14px;
+          font-weight: 500;
+          color: $grey-scale4;
+        }
+        .stat {
+          font-size: 14px;
+          font-weight: 400;
+          margin-right: 5px;
+        }
+        .percents {
+          font-size: 14px;
+          font-weight: 400;
+          color: $grey-scale4;
+          margin-right: 20px;
+        }
+        .icon {
+          color: $main-jade;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+        }
+      }
+    }
+    .tables {
+      overflow-x: scroll;
+    }
+  }
+}
