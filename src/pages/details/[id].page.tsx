@@ -1,5 +1,6 @@
 import {
   Button,
+  Icon,
   Tab,
   Table,
   TabList,
@@ -10,7 +11,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react"
-import { ExternalLinkIcon } from "@chakra-ui/icons"
+import { ExternalLink } from "react-feather"
 
 const DetailsPage = () => {
   const stats = [
@@ -155,7 +156,9 @@ const DetailsPage = () => {
               <span className="percents">
                 {stat.percent ? `(${stat.percent}%)` : null}
               </span>
-              {stat.hasLink ? <ExternalLinkIcon className="icon" /> : null}
+              {stat.hasLink ? (
+                <Icon as={ExternalLink} className="icon" />
+              ) : null}
             </div>
           </div>
         ))}

@@ -1,4 +1,3 @@
-import { ChevronDownIcon, HamburgerIcon, SearchIcon } from "@chakra-ui/icons"
 import {
   Button,
   Drawer,
@@ -6,6 +5,7 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
+  Icon,
   Input,
   InputGroup,
   InputRightElement,
@@ -20,6 +20,7 @@ import {
 } from "@chakra-ui/react"
 import Link from "next/link"
 import { useState } from "react"
+import * as Icons from "react-feather"
 
 export const AppLayout = ({ children }) => {
   const navItems = [
@@ -102,7 +103,7 @@ export const AppLayout = ({ children }) => {
         <InputGroup>
           <Input size="lg" placeholder="Name, Collection, Address, User" />
           <InputRightElement>
-            <SearchIcon />
+            <Icon as={Icons.Search} />
           </InputRightElement>
         </InputGroup>
       </ModalContent>
@@ -126,7 +127,7 @@ export const AppLayout = ({ children }) => {
           <Stack key={nav.key} className="mobile-menu-stack">
             <Button
               variant="ghost"
-              rightIcon={<ChevronDownIcon />}
+              rightIcon={<Icon as={Icons.ChevronDown} />}
               className="mobile-menu-nav"
             >
               {nav.name}
@@ -154,7 +155,7 @@ export const AppLayout = ({ children }) => {
           <Menu key={nav.key}>
             <MenuButton
               as={Button}
-              rightIcon={<ChevronDownIcon />}
+              rightIcon={<Icon as={Icons.ChevronDown} />}
               background="none"
               _hover={{ border: "none" }}
               _active={{ border: "none" }}
@@ -179,17 +180,16 @@ export const AppLayout = ({ children }) => {
           placeholder="Name, Collection, Address, User"
         />
         <InputRightElement>
-          <SearchIcon />
+          <Icon as={Icons.Search} />
         </InputRightElement>
       </InputGroup>
+      <Icon as={Icons.Bell} className="noti-button" />
       <img src="/common/example-avatar.png" className="user" />
-      <Button
-        variant="ghost"
+      <Icon
+        as={Icons.Menu}
         className="menu-button"
         onClick={() => setMobileMenuVisible(true)}
-      >
-        <HamburgerIcon />
-      </Button>
+      />
     </div>
   )
 
