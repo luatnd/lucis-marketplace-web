@@ -2,16 +2,8 @@
 @import "./configs/variables";
 @import "./configs/animation";
 @import "./components/app-layout";
-
 @import "./components/app-empty";
 @import "./components/pageSpinner";
 @import "./components/user-tray";
 @import "./pages/home";
-
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
-html,
-body {
-  font-family: "Poppins", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  scroll-behavior: smooth;
-}

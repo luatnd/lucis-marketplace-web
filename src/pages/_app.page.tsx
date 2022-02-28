@@ -1,19 +1,28 @@
-import { ChakraProvider } from "@chakra-ui/react"
+import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 import type { AppProps } from "next/app"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { AppLayout } from "../components/AppLayout"
 import { rootStore, StoresProvider } from "../stores/rootStore"
 import "../styles/styles.scss"
+import { defaultTheme } from "../themes"
 
 const MyApp = (props: AppProps) => {
   const { Component, pageProps } = props
 
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
-    <ChakraProvider resetCSS>
+    <ChakraProvider resetCSS theme={defaultTheme}>
       <StoresProvider value={rootStore}>
-        <AppLayout>
-          <Component {...pageProps} />
-        </AppLayout>
+        {mounted ? (
+          <AppLayout>
+            <Component {...pageProps} />
+          </AppLayout>
+        ) : null}
       </StoresProvider>
     </ChakraProvider>
   )

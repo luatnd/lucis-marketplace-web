@@ -9,7 +9,6 @@ import {
   DrawerOverlay,
   Input,
   InputGroup,
-  InputRightAddon,
   InputRightElement,
   Menu,
   MenuButton,
@@ -20,8 +19,8 @@ import {
   ModalOverlay,
   Stack,
 } from "@chakra-ui/react"
-import { useState } from "react"
 import Link from "next/link"
+import { useState } from "react"
 
 export const AppLayout = ({ children }) => {
   const navItems = [
@@ -118,10 +117,14 @@ export const AppLayout = ({ children }) => {
     >
       <DrawerOverlay />
       <DrawerContent className="mobile-menu">
-        <DrawerHeader>LUCIS NFT</DrawerHeader>
+        <DrawerHeader>
+          <Link href="/">
+            <img src="/common/logo.png" className="logo" />
+          </Link>
+        </DrawerHeader>
         <DrawerCloseButton />
         {navItems.map((nav) => (
-          <Stack className="mobile-menu-stack">
+          <Stack key={nav.key} className="mobile-menu-stack">
             <Button
               variant="ghost"
               rightIcon={<ChevronDownIcon />}
@@ -130,7 +133,7 @@ export const AppLayout = ({ children }) => {
               {nav.name}
             </Button>
             {nav.children.map((child) => (
-              <Link href={child.key}>
+              <Link key={child.key} href={child.key}>
                 <Button variant="ghost" className="mobile-menu-nav-item">
                   {child.name}
                 </Button>
@@ -150,14 +153,15 @@ export const AppLayout = ({ children }) => {
       <div className="nav-bar">
         {navItems.map((nav) => (
           <Menu key={nav.key}>
-            <MenuButton>
-              <Button
-                variant="ghost"
-                className="nav-item"
-                rightIcon={<ChevronDownIcon />}
-              >
-                {nav.name}
-              </Button>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              background="none"
+              _hover={{ border: "none" }}
+              _active={{ border: "none" }}
+              _focus={{ border: "none" }}
+            >
+              {nav.name}
             </MenuButton>
             <MenuList>
               {nav.children.map((child) => (
