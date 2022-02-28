@@ -1,3 +1,86 @@
 .app-layout {
-  background: $white;
+  .header {
+    height: 80px;
+    position: sticky;
+    top: 0;
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: $white;
+    border-bottom: 1px solid $grey-scale5;
+    @include to(sm) {
+      padding: 10px 0;
+    }
+    .logo {
+      height: 70%;
+      margin-left: 20px;
+      cursor: pointer;
+    }
+    .nav-bar {
+      display: flex;
+      margin: 0 10px;
+      @include to(md) {
+        display: none;
+      }
+    }
+    .search-bar {
+      border-radius: 20px;
+      width: 100%;
+      position: relative;
+      margin-left: 10px;
+    }
+    .user {
+      height: 40px;
+      border-radius: 100%;
+      margin: 0 20px;
+      justify-self: end;
+    }
+    .menu-button {
+      margin-left: -10px;
+      margin-right: 20px;
+      font-size: 20px;
+      @include from(md) {
+        display: none;
+      }
+    }
+  }
+  .content {
+    min-height: calc(100vh - 130px);
+    padding: 20px;
+  }
+  .footer {
+    height: 50px;
+    border-top: 1px solid $grey-scale5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+}
+
+.spotlight {
+  margin: 150px 20px !important;
+  border-radius: 10px !important;
+  input {
+    border-radius: 10px;
+    border: none;
+  }
+  .chakra-input__right-element {
+    height: 100%;
+    font-size: 20px;
+  }
+}
+.mobile-menu {
+  .mobile-menu-stack {
+    margin-bottom: 20px;
+    .mobile-menu-nav {
+      justify-content: flex-start;
+      padding-left: 25px;
+    }
+    .mobile-menu-nav-item {
+      padding-left: 50px;
+      justify-content: flex-start;
+    }
+  }
 }

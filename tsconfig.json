@@ -14,7 +14,8 @@
     "isolatedModules": true,
     "useDefineForClassFields": true,
     "jsx": "preserve",
-    "composite": false
+    "composite": false,
+    "incremental": true
   },
   "exclude": ["node_modules", ".next", "out"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"]
