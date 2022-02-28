@@ -1,6 +1,6 @@
 import { BigNumber, ethers, providers } from "ethers"
 import AnimTokenABI from "./AnimTokenABI.json"
-import boxNFTABI from "./BoxNFTABI.json"
+import boxNFTABI from "./BoxNftABI.json"
 import erc721ABI from "./erc721ABI.json"
 import marketPlaceABI from "./MarketPlaceABI.json"
 
