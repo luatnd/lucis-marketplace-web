@@ -1,0 +1,44 @@
+# Pipeline steps list
+cache:
+  key: $CI_COMMIT_REF_SLUG # only apply for current branch
+  paths:
+    - node_modules/
+  policy: pull-push
+
+stages:
+  - install
+  - build
+  - deploy
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+  ENV: dev
+  DOCKER_REGISTRY_HOST: 325314427579.dkr.ecr.ap-southeast-1.amazonaws.com
+  APPLICATION: anim-images
+  NAMEAPP: lucis-nft-web
+  VERSION: $CI_COMMIT_SHORT_SHA
+  IMAGE_FIX: $DOCKER_REGISTRY_HOST/$APPLICATION:$NAMEAPP-$ENV
+  IMAGE_BACKUP: $DOCKER_REGISTRY_HOST/$APPLICATION:$NAMEAPP-$ENV-$CI_COMMIT_SHORT_SHA
+
+.Tags: &tags
+  - anim-runner
+
+.deployBranch: &deployBranch
+  - develop
+  - feature/build-and-deploy
+  # - merge_requests
+
+installation:
+  stage: install
+  image:
+    name: ductn4/ci-node-gitops
+  script:
+    - yarn install
+  tags: *tags
+  only: *deployBranch
+
+include:
+  # - local: '/.gitlab/ci_templates/deploy_testing_jobs.yml'
+  # - local: '/.gitlab/ci_templates/deploy_dev_jobs.yml'
+  - local: '/.gitlab/ci_templates/deploy_testnet_jobs.yml'
