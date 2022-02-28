@@ -1,0 +1,58 @@
+@keyframes show-out {
+  from {
+    right: -100px;
+  }
+  to {
+    right: 0;
+  }
+}
+@keyframes show-off {
+  from {
+    right: 0px;
+  }
+  to {
+    right: -100px;
+  }
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  0% {
+    box-shadow: 0 0 10px 3px #00b2ff;
+  }
+  50% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 0 0 10px 3px #00b2ff;
+  }
+}
+
+@-webkit-keyframes blink {
+  0% {
+    box-shadow: 0 0 10px 3px #00b2ff;
+  }
+  50% {
+    box-shadow: 0 0 0;
+  }
+  100% {
+    box-shadow: 0 0 10px 3px #00b2ff;
+  }
+}

@@ -1,0 +1,42 @@
+.user-tray {
+  #wallet-connect {
+    font-weight: 500;
+    line-height: 20px;
+    padding: 0 30px;
+    .cancel-btn {
+      cursor: pointer;
+      color: white;
+      background: #75259d;
+      font-size: smaller;
+      border-radius: 15px;
+      margin-right: 8px;
+      padding: 1px 8px;
+      border: none;
+    }
+  }
+  .user-panel {
+    padding: 5px;
+    cursor: pointer;
+    .user-balance {
+      font-size: 15px;
+      line-height: 20px;
+      font-weight: 500;
+      color: $main-jade;
+    }
+    .user-loyalty img {
+      height: 30px;
+    }
+    .user-address {
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 20px;
+    }
+  }
+}
+
+#walletconnect-wrapper .walletconnect-modal__mobile__toggle a {
+  color: #666;
+}
+#walletconnect-wrapper .walletconnect-modal__mobile__toggle a:hover {
+  color: black;
+}
