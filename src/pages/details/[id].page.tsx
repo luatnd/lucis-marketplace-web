@@ -148,7 +148,7 @@ const DetailsPage = () => {
       <div className="main-stats">
         <h1>Detail</h1>
         {stats.map((stat) => (
-          <div className="stat-row">
+          <div key={stat.stat} className="stat-row">
             <span className="name">{stat.name}</span>
             <div>
               <span className="stat">{stat.stat}</span>
