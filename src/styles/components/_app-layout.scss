@@ -37,12 +37,7 @@
             }
           }
           .nav-list {
-            background: linear-gradient(
-              121.07deg,
-              rgba(255, 255, 255, 0.3) -26.88%,
-              rgba(255, 255, 255, 0.2) 73.85%
-            );
-            backdrop-filter: blur(40px);
+            @include blur-overlay;
             position: relative;
             overflow: hidden;
             &::after {
@@ -123,12 +118,7 @@
 .spotlight {
   margin: 150px 20px !important;
   border-radius: 10px !important;
-  background: linear-gradient(
-    121.07deg,
-    rgba(255, 255, 255, 0.3) -26.88%,
-    rgba(255, 255, 255, 0.2) 73.85%
-  ) !important;
-  backdrop-filter: blur(40px);
+  @include blur-overlay;
   animation: pulse 0.5s;
   input {
     border-radius: 10px;

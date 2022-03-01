@@ -28,9 +28,8 @@
       height: 200px;
       bottom: 0;
       left: 0;
-      background: rgba($grey-scale3, 0.3);
       border-radius: 0 0 40px 40px;
-      backdrop-filter: blur(16px);
+      @include blur-overlay;
       padding: 30px;
       h1 {
         font-size: 32px;
@@ -46,10 +45,10 @@
           font-size: 36px;
           line-height: 36px;
           font-weight: 700;
-          color: $main-jade;
+          color: $cyan;
         }
         button {
-          background: $main-jade;
+          background: $cyan;
           color: $white;
           border-radius: 20px;
           width: 100%;
@@ -61,7 +60,7 @@
           font-weight: 400;
         }
         p {
-          color: $main-jade;
+          color: $cyan;
           font-size: 14px;
           font-weight: 500;
           text-decoration: underline;
@@ -74,7 +73,7 @@
     overflow: hidden;
     .main-stats {
       padding: 25px;
-      border-bottom: 1px solid $grey-scale5;
+      border-bottom: 1px solid $grey5;
       h1 {
         font-size: 24px;
         font-weight: 700;
@@ -87,7 +86,7 @@
         .name {
           font-size: 14px;
           font-weight: 500;
-          color: $grey-scale4;
+          color: $grey4;
         }
         .stat {
           font-size: 14px;
@@ -97,11 +96,11 @@
         .percents {
           font-size: 14px;
           font-weight: 400;
-          color: $grey-scale4;
+          color: $grey4;
           margin-right: 20px;
         }
         .icon {
-          color: $main-jade;
+          color: $cyan;
           position: absolute;
           right: 0;
           bottom: 0;
