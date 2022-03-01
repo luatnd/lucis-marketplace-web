@@ -20,11 +20,17 @@ import {
   Stack,
 } from "@chakra-ui/react"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
-import Bell from "../../../public/icons/bell.svg"
 
 export const AppLayout = ({ children }) => {
+  const [canScroll, setCanScroll] = useState(false)
+  useEffect(() => {
+    window.onscroll = () => {
+      setCanScroll(window.pageYOffset > 100)
+    }
+  }, [])
+
   const navItems = [
     {
       name: "Marketplace",
@@ -100,7 +106,7 @@ export const AppLayout = ({ children }) => {
       closeOnEsc
       size="3xl"
     >
-      <ModalOverlay />
+      <ModalOverlay className="spotlight-overlay" />
       <ModalContent className="spotlight">
         <InputGroup>
           <Input size="lg" placeholder="Name, Collection, Address, User" />
@@ -187,7 +193,7 @@ export const AppLayout = ({ children }) => {
             onClick={() => setSpotlightVisible(true)}
           />
           <Icon as={Icons.Bell} className="noti-button" />
-          <img src="/common/user.png" className="user chakra-icon" />
+          <Icon as={Icons.User} className="user chakra-icon" />
           <Icon
             as={Icons.Menu}
             className="menu-button"
@@ -204,6 +210,15 @@ export const AppLayout = ({ children }) => {
     <div className="footer">Copyright © Lucis NFT</div>
   )
 
+  const _renderScrollButton = () => {
+    const handleScroll = () => window.scrollTo(0, 0)
+    return canScroll ? (
+      <Button className="scroll-button" onClick={handleScroll}>
+        <Icon as={Icons.ArrowUp} />
+      </Button>
+    ) : null
+  }
+
   return (
     <div className={"app-layout"}>
       {_renderHeader()}
@@ -211,6 +226,7 @@ export const AppLayout = ({ children }) => {
       {_renderFooter()}
       {_renderSpotlight()}
       {_renderMobileMenu()}
+      {_renderScrollButton()}
     </div>
   )
 }

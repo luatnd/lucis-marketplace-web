@@ -1,16 +1,21 @@
 .app-layout {
-  background: rgb(9, 9, 82);
+  background: $dark-purple;
   .header {
     background: rgba(40, 38, 54, 0.4);
+    display: flex;
+    justify-content: center;
+    backdrop-filter: blur(50px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 99;
     .header-container {
       @include container;
-      height: 120px;
-      position: sticky;
-      top: 0;
-      padding: 10px 50px;
+      height: 80px;
+      padding: 10px 0;
+      margin: 0 20px;
       display: flex;
       justify-content: space-between;
-      z-index: 99;
       @include to(sm) {
         padding: 10px 0;
       }
@@ -21,23 +26,24 @@
         animation: slideInLeft 0.5s;
         .logo {
           height: 60%;
-          margin: 0 20px;
           cursor: pointer;
         }
         .nav-bar {
           display: flex;
-          margin-left: 10px;
+          margin-left: 30px;
           .nav-item {
             background: none;
-            font-size: 24px;
-            font-weight: 400;
+            font-size: 16px;
+            font-weight: 700;
             transition: 0.5s;
-            @include to(lg) {
-              font-size: 20px;
-            }
           }
           .nav-list {
-            @include blur-overlay;
+            background: linear-gradient(
+              121.07deg,
+              rgba(255, 255, 255, 0.3) -26.88%,
+              rgba(255, 255, 255, 0.2) 73.85%
+            );
+            backdrop-filter: blur(40px) !important;
             position: relative;
             overflow: hidden;
             &::after {
@@ -69,7 +75,7 @@
           font-size: 30px;
           transition: 0.2s;
           &:hover {
-            scale: 1.2;
+            transform: scale(1.2);
           }
         }
         .noti-button {
@@ -78,19 +84,20 @@
           transition: 0.2s;
           cursor: pointer;
           &:hover {
-            scale: 1.2;
+            transform: scale(1.2);
             animation: swing 1s;
           }
         }
         .user {
-          height: 50px;
-          aspect-ratio: 1/1;
-          object-fit: cover;
-          width: auto;
-          border-radius: 100%;
+          font-size: 30px;
           margin: 0 20px;
-          justify-self: end;
+          border: 2px solid $white;
+          border-radius: 100%;
           cursor: pointer;
+          transition: 0.2s;
+          &:hover {
+            transform: scale(1.2);
+          }
         }
         .menu-button {
           margin-right: 20px;
@@ -105,6 +112,10 @@
   }
   .content {
     min-height: calc(100vh - 130px);
+    padding: 80px 20px 20px 20px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
   }
   .footer {
     height: 50px;
@@ -113,21 +124,38 @@
     justify-content: center;
     padding: 20px;
   }
+  .scroll-button {
+    position: fixed;
+    height: 50px;
+    right: 1rem;
+    bottom: 1rem;
+    font-size: 30px;
+    aspect-ratio: 1/1;
+    animation: fadein 0.5s;
+  }
 }
 
 .spotlight {
   margin: 150px 20px !important;
   border-radius: 10px !important;
-  @include blur-overlay;
   animation: pulse 0.5s;
   input {
+    background: transparent;
+    backdrop-filter: blur(50px);
     border-radius: 10px;
     border: none;
+    font-size: 30px;
+    height: 80px;
+    padding-right: 80px;
   }
   .chakra-input__right-element {
     height: 100%;
-    font-size: 20px;
+    font-size: 30px;
+    margin-right: 20px;
   }
+}
+.spotlight-overlay {
+  backdrop-filter: blur(5px);
 }
 .mobile-menu {
   .logo {
