@@ -86,15 +86,17 @@
   .logo {
     cursor: pointer;
   }
-  .mobile-menu-stack {
-    margin-bottom: 20px;
-    .mobile-menu-nav {
-      justify-content: flex-start;
-      padding-left: 25px;
-    }
-    .mobile-menu-nav-item {
-      padding-left: 50px;
-      justify-content: flex-start;
+  .mobile-menu-body {
+    width: 100%;
+    .mobile-menu-stack {
+      margin-bottom: 20px;
+      .mobile-menu-nav {
+        justify-content: flex-start;
+      }
+      .mobile-menu-nav-item {
+        margin-left: 20px;
+        justify-content: flex-start;
+      }
     }
   }
 }

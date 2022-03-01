@@ -1,6 +1,7 @@
 import {
   Button,
   Drawer,
+  DrawerBody,
   DrawerCloseButton,
   DrawerContent,
   DrawerHeader,
@@ -123,24 +124,26 @@ export const AppLayout = ({ children }) => {
           </Link>
         </DrawerHeader>
         <DrawerCloseButton />
-        {navItems.map((nav) => (
-          <Stack key={nav.key} className="mobile-menu-stack">
-            <Button
-              variant="ghost"
-              rightIcon={<Icon as={Icons.ChevronDown} />}
-              className="mobile-menu-nav"
-            >
-              {nav.name}
-            </Button>
-            {nav.children.map((child) => (
-              <Link key={child.key} href={child.key}>
-                <Button variant="ghost" className="mobile-menu-nav-item">
-                  {child.name}
-                </Button>
-              </Link>
-            ))}
-          </Stack>
-        ))}
+        <DrawerBody className="mobile-menu-body">
+          {navItems.map((nav) => (
+            <Stack key={nav.key} className="mobile-menu-stack">
+              <Button
+                variant="ghost"
+                rightIcon={<Icon as={Icons.ChevronDown} />}
+                className="mobile-menu-nav"
+              >
+                {nav.name}
+              </Button>
+              {nav.children.map((child) => (
+                <Link key={child.key} href={child.key}>
+                  <Button variant="ghost" className="mobile-menu-nav-item">
+                    {child.name}
+                  </Button>
+                </Link>
+              ))}
+            </Stack>
+          ))}
+        </DrawerBody>
       </DrawerContent>
     </Drawer>
   )
