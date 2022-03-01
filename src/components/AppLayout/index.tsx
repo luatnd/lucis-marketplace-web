@@ -22,6 +22,7 @@ import {
 import Link from "next/link"
 import { useState } from "react"
 import * as Icons from "react-feather"
+import Bell from "../../../public/icons/bell.svg"
 
 export const AppLayout = ({ children }) => {
   const navItems = [
@@ -150,49 +151,50 @@ export const AppLayout = ({ children }) => {
 
   const _renderHeader = () => (
     <div className="header">
-      <Link href="/">
-        <img src="/common/logo.png" className="logo" />
-      </Link>
-      <div className="nav-bar">
-        {navItems.map((nav) => (
-          <Menu key={nav.key}>
-            <MenuButton
-              as={Button}
-              rightIcon={<Icon as={Icons.ChevronDown} />}
-              background="none"
-              _hover={{ border: "none" }}
-              _active={{ border: "none" }}
-              _focus={{ border: "none" }}
-            >
-              {nav.name}
-            </MenuButton>
-            <MenuList>
-              {nav.children.map((child) => (
-                <Link key={child.key} href={child.key}>
-                  <MenuItem>{child.name}</MenuItem>
-                </Link>
-              ))}
-            </MenuList>
-          </Menu>
-        ))}
+      <div className="header-container">
+        <div className="nav-left">
+          <Link href="/">
+            <img src="/common/logo.png" className="logo" />
+          </Link>
+          <div className="nav-bar">
+            {navItems.map((nav) => (
+              <Menu key={nav.key}>
+                <MenuButton
+                  as={Button}
+                  rightIcon={<Icon as={Icons.ChevronDown} />}
+                  className="nav-item"
+                  _hover={{ border: "none" }}
+                  _active={{ border: "none" }}
+                  _focus={{ border: "none" }}
+                >
+                  {nav.name}
+                </MenuButton>
+                <MenuList className="nav-list">
+                  {nav.children.map((child) => (
+                    <Link key={child.key} href={child.key}>
+                      <MenuItem>{child.name}</MenuItem>
+                    </Link>
+                  ))}
+                </MenuList>
+              </Menu>
+            ))}
+          </div>
+        </div>
+        <div className="nav-right">
+          <Icon
+            as={Icons.Search}
+            className="search-button"
+            onClick={() => setSpotlightVisible(true)}
+          />
+          <Icon as={Icons.Bell} className="noti-button" />
+          <img src="/common/user.png" className="user chakra-icon" />
+          <Icon
+            as={Icons.Menu}
+            className="menu-button"
+            onClick={() => setMobileMenuVisible(true)}
+          />
+        </div>
       </div>
-      <InputGroup>
-        <Input
-          className="search-bar"
-          onClick={() => setSpotlightVisible(true)}
-          placeholder="Name, Collection, Address, User"
-        />
-        <InputRightElement>
-          <Icon as={Icons.Search} />
-        </InputRightElement>
-      </InputGroup>
-      <Icon as={Icons.Bell} className="noti-button" />
-      <img src="/common/example-avatar.png" className="user" />
-      <Icon
-        as={Icons.Menu}
-        className="menu-button"
-        onClick={() => setMobileMenuVisible(true)}
-      />
     </div>
   )
 

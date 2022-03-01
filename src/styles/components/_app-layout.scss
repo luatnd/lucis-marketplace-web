@@ -1,58 +1,110 @@
 .app-layout {
+  background: rgb(9, 9, 82);
   .header {
-    height: 80px;
-    position: sticky;
-    top: 0;
-    padding: 10px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: $white;
-    border-bottom: 1px solid $grey-scale5;
-    z-index: 99;
-    @include to(sm) {
-      padding: 10px 0;
-    }
-    .logo {
-      height: 70%;
-      margin-left: 20px;
-      cursor: pointer;
-    }
-    .nav-bar {
+    background: rgba(40, 38, 54, 0.4);
+    .header-container {
+      @include container;
+      height: 120px;
+      position: sticky;
+      top: 0;
+      padding: 10px 50px;
       display: flex;
-      margin: 0 10px;
-      @include to(md) {
-        display: none;
+      justify-content: space-between;
+      z-index: 99;
+      @include to(sm) {
+        padding: 10px 0;
       }
-    }
-    .search-bar {
-      border-radius: 20px;
-      width: 100%;
-      position: relative;
-      margin-left: 10px;
-      text-overflow: ellipsis;
-    }
-    .noti-button {
-      margin-left: 20px;
-      font-size: 20px;
-      cursor: pointer;
-    }
-    .user {
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      height: 40px;
-      width: auto;
-      border-radius: 100%;
-      margin: 0 20px;
-      justify-self: end;
-    }
-    .menu-button {
-      margin-left: -10px;
-      margin-right: 20px;
-      font-size: 20px;
-      cursor: pointer;
-      @include from(md) {
-        display: none;
+      .nav-left {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        animation: slideInLeft 0.5s;
+        .logo {
+          height: 60%;
+          margin: 0 20px;
+          cursor: pointer;
+        }
+        .nav-bar {
+          display: flex;
+          margin-left: 10px;
+          .nav-item {
+            background: none;
+            font-size: 24px;
+            font-weight: 400;
+            transition: 0.5s;
+            @include to(lg) {
+              font-size: 20px;
+            }
+          }
+          .nav-list {
+            background: linear-gradient(
+              121.07deg,
+              rgba(255, 255, 255, 0.3) -26.88%,
+              rgba(255, 255, 255, 0.2) 73.85%
+            );
+            backdrop-filter: blur(40px);
+            position: relative;
+            overflow: hidden;
+            &::after {
+              content: "";
+              position: absolute;
+              width: 30px;
+              height: 30px;
+              background: red;
+              top: 0;
+              right: 0;
+              background: url(/common/menu-corner.png);
+            }
+          }
+          @include to(md) {
+            display: none;
+          }
+        }
+      }
+      .nav-right {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        animation: slideInRight 0.5s;
+        .search-button {
+          font-size: 30px;
+          cursor: pointer;
+        }
+        .search-button {
+          font-size: 30px;
+          transition: 0.2s;
+          &:hover {
+            scale: 1.2;
+          }
+        }
+        .noti-button {
+          margin-left: 20px;
+          font-size: 30px;
+          transition: 0.2s;
+          cursor: pointer;
+          &:hover {
+            scale: 1.2;
+            animation: swing 1s;
+          }
+        }
+        .user {
+          height: 50px;
+          aspect-ratio: 1/1;
+          object-fit: cover;
+          width: auto;
+          border-radius: 100%;
+          margin: 0 20px;
+          justify-self: end;
+          cursor: pointer;
+        }
+        .menu-button {
+          margin-right: 20px;
+          font-size: 20px;
+          cursor: pointer;
+          @include from(md) {
+            display: none;
+          }
+        }
       }
     }
   }
@@ -62,7 +114,6 @@
   }
   .footer {
     height: 50px;
-    border-top: 1px solid $grey-scale5;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,6 +124,13 @@
 .spotlight {
   margin: 150px 20px !important;
   border-radius: 10px !important;
+  background: linear-gradient(
+    121.07deg,
+    rgba(255, 255, 255, 0.3) -26.88%,
+    rgba(255, 255, 255, 0.2) 73.85%
+  ) !important;
+  backdrop-filter: blur(40px);
+  animation: pulse 0.5s;
   input {
     border-radius: 10px;
     border: none;

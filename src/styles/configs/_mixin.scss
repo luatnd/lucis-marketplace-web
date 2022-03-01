@@ -4,11 +4,12 @@ $md: 992px;
 $lg: 1200px;
 $xl: 1600px;
 
-$container-width: 1450px;
+$container-width: 1440px;
 
 @mixin container {
   max-width: $container-width;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @mixin xs {

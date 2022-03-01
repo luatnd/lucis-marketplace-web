@@ -32,27 +32,3 @@
     opacity: 0;
   }
 }
-
-@keyframes blink {
-  0% {
-    box-shadow: 0 0 10px 3px #00b2ff;
-  }
-  50% {
-    box-shadow: none;
-  }
-  100% {
-    box-shadow: 0 0 10px 3px #00b2ff;
-  }
-}
-
-@-webkit-keyframes blink {
-  0% {
-    box-shadow: 0 0 10px 3px #00b2ff;
-  }
-  50% {
-    box-shadow: 0 0 0;
-  }
-  100% {
-    box-shadow: 0 0 10px 3px #00b2ff;
-  }
-}
