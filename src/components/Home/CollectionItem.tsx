@@ -8,7 +8,9 @@ export const CollectionItem = (props: IProps) => {
 
   return (
     <div className="collection-item">
-      <img src={image} />
+      <div className="collection-image">
+        <img src={image} />
+      </div>
       <span>{name}</span>
     </div>
   )

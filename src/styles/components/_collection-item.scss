@@ -10,14 +10,20 @@
   align-items: center;
   padding: 25px;
   height: 150px;
-  margin-bottom: 20px;
+  transition: 0.5s;
+  cursor: pointer;
   @include to(md) {
     height: 100px;
   }
-  cursor: pointer;
-  img {
-    margin-right: 25px;
+  .collection-image {
     height: 100%;
+    margin-right: 25px;
+    border-radius: 100%;
+    overflow: hidden;
+    img {
+      height: 100%;
+      transition: 0.5s;
+    }
   }
   span {
     font-size: 30px;
@@ -27,6 +33,14 @@
     text-overflow: ellipsis;
     @include to(xs) {
       font-size: 16px;
+    }
+  }
+  &:hover {
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.4);
+    .collection-image {
+      img {
+        transform: scale(1.1);
+      }
     }
   }
 }

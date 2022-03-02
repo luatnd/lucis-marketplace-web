@@ -4,7 +4,6 @@
     height: 300px;
     margin-top: 30px;
     margin-bottom: 30px;
-    animation: fadeInLeft 0.5s;
     .slick-slider {
       .arrow-button {
         position: absolute;
@@ -99,8 +98,7 @@
       margin: 50px 0;
       .slick-list {
         .slick-track {
-          .slick-slide {
-            transition: 0.5s;
+          .slick-slide > div {
             padding: 10px;
           }
         }
@@ -120,10 +118,11 @@
       right: 0;
     }
   }
+  .banners,
   .launchpad {
-    animation: fadeInLeft 0.5s;
+    animation: fadeUp 1s;
   }
-  .hot-collections {
-    animation: fadeInRight 0.5s;
+  .scrolled {
+    animation: fadeUp 1s;
   }
 }

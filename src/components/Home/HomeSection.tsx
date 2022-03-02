@@ -15,7 +15,11 @@ interface IProps {
 const PrevArrow = (props) => {
   const { onClick } = props
   return (
-    <Button className="arrow-btn arrow-prev" size="lg" onClick={onClick}>
+    <Button
+      className="arrow-btn arrow-prev scroll-animation"
+      size="lg"
+      onClick={onClick}
+    >
       <Icon as={ChevronLeft} />
     </Button>
   )
@@ -24,7 +28,11 @@ const PrevArrow = (props) => {
 const NextArrow = (props) => {
   const { onClick } = props
   return (
-    <Button className="arrow-btn arrow-next" size="lg" onClick={onClick}>
+    <Button
+      className="arrow-btn arrow-next scroll-animation"
+      size="lg"
+      onClick={onClick}
+    >
       <Icon as={ChevronRight} />
     </Button>
   )
@@ -44,6 +52,7 @@ export const HomeSection = (props: IProps) => {
   }
 
   const settings = {
+    className: "scroll-animation",
     infinite: false,
     speed: 500,
     slidesToShow: defaultNumber ?? 4,
@@ -63,7 +72,7 @@ export const HomeSection = (props: IProps) => {
       {
         breakpoint: 900,
         settings: {
-          slidesToShow: defaultNumber - 1 > 2 ? defaultNumber - 1 : 2,
+          slidesToShow: 2,
         },
       },
     ],
@@ -71,9 +80,9 @@ export const HomeSection = (props: IProps) => {
 
   return (
     <div className="home-section">
-      <h1 className="section-heading">{heading}</h1>
+      <h1 className="section-heading scroll-animation">{heading}</h1>
       <div className="section-nav">
-        <span className="view-all" onClick={handleViewAll}>
+        <span className="view-all scroll-animation" onClick={handleViewAll}>
           <ViewAllIcon />
           VIEW ALL
         </span>
