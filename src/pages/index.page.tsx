@@ -1,13 +1,13 @@
-import { Advertisement } from "../components/Home/Advertisement"
 import { Banners } from "../components/Home/Banners"
 import { HotCollections } from "../components/Home/HotCollections"
 import { Launchpad } from "../components/Home/Launchpad"
+import { Listing } from "../components/Home/Listing"
 
 const Home = () => {
   return (
     <div className="home-page">
       <Banners />
-      <Advertisement />
+      <Listing />
       <Launchpad />
       <HotCollections />
     </div>

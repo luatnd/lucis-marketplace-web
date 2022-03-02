@@ -1,10 +1,10 @@
-export const Advertisement = () => {
+export const Listing = () => {
   return (
-    <div className="ads">
-      <div className="ads-body">
+    <div className="listing">
+      <div className="listing-body">
         <div className="listing">Listing</div>
-        <img src="/home/ads-img.png" />
-        <div className="ads-content">
+        <img src="/home/listing-img.png" />
+        <div className="listing-content">
           Animverse sold to <span className="cyan-text">Nhinty </span>
           from <span className="cyan-text">Animverse123456789</span> for 0,12BNB
         </div>
