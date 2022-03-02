@@ -29,7 +29,7 @@ const MyApp = (props: AppProps) => {
           name="description"
           content={`One of the most effective investment platforms for investors. We create a hybrid platform to connect investors and skilled scholars in the world of "Play to Earn" gaming and metaverse.`}
         />
-        <link rel="shortcut icon" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.svg" />
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

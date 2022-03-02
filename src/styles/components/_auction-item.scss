@@ -7,7 +7,7 @@
     rgba(255, 255, 255, 0) 97.78%
   );
   border-radius: 16px;
-  backdrop-filter: blur(42px);
+  @include blurBack(40px);
   overflow: hidden;
   transition: 0.5s;
   cursor: pointer;

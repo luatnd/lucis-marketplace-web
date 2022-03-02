@@ -7,11 +7,11 @@
     background: rgba(40, 38, 54, 0.4);
     display: flex;
     justify-content: center;
-    backdrop-filter: blur(50px);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 99;
+    @include blurBackUnder(50px);
     .header-container {
       @include container;
       height: 80px;
@@ -46,7 +46,7 @@
               rgba(255, 255, 255, 0.3) -26.88%,
               rgba(255, 255, 255, 0.2) 73.85%
             );
-            backdrop-filter: blur(40px) !important;
+            @include blurBack(20px);
             position: relative;
             overflow: hidden;
             &::after {
@@ -54,7 +54,6 @@
               position: absolute;
               width: 30px;
               height: 30px;
-              background: red;
               top: 0;
               right: 0;
               background: url(/common/menu-corner.png);
@@ -123,8 +122,8 @@
   .footer {
     display: flex;
     justify-content: center;
-    backdrop-filter: blur(40px);
-    box-shadow: 0 -10px 5px $dark-purple;
+    background: rgba(40, 38, 54, 0.4);
+    @include blurBack(40px);
     .footer-body {
       @include container;
       margin: 0 25px;
@@ -197,10 +196,10 @@
               font-size: 20px;
             }
             @include to(sm) {
-              font-size: 20px;
+              font-size: 16px;
             }
             @include to(xs) {
-              font-size: 13px;
+              font-size: 10px;
             }
           }
         }
@@ -208,7 +207,8 @@
     }
   }
   .sub-footer {
-    background: $purple2;
+    background: rgba(40, 38, 54, 0.6);
+    @include blurBack(40px);
     height: 50px;
     display: flex;
     align-items: center;
@@ -232,7 +232,7 @@
   animation: pulse 0.5s;
   input {
     background: transparent;
-    backdrop-filter: blur(50px);
+    @include blurBack(50px);
     border-radius: 10px;
     border: none;
     font-size: 30px;
@@ -246,10 +246,18 @@
   }
 }
 .spotlight-overlay {
-  backdrop-filter: blur(5px);
+  @include blurBack(5px);
 }
 .mobile-menu {
+  background: linear-gradient(
+    121.07deg,
+    rgba(255, 255, 255, 0.3) -26.88%,
+    rgba(255, 255, 255, 0.2) 73.85%
+  ) !important;
+  @include blurBack(40px);
   .logo {
+    width: 100px;
+    margin: auto;
     cursor: pointer;
   }
   .mobile-menu-body {

@@ -177,7 +177,11 @@ export const AppLayout = ({ children }) => {
       <DrawerContent className="mobile-menu">
         <DrawerHeader>
           <Link href="/">
-            <img src="/common/logo.png" className="logo" />
+            <img
+              src="/favicon.svg"
+              className="logo"
+              onClick={() => setMobileMenuVisible(false)}
+            />
           </Link>
         </DrawerHeader>
         <DrawerCloseButton />
@@ -193,7 +197,11 @@ export const AppLayout = ({ children }) => {
               </Button>
               {nav.children.map((child) => (
                 <Link key={child.key} href={child.key}>
-                  <Button variant="ghost" className="mobile-menu-nav-item">
+                  <Button
+                    variant="ghost"
+                    className="mobile-menu-nav-item"
+                    onClick={() => setMobileMenuVisible(false)}
+                  >
                     {child.name}
                   </Button>
                 </Link>
