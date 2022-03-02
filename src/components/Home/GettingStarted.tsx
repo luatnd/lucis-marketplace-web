@@ -49,7 +49,7 @@ export const GettingStarted = () => {
     <div className="getting-started">
       <HomeSection heading="GETTING STARTED">
         {items.map((item) => (
-          <div className="getting-started-item">
+          <div key={item.id} className="getting-started-item">
             <div className="item-image">
               <img src={item.image} />
             </div>
