@@ -32,3 +32,12 @@
     opacity: 0;
   }
 }
+
+@keyframes marquee {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    transform: translatex(-100%);
+  }
+}
