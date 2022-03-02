@@ -24,6 +24,16 @@
   }
 }
 
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes fadeout {
   from {
     opacity: 1;
@@ -33,26 +43,11 @@
   }
 }
 
-@keyframes blink {
+@keyframes marquee {
   0% {
-    box-shadow: 0 0 10px 3px #00b2ff;
-  }
-  50% {
-    box-shadow: none;
+    margin-left: 100%;
   }
   100% {
-    box-shadow: 0 0 10px 3px #00b2ff;
-  }
-}
-
-@-webkit-keyframes blink {
-  0% {
-    box-shadow: 0 0 10px 3px #00b2ff;
-  }
-  50% {
-    box-shadow: 0 0 0;
-  }
-  100% {
-    box-shadow: 0 0 10px 3px #00b2ff;
+    transform: translatex(-100%);
   }
 }

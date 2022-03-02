@@ -1,11 +1,16 @@
-import { extendTheme } from "@chakra-ui/react"
+import { extendTheme, ThemeConfig } from "@chakra-ui/react"
+
+const config: ThemeConfig = {
+  initialColorMode: "dark",
+}
 
 export const defaultTheme = extendTheme({
+  config,
   styles: {
-    global: (props) => ({
+    global: {
       body: {
-        fontFamily: "Poppins",
+        fontFamily: "Saira",
       },
-    }),
+    },
   },
 })

@@ -1,0 +1,84 @@
+.auction-item {
+  width: 100%;
+  border: 1px solid $purple2;
+  background: linear-gradient(
+    177.34deg,
+    rgba(0, 0, 0, 0.2) 2.22%,
+    rgba(255, 255, 255, 0) 97.78%
+  );
+  border-radius: 16px;
+  backdrop-filter: blur(42px);
+  overflow: hidden;
+  transition: 0.5s;
+  cursor: pointer;
+  .auction-image {
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    img {
+      width: 100%;
+      transition: 0.5s;
+    }
+  }
+  .auction-body {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    .provider {
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      color: $cyan;
+      align-items: center;
+      svg {
+        height: 16px;
+        margin-left: 5px;
+      }
+    }
+    .end-in {
+      display: flex;
+      align-items: center;
+      font-weight: 300;
+      font-size: 14px;
+      span {
+        font-weight: 700;
+        margin-right: 1em;
+      }
+    }
+    .name {
+      font-size: 20px;
+      font-weight: 700;
+      @include to(xs) {
+        font-size: 16px;
+        align-self: center;
+      }
+    }
+    .price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 600;
+      margin: 5px 0;
+      span {
+        display: flex;
+        align-items: center;
+        svg {
+          height: 16px;
+          margin-right: 5px;
+        }
+      }
+      button {
+        background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
+      }
+    }
+  }
+  &:hover {
+    box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.69);
+    .auction-image {
+      img {
+        transform: scale(1.1);
+      }
+    }
+  }
+}

@@ -1,10 +1,25 @@
 @import "./configs/mixin";
 @import "./configs/variables";
 @import "./configs/animation";
+@import "./configs/chakra-custom";
 @import "./components/app-layout";
 @import "./components/app-empty";
 @import "./components/pageSpinner";
 @import "./components/user-tray";
+@import "./components/listing";
+@import "./components/launchpad-item";
+@import "./components/collection-item";
+@import "./components/auction-item";
+@import "./components/getting-started-item";
 @import "./pages/home";
-@import "./pages/details-page";
-@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
+@import "./pages/details";
+@import "./pages/activities";
+@import "./pages/discover";
+@import url("https://fonts.googleapis.com/css?family=Saira:100,200,300,400,500,600,700,800,900");
+@font-face {
+  font-family: SVN-Transformer;
+  src: url(/fonts/SVN-Transformer.ttf);
+}
+html {
+  scroll-behavior: smooth !important;
+}

@@ -1,3 +1,128 @@
 .home-page {
-  background: $white;
+  @include container;
+  .banners {
+    height: 300px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    .slick-slider {
+      .arrow-button {
+        position: absolute;
+        height: 40px;
+        width: 40px;
+        background: $purple3;
+        border-radius: 100%;
+        z-index: 1;
+        top: calc(50% - 20px);
+        font-size: 30px;
+      }
+      .arrow-prev {
+        left: 20px;
+      }
+      .arrow-next {
+        right: 20px;
+      }
+      .slick-list {
+        .slick-track {
+          transition: 1s;
+          .slick-slide {
+            padding: 10px;
+            transition: 0.5s;
+            .banner {
+              height: 200px;
+              box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.69);
+              border-radius: 4px;
+              overflow: hidden;
+              .banner-image {
+                cursor: pointer;
+                transition: 0.5s;
+                height: 100%;
+                width: 100%;
+                transform: scale(1.1);
+                object-fit: cover;
+                &:hover {
+                  transform: scale(1.2);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .home-section {
+    .section-heading {
+      font-size: 72px;
+      font-weight: 700;
+      font-family: SVN-Transformer;
+      transition: 0.5s;
+      @include to(sm) {
+        font-size: 50px;
+      }
+    }
+    .section-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 40px;
+      .view-all {
+        display: flex;
+        align-items: center;
+        font-size: 24px;
+        font-weight: 700;
+        color: $light-cyan;
+        transition: 0.5s;
+        cursor: pointer;
+        svg {
+          height: 40px;
+          margin-right: 20px;
+          fill: $light-cyan;
+          transition: 0.5s;
+        }
+        &:hover {
+          color: $cyan;
+          text-shadow: 0px 0px 20px #68fff1;
+          svg {
+            fill: $cyan;
+          }
+        }
+        @include to(xs) {
+          font-size: 16px;
+          svg {
+            height: 20px;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+    .slick-slider {
+      margin: 50px 0;
+      .slick-list {
+        .slick-track {
+          .slick-slide > div {
+            padding: 10px;
+          }
+        }
+      }
+    }
+    .arrow-btn {
+      position: absolute;
+      top: -95px;
+      font-size: 40px;
+      height: 50px;
+      width: 50px;
+    }
+    .arrow-prev {
+      right: 60px;
+    }
+    .arrow-next {
+      right: 0;
+    }
+  }
+  .banners,
+  .launchpad {
+    animation: fadeUp 1s;
+  }
+  .scrolled {
+    animation: fadeUp 1s;
+  }
 }

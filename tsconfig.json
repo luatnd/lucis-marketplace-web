@@ -15,7 +15,11 @@
     "useDefineForClassFields": true,
     "jsx": "preserve",
     "composite": false,
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "./",
+    "paths": {
+      "@static/*": ["./public/*"]
+    }
   },
   "exclude": ["node_modules", ".next", "out"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"]
