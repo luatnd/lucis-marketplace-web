@@ -155,7 +155,7 @@ export const RankingList = () => {
   return (
     <div className="ranking-list">
       <h1>nft ranking</h1>
-      <Search />
+      <Search/>
       <Table
         className="container"
         columns={columns}

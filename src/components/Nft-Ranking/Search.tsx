@@ -1,5 +1,6 @@
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react"
 import { useState } from "react"
+
 const Search = () => {
   const [coin, setCoin] = useState({ url: "bnb.png", name: "BNB chain" })
   const [time, setTime] = useState("7 days")
