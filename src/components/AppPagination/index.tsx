@@ -6,8 +6,13 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
-import { ChevronDown, ChevronLeft, ChevronRight } from "react-feather"
+import {
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  FastForward,
+  Rewind,
+} from "react-feather"
 
 interface IProps {
   total: number
@@ -20,17 +25,19 @@ interface IProps {
 export const AppPagination = (props: IProps) => {
   const { total, pageSize, offset, onChangeOffset, onChangPageSize } = props
 
+  const totalPage = Math.ceil(total / pageSize)
+  const page = Math.round(offset / pageSize + 1)
   const pageRange = 5
 
   let pages = []
-  for (let i = 1; i <= total; i++) {
+  for (let i = 1; i <= totalPage; i++) {
     pages.push(i)
   }
 
   const pageSizeOption = [5, 10, 15, 20, 50, 100]
 
   const handleChangePage = (value: number) => {
-    onChangeOffset(value)
+    onChangeOffset((value - 1) * pageSize + 1)
   }
 
   const handleChangePageSize = (value: number) => {
@@ -38,31 +45,31 @@ export const AppPagination = (props: IProps) => {
   }
 
   const handlePrev = () => {
-    onChangeOffset(offset - 1)
+    onChangeOffset(page - 1)
   }
 
   const handlePrevDot = () => {
-    if (offset > pageRange) onChangeOffset(offset - pageRange)
+    if (page > pageRange) onChangeOffset(page - pageRange)
   }
 
   const handleNextDot = () => {
-    if (offset < total - pageRange) onChangeOffset(offset + pageRange)
+    if (page < totalPage - pageRange) onChangeOffset(page + pageRange)
   }
 
   const handleNext = () => {
-    onChangeOffset(offset + 1)
+    onChangeOffset(page + 1)
   }
 
   const _renderNormal = () => {
     return (
       <div className="page-list">
-        {pages.map((page) => (
+        {pages.map((key) => (
           <Button
-            key={page}
-            onClick={() => handleChangePage(page)}
-            className={`page-button ${page === offset ? "active" : ""}`}
+            key={key}
+            onClick={() => handleChangePage(key)}
+            className={`page-button ${key === page ? "active" : ""}`}
           >
-            {page}
+            {key}
           </Button>
         ))}
       </div>
@@ -70,50 +77,55 @@ export const AppPagination = (props: IProps) => {
   }
 
   const _renderResponsive = () => {
-    let splitedPages = pages.filter((page) => page !== 1 && page !== total)
+    let splitedPages = pages.filter((page) => page !== 1 && page !== totalPage)
     const headPages = splitedPages.slice(0, pageRange)
-    const tailPages = splitedPages.slice(total - pageRange - 2, total - 1)
+    const tailPages = splitedPages.slice(
+      totalPage - pageRange - 2,
+      totalPage - 1
+    )
     let focusingPages = splitedPages
-    if (offset < pageRange + 1) {
+    if (page < pageRange + 1) {
       focusingPages = headPages
-    } else if (offset > total - pageRange + 1) {
+    } else if (page > totalPage - pageRange + 1) {
       focusingPages = tailPages
     } else {
-      focusingPages = splitedPages.slice(offset - pageRange + 1, offset + 1)
+      focusingPages = splitedPages.slice(page - pageRange + 1, page + 1)
     }
     return (
       <div className="page-list">
         <Button
           onClick={() => handleChangePage(1)}
-          className={`page-button ${1 === offset ? "active" : ""}`}
+          className={`page-button ${1 === page ? "active" : ""}`}
         >
           1
         </Button>
-        {offset > pageRange ? (
+        {page > pageRange ? (
           <Button className="dot-button" onClick={handlePrevDot}>
-            ...
+            <span>...</span>
+            <Icon as={Rewind} />
           </Button>
         ) : null}
-        {focusingPages.map((page) => (
+        {focusingPages.map((key) => (
           <Button
-            key={page}
-            onClick={() => handleChangePage(page)}
-            className={`page-button ${page === offset ? "active" : ""}`}
+            key={key}
+            onClick={() => handleChangePage(key)}
+            className={`page-button ${key === page ? "active" : ""}`}
           >
-            {page}
+            {key}
           </Button>
         ))}
-        {offset < total - pageRange + 2 ? (
+        {page < totalPage - pageRange + 2 ? (
           <Button className="dot-button" onClick={handleNextDot}>
-            ...
+            <span>...</span>
+            <Icon as={FastForward} />
           </Button>
         ) : null}
         <Button
-          key={total}
+          key={totalPage}
           onClick={() => handleChangePage(20)}
-          className={`page-button ${total === offset ? "active" : ""}`}
+          className={`page-button ${totalPage === page ? "active" : ""}`}
         >
-          {total}
+          {totalPage}
         </Button>
       </div>
     )
@@ -121,17 +133,13 @@ export const AppPagination = (props: IProps) => {
 
   return (
     <div className="app-pagination">
-      <Button
-        onClick={handlePrev}
-        disabled={offset <= 1}
-        className="page-button"
-      >
+      <Button onClick={handlePrev} disabled={page <= 1} className="page-button">
         <Icon as={ChevronLeft} />
       </Button>
-      {total > 8 ? _renderResponsive() : _renderNormal()}
+      {totalPage > 8 ? _renderResponsive() : _renderNormal()}
       <Button
         onClick={handleNext}
-        disabled={offset >= pages.length}
+        disabled={page >= pages.length}
         className="page-button"
       >
         <Icon as={ChevronRight} />

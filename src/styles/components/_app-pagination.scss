@@ -43,6 +43,19 @@
   }
   .dot-button {
     background: transparent;
+    transition: 1s;
+    svg {
+      display: none;
+      animation: fadein 0.5s;
+    }
+    &:hover {
+      span {
+        display: none;
+      }
+      svg {
+        display: block;
+      }
+    }
     @include to(md) {
       width: 30px;
       height: 30px;

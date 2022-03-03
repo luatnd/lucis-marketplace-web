@@ -9,16 +9,24 @@
 @import "./components/listing";
 @import "./components/launchpad-item";
 @import "./components/collection-item";
+@import "./components/ranking-list";
+@import "./components/pagination1";
 @import "./components/auction-item";
 @import "./components/getting-started-item";
 @import "./components/app-table";
 @import "./components/app-select";
 @import "./components/app-pagination";
+@import "./components/pagination";
+@import "./components/nft-search";
+@import "./components/sort";
 @import "./pages/error-page";
 @import "./pages/home";
 @import "./pages/nft-details";
 @import "./pages/activities";
 @import "./pages/discover";
+@import "./pages/nft-ranking";
+@import "./pages/my-nft";
+@import url("https://fonts.googleapis.com/css?family=Saira:100,200,300,400,500,600,700,800,900");
 
 @font-face {
   font-family: SVN-Transformer;

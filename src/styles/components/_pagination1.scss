@@ -1,0 +1,58 @@
+.pagination {
+  margin: auto;
+  display: flex;
+  margin-top: 50px;
+  margin-bottom: 165px;
+  justify-items: center;
+  width: fit-content;
+  align-items: center;
+  .current-page {
+    margin-right: 35px;
+    display: flex;
+    align-items: center;
+    img {
+      width: 14px;
+      cursor: pointer;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      span {
+        opacity: 0.5;
+        display: inline-block;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 26px;
+        margin-right: 24px;
+      }
+      span.active {
+        opacity: 1;
+      }
+    }
+    .prev {
+      margin-right: 24px;
+    }
+    img.none {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+  .css-xl71ch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100px;
+    opacity: 0.5;
+    .left {
+      span {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 25px;
+      }
+    }
+    .right {
+      width: 20px;
+      vertical-align: middle;
+    }
+  }
+}

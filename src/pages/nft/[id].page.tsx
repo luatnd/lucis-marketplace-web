@@ -230,7 +230,7 @@ const DetailsPage = () => {
 
   const [offset, setOffset] = useState(10)
   const [pageSize, setPageSize] = useState(5)
-  const [total, setTotal] = useState(18)
+  const [total, setTotal] = useState(21)
 
   const fetchData = () => {
     console.log(offset, pageSize)
