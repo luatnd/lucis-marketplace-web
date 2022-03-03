@@ -1,4 +1,3 @@
-import { title } from "process"
 import { HomeSection } from "./HomeSection"
 
 export const GettingStarted = () => {

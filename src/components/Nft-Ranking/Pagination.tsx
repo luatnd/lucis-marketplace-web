@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react"
 const Pagination = () => {
-  const [total, setTotal] = useState(500)
+  const total = 500
   const [num, setNum] = useState(10)
   const numArray = [10, 20, 30, 40, 50]
   return (

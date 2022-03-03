@@ -43,8 +43,8 @@ export const usePagination = ({
             Case 2: No left dots to show, but rights dots to be shown
         */
         if (!shouldShowLeftDots && shouldShowRightDots) {
-            let leftItemCount = 3 + 2 * siblingCount;
-            let leftRange = range(1, leftItemCount);
+            const leftItemCount = 3 + 2 * siblingCount;
+            const leftRange = range(1, leftItemCount);
 
             return [...leftRange, DOTS, totalPageCount];
         }
@@ -54,8 +54,8 @@ export const usePagination = ({
         */
         if (shouldShowLeftDots && !shouldShowRightDots) {
 
-            let rightItemCount = 3 + 2 * siblingCount;
-            let rightRange = range(
+            const rightItemCount = 3 + 2 * siblingCount;
+            const rightRange = range(
                 totalPageCount - rightItemCount + 1,
                 totalPageCount
             );
@@ -66,7 +66,7 @@ export const usePagination = ({
             Case 4: Both left and right dots to be shown
         */
         if (shouldShowLeftDots && shouldShowRightDots) {
-            let middleRange = range(leftSiblingIndex, rightSiblingIndex);
+            const middleRange = range(leftSiblingIndex, rightSiblingIndex);
             return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
         }
     }, [totalCount, pageSize, siblingCount, currentPage]);
@@ -76,8 +76,8 @@ export const usePagination = ({
 
 function range(start, end) {
     /* generate a range : [start, start+1, ..., end-1, end] */
-    var len = end - start + 1;
-    var a = new Array(len);
+    const len = end - start + 1;
+    const a = new Array(len);
     for (let i = 0; i < len; i++) a[i] = start + i;
     return a;
 }
