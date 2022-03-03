@@ -2,6 +2,7 @@ import Verified from "@static/icons/verified.svg"
 import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import { Button } from "@chakra-ui/react"
 import moment from "moment"
+import { useCountdown } from "src/hooks/useCountdown"
 
 interface IProps {
   name?: string
@@ -13,6 +14,9 @@ interface IProps {
 
 export const AuctionItem = (props: IProps) => {
   const { name, image, provider, endTime, price } = props
+
+  const { days, hours, seconds, minutes } = useCountdown("2022-03-20T00:00:00")
+  console.log(days, hours, minutes, seconds)
 
   return (
     <div className="auction-item">
