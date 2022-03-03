@@ -14,7 +14,7 @@ image:
   repository: 325314427579.dkr.ecr.ap-southeast-1.amazonaws.com/anim-images
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "lucis-nft-web-testnet-latest"
+  tag: "lucis-nft-web-testnet-v3"
 
 imagePullSecrets:
   - name: regcred
