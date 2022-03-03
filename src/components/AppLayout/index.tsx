@@ -96,6 +96,56 @@ export const AppLayout = ({ children }) => {
     },
   ]
 
+  const footerSocials = [
+    {
+      key: "1",
+      image: "/common/footer/nav1.png",
+    },
+    {
+      key: "2",
+      image: "/common/footer/nav2.png",
+    },
+    {
+      key: "3",
+      image: "/common/footer/nav3.png",
+    },
+    {
+      key: "4",
+      image: "/common/footer/nav4.png",
+    },
+    {
+      key: "5",
+      image: "/common/footer/nav5.png",
+    },
+    {
+      key: "6",
+      image: "/common/footer/nav6.png",
+    },
+  ]
+
+  const footerNavs = [
+    {
+      key: "1",
+      name: "Term of service",
+    },
+    {
+      key: "2",
+      name: "Privacy",
+    },
+    {
+      key: "3",
+      name: "Copyright",
+    },
+    {
+      key: "4",
+      name: "Help center",
+    },
+    {
+      key: "5",
+      name: "Blog",
+    },
+  ]
+
   const [spotlightVisible, setSpotlightVisible] = useState(false)
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false)
 
@@ -127,7 +177,11 @@ export const AppLayout = ({ children }) => {
       <DrawerContent className="mobile-menu">
         <DrawerHeader>
           <Link href="/">
-            <img src="/common/logo.png" className="logo" />
+            <img
+              src="/favicon.svg"
+              className="logo"
+              onClick={() => setMobileMenuVisible(false)}
+            />
           </Link>
         </DrawerHeader>
         <DrawerCloseButton />
@@ -143,7 +197,11 @@ export const AppLayout = ({ children }) => {
               </Button>
               {nav.children.map((child) => (
                 <Link key={child.key} href={child.key}>
-                  <Button variant="ghost" className="mobile-menu-nav-item">
+                  <Button
+                    variant="ghost"
+                    className="mobile-menu-nav-item"
+                    onClick={() => setMobileMenuVisible(false)}
+                  >
                     {child.name}
                   </Button>
                 </Link>
@@ -207,7 +265,31 @@ export const AppLayout = ({ children }) => {
   const _renderContent = () => <div className="content">{children}</div>
 
   const _renderFooter = () => (
-    <div className="footer">Copyright © Lucis NFT</div>
+    <div className="footer">
+      <div className="footer-body">
+        <img src="/common/logo.png" className="footer-logo" />
+        <div className="footer-content">
+          <div className="footer-socials">
+            {footerSocials.map((nav) => (
+              <div key={nav.key} className="footer-social-item">
+                <img src={nav.image} />
+              </div>
+            ))}
+          </div>
+          <div className="footer-navs">
+            {footerNavs.map((nav) => (
+              <div key={nav.key} className="footer-nav-item">
+                {nav.name}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
+  const _renderSubFooter = () => (
+    <div className="sub-footer">Copyright © 2022, Lucis</div>
   )
 
   const _renderScrollButton = () => {
@@ -224,6 +306,7 @@ export const AppLayout = ({ children }) => {
       {_renderHeader()}
       {_renderContent()}
       {_renderFooter()}
+      {_renderSubFooter()}
       {_renderSpotlight()}
       {_renderMobileMenu()}
       {_renderScrollButton()}

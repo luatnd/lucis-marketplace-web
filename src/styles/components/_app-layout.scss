@@ -1,14 +1,17 @@
 .app-layout {
-  background: $dark-purple;
+  background: url(/common/background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   .header {
     background: rgba(40, 38, 54, 0.4);
     display: flex;
     justify-content: center;
-    backdrop-filter: blur(50px);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 99;
+    @include blurBackUnder(50px);
     .header-container {
       @include container;
       height: 80px;
@@ -43,7 +46,7 @@
               rgba(255, 255, 255, 0.3) -26.88%,
               rgba(255, 255, 255, 0.2) 73.85%
             );
-            backdrop-filter: blur(40px) !important;
+            @include blurBack(20px);
             position: relative;
             overflow: hidden;
             &::after {
@@ -51,7 +54,6 @@
               position: absolute;
               width: 30px;
               height: 30px;
-              background: red;
               top: 0;
               right: 0;
               background: url(/common/menu-corner.png);
@@ -118,6 +120,95 @@
     overflow: hidden;
   }
   .footer {
+    display: flex;
+    justify-content: center;
+    background: rgba(40, 38, 54, 0.4);
+    @include blurBack(40px);
+    .footer-body {
+      @include container;
+      margin: 0 25px;
+      padding-top: 50px;
+      padding-bottom: 100px;
+      display: flex;
+      align-items: center;
+      @include to(md) {
+        flex-direction: column;
+      }
+      .footer-logo {
+        height: 100px;
+        object-fit: contain;
+        margin-right: 25px;
+      }
+      .footer-content {
+        height: 100%;
+        width: 100%;
+        .footer-socials {
+          display: grid;
+          grid-template-columns: repeat(6, 1fr);
+          grid-gap: 50px;
+          padding: 30px 50px;
+          width: 100%;
+          @include to(lg) {
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+          }
+          @include to(md) {
+            grid-template-columns: repeat(6, 1fr);
+            grid-gap: 20px;
+          }
+          @include to(xs) {
+            grid-gap: 10px;
+          }
+          .footer-social-item {
+            border: 1px solid $purple2;
+            border-radius: 100%;
+            aspect-ratio: 1/1;
+            cursor: pointer;
+            transition: 0.5s;
+            img {
+              width: 100%;
+              object-fit: contain;
+            }
+            &:hover {
+              transform: scale(1.1);
+            }
+            @include lg {
+              width: 50%;
+            }
+          }
+        }
+        .footer-navs {
+          display: flex;
+          width: 100%;
+          justify-content: center;
+          .footer-nav-item {
+            font-size: 24px;
+            font-weight: 700;
+            transition: 0.5s;
+            cursor: pointer;
+            &:not(:last-child) {
+              margin-right: 20px;
+            }
+            &:hover {
+              color: $purple3;
+            }
+            @include lg {
+              font-size: 20px;
+            }
+            @include to(sm) {
+              font-size: 16px;
+            }
+            @include to(xs) {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .sub-footer {
+    background: rgba(40, 38, 54, 0.6);
+    @include blurBack(40px);
     height: 50px;
     display: flex;
     align-items: center;
@@ -141,7 +232,7 @@
   animation: pulse 0.5s;
   input {
     background: transparent;
-    backdrop-filter: blur(50px);
+    @include blurBack(50px);
     border-radius: 10px;
     border: none;
     font-size: 30px;
@@ -155,10 +246,18 @@
   }
 }
 .spotlight-overlay {
-  backdrop-filter: blur(5px);
+  @include blurBack(5px);
 }
 .mobile-menu {
+  background: linear-gradient(
+    121.07deg,
+    rgba(255, 255, 255, 0.3) -26.88%,
+    rgba(255, 255, 255, 0.2) 73.85%
+  ) !important;
+  @include blurBack(40px);
   .logo {
+    width: 100px;
+    margin: auto;
     cursor: pointer;
   }
   .mobile-menu-body {

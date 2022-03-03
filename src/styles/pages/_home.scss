@@ -4,16 +4,16 @@
     height: 300px;
     margin-top: 30px;
     margin-bottom: 30px;
-    animation: fadeInLeft 0.5s;
     .slick-slider {
       .arrow-button {
         position: absolute;
-        height: 40px;
-        width: 40px;
-        background: $purple3;
+        height: 60px;
+        width: 60px;
+        background: rgba($purple3, 0.5);
+        @include blurBack(20px);
         border-radius: 100%;
         z-index: 1;
-        top: calc(50% - 20px);
+        top: calc(50% - 30px);
         font-size: 30px;
       }
       .arrow-prev {
@@ -99,8 +99,7 @@
       margin: 50px 0;
       .slick-list {
         .slick-track {
-          .slick-slide {
-            transition: 0.5s;
+          .slick-slide > div {
             padding: 10px;
           }
         }
@@ -120,10 +119,12 @@
       right: 0;
     }
   }
-  .launchpad {
-    animation: fadeInLeft 0.5s;
+  .banners,
+  .launchpad,
+  .listing {
+    animation: fadein 1s;
   }
-  .hot-collections {
-    animation: fadeInRight 0.5s;
+  .scrolled {
+    animation: fadeUp 1s;
   }
 }
