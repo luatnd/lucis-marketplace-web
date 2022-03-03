@@ -1,0 +1,44 @@
+.app-select {
+  .css-1s2u09g-control,
+  .css-1pahdxg-control {
+    border-radius: 10px;
+    border-width: 2px;
+    background: transparent;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    * {
+      color: white;
+    }
+  }
+  .css-1okebmr-indicatorSeparator {
+    display: none;
+  }
+  .css-26l3qy-menu {
+    animation: fadein 0.2s;
+    background: linear-gradient(
+      121.07deg,
+      rgba(255, 255, 255, 0.3) -26.88%,
+      rgba(255, 255, 255, 0.2) 73.85%
+    );
+    @include blurBack(20px);
+    > div > div {
+      transition: 0.2s;
+      font-weight: 500;
+      text-align: left;
+    }
+    .css-1n7v3ny-option {
+      background: transparent;
+      cursor: pointer;
+    }
+    .css-9gakcf-option {
+      background: rgba($dark-purple, 0.3);
+      cursor: pointer;
+    }
+    .css-1n7v3ny-option:hover,
+    .css-9gakcf-option:hover {
+      background: rgba($dark-purple, 0.5);
+    }
+  }
+}

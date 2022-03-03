@@ -41,12 +41,6 @@
             transition: 0.5s;
           }
           .nav-list {
-            background: linear-gradient(
-              121.07deg,
-              rgba(255, 255, 255, 0.3) -26.88%,
-              rgba(255, 255, 255, 0.2) 73.85%
-            );
-            @include blurBack(20px);
             position: relative;
             overflow: hidden;
             &::after {

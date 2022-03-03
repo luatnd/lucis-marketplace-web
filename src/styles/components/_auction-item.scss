@@ -35,6 +35,14 @@
         margin-left: 5px;
       }
     }
+    .name {
+      font-size: 20px;
+      font-weight: 700;
+      @include to(xs) {
+        font-size: 16px;
+        align-self: center;
+      }
+    }
     .end-in {
       display: flex;
       align-items: center;
@@ -43,14 +51,6 @@
       span {
         font-weight: 700;
         margin-right: 1em;
-      }
-    }
-    .name {
-      font-size: 20px;
-      font-weight: 700;
-      @include to(xs) {
-        font-size: 16px;
-        align-self: center;
       }
     }
     .price {

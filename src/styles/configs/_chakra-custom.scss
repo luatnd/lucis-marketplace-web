@@ -1,3 +1,62 @@
 .chakra-modal__overlay {
   @include blurBack(10px);
 }
+.chakra-tabs__tablist {
+  justify-content: center !important;
+  .chakra-tabs__tab {
+    font-size: 36px;
+    color: rgba($white, 0.5);
+    transition: 0.1s;
+    &:focus {
+      box-shadow: unset;
+      background: unset;
+    }
+  }
+  .chakra-tabs__tab[aria-selected="true"] {
+    color: $cyan;
+    font-weight: 700;
+  }
+}
+
+.chakra-table {
+  background: linear-gradient(
+    126.08deg,
+    rgba(255, 255, 255, 0.3) 13.84%,
+    rgba(255, 255, 255, 0.1) 74.14%
+  );
+  border-radius: 10px;
+  thead {
+    tr th {
+      font-size: 18px;
+      font-weight: 600;
+      color: $white;
+      padding: 30px;
+      border-bottom: 1px solid #d7d7d7;
+    }
+  }
+  tbody tr {
+    transition: 0.2s;
+    &:hover {
+      background: rgba($white, 0.1);
+    }
+    td {
+      font-size: 16px;
+      border-bottom: 1px solid #d7d7d7;
+    }
+    &:last-child {
+      td {
+        border-bottom: 1px solid transparent;
+      }
+    }
+  }
+  @include blurBack(20px);
+}
+
+.chakra-menu__menu-list {
+  background: linear-gradient(
+    121.07deg,
+    rgba(255, 255, 255, 0.3) -26.88%,
+    rgba(255, 255, 255, 0.2) 73.85%
+  ) !important;
+  @include blurBack(20px);
+}

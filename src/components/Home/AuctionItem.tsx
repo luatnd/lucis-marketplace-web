@@ -24,10 +24,11 @@ export const AuctionItem = (props: IProps) => {
           <span>{provider}</span>
           <Verified />
         </div>
+        <span className="name">{name}</span>
         <div className="end-in">
           <span>END IN</span> {moment(endTime).format("HH:mm:ss")}
         </div>
-        <span className="name">{name}</span>
+
         <div className="price">
           <span>
             <BNBSymbol /> {price}
