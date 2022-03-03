@@ -1,4 +1,6 @@
 import moment from "moment"
+import { useEffect } from "react"
+import { useCountdown } from "src/hooks/useCountdown"
 import BoxsIcon from "../../../public/home/boxs.svg"
 import ItemsIcon from "../../../public/home/items.svg"
 
@@ -13,6 +15,15 @@ interface IProps {
 
 export const LaunchpadItem = (props: IProps) => {
   const { name, image, isOnGoing, boxs, items, startTime } = props
+
+  const now = moment()
+  const start = moment(startTime)
+  const duration = moment.duration(start.diff(now)).asMinutes()
+  const { hours, minutes, seconds } = useCountdown(duration)
+
+  useEffect(() => {
+    // console.log(hours, minutes, seconds)
+  }, [minutes, seconds, hours])
 
   return (
     <div className="launchpad-item">

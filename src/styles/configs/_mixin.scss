@@ -11,6 +11,25 @@ $container-width: 1240px;
   width: 100%;
 }
 
+@mixin blurBack($blur) {
+  backdrop-filter: blur($blur) !important;
+  -webkit-backdrop-filter: blur($blur) !important;
+  -moz-backdrop-filter: blur($blur) !important;
+  -ms-backdrop-filter: blur($blur) !important;
+  -o-backdrop-filter: blur($blur) !important;
+}
+
+@mixin blurBackUnder($blur) {
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    @include blurBack($blur);
+    z-index: -99;
+  }
+}
+
 @mixin xs {
   @media (max-width: #{$xs - 1px}) {
     @content;

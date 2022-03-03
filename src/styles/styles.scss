@@ -11,11 +11,12 @@
 @import "./components/collection-item";
 @import "./components/auction-item";
 @import "./components/getting-started-item";
+@import "./pages/error-page";
 @import "./pages/home";
 @import "./pages/details";
 @import "./pages/activities";
 @import "./pages/discover";
-@import url("https://fonts.googleapis.com/css?family=Saira:100,200,300,400,500,600,700,800,900");
+
 @font-face {
   font-family: SVN-Transformer;
   src: url(/fonts/SVN-Transformer.ttf);
