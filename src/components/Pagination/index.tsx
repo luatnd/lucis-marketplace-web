@@ -39,7 +39,7 @@ const Pagination = props => {
         onPageSizeChange(event.target.value);
     };
 
-    let lastPage = paginationRange[paginationRange.length - 1];
+    const lastPage = paginationRange[paginationRange.length - 1];
     return (
         <div className='pagination-container'>
         <ul
@@ -54,11 +54,11 @@ const Pagination = props => {
             >
                 <div className="arrow left" />
             </li>
-            {paginationRange.map(pageNumber => {
+            {paginationRange.map((pageNumber, key) => {
 
                 // If the pageItem is a DOT, render the DOTS unicode character
                 if (pageNumber === DOTS) {
-                    return <li className="pagination-item dots">&#8230;</li>;
+                    return <li className="pagination-item dots" key={key}>&#8230;</li>;
                 }
 
                 // Render our Page Pills
@@ -68,6 +68,7 @@ const Pagination = props => {
                             selected: pageNumber === currentPage
                         })}
                         onClick={() => onPageChange(pageNumber)}
+                        key={key}
                     >
                         {pageNumber}
                     </li>
