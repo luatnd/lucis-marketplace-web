@@ -28,9 +28,8 @@ export const Banners = () => {
     <div className="banners">
       <Marquee speed={100} gradient={false}>
         {items.map((item, index) => (
-          <Link href={"/nft/" + item.key}>
+          <Link key={item.key} href={"/nft/" + item.key}>
             <div
-              key={item.key}
               className={`banner-border ${
                 index % 2 !== 0 ? "even-banner" : ""
               }`}

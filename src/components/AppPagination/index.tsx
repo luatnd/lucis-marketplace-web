@@ -29,7 +29,7 @@ export const AppPagination = (props: IProps) => {
   const page = Math.round(offset / pageSize + 1)
   const pageRange = 5
 
-  let pages = []
+  const pages = []
   for (let i = 1; i <= totalPage; i++) {
     pages.push(i)
   }
@@ -77,7 +77,9 @@ export const AppPagination = (props: IProps) => {
   }
 
   const _renderResponsive = () => {
-    let splitedPages = pages.filter((page) => page !== 1 && page !== totalPage)
+    const splitedPages = pages.filter(
+      (page) => page !== 1 && page !== totalPage
+    )
     const headPages = splitedPages.slice(0, pageRange)
     const tailPages = splitedPages.slice(
       totalPage - pageRange - 2,
