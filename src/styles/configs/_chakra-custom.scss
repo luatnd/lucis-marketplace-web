@@ -67,3 +67,12 @@
   ) !important;
   @include blurBack(20px);
 }
+
+.chakra-input,
+.chakra-button,
+.chakra-modal__close-btn {
+  &:focus {
+    box-shadow: none !important;
+    border-color: white !important;
+  }
+}

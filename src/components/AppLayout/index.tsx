@@ -8,17 +8,14 @@ import {
   DrawerOverlay,
   Icon,
   Input,
-  InputGroup,
-  InputRightElement,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
-  Modal,
-  ModalContent,
-  ModalOverlay,
   Stack,
 } from "@chakra-ui/react"
+import BellIcon from "@static/icons/noti.svg"
+import UserIcon from "@static/icons/user.svg"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
@@ -146,27 +143,7 @@ export const AppLayout = ({ children }) => {
     },
   ]
 
-  const [spotlightVisible, setSpotlightVisible] = useState(false)
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false)
-
-  const _renderSpotlight = () => (
-    <Modal
-      isOpen={spotlightVisible}
-      onClose={() => setSpotlightVisible(false)}
-      closeOnEsc
-      size="3xl"
-    >
-      <ModalOverlay className="spotlight-overlay" />
-      <ModalContent className="spotlight">
-        <InputGroup>
-          <Input size="lg" placeholder="Name, Collection, Address, User" />
-          <InputRightElement>
-            <Icon as={Icons.Search} />
-          </InputRightElement>
-        </InputGroup>
-      </ModalContent>
-    </Modal>
-  )
 
   const _renderMobileMenu = () => (
     <Drawer
@@ -186,6 +163,10 @@ export const AppLayout = ({ children }) => {
         </DrawerHeader>
         <DrawerCloseButton />
         <DrawerBody className="mobile-menu-body">
+          <Input
+            placeholder="Collection/ User/ address"
+            className="search-bar"
+          />
           {navItems.map((nav) => (
             <Stack key={nav.key} className="mobile-menu-stack">
               <Button
@@ -227,9 +208,6 @@ export const AppLayout = ({ children }) => {
                   as={Button}
                   rightIcon={<Icon as={Icons.ChevronDown} />}
                   className="nav-item"
-                  _hover={{ border: "none" }}
-                  _active={{ border: "none" }}
-                  _focus={{ border: "none" }}
                 >
                   {nav.name}
                 </MenuButton>
@@ -245,13 +223,11 @@ export const AppLayout = ({ children }) => {
           </div>
         </div>
         <div className="nav-right">
-          <Icon
-            as={Icons.Search}
-            className="search-button"
-            onClick={() => setSpotlightVisible(true)}
-          />
-          <Icon as={Icons.Bell} className="noti-button" />
-          <Icon as={Icons.User} className="user chakra-icon" />
+          <div className="search-bar">
+            <Input placeholder="Collection/ User/ address" />
+          </div>
+          <Icon as={BellIcon} className="noti-button" />
+          <Icon as={UserIcon} className="user chakra-icon" />
           <Icon
             as={Icons.Menu}
             className="menu-button"
@@ -307,7 +283,6 @@ export const AppLayout = ({ children }) => {
       {_renderContent()}
       {_renderFooter()}
       {_renderSubFooter()}
-      {_renderSpotlight()}
       {_renderMobileMenu()}
       {_renderScrollButton()}
     </div>
