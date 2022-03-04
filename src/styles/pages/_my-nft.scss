@@ -169,5 +169,22 @@
         }
       }
     }
+    .tab-collected {
+      .sort {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .group-search {
+          border: 1px solid #D7D7D7;
+          box-sizing: border-box;
+          border-radius: 8px;
+          margin-right: 22px;
+        }
+      }
+    }
   }
+}
+.algin-center {
+  display: flex;
+  align-items: center;
 }

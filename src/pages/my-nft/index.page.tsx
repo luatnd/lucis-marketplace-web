@@ -1,7 +1,8 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react"
-import { Search } from "src/components/Nft-Ranking/Search"
-import { Pagination } from "src/components/Nft-Ranking/Pagination"
-import { useState } from "react"
+import { Pagination } from "../../components/Nft-Ranking/Pagination"
+import { Search } from "../../components/Nft-Ranking/Search"
+import Collected from "./Collected"
+
 const MyNft = () => {
   const offeringArray = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
@@ -80,7 +81,7 @@ const MyNft = () => {
               <p>two!</p>
             </TabPanel>
             <TabPanel>
-              <p>three!</p>
+              <Collected />
             </TabPanel>
             <TabPanel>
               <p>four!</p>

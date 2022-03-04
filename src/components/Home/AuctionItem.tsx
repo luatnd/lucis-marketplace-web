@@ -9,11 +9,13 @@ interface IProps {
   image?: string
   provider?: string
   endTime?: string
-  price?: number
+  price?: number,
+  auction?: boolean,
+  activeBtn?: boolean
 }
 
 export const AuctionItem = (props: IProps) => {
-  const { name, image, provider, endTime, price } = props
+  const { name, image, provider, endTime, price, auction, activeBtn } = props
 
   const { days, hours, seconds, minutes } = useCountdown("2022-03-20T00:00:00")
   console.log(days, hours, minutes, seconds)
@@ -25,8 +27,19 @@ export const AuctionItem = (props: IProps) => {
       </div>
       <div className="auction-body">
         <div className="provider">
-          <span>{provider}</span>
-          <Verified />
+          <div className="algin-center">
+            <span>{provider}</span>
+            <Verified />
+          </div>
+          <div>
+            {
+              auction != undefined && auction ? (
+                <img src="/icons/auction.png" alt="" />
+              ) : (
+                <img src="/icons/dollar.png" alt="" />
+              )
+            }
+          </div>
         </div>
         <span className="name">{name}</span>
         <div className="end-in">
@@ -37,7 +50,11 @@ export const AuctionItem = (props: IProps) => {
           <span>
             <BNBSymbol /> {price}
           </span>
-          <Button size="sm">AUC</Button>
+          {
+            (!activeBtn) && (
+              <Button size="sm">AUC</Button>
+            )
+          }
         </div>
       </div>
     </div>
