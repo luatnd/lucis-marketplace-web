@@ -305,16 +305,24 @@ const MyNft = () => {
                     <TabPanel>
                       <div className="offering-make">
                         <div className="list">
-                          <div className="title item">Item</div>
-                          <div className="title price">Price</div>
-                          <div className="title">To</div>
-                          <div className="title">Expiration</div>
-                          <div className="title">Offered</div>
-                          <div className="title">Action</div>
-                          {/* {
-                            auctions.slice(0,10).map(auction=><>
-                            </>)
-                          } */}
+                          <div className="row">
+                            <div className="title item">Item</div>
+                            <div className="title price">Price</div>
+                            <div className="title">To</div>
+                            <div className="title">Expiration</div>
+                            <div className="title">Offered</div>
+                            <div className="title">Action</div>
+                          </div>
+                          <div className="row">
+                            <div className="row-item item">Item</div>
+                            <div className="row-item price">26.94 BNB</div>
+                            <div className="row-item">Nhi</div>
+                            <div className="row-item">in 2 days</div>
+                            <div className="row-item">1 days ago</div>
+                            <div className="row-item">
+                              <button>Cancel</button>
+                            </div>
+                          </div>
                         </div>
                         <Pagination
                           className="pagination-bar"

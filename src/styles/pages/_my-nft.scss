@@ -114,7 +114,6 @@
       }
       .offering-make {
         .list {
-          height: 100px;
           margin-top: 40px;
           border-radius: 10px;
           border: 1px solid #d7d7d7;
@@ -126,17 +125,39 @@
           box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.2);
           backdrop-filter: blur(40px);
           width: 100%;
-          display: grid;
-          grid-template-columns: repeat(7, 1fr);
-          padding-left: 33px;
-          padding-top: 32px;
-          .title.item {
-            grid-column: 1 / span 2;
-          }
-          .title {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 29px;
+          .row {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            .title.item {
+              grid-column: 1 / span 2;
+              padding-left: 33px;
+            }
+            .title.price {
+              padding-right: 30%;
+            }
+            .title {
+              padding-top: 32px;
+              padding-bottom: 28px;
+              font-size: 18px;
+              font-weight: 600;
+              line-height: 29px;
+            }
+            .row-item.item {
+              grid-column: 1 / span 2;
+              padding-left: 33px;
+            }
+            .row-item.price {
+              padding-right: 30%;
+            }
+            .row-item {
+              padding-top: 13px;
+              border-top: 1px solid #d7d7d7;
+              padding-bottom: 16px;
+              button {
+                display: flex;
+                width: 100%;
+              }
+            }
           }
         }
       }
