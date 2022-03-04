@@ -133,9 +133,7 @@ const ActivitiesPage = () => {
             <Tbody>
               {data.map((el, index) => (
                 <Tr key={index}>
-                  <Td>
-                    {el.type} - {el.key}
-                  </Td>
+                  <Td>{el.type}</Td>
                   <Td>
                     <div className="align-center type">
                       <img src="/icons/item.png" alt="" />
