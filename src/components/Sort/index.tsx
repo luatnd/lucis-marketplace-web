@@ -14,40 +14,43 @@ const Sort = (props) => {
 
   const [selected, setSelected] = useState(options[0])
 
-  const handleSort = async (event) => {
-    const selected = event.target.value
-    onSelectOption(selected)
-    const optionSelect = options.filter((item) => item.name == selected && item)
-    console.log(optionSelect)
+    const handleSort = async (event) => {
+        const selected = event.target.value
+        onSelectOption(selected)
+        const optionSelect = options.filter(item => item.name == selected && item )
+        setSelected(optionSelect[0])
+    }
 
-    setSelected(optionSelect[0])
-  }
-
-  return (
+    return (
     <div className={`select-sort ${customClassName}`}>
-      <Menu>
-        <MenuButton
-          minWidth="200px"
-          as={Button}
-          className="select-button"
-          rightIcon={<Icon as={Icons.ChevronDown} />}
-        >
-          {selected && (
-            <>
-              <img src={selected?.img} alt="" />
-              {selected.name}
-            </>
-          )}
-        </MenuButton>
-        <MenuList minWidth="205px" className="select-list">
-          {options.map((item, index) => (
-            <MenuItem onClick={handleSort} value={item.name} key={index}>
-              {item.img && <img src={item.img} alt="" />}
-              {item.name}
-            </MenuItem>
-          ))}
-        </MenuList>
-      </Menu>
+        <Menu>
+            <MenuButton minWidth='200px' as={Button} className="select-button"
+                rightIcon={<Icon as={Icons.ChevronDown} />}
+            >
+                {
+                    selected && (
+                        <>
+                            <img src={selected?.img} alt="" />
+                            {selected.name}
+                        </>
+                    )
+                }
+            </MenuButton>
+            <MenuList minWidth='205px' className="select-list">
+                {
+                    options.map((item, index) => item.name != selected?.name && (
+                        <MenuItem onClick={handleSort} value={item.name} key={index}>
+                            {
+                                item.img && (
+                                    <img src={item.img} alt="" />
+                                )
+                            }
+                            {item.name}
+                        </MenuItem>
+                    ))
+                }
+            </MenuList>
+        </Menu>
     </div>
   )
 }
