@@ -1,0 +1,26 @@
+.swal2-container {
+  @include blurBack(10px);
+}
+
+.swal2-popup {
+  background: linear-gradient(
+    126.08deg,
+    rgba(255, 255, 255, 0.3) 13.84%,
+    rgba(255, 255, 255, 0.2) 74.14%
+  ) !important;
+  border: 2px solid rgba($purple2, 0.5) !important;
+  border-radius: 10px !important;
+  .swal2-title {
+    color: white;
+  }
+  .swal2-html-container {
+    color: white;
+    font-weight: 500;
+  }
+  .swal2-confirm {
+    background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%) !important;
+  }
+  .swal2-cancel {
+    background: rgba(white, 0.2) !important;
+  }
+}

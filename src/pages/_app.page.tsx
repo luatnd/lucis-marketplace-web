@@ -1,14 +1,14 @@
 import { ChakraProvider } from "@chakra-ui/react"
 import "animate.css"
 import type { AppProps } from "next/app"
+import Head from "next/head"
 import React, { useEffect, useState } from "react"
-import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import "slick-carousel/slick/slick.css"
 import { AppLayout } from "../components/AppLayout"
 import { rootStore, StoresProvider } from "../stores/rootStore"
 import "../styles/styles.scss"
 import { defaultTheme } from "../themes"
-import Head from "next/head"
 
 const MyApp = (props: AppProps) => {
   const { Component, pageProps } = props
