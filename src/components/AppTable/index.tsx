@@ -28,9 +28,9 @@ export const AppTable = (props: IProps) => {
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((item, index) => (
+          {data?.map((item, index) => (
             <Tr key={index}>
-              {columns.map((column, index) => (
+              {columns?.map((column, index) => (
                 <Td key={index}>
                   {column?.render
                     ? column.render(item[`${column?.dataIndex}`] ?? null)

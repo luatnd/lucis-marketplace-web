@@ -34,7 +34,7 @@ const ActivitiesPage = () => {
     handleSort()
   }, [sort])
 
-  const handleSort = async() => {
+  const handleSort = async () => {
     const data = activities.filter((el) => {
       if (el.type == sort && sort != "All") {
         return el
@@ -54,33 +54,33 @@ const ActivitiesPage = () => {
 
   const priceSort = [
     {
-      'img': '/common/bnb-logo.png',
-      'name': 'BNB Chain'
+      img: "/common/bnb-logo.png",
+      name: "BNB Chain",
     },
     {
-      'img': '/common/walletConnect.png',
-      'name': 'WalletConnect'
+      img: "/common/walletConnect.png",
+      name: "WalletConnect",
     },
     {
-      'img': '/common/ethereum.png',
-      'name': 'Ethereum'
+      img: "/common/ethereum.png",
+      name: "Ethereum",
     },
     {
-      'img': '/common/celo.png',
-      'name': 'Celo'
+      img: "/common/celo.png",
+      name: "Celo",
     },
     {
-      'img': '/common/aurora.png',
-      'name': 'Aurora'
+      img: "/common/aurora.png",
+      name: "Aurora",
     },
     {
-      'img': '/common/arbitrum.png',
-      'name': 'Arbitrum'
+      img: "/common/arbitrum.png",
+      name: "Arbitrum",
     },
     {
-      'img': '/common/fantom.png',
-      'name': 'Fantom'
-    }
+      img: "/common/fantom.png",
+      name: "Fantom",
+    },
   ]
   const typeSort = [
     {
@@ -159,7 +159,7 @@ const ActivitiesPage = () => {
             </Tbody>
           </Table>
         </div>
-        
+
         <Pagination
           className="pagination-bar"
           currentPage={currentPage}

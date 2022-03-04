@@ -52,3 +52,12 @@
     transform: translatex(-100%);
   }
 }
+
+@keyframes expand {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}

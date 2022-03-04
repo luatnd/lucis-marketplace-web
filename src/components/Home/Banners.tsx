@@ -2,6 +2,7 @@ import { Button, Icon } from "@chakra-ui/react"
 import { ChevronLeft, ChevronRight } from "react-feather"
 import Slider from "react-slick"
 import Marquee from "react-fast-marquee"
+import Link from "next/link"
 
 export const Banners = () => {
   const items = [
@@ -27,14 +28,17 @@ export const Banners = () => {
     <div className="banners">
       <Marquee speed={100} gradient={false}>
         {items.map((item, index) => (
-          <div
-            key={item.key}
-            className={`banner-border ${index % 2 !== 0 ? "even-banner" : ""}`}
-          >
-            <div key={item.key} className="banner">
-              <img src={item.image} className="banner-image" />
+          <Link key={item.key} href={"/nft/" + item.key}>
+            <div
+              className={`banner-border ${
+                index % 2 !== 0 ? "even-banner" : ""
+              }`}
+            >
+              <div key={item.key} className="banner">
+                <img src={item.image} className="banner-image" />
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </Marquee>
     </div>

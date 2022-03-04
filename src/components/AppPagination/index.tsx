@@ -49,11 +49,11 @@ export const AppPagination = (props: IProps) => {
   }
 
   const handlePrevDot = () => {
-    if (page > pageRange) onChangeOffset(page - pageRange)
+    if (page > pageRange) handleChangePage(page - pageRange)
   }
 
   const handleNextDot = () => {
-    if (page < totalPage - pageRange) onChangeOffset(page + pageRange)
+    if (page < totalPage - pageRange) handleChangePage(page + pageRange)
   }
 
   const handleNext = () => {
@@ -77,7 +77,9 @@ export const AppPagination = (props: IProps) => {
   }
 
   const _renderResponsive = () => {
-    const splitedPages = pages.filter((page) => page !== 1 && page !== totalPage)
+    const splitedPages = pages.filter(
+      (page) => page !== 1 && page !== totalPage
+    )
     const headPages = splitedPages.slice(0, pageRange)
     const tailPages = splitedPages.slice(
       totalPage - pageRange - 2,
@@ -122,7 +124,7 @@ export const AppPagination = (props: IProps) => {
         ) : null}
         <Button
           key={totalPage}
-          onClick={() => handleChangePage(20)}
+          onClick={() => handleChangePage(totalPage)}
           className={`page-button ${totalPage === page ? "active" : ""}`}
         >
           {totalPage}

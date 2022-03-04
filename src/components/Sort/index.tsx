@@ -23,36 +23,34 @@ const Sort = (props) => {
         }
     }
 
-    return (
+  return (
     <div className={`select-sort ${customClassName}`}>
-        <Menu>
-            <MenuButton minWidth='200px' as={Button} className="select-button"
-                rightIcon={<Icon as={Icons.ChevronDown} />}
-            >
-                {
-                    selected && (
-                        <>
-                            <img src={selected?.img} alt="" />
-                            {selected.name}
-                        </>
-                    )
-                }
-            </MenuButton>
-            <MenuList minWidth='205px' className="select-list">
-                {
-                    options.map((item, index) => item.name != selected?.name && (
-                        <MenuItem onClick={handleSort} value={item.name} key={index}>
-                            {
-                                item.img && (
-                                    <img src={item.img} alt="" />
-                                )
-                            }
-                            {item.name}
-                        </MenuItem>
-                    ))
-                }
-            </MenuList>
-        </Menu>
+      <Menu>
+        <MenuButton
+          minWidth="200px"
+          as={Button}
+          className="select-button"
+          rightIcon={<Icon as={Icons.ChevronDown} />}
+        >
+          {selected && (
+            <>
+              <img src={selected?.img} alt="" />
+              {selected.name}
+            </>
+          )}
+        </MenuButton>
+        <MenuList minWidth="205px" className="select-list">
+          {options.map(
+            (item, index) =>
+              item.name != selected?.name && (
+                <MenuItem onClick={handleSort} value={item.name} key={index}>
+                  {item.img && <img src={item.img} alt="" />}
+                  {item.name}
+                </MenuItem>
+              )
+          )}
+        </MenuList>
+      </Menu>
     </div>
   )
 }
