@@ -88,6 +88,7 @@ const CollectionDetails = () => {
         <div className="total">137335 items listed</div>
         <div className="filter">
           <AppSelect
+            placeholder="Type"
             options={[
               {
                 label: "Type",
@@ -95,7 +96,15 @@ const CollectionDetails = () => {
               },
             ]}
           />
-          <AppSelect />
+          <AppSelect
+            placeholder="Price: Min to Max"
+            options={[
+              {
+                label: "Price: Min to Max",
+                value: "1",
+              },
+            ]}
+          />
         </div>
       </div>
       <div className="item-list">
@@ -123,7 +132,15 @@ const CollectionDetails = () => {
   const _renderActivities = () => (
     <div className="collection-activities">
       <div className="filter-row">
-        <AppSelect />
+        <AppSelect
+          placeholder="All"
+          options={[
+            {
+              label: "All",
+              value: "1",
+            },
+          ]}
+        />
       </div>
       <AppTable className="data-table" data={tableData} columns={columns} />
       <AppPagination
