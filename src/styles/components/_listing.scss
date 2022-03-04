@@ -1,10 +1,10 @@
 .listing {
   height: 64px;
+  width: 100%;
   border-radius: 16px;
   background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
   padding: 2px;
   box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4);
-  margin-bottom: 100px;
   transition: 0.5s;
   &:hover {
     box-shadow: 0px 0px 40px rgba(255, 255, 255, 0.4);
@@ -20,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .listing {
+    .listing-label {
       position: absolute;
       width: 100px;
       height: 40px;
@@ -45,11 +45,13 @@
       display: flex;
       align-items: center;
       .marquee-content {
-        white-space: nowrap;
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 400;
         line-height: 1em;
-        animation: marquee 5s linear infinite;
+        @include to(md) {
+          white-space: nowrap;
+          animation: marquee 5s linear infinite;
+        }
       }
     }
     .cyan-text {

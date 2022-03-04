@@ -224,9 +224,10 @@
   margin: 150px 20px !important;
   border-radius: 10px !important;
   animation: pulse 0.5s;
+  background: transparent !important;
+  @include blurBack(50px);
   input {
-    background: transparent;
-    @include blurBack(50px);
+    background: rgba($dark-purple, 0.5);
     border-radius: 10px;
     border: none;
     font-size: 30px;

@@ -18,8 +18,6 @@ const Sort = (props) => {
     const selected = event.target.value
     onSelectOption(selected)
     const optionSelect = options.filter((item) => item.name == selected && item)
-    console.log(optionSelect)
-
     setSelected(optionSelect[0])
   }
 
@@ -40,12 +38,15 @@ const Sort = (props) => {
           )}
         </MenuButton>
         <MenuList minWidth="205px" className="select-list">
-          {options.map((item, index) => (
-            <MenuItem onClick={handleSort} value={item.name} key={index}>
-              {item.img && <img src={item.img} alt="" />}
-              {item.name}
-            </MenuItem>
-          ))}
+          {options.map(
+            (item, index) =>
+              item.name != selected?.name && (
+                <MenuItem onClick={handleSort} value={item.name} key={index}>
+                  {item.img && <img src={item.img} alt="" />}
+                  {item.name}
+                </MenuItem>
+              )
+          )}
         </MenuList>
       </Menu>
     </div>

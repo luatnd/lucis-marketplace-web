@@ -96,6 +96,10 @@ $container-width: 1240px;
     @media (min-width: $xxl) {
       @content;
     }
+  } @else {
+    @media (min-width: $width) {
+      @content;
+    }
   }
 }
 
@@ -127,6 +131,10 @@ $container-width: 1240px;
   }
   @if $width == xxl {
     @media (max-width: $xxl) {
+      @content;
+    }
+  } @else {
+    @media (max-width: $width) {
       @content;
     }
   }

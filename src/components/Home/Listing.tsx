@@ -2,7 +2,7 @@ export const Listing = () => {
   return (
     <div className="listing">
       <div className="listing-body">
-        <div className="listing">Listing</div>
+        <div className="listing-label">Listing</div>
         <img src="/home/listing-img.png" />
         <div className="listing-content">
           <span className="marquee-content">

@@ -27,13 +27,14 @@ const ActivitiesPage = () => {
   const [totalData, setTotalData] = useState(Number(activities.length))
 
   useEffect(() => {
-    const firstPageIndex = (currentPage - 1) * pageSize
-    const lastPageIndex = firstPageIndex + pageSize
-    setData(activities.slice(firstPageIndex, lastPageIndex))
-    handleSort()
-  }, [currentPage, pageSize, sort])
+    dataOfPage(activities)
+  }, [currentPage, pageSize])
 
-  const handleSort = () => {
+  useEffect(() => {
+    handleSort()
+  }, [sort])
+
+  const handleSort = async () => {
     const data = activities.filter((el) => {
       if (el.type == sort && sort != "All") {
         return el
@@ -41,14 +42,44 @@ const ActivitiesPage = () => {
         return el
       } else return ""
     })
+    dataOfPage(data)
     setTotalData(Number(data.length))
-    setData(data)
+  }
+
+  const dataOfPage = (activities) => {
+    const firstPageIndex = (currentPage - 1) * pageSize
+    const lastPageIndex = firstPageIndex + pageSize
+    setData(activities.slice(firstPageIndex, lastPageIndex))
   }
 
   const priceSort = [
     {
-      img: "/icons/bnb-logo.png",
+      img: "/common/bnb-logo.png",
       name: "BNB Chain",
+    },
+    {
+      img: "/common/walletConnect.png",
+      name: "WalletConnect",
+    },
+    {
+      img: "/common/ethereum.png",
+      name: "Ethereum",
+    },
+    {
+      img: "/common/celo.png",
+      name: "Celo",
+    },
+    {
+      img: "/common/aurora.png",
+      name: "Aurora",
+    },
+    {
+      img: "/common/arbitrum.png",
+      name: "Arbitrum",
+    },
+    {
+      img: "/common/fantom.png",
+      name: "Fantom",
     },
   ]
   const typeSort = [
@@ -102,7 +133,9 @@ const ActivitiesPage = () => {
             <Tbody>
               {data.map((el, index) => (
                 <Tr key={index}>
-                  <Td>{el.type}</Td>
+                  <Td>
+                    {el.type} - {el.key}
+                  </Td>
                   <Td>
                     <div className="align-center type">
                       <img src="/icons/item.png" alt="" />
@@ -128,6 +161,7 @@ const ActivitiesPage = () => {
             </Tbody>
           </Table>
         </div>
+
         <Pagination
           className="pagination-bar"
           currentPage={currentPage}
