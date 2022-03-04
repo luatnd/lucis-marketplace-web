@@ -14,14 +14,16 @@ const Sort = (props) => {
 
   const [selected, setSelected] = useState(options[0])
 
-    const handleSort = async (event) => {
-        if (onSelectOption != undefined) {
-            const selected = event.target.value
-            onSelectOption(selected)
-            const optionSelect = options.filter(item => item.name == selected && item )
-            setSelected(optionSelect[0])
-        }
+  const handleSort = async (event) => {
+    if (onSelectOption != undefined) {
+      const selected = event.target.value
+      onSelectOption(selected)
+      const optionSelect = options.filter(
+        (item) => item.name == selected && item
+      )
+      setSelected(optionSelect[0])
     }
+  }
 
   return (
     <div className={`select-sort ${customClassName}`}>

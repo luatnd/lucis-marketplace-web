@@ -262,18 +262,9 @@ const MyNft = () => {
                       <Tab>Make Offer</Tab>
                     </TabList>
                     <div className="right">
-                      <Sort
-                        customClassName="price-sort"
-                        options={priceSort}
-                      />
-                      <Sort
-                        customClassName="price-sort"
-                        options={moneySort}
-                      />
-                      <Sort
-                        customClassName="type-sort"
-                        options={madeSort}
-                      />
+                      <Sort customClassName="price-sort" options={priceSort} />
+                      <Sort customClassName="price-sort" options={moneySort} />
+                      <Sort customClassName="type-sort" options={madeSort} />
                     </div>
                   </div>
                   <TabPanels>

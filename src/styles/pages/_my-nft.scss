@@ -150,20 +150,21 @@
           display: block;
         }
         .group-search {
-          border: 1px solid #D7D7D7;
+          border: 1px solid #d7d7d7;
           box-sizing: border-box;
           border-radius: 8px;
           margin-right: 22px;
-          width:300px;
+          width: 300px;
           @include to(sm) {
-            width:100%;
+            width: 100%;
             margin-bottom: 10px;
           }
           input {
             border: 0px;
           }
         }
-        .price-sort, .type-sort {
+        .price-sort,
+        .type-sort {
           @include to(sm) {
             width: 100%;
             margin-bottom: 10px;
