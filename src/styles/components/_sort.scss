@@ -1,45 +1,57 @@
 .select-sort {
-  box-sizing: border-box;
-  border-radius: 8px;
-  border: 1px solid #d7d7d7;
-  float: right;
-
-  &.price-sort {
-    margin-right: 8px;
-
-    .select-button,
-    .select-list {
-      img {
-        width: 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #D7D7D7;
+    width: 200px;
+    @include to(xs) {
+        width: 100%;
+    }
+    button {
+        @include to(xs) {
+            width: 100%;
+        }
+    }
+    .css-r6z5ec {
+        @include to(xs) {
+            width: 90%;
+        }
+    }
+    &.price-sort {
         margin-right: 8px;
-      }
+        .select-button,
+        .select-list {
+            img {
+                width: 20px;
+                margin-right: 8px;
+            }
+        }
     }
-  }
-
-  .select-button {
-    span {
-      display: flex;
+    .select-button {
+        span {
+            display: flex;
+        }
     }
-  }
-
-  .select-list {
-    background: linear-gradient(
-      121.07deg,
-      rgba(255, 255, 255, 0.3) -26.88%,
-      rgba(255, 255, 255, 0.2) 73.85%
-    );
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(40px);
-
-    &::after {
-      content: "";
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      top: 0;
-      right: 0;
-      background: url(/common/menu-corner.png);
-      border-top-right-radius: 5px;
+    .select-list {
+        background: linear-gradient(121.07deg, rgba(255, 255, 255, 0.3) -26.88%, rgba(255, 255, 255, 0.2) 73.85%);
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(40px);
+        padding-left: 10px;
+        padding-right: 10px;
+        &::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            top: 0;
+            right: 0;
+            background: url(/common/menu-corner.png);
+            border-top-right-radius: 5px;
+        }
+        button {
+            border-bottom: 1px solid #D9D9D9;
+            &:last-child {
+                border-bottom: 0px;
+            }
+        }
     }
-  }
 }

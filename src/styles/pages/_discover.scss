@@ -1,3 +1,56 @@
 .discover-page {
   background: transparent;
+  width: 100%;
+  margin: 44px auto auto;
+  max-width: 1242px;
+  h1 {
+    &.discover {
+      font-size: 72px;
+      font-weight: 700;
+      font-family: SVN-Transformer;
+      transition: 0.5s;
+      text-transform: uppercase;
+
+      @include to(sm) {
+        font-size: 50px;
+      }
+
+    }
+  }
+  .discover-sort {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @include to(sm) {
+      display: block;
+    }
+    p {
+      font-size: 20px;
+      line-height: 31px;
+      color: #FFFFFF;
+    }
+    .sorts {
+      display: flex;
+      @include to(xs) {
+        display: block;
+      }
+      .type-sort {
+        margin-right: 8px;
+        @include to(xs) {
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+  .grid-custom {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+        // grid-template-rows: repeat(4, 1fr);
+        grid-gap: 1rem;
+        grid-auto-flow: row;
+        width: 100%;
+        flex-direction: column;
+        margin-top: 35px;
+  }
 }
