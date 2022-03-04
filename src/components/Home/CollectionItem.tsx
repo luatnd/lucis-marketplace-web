@@ -12,7 +12,9 @@ export const CollectionItem = (props: IProps) => {
     <Link href={"collection/1"}>
       <div className="collection-item">
         <div className="collection-image">
-          <img src={image} />
+          <div className="image-content">
+            <img src={image} />
+          </div>
         </div>
         <span>{name}</span>
       </div>
