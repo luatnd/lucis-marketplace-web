@@ -20,6 +20,9 @@
       font-weight: 600;
     }
   }
+  .chakra-tabs__tab-panel {
+    animation: fadeUp 0.5s;
+  }
 }
 
 .chakra-table {
