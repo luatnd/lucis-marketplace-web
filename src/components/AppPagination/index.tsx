@@ -49,11 +49,11 @@ export const AppPagination = (props: IProps) => {
   }
 
   const handlePrevDot = () => {
-    if (page > pageRange) onChangeOffset(page - pageRange)
+    if (page > pageRange) handleChangePage(page - pageRange)
   }
 
   const handleNextDot = () => {
-    if (page < totalPage - pageRange) onChangeOffset(page + pageRange)
+    if (page < totalPage - pageRange) handleChangePage(page + pageRange)
   }
 
   const handleNext = () => {
@@ -122,7 +122,7 @@ export const AppPagination = (props: IProps) => {
         ) : null}
         <Button
           key={totalPage}
-          onClick={() => handleChangePage(20)}
+          onClick={() => handleChangePage(totalPage)}
           className={`page-button ${totalPage === page ? "active" : ""}`}
         >
           {totalPage}

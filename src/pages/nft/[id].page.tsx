@@ -247,15 +247,15 @@ const DetailsPage = () => {
           <Tab className="tab-item">ACTIVITIES</Tab>
           <Tab className="tab-item">RECEIVED OFFERED</Tab>
         </TabList>
-        <div className="filter-row">
-          <AppSelect
-            className="filter"
-            defaultValue={"1"}
-            placeholder="All"
-            options={[{ label: "All", value: "1" }]}
-          />
-        </div>
       </Tabs>
+      <div className="filter-row">
+        <AppSelect
+          className="filter"
+          defaultValue={"1"}
+          placeholder="All"
+          options={[{ label: "All", value: "1" }]}
+        />
+      </div>
       <AppTable className="data-table" columns={columns} data={data} />
       <AppPagination
         total={total}

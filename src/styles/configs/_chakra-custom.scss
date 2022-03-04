@@ -1,20 +1,24 @@
 .chakra-modal__overlay {
   @include blurBack(10px);
 }
-.chakra-tabs__tablist {
-  justify-content: center !important;
-  .chakra-tabs__tab {
-    font-size: 36px;
-    color: rgba($white, 0.5);
-    transition: 0.1s;
-    &:focus {
-      box-shadow: unset;
-      background: unset;
+
+.chakra-tabs {
+  .chakra-tabs__tablist {
+    justify-content: center !important;
+    border-bottom: unset !important;
+    .chakra-tabs__tab {
+      font-size: 36px;
+      color: rgba($white, 0.5);
+      transition: 0.1s;
+      &:focus {
+        box-shadow: unset;
+        background: unset;
+      }
     }
-  }
-  .chakra-tabs__tab[aria-selected="true"] {
-    color: $cyan;
-    font-weight: 700;
+    .chakra-tabs__tab[aria-selected="true"] {
+      color: $cyan;
+      font-weight: 600;
+    }
   }
 }
 
