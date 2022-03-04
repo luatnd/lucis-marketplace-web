@@ -3,6 +3,8 @@ import Pagination from "src/components/Pagination"
 import { AuctionItem } from "src/components/Home/AuctionItem"
 import Sort from "src/components/Sort"
 import { useState } from "react"
+import Collected from "./Collected"
+
 const MyNft = () => {
   const [showSort, setShowSort] = useState([false])
   const [money, setMoney] = useState("All")
@@ -263,17 +265,14 @@ const MyNft = () => {
                       <Sort
                         customClassName="price-sort"
                         options={priceSort}
-                        onSelectOption={(price) => setPrice(price)}
                       />
                       <Sort
                         customClassName="price-sort"
                         options={moneySort}
-                        onSelectOption={(money) => setMoney(money)}
                       />
                       <Sort
                         customClassName="type-sort"
                         options={madeSort}
-                        onSelectOption={(made) => setMade(made)}
                       />
                     </div>
                   </div>
@@ -289,6 +288,7 @@ const MyNft = () => {
                               provider={auction.provider}
                               endTime={auction.endTime}
                               price={auction.price}
+                              activeBtn={true}
                             />
                           ))}
                         </div>
@@ -337,6 +337,18 @@ const MyNft = () => {
                   </TabPanels>
                 </Tabs>
               </div>
+            </TabPanel>
+            <TabPanel>
+              <p>two!</p>
+            </TabPanel>
+            <TabPanel>
+              <Collected />
+            </TabPanel>
+            <TabPanel>
+              <p>four!</p>
+            </TabPanel>
+            <TabPanel>
+              <p>five!</p>
             </TabPanel>
           </TabPanels>
         </Tabs>

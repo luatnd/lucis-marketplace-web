@@ -77,21 +77,24 @@ const DiscoverPage = () => {
     setData(auctions.slice(firstPageIndex, lastPageIndex))
   }, [currentPage, pageSize, sort])
 
-  return (
-    <div className="discover-page">
-      <Listing />
-      <h1 className="discover">Discover</h1>
-      <div className="discover-sort">
-        <p>{auctions.length} items listed</p>
-        <div className="sorts">
-          <Sort customClassName="price-sort" options={priceSort} />
-          <Sort
-            customClassName="type-sort"
-            options={typeSort}
-            onSelectOption={(sort) => setSort(sort)}
-          />
-          <Sort customClassName="price-to-sort" options={priceTo} />
-        </div>
+  return <div className="discover-page">
+    <Listing />
+    <h1 className="discover">Discover</h1>
+    <div className="discover-sort">
+      <p>{auctions.length} items listed</p>
+      <div className="sorts">
+        <Sort
+          customClassName="price-sort"
+          options={priceSort}
+        />
+        <Sort
+          customClassName="type-sort"
+          options={typeSort}
+        />
+        <Sort
+          customClassName="price-to-sort"
+          options={priceTo}
+        />
       </div>
       <div className="grid-custom">
         {data.map((auction, index) => (
