@@ -87,17 +87,14 @@ const DiscoverPage = () => {
         <Sort
           customClassName="price-sort"
           options={priceSort}
-          onSelectOption={() => {}}
         />
         <Sort
           customClassName="type-sort"
           options={typeSort}
-          onSelectOption={sort => setSort(sort)}
         />
         <Sort
           customClassName="price-to-sort"
           options={priceTo}
-          onSelectOption={() => {}}
         />
       </div>
     </div>

@@ -1,5 +1,9 @@
 [
     {
+        "img": "/common/all-network.png",
+        "name": "All network"
+    },
+    {
         "img": "/common/bnb-logo.png",
         "name": "BNB Chain"
     },

@@ -40,7 +40,7 @@ const Collected = () => {
 
     return <div className="tab-collected">
         <div className="sort">
-            <InputGroup className="group-search" width="300px">
+            <InputGroup className="group-search">
                 <Input size="md" placeholder="" />
                 <InputRightElement>
                     <Icon as={Icons.Search} />
@@ -49,12 +49,10 @@ const Collected = () => {
             <Sort 
             customClassName="price-sort" 
             options={network}
-            onSelectOption={() => {}}
             />
             <Sort
                 customClassName="type-sort"
                 options={typeSort}
-                onSelectOption={() => { }}
             />
         </div>
         <div className="">
@@ -69,7 +67,7 @@ const Collected = () => {
                             endTime={auction.endTime}
                             price={auction.price}
                             auction={auction.auction}
-                            activeBtn={false}
+                            activeBtn={true}
                         />
                     </div>
                 ))}
