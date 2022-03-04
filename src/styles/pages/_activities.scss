@@ -22,7 +22,7 @@
     .select-sort {
       box-sizing: border-box;
       border-radius: 8px;
-      border: 1px solid #D7D7D7;
+      border: 1px solid #d7d7d7;
       float: right;
       &.price-sort {
         margin-right: 8px;
@@ -40,7 +40,11 @@
         }
       }
       .select-list {
-        background: linear-gradient(121.07deg, rgba(255, 255, 255, 0.3) -26.88%, rgba(255, 255, 255, 0.2) 73.85%);
+        background: linear-gradient(
+          121.07deg,
+          rgba(255, 255, 255, 0.3) -26.88%,
+          rgba(255, 255, 255, 0.2) 73.85%
+        );
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
         backdrop-filter: blur(40px);
         &::after {
@@ -58,13 +62,17 @@
   }
   .table-activity {
     margin-top: 30px;
-    background: linear-gradient(126.08deg, rgba(255, 255, 255, 0.3) 13.84%, rgba(255, 255, 255, 0.1) 74.14%);
-    border: 1px solid #D7D7D7;
+    background: linear-gradient(
+      126.08deg,
+      rgba(255, 255, 255, 0.3) 13.84%,
+      rgba(255, 255, 255, 0.1) 74.14%
+    );
+    border: 1px solid #d7d7d7;
     box-sizing: border-box;
     box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(40px);
     font-style: normal;
-    color: #FFFFFF;
+    color: #ffffff;
     border-radius: 10px;
     -moz-border-radius: 10px;
     thead {
@@ -84,7 +92,7 @@
       }
     }
     tr {
-      border-bottom: 1px solid #D7D7D7;
+      border-bottom: 1px solid #d7d7d7;
       &:last-child {
         border-bottom: 0px;
       }
@@ -99,7 +107,7 @@
       }
       .type {
         img {
-          margin-right: 15px
+          margin-right: 15px;
         }
       }
       .date {

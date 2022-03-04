@@ -1,12 +1,18 @@
-import { Button, Icon, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import { useState } from "react";
+import {
+  Button,
+  Icon,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react"
+import { useState } from "react"
 import * as Icons from "react-feather"
 
 const Sort = (props) => {
+  const { customClassName, options, onSelectOption } = props
 
-    const { customClassName, options, onSelectOption } = props;
-
-    const [selected, setSelected] = useState(options[0])
+  const [selected, setSelected] = useState(options[0])
 
     const handleSort = async (event) => {
         const selected = event.target.value
@@ -15,7 +21,8 @@ const Sort = (props) => {
         setSelected(optionSelect[0])
     }
 
-    return <div className={`select-sort ${customClassName}`}>
+    return (
+    <div className={`select-sort ${customClassName}`}>
         <Menu>
             <MenuButton minWidth='200px' as={Button} className="select-button"
                 rightIcon={<Icon as={Icons.ChevronDown} />}
@@ -45,6 +52,7 @@ const Sort = (props) => {
             </MenuList>
         </Menu>
     </div>
+  )
 }
 
-export default Sort;
+export default Sort

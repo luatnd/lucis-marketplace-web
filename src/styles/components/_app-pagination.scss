@@ -1,0 +1,74 @@
+.app-pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: 100%;
+  .page-list {
+    display: flex;
+    margin: 0 10px;
+    button:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+  .page-button {
+    font-size: 16px;
+    min-width: unset;
+    @include to(md) {
+      width: 30px;
+      height: 30px;
+      font-size: 15px;
+    }
+    @include to(sm) {
+      width: 30px;
+      height: 30px;
+    }
+    @include to(sm) {
+      padding: 0;
+      width: 25px;
+      height: 25px;
+    }
+  }
+  .active {
+    background: rgba(white, 0.2);
+  }
+  .page-size-button {
+    margin-left: 10px;
+    @include to(md) {
+      height: 30px;
+      font-size: 12px;
+    }
+    @include to(sm) {
+      display: none;
+    }
+  }
+  .dot-button {
+    background: transparent;
+    transition: 1s;
+    svg {
+      display: none;
+      animation: fadein 0.5s;
+    }
+    &:hover {
+      span {
+        display: none;
+      }
+      svg {
+        display: block;
+      }
+    }
+    @include to(md) {
+      width: 30px;
+      height: 30px;
+      font-size: 15px;
+    }
+    @include to(sm) {
+      width: 30px;
+      height: 30px;
+    }
+    @include to(sm) {
+      padding: 0;
+      width: 25px;
+      height: 25px;
+    }
+  }
+}

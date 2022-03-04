@@ -1,4 +1,4 @@
-import { AuctionItem } from "./AutionItem"
+import { AuctionItem } from "./AuctionItem"
 import { HomeSection } from "./HomeSection"
 
 export const HotAuctions = () => {

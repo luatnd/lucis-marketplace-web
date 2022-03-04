@@ -1,4 +1,4 @@
-import { Table} from "antd"
+import { Table } from "antd"
 import { Search } from "./Search"
 export const RankingList = () => {
   const columns = [
@@ -6,7 +6,7 @@ export const RankingList = () => {
       title: "STT",
       dataIndex: "key",
       className: "left",
-      width:"5%"
+      width: "5%",
     },
     {
       title: "Collection",
@@ -15,7 +15,7 @@ export const RankingList = () => {
       width: "30%",
       render: (text, record, index) => (
         <>
-          <img src={"/common/nft/item"+index+".png"} alt="" /> <p>{text}</p>
+          <img src={"/common/nft/item" + index + ".png"} alt="" /> <p>{text}</p>
         </>
       ),
     },
@@ -155,7 +155,7 @@ export const RankingList = () => {
   return (
     <div className="ranking-list">
       <h1>nft ranking</h1>
-      <Search/>
+      <Search />
       <Table
         className="container"
         columns={columns}

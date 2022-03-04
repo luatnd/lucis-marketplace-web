@@ -1,0 +1,10 @@
+.app-table {
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

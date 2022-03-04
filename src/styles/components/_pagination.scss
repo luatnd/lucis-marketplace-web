@@ -1,89 +1,89 @@
 .pagination-container {
-    margin-top: 45px;
-    margin-bottom: 160px;
+  margin-top: 45px;
+  margin-bottom: 160px;
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+  .pagination-content {
     display: flex;
     list-style-type: none;
     justify-content: center;
-    .pagination-content{
-        display: flex;
-        list-style-type: none;
-        justify-content: center;
-        .pagination-item {
-            padding: 0 12px;
-            height: 32px;
-            text-align: center;
-            margin: auto 4px;
-            display: flex;
-            box-sizing: border-box;
-            align-items: center;
-            letter-spacing: 0.01071em;
-            border-radius: 16px;
-            font-size: 20px;
-            line-height: 31px;
-            min-width: 32px;
-            color: #FFFFFF;
-            opacity: 0.5;
-            &.dots:hover {
-                background-color: transparent;
-                cursor: default;
-            }
-    
-            &:hover {
-                background-color: rgba(0, 0, 0, 0.04);
-                cursor: pointer;
-            }
-    
-            &.selected {
-                color: #FFFFFF;
-                opacity: 1;
-            }
-    
-            .arrow {
-                &::before {
-                    position: relative;
-                    content: '';
-                    display: inline-block;
-                    width: 0.6em;
-                    height: 0.6em;
-                    border-right: 0.12em solid #FFFFFF;
-                    border-top: 0.12em solid #FFFFFF;
-                    opacity: 1;
-                }
-    
-                &.left {
-                    transform: rotate(-135deg) translate(-50%);
-                }
-    
-                &.right {
-                    transform: rotate(45deg);
-                }
-            }
-    
-            &.disabled {
-                pointer-events: none;
-    
-                .arrow::before {
-                    border-right: 0.12em solid #FFFFFF;
-                    border-top: 0.12em solid #FFFFFF;
-                    opacity: 0.5;
-                }
-    
-                &:hover {
-                    background-color: transparent;
-                    cursor: default;
-                }
-            }
+    .pagination-item {
+      padding: 0 12px;
+      height: 32px;
+      text-align: center;
+      margin: auto 4px;
+      display: flex;
+      box-sizing: border-box;
+      align-items: center;
+      letter-spacing: 0.01071em;
+      border-radius: 16px;
+      font-size: 20px;
+      line-height: 31px;
+      min-width: 32px;
+      color: #ffffff;
+      opacity: 0.5;
+      &.dots:hover {
+        background-color: transparent;
+        cursor: default;
+      }
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+        cursor: pointer;
+      }
+
+      &.selected {
+        color: #ffffff;
+        opacity: 1;
+      }
+
+      .arrow {
+        &::before {
+          position: relative;
+          content: "";
+          display: inline-block;
+          width: 0.6em;
+          height: 0.6em;
+          border-right: 0.12em solid #ffffff;
+          border-top: 0.12em solid #ffffff;
+          opacity: 1;
         }
+
+        &.left {
+          transform: rotate(-135deg) translate(-50%);
+        }
+
+        &.right {
+          transform: rotate(45deg);
+        }
+      }
+
+      &.disabled {
+        pointer-events: none;
+
+        .arrow::before {
+          border-right: 0.12em solid #ffffff;
+          border-top: 0.12em solid #ffffff;
+          opacity: 0.5;
+        }
+
+        &:hover {
+          background-color: transparent;
+          cursor: default;
+        }
+      }
     }
-    .page-size {
-        background: transparent;
-        font-size: 20px;
-        line-height: 31px;
-        text-align: center;
-        color: #FFFFFF;
-        opacity: 0.5;
-        border:0px;
-        outline:0px;
-        width: 150px;
-    }
+  }
+  .page-size {
+    background: transparent;
+    font-size: 20px;
+    line-height: 31px;
+    text-align: center;
+    color: #ffffff;
+    opacity: 0.5;
+    border: 0px;
+    outline: 0px;
+    width: 150px;
+  }
 }

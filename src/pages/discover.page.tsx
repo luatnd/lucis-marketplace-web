@@ -1,6 +1,6 @@
 import { Center, Grid, SimpleGrid, Wrap, WrapItem } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import { AuctionItem } from "../components/Home/AutionItem"
+import { AuctionItem } from "../components/Home/AuctionItem"
 import { HomeSection } from "../components/Home/HomeSection"
 import { Listing } from "../components/Home/Listing"
 import Pagination from "../components/Pagination"
