@@ -1,4 +1,4 @@
-import { Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Th, Thead, Tr, Button, Icon } from "@chakra-ui/react"
+import { Table, Tbody, Td, Th, Thead, Tr, Button, Icon } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import { Listing } from "../components/Home/Listing"
 import activities from './data/activities.json'
@@ -34,8 +34,32 @@ const ActivitiesPage = () => {
   
   const priceSort = [
     {
-      'img': '/icons/bnb-logo.png',
+      'img': '/common/bnb-logo.png',
       'name': 'BNB Chain'
+    },
+    {
+      'img': '/common/walletConnect.png',
+      'name': 'WalletConnect'
+    },
+    {
+      'img': '/common/ethereum.png',
+      'name': 'Ethereum'
+    },
+    {
+      'img': '/common/celo.png',
+      'name': 'Celo'
+    },
+    {
+      'img': '/common/aurora.png',
+      'name': 'Aurora'
+    },
+    {
+      'img': '/common/arbitrum.png',
+      'name': 'Arbitrum'
+    },
+    {
+      'img': '/common/fantom.png',
+      'name': 'Fantom'
     }
   ]
   const typeSort = [
@@ -68,6 +92,7 @@ const ActivitiesPage = () => {
       <Sort
         customClassName="price-sort"
         options={priceSort}
+        onSelectOption={sort => {}}
       />
       <Sort
         customClassName="type-sort"
