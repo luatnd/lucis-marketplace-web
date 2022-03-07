@@ -55,6 +55,7 @@
       margin: auto;
       margin-bottom: 56px;
       button {
+        transition: all 1s;
         width: 20%;
         font-weight: 500;
         font-size: 24px;
@@ -103,45 +104,45 @@
           justify-items: flex-end;
         }
       }
-      .offering-auction {
-        .list {
-          margin-top: 35px;
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          grid-row-gap: 20px;
-          grid-column-gap: 24px;
+    }
+    .offering-auction {
+      .list {
+        margin-top: 35px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 20px;
+        grid-column-gap: 24px;
+      }
+    }
+    .offering-make {
+      margin-top: 40px;
+      .item{
+        display: flex;
+        align-items: center;
+        img{
+          width: 50px;
+          margin-right: 17px;
+        }
+        div{
+          p{
+            img{
+              display: inline-block;
+              width: 10px;
+              margin-left: 7px;
+            }
+          }
         }
       }
-      .offering-make {
-        .list {
-          height: 100px;
-          margin-top: 40px;
-          border-radius: 10px;
-          border: 1px solid #d7d7d7;
-          background: linear-gradient(
-            126.08deg,
-            rgba(255, 255, 255, 0.3) 13.84%,
-            rgba(255, 255, 255, 0.1) 74.14%
-          );
-          box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.2);
-          backdrop-filter: blur(40px);
-          width: 100%;
-          display: grid;
-          grid-template-columns: repeat(7, 1fr);
-          padding-left: 33px;
-          padding-top: 32px;
-          .title.item {
-            grid-column: 1 / span 2;
-          }
-          .title {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 29px;
-          }
+      .button {
+        button {
+          border: 1px solid linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
+          padding: 3px 25px;
+          border-radius: 8px;
         }
       }
     }
-    .tab-collected {
+    .tab-collected,
+    .tab-favorite {
       .sort {
         display: flex;
         justify-content: flex-end;
@@ -182,9 +183,149 @@
         }
       }
     }
+    .tab-on-sale {
+      .tab-os {
+        position: relative;
+        .header-tab {
+          display: flex;
+          justify-content: flex-start !important;
+          margin: 0;
+          right: 0;
+          button {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 28px;
+            text-align: center;
+            text-transform: uppercase;
+            color: #0BEBD6;
+            width: auto;
+          }
+        }
+        .sort {
+          display: flex;
+          position: absolute;
+          top: 0px;
+          right: 0;
+        }
+        .table-activity {
+          margin-top: 35px;
+          table {
+            thead {
+
+            }
+            tbody {
+              tr {
+                td {
+                  .name-item {
+                    margin-left: 10px;
+                    .animverse {
+                      display: flex;
+                      align-items: center;
+                      color: #0BEBD6;
+                      svg {
+                        height: 15px;
+                        margin-left: 5px;
+                      }
+                    }
+                  }
+                  button {
+                    width: 100px;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 25px;
+                    text-align: justify;
+                    color: #FFFFFF;
+
+                    &.accept {
+                      background: linear-gradient(99.92deg, #CD28E8 0%, #0BEBD6 100%);
+                      border-radius: 8px;
+                      margin-right: 8px;
+                    }
+                    &.cancel {
+                      border-radius: 8px;
+                      border: solid 1px transparent!important;
+                      background-image: linear-gradient(300deg, #78e4ff, #ff48fa);
+                      background-origin: border-box;
+                      box-shadow: 2px 1000px 1px #353571 inset!important;
+                      &:focus {
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .tab-activities {
+      margin-top: 40px;
+      tbody {
+        tr {
+          .date {
+            img {
+              display: inline-block;
+              margin-left: 8px;
+              vertical-align: middle;
+              cursor: pointer;
+            }
+          }
+          .item {
+            img {
+              display: inline-block;
+              padding: 6x 13px;
+              background: rgba(125, 117, 208, 0.5);
+              border-radius: 8px;
+              margin-right: 17px;
+              vertical-align: middle;
+            }
+          }
+        }
+      }
+      .nodata {
+        margin: auto;
+        margin-top: 70px;
+        width: 50%;
+        max-width: 600px;
+        margin-bottom: 100px;
+      }
+    }
   }
 }
 .algin-center {
   display: flex;
   align-items: center;
+}
+.dialog-confirm {
+  background: linear-gradient(126.08deg, rgba(255, 255, 255, 0.3) 13.84%, rgba(255, 255, 255, 0.2) 74.14%)!important;
+  box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(40px);
+  border-radius: 10px !important;
+  header {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 38px;
+    color: #FFFFFF;
+    &::after {
+      border-bottom: 1px solid rgba(147, 147, 147, 0.5);
+      content: "";
+      width: 100%;
+      background: #808080;
+      display: block;
+    }
+  }
+  footer {
+    justify-content: center;
+    button {
+      background: linear-gradient(99.92deg, #CD28E8 0%, #0BEBD6 100%);
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 38px;
+      text-align: center;
+      color: #FFFFFF;
+      width: 130px;
+      height: 40px;
+    }
+  }
 }
