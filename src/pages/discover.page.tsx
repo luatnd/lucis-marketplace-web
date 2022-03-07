@@ -112,7 +112,7 @@ const DiscoverPage = () => {
           onPageSizeChange={(pageSize) => setPageSize(pageSize)}
         />
     </div>
-  )
+  </div>
 }
 
-export default DiscoverPage
+export default DiscoverPage;
