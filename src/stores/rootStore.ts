@@ -1,8 +1,10 @@
 import { createContext } from "react"
 import { AuthStore } from "./AuthStore"
+import { NftStore } from "./NftStore"
 
 export const stores = {
   AuthStore: new AuthStore(),
+  NftStore: new NftStore(),
 }
 
 export const rootStore = Object.freeze(stores)
