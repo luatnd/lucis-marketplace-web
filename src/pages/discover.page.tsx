@@ -77,47 +77,40 @@ const DiscoverPage = () => {
     setData(auctions.slice(firstPageIndex, lastPageIndex))
   }, [currentPage, pageSize, sort])
 
-  return <div className="discover-page">
-    <Listing />
-    <h1 className="discover">Discover</h1>
-    <div className="discover-sort">
-      <p>{auctions.length} items listed</p>
-      <div className="sorts">
-        <Sort
-          customClassName="price-sort"
-          options={priceSort}
-        />
-        <Sort
-          customClassName="type-sort"
-          options={typeSort}
-        />
-        <Sort
-          customClassName="price-to-sort"
-          options={priceTo}
+  return (
+    <div className="discover-page">
+      <Listing />
+      <h1 className="discover">Discover</h1>
+      <div className="discover-sort">
+        <p>{auctions.length} items listed</p>
+        <div className="sorts">
+          <Sort customClassName="price-sort" options={priceSort} />
+          <Sort customClassName="type-sort" options={typeSort} />
+          <Sort customClassName="price-to-sort" options={priceTo} />
+        </div>
+        <div className="grid-custom">
+          {data.map((auction, index) => (
+            <div className="grid-item" key={index}>
+              <AuctionItem
+                key={auction.id}
+                name={auction.name}
+                image={auction.image}
+                provider={auction.provider}
+                endTime={auction.endTime}
+                price={auction.price}
+              />
+            </div>
+          ))}
+        </div>
+        <Pagination
+          className="pagination-bar"
+          currentPage={currentPage}
+          totalCount={totalData}
+          pageSize={pageSize}
+          onPageChange={(page) => setCurrentPage(page)}
+          onPageSizeChange={(pageSize) => setPageSize(pageSize)}
         />
       </div>
-      <div className="grid-custom">
-        {data.map((auction, index) => (
-          <div className="grid-item" key={index}>
-            <AuctionItem
-              key={auction.id}
-              name={auction.name}
-              image={auction.image}
-              provider={auction.provider}
-              endTime={auction.endTime}
-              price={auction.price}
-            />
-          </div>
-        ))}
-      </div>
-      <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={totalData}
-        pageSize={pageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-        onPageSizeChange={(pageSize) => setPageSize(pageSize)}
-      />
     </div>
   </div>
 }

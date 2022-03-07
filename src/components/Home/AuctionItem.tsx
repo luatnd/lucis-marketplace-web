@@ -9,8 +9,8 @@ interface IProps {
   image?: string
   provider?: string
   endTime?: string
-  price?: number,
-  auction?: boolean,
+  price?: number
+  auction?: boolean
   activeBtn?: boolean
 }
 
@@ -32,13 +32,11 @@ export const AuctionItem = (props: IProps) => {
             <Verified />
           </div>
           <div>
-            {
-              auction != undefined && auction ? (
-                <img src="/icons/auction.png" alt="" />
-              ) : (
-                <img src="/icons/dollar.png" alt="" />
-              )
-            }
+            {auction != undefined && auction ? (
+              <img src="/icons/auction.png" alt="" />
+            ) : (
+              <img src="/icons/dollar.png" alt="" />
+            )}
           </div>
         </div>
         <span className="name">{name}</span>
@@ -50,11 +48,7 @@ export const AuctionItem = (props: IProps) => {
           <span>
             <BNBSymbol /> {price}
           </span>
-          {
-            (!activeBtn) && (
-              <Button size="sm">AUC</Button>
-            )
-          }
+          {!activeBtn && <Button size="sm">AUC</Button>}
         </div>
       </div>
     </div>

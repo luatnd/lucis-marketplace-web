@@ -4,18 +4,16 @@
   background-size: cover;
   background-position: center;
   .header {
-    background: rgba(40, 38, 54, 0.4);
+    background: #180f5c;
     display: flex;
     justify-content: center;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 99;
-    @include blurBackUnder(50px);
     .header-container {
       @include container;
-      height: 80px;
-      padding: 10px 0;
+      height: 120px;
       margin: 0 20px;
       display: flex;
       justify-content: space-between;
@@ -29,6 +27,7 @@
         animation: slideInLeft 0.5s;
         .logo {
           height: 60%;
+          object-fit: contain;
           cursor: pointer;
         }
         .nav-bar {
@@ -36,9 +35,11 @@
           margin-left: 30px;
           .nav-item {
             background: none;
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 18px;
             transition: 0.5s;
+            @include to(lg) {
+              font-size: 13px;
+            }
           }
           .nav-list {
             position: relative;
@@ -62,42 +63,41 @@
         height: 100%;
         display: flex;
         align-items: center;
+        justify-content: flex-end;
         animation: slideInRight 0.5s;
-        .search-button {
-          font-size: 30px;
-          cursor: pointer;
-        }
-        .search-button {
-          font-size: 30px;
-          transition: 0.2s;
-          &:hover {
-            transform: scale(1.2);
+        .search-bar {
+          margin-left: 20px;
+          @include to(md) {
+            display: none;
+          }
+          background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
+          border-radius: 16px;
+          padding: 1px;
+          width: 100%;
+          input {
+            border-radius: 16px;
+            background: #180f5c;
+            border: none !important;
+            &:focus {
+              box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4) !important;
+            }
           }
         }
         .noti-button {
           margin-left: 20px;
-          font-size: 30px;
+          font-size: 40px;
           transition: 0.2s;
           cursor: pointer;
-          &:hover {
-            transform: scale(1.2);
-            animation: swing 1s;
-          }
         }
         .user {
-          font-size: 30px;
-          margin: 0 20px;
-          border: 2px solid $white;
-          border-radius: 100%;
+          font-size: 50px;
+          margin-left: 20px;
           cursor: pointer;
           transition: 0.2s;
-          &:hover {
-            transform: scale(1.2);
-          }
         }
         .menu-button {
-          margin-right: 20px;
-          font-size: 20px;
+          margin-left: 20px;
+          font-size: 30px;
           cursor: pointer;
           @include from(md) {
             display: none;
@@ -108,7 +108,7 @@
   }
   .content {
     min-height: calc(100vh - 130px);
-    padding: 80px 20px 20px 20px;
+    padding: 120px 20px 20px 20px;
     display: flex;
     justify-content: center;
     overflow: hidden;
@@ -116,8 +116,6 @@
   .footer {
     display: flex;
     justify-content: center;
-    background: rgba(40, 38, 54, 0.4);
-    @include blurBack(40px);
     .footer-body {
       @include container;
       margin: 0 25px;
@@ -184,7 +182,7 @@
               margin-right: 20px;
             }
             &:hover {
-              color: $purple3;
+              color: $purple2;
             }
             @include lg {
               font-size: 20px;
@@ -220,29 +218,6 @@
   }
 }
 
-.spotlight {
-  margin: 150px 20px !important;
-  border-radius: 10px !important;
-  animation: pulse 0.5s;
-  background: transparent !important;
-  @include blurBack(50px);
-  input {
-    background: rgba($dark-purple, 0.5);
-    border-radius: 10px;
-    border: none;
-    font-size: 30px;
-    height: 80px;
-    padding-right: 80px;
-  }
-  .chakra-input__right-element {
-    height: 100%;
-    font-size: 30px;
-    margin-right: 20px;
-  }
-}
-.spotlight-overlay {
-  @include blurBack(5px);
-}
 .mobile-menu {
   background: linear-gradient(
     121.07deg,
@@ -257,6 +232,10 @@
   }
   .mobile-menu-body {
     width: 100%;
+    .search-bar {
+      border-radius: 16px;
+      margin-bottom: 10px;
+    }
     .mobile-menu-stack {
       margin-bottom: 20px;
       .mobile-menu-nav {

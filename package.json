@@ -43,6 +43,7 @@
     "react-select": "^5.2.2",
     "react-slick": "^0.28.1",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.4.4",
     "web3modal": "^1.9.5"
   },
   "devDependencies": {

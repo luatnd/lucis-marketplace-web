@@ -20,6 +20,9 @@
       font-weight: 600;
     }
   }
+  .chakra-tabs__tab-panel {
+    animation: fadeUp 0.5s;
+  }
 }
 
 .chakra-table {
@@ -63,4 +66,13 @@
     rgba(255, 255, 255, 0.2) 73.85%
   ) !important;
   @include blurBack(20px);
+}
+
+.chakra-input,
+.chakra-button,
+.chakra-modal__close-btn {
+  &:focus {
+    box-shadow: none !important;
+    border-color: white !important;
+  }
 }

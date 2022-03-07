@@ -1,34 +1,34 @@
 [
-    {
-        "img": "/common/all-network.png",
-        "name": "All network"
-    },
-    {
-        "img": "/common/bnb-logo.png",
-        "name": "BNB Chain"
-    },
-    {
-        "img": "/common/walletConnect.png",
-        "name": "WalletConnect"
-    },
-    {
-        "img": "/common/ethereum.png",
-        "name": "Ethereum"
-    },
-    {
-        "img": "/common/celo.png",
-        "name": "Celo"
-    },
-    {
-        "img": "/common/aurora.png",
-        "name": "Aurora"
-    },
-    {
-        "img": "/common/arbitrum.png",
-        "name": "Arbitrum"
-    },
-    {
-        "img": "/common/fantom.png",
-        "name": "Fantom"
-    }
+  {
+    "img": "/common/all-network.png",
+    "name": "All network"
+  },
+  {
+    "img": "/common/bnb-logo.png",
+    "name": "BNB Chain"
+  },
+  {
+    "img": "/common/walletConnect.png",
+    "name": "WalletConnect"
+  },
+  {
+    "img": "/common/ethereum.png",
+    "name": "Ethereum"
+  },
+  {
+    "img": "/common/celo.png",
+    "name": "Celo"
+  },
+  {
+    "img": "/common/aurora.png",
+    "name": "Aurora"
+  },
+  {
+    "img": "/common/arbitrum.png",
+    "name": "Arbitrum"
+  },
+  {
+    "img": "/common/fantom.png",
+    "name": "Fantom"
+  }
 ]

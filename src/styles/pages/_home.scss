@@ -79,7 +79,9 @@
       }
     }
     .slick-slider {
+      width: calc(100% + 20px);
       margin-top: 25px;
+      margin-left: -10px;
       .slick-list {
         .slick-track {
           .slick-slide > div {
@@ -96,10 +98,10 @@
       width: 50px;
     }
     .arrow-prev {
-      right: 60px;
+      right: 70px;
     }
     .arrow-next {
-      right: 0;
+      right: 10px;
     }
   }
   .banners,

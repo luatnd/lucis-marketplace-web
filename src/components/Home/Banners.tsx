@@ -26,7 +26,7 @@ export const Banners = () => {
 
   return (
     <div className="banners">
-      <Marquee speed={100} gradient={false}>
+      <Marquee speed={50} gradient={false}>
         {items.map((item, index) => (
           <Link key={item.key} href={"/nft/" + item.key}>
             <div
