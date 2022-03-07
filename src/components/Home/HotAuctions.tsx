@@ -100,6 +100,7 @@ export const HotAuctions = () => {
             provider={auction.provider}
             endTime={auction.endTime}
             price={auction.price}
+            auction={true}
           />
         ))}
       </HomeSection>

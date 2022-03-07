@@ -10,6 +10,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: true,
     },
     {
       id: "2",
@@ -18,6 +19,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: false,
     },
     {
       id: "3",
@@ -26,6 +28,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: true,
     },
     {
       id: "4",
@@ -34,6 +37,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: false,
     },
     {
       id: "5",
@@ -42,6 +46,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: false,
     },
     {
       id: "6",
@@ -50,6 +55,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: true,
     },
     {
       id: "7",
@@ -58,6 +64,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: false,
     },
     {
       id: "8",
@@ -66,6 +73,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: true,
     },
     {
       id: "9",
@@ -74,6 +82,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: false,
     },
     {
       id: "10",
@@ -82,6 +91,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: true,
     },
     {
       id: "11",
@@ -90,6 +100,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: false,
     },
     {
       id: "12",
@@ -98,6 +109,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: true,
     },
     {
       id: "13",
@@ -106,6 +118,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: false,
     },
     {
       id: "14",
@@ -114,6 +127,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: true,
     },
     {
       id: "15",
@@ -122,6 +136,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: false,
     },
     {
       id: "16",
@@ -130,6 +145,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: true,
     },
     {
       id: "17",
@@ -138,6 +154,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: false,
     },
     {
       id: "18",
@@ -146,6 +163,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: true,
     },
     {
       id: "19",
@@ -154,6 +172,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: false,
     },
     {
       id: "20",
@@ -162,6 +181,7 @@ export const Discover = () => {
       provider: "Animverse",
       endTime: "2022-03-15T00:00:00",
       price: 0.99,
+      aution: true,
     },
   ]
 
@@ -181,6 +201,7 @@ export const Discover = () => {
             provider={auction.provider}
             endTime={auction.endTime}
             price={auction.price}
+            auction={auction.aution}
           />
         ))}
       </HomeSection>

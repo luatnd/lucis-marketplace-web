@@ -33,7 +33,7 @@ const DetailsPage = () => {
 
   useEffect(() => {
     setNft(NftStore.nft)
-  })
+  }, [])
 
   const detailsStats = [
     {
@@ -244,10 +244,7 @@ const DetailsPage = () => {
                   <Button>BUY</Button>
                 </>
               )}
-              <span style={nft?.auction && { visibility: "hidden" }}>
-                {" "}
-                Or make offer other price
-              </span>
+              {nft?.auction ? <span>Or make offer other price</span> : null}
             </div>
           </div>
         </div>
