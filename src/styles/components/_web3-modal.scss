@@ -1,0 +1,4 @@
+.web3modal-modal-lightbox {
+  z-index: 99 !important;
+  @include blurBack(10px);
+}

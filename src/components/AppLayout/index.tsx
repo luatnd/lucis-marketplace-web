@@ -15,12 +15,17 @@ import {
   Stack,
 } from "@chakra-ui/react"
 import BellIcon from "@static/icons/noti.svg"
-import UserIcon from "@static/icons/user.svg"
+import { observer } from "mobx-react-lite"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
+import { useStore } from "src/hooks/useStore"
+import { UserTray } from "../UserTray"
 
-export const AppLayout = ({ children }) => {
+export const AppLayout = observer(({ children }) => {
+  const WalletController = useStore("WalletController")
+  const { web3Provider } = WalletController
+
   const [canScroll, setCanScroll] = useState(false)
   useEffect(() => {
     window.onscroll = () => {
@@ -199,7 +204,7 @@ export const AppLayout = ({ children }) => {
       <div className="header-container">
         <div className="nav-left">
           <Link href="/">
-            <img src="/common/logo.png" className="logo" />
+            <img src="/common/logo.svg" className="logo" />
           </Link>
           <div className="nav-bar">
             {navItems.map((nav) => (
@@ -211,7 +216,7 @@ export const AppLayout = ({ children }) => {
                 >
                   {nav.name}
                 </MenuButton>
-                <MenuList className="nav-list">
+                <MenuList>
                   {nav.children.map((child) => (
                     <Link key={child.key} href={child.key}>
                       <MenuItem>{child.name}</MenuItem>
@@ -226,8 +231,8 @@ export const AppLayout = ({ children }) => {
           <div className="search-bar">
             <Input placeholder="Collection/ User/ address" />
           </div>
-          <Icon as={BellIcon} className="noti-button" />
-          <Icon as={UserIcon} className="user chakra-icon" />
+          {web3Provider ? <Icon as={BellIcon} className="noti-button" /> : null}
+          <UserTray />
           <Icon
             as={Icons.Menu}
             className="menu-button"
@@ -243,7 +248,7 @@ export const AppLayout = ({ children }) => {
   const _renderFooter = () => (
     <div className="footer">
       <div className="footer-body">
-        <img src="/common/logo.png" className="footer-logo" />
+        <img src="/common/logo.svg" className="footer-logo" />
         <div className="footer-content">
           <div className="footer-socials">
             {footerSocials.map((nav) => (
@@ -287,4 +292,4 @@ export const AppLayout = ({ children }) => {
       {_renderScrollButton()}
     </div>
   )
-}
+})
