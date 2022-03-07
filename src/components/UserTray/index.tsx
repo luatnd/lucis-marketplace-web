@@ -32,7 +32,7 @@ export const UserTray = observer(() => {
 
     WalletController.connect().then((success) => {
       console.log(
-        "{UserTray.connect} wallet " + (success ? "" : "NOT") + " connected"
+        "{UserTray.connect} wallet" + (success ? "" : " NOT") + " connected"
       )
       clearInterval(connectCountdownInterval)
     })

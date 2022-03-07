@@ -210,10 +210,8 @@ export class WalletController {
   }
 
   async login() {
-    console.log("login")
     const token = this.getAuth()
     if (token) {
-      console.log("token", token)
       apiClient.applyAuth(token)
       return true
     } else {
@@ -232,9 +230,14 @@ export class WalletController {
         url: "/auth/login",
         data: { address: account, sign: signed_hash },
       })
-      const token = res?.data?.data?.token
-      this.setAuth(token)
-      apiClient.applyAuth(token)
+      if (res?.data?.error_code === "") {
+        console.log("login success", res)
+        const token = res?.data?.data?.token
+        this.setAuth(token)
+        apiClient.applyAuth(token)
+        return true
+      }
+      return false
     }
   }
 
@@ -276,6 +279,7 @@ export class WalletController {
       }
 
       this.signer = this.web3Provider.getSigner()
+      console.log("signer", this.signer)
       this.address = await this.signer.getAddress()
       this.network = await this.web3Provider.getNetwork()
       const animTokenContractAddress = process.env.NEXT_PUBLIC_FT_CONTRACT_ADDR
@@ -284,8 +288,11 @@ export class WalletController {
         animTokenContractAddress
       )
       this.balance = ethers.utils.formatEther(balance)
-      await this.login()
-      this.loading = false
+      const res = await this.login()
+      if (res) {
+        this.loading = false
+        return true
+      }
       return false
     } catch (err) {
       console.log("{connectWallet} e: ", err)
