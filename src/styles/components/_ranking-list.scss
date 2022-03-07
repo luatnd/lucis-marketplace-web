@@ -14,5 +14,21 @@
   }
   .chakra-table{
     margin-top: 38px;
+    tbody{
+      tr{
+        .collection {
+          display: flex;
+          align-items: center;
+          img{
+            width: 56px;
+            height: 56px;
+          }
+          span{
+            margin-left: 10px;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
   }
 }

@@ -13,7 +13,7 @@ import {
 import { useState } from "react"
 export const RankingList = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(20)
+  const [pageSize, setPageSize] = useState(10)
   const [time, setTime] = useState("All")
   const [price, setPrice] = useState("All")
   const priceSort = [
@@ -25,9 +25,9 @@ export const RankingList = () => {
     { img: "/common/arbitrum.png", name: "Arbitrum" },
     { img: "/common/fantom.png", name: "Fantom" },
   ]
-  const timeSort=[
-    {img: "", name: "7 days" },
-    {img: "", name: "30 days" },
+  const timeSort = [
+    { img: "", name: "7 days" },
+    { img: "", name: "30 days" },
   ]
   const columns = [
     {
@@ -204,7 +204,7 @@ export const RankingList = () => {
             <Th>24h</Th>
             <Th>7day</Th>
             <Th isNumeric>Floor Price</Th>
-            <Th>Player</Th>
+            <Th isNumeric>Player</Th>
             <Th>Item</Th>
           </Tr>
         </Thead>
@@ -212,18 +212,20 @@ export const RankingList = () => {
           {dataSource.map((data) => (
             <Tr key={data.key}>
               <Td>{data.key}</Td>
-              <Td className="collection">
-                <img
-                  src={"/common/nft/item" + (data.key - 1) + ".png"}
-                  alt=""
-                />{" "}
-                <span>{data.collection}</span>
+              <Td>
+                <div className="collection">
+                  <img
+                    src={"/common/nft/item" + (data.key - 1) + ".png"}
+                    alt=""
+                  />{" "}
+                  <span>{data.collection}</span>
+                </div>
               </Td>
               <Td isNumeric>{data.vol}</Td>
               <Td>{data.day}</Td>
               <Td>{data.week}</Td>
               <Td isNumeric>{data.price}</Td>
-              <Td>{data.player}</Td>
+              <Td isNumeric>{data.player}</Td>
               <Td>{data.item}</Td>
             </Tr>
           ))}
