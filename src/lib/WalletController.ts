@@ -279,7 +279,6 @@ export class WalletController {
       }
 
       this.signer = this.web3Provider.getSigner()
-      console.log("signer", this.signer)
       this.address = await this.signer.getAddress()
       this.network = await this.web3Provider.getNetwork()
       const animTokenContractAddress = process.env.NEXT_PUBLIC_FT_CONTRACT_ADDR

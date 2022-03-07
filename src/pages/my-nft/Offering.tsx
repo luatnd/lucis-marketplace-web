@@ -313,7 +313,10 @@ const Offering = () => {
                     <Td className="item">
                       <img src="/icons/item.png" alt="" />
                       <div>
-                        <p>Animverse <img src="/common/my-nft/check.png" alt="" /></p>
+                        <p>
+                          Animverse{" "}
+                          <img src="/common/my-nft/check.png" alt="" />
+                        </p>
                         <p>CUONG DOLLA NFT</p>
                       </div>
                     </Td>
@@ -321,7 +324,9 @@ const Offering = () => {
                     <Td>Nhi</Td>
                     <Td>in 2 days</Td>
                     <Td>1 days ago</Td>
-                    <Td className="button"><button>Cancel</button></Td>
+                    <Td className="button">
+                      <button>Cancel</button>
+                    </Td>
                   </Tr>
                 ))}
               </Tbody>

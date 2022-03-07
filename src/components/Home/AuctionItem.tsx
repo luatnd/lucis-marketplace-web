@@ -22,16 +22,12 @@ export const AuctionItem = (props: IProps) => {
   const _renderAction = () => {
     if (!activeBtn) {
       if (auction != undefined && auction) {
-         return (
-           <Button size="sm">AUC</Button>
-        )
+        return <Button size="sm">AUC</Button>
       } else {
-         return (
-           <Button size="sm">BUY</Button>
-         )
+        return <Button size="sm">BUY</Button>
       }
-      return (<Button size="sm">AUC</Button>)
-    } 
+      return <Button size="sm">AUC</Button>
+    }
   }
   return (
     <div className="auction-item">
@@ -61,7 +57,7 @@ export const AuctionItem = (props: IProps) => {
           <span>
             <BNBSymbol /> {price} BNB
           </span>
-          { _renderAction() }
+          {_renderAction()}
         </div>
       </div>
     </div>

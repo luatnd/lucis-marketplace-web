@@ -34,6 +34,7 @@ export const UserTray = observer(() => {
       console.log(
         "{UserTray.connect} wallet" + (success ? "" : " NOT") + " connected"
       )
+      if (!success) disconnect()
       clearInterval(connectCountdownInterval)
     })
   }, [])

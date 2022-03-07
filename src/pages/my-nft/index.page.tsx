@@ -255,19 +255,19 @@ const MyNft = () => {
           <h3>My NFT</h3>
           <TabPanels>
             <TabPanel>
-              <Offering/>
+              <Offering />
             </TabPanel>
             <TabPanel>
-              <OnSale/>
+              <OnSale />
             </TabPanel>
             <TabPanel>
               <Collected />
             </TabPanel>
             <TabPanel>
-              <Favorite/>
+              <Favorite />
             </TabPanel>
             <TabPanel>
-              <Activities/>
+              <Activities />
             </TabPanel>
           </TabPanels>
         </Tabs>

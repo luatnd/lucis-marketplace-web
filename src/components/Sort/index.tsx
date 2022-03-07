@@ -15,14 +15,12 @@ const Sort = (props) => {
   const [selected, setSelected] = useState(options[0])
 
   const handleSort = async (event) => {
-      const selected = event.target.value
-      if (onSelectOption != undefined) {
-          onSelectOption(selected)
-      }
-      const optionSelect = options.filter(
-        (item) => item.name == selected && item
-      )
-      setSelected(optionSelect[0])
+    const selected = event.target.value
+    if (onSelectOption != undefined) {
+      onSelectOption(selected)
+    }
+    const optionSelect = options.filter((item) => item.name == selected && item)
+    setSelected(optionSelect[0])
   }
 
   return (

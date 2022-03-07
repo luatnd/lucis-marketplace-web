@@ -200,7 +200,7 @@
         font-weight: 500;
         font-size: 24px;
         line-height: 38px;
-        @include to(sm){
+        @include to(sm) {
           font-size: 20px;
           line-height: 32px;
         }
@@ -210,7 +210,7 @@
         font-size: 14px;
         line-height: 22px;
         margin-bottom: 17px;
-        @include to(sm){
+        @include to(sm) {
           font-size: 13px;
           margin-bottom: 14px;
         }
@@ -221,7 +221,7 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 24px;
-        @include to(sm){
+        @include to(sm) {
           margin-bottom: 20px;
         }
         .left {
@@ -235,7 +235,7 @@
               font-weight: 500;
               font-size: 16px;
               line-height: 26px;
-              @include to(sm){
+              @include to(sm) {
                 font-size: 14px;
                 line-height: 22px;
               }
@@ -249,7 +249,7 @@
           img {
             width: 26px;
             margin-right: 20px;
-            @include to(sm){
+            @include to(sm) {
               width: 22px;
               margin-right: 15px;
             }
@@ -257,7 +257,7 @@
         }
         .chakra-switch {
           height: 22px;
-          @include to(sm){
+          @include to(sm) {
             height: 19px;
           }
           .chakra-switch__track {
@@ -273,7 +273,7 @@
       .code {
         margin-top: 16px;
         margin-bottom: 40px;
-        @include to(sm){
+        @include to(sm) {
           margin-bottom: 36px;
           margin-top: 13px;
         }
@@ -283,7 +283,7 @@
           line-height: 29px;
           text-transform: uppercase;
           margin-bottom: 7px;
-          @include to(sm){
+          @include to(sm) {
             font-size: 16px;
             line-height: 26px;
             margin-bottom: 5px;
@@ -293,7 +293,7 @@
           display: flex;
           .chakra-input {
             height: 48px;
-            @include to(sm){
+            @include to(sm) {
               height: 42px;
             }
           }
@@ -307,7 +307,7 @@
             font-size: 24px;
             line-height: 38px;
             text-transform: uppercase;
-            @include to(sm){
+            @include to(sm) {
               width: 100px;
               font-size: 20px;
               line-height: 32px;
