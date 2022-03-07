@@ -6,7 +6,8 @@ export const Listing = () => {
         <img src="/home/listing-img.png" />
         <div className="listing-content">
           <span className="marquee-content">
-            Animverse sold to <span className="cyan-text">Nhinty </span>
+            <span className="cyan-text">Animverse</span> sold to{" "}
+            <span className="cyan-text">Nhinty </span>
             from <span className="cyan-text">Animverse123456789</span> for
             0,12BNB
           </span>

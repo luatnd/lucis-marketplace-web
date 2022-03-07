@@ -252,8 +252,10 @@ export const AppLayout = observer(({ children }) => {
         <div className="footer-content">
           <div className="footer-socials">
             {footerSocials.map((nav) => (
-              <div key={nav.key} className="footer-social-item">
-                <img src={nav.image} />
+              <div className="footer-socials-item-wrapper">
+                <div key={nav.key} className="footer-social-item">
+                  <img src={nav.image} />
+                </div>
               </div>
             ))}
           </div>

@@ -22,25 +22,31 @@ export const Banners = () => {
       key: "4",
       image: "/home/banners/banner4.png",
     },
+    {
+      key: "5",
+      image: "/home/banners/banner4.png",
+    },
+    {
+      key: "6",
+      image: "/home/banners/banner4.png",
+    },
   ]
 
   return (
-    <div className="banners">
-      <Marquee speed={50} gradient={false}>
-        {items.map((item, index) => (
-          <Link key={item.key} href={"/collection/" + item.key}>
-            <div
-              className={`banner-border ${
-                index % 2 !== 0 ? "even-banner" : ""
-              }`}
-            >
-              <div key={item.key} className="banner">
-                <img src={item.image} className="banner-image" />
+    <div className="banner-wrapper">
+      <div className="banners">
+        <Marquee speed={50} gradientWidth={70} gradientColor={[1, 1, 62]}>
+          {items.map((item) => (
+            <Link key={item.key} href={"/collection/" + item.key}>
+              <div className="banner-border">
+                <div key={item.key} className="banner">
+                  <img src={item.image} className="banner-image" />
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
-      </Marquee>
+            </Link>
+          ))}
+        </Marquee>
+      </div>
     </div>
   )
 }

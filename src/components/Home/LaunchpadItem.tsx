@@ -25,7 +25,9 @@ export const LaunchpadItem = (props: IProps) => {
   return (
     <div className="launchpad-item">
       <div className="launchpad-image">
-        <img src={image} />
+        <div className="image-wrapper">
+          <img src={image} />
+        </div>
       </div>
       <span className={isOnGoing ? "on-going" : "up-coming"}>
         {isOnGoing ? "Ongoing" : "Upcoming"}
