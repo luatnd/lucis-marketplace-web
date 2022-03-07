@@ -24,7 +24,7 @@ import { UserTray } from "../UserTray"
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
-  const { web3Provider } = WalletController
+  const { token } = WalletController
 
   const [canScroll, setCanScroll] = useState(false)
   useEffect(() => {
@@ -231,7 +231,7 @@ export const AppLayout = observer(({ children }) => {
           <div className="search-bar">
             <Input placeholder="Collection/ User/ address" />
           </div>
-          {web3Provider ? <Icon as={BellIcon} className="noti-button" /> : null}
+          {token ? <Icon as={BellIcon} className="noti-button" /> : null}
           <UserTray />
           <Icon
             as={Icons.Menu}
@@ -252,8 +252,8 @@ export const AppLayout = observer(({ children }) => {
         <div className="footer-content">
           <div className="footer-socials">
             {footerSocials.map((nav) => (
-              <div className="footer-socials-item-wrapper">
-                <div key={nav.key} className="footer-social-item">
+              <div key={nav.key} className="footer-socials-item-wrapper">
+                <div className="footer-social-item">
                   <img src={nav.image} />
                 </div>
               </div>

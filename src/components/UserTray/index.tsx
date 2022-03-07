@@ -1,5 +1,4 @@
 import {
-  Button,
   Icon,
   Menu,
   MenuButton,
@@ -9,15 +8,15 @@ import {
 } from "@chakra-ui/react"
 import UserIcon from "@static/icons/user.svg"
 import { observer } from "mobx-react"
+import Link from "next/link"
 import { useCallback, useEffect, useState } from "react"
 import { useStore } from "src/hooks/useStore"
-import Link from "next/link"
 
 let connectCountdownInterval
 export const UserTray = observer(() => {
   const [cancelVisible, setCancelVisible] = useState(false)
   const WalletController = useStore("WalletController")
-  const { provider, web3Modal, web3Provider, loading } = WalletController
+  const { provider, web3Modal, loading, token } = WalletController
 
   const connect = useCallback(async () => {
     let timeLeft = 60
@@ -61,7 +60,7 @@ export const UserTray = observer(() => {
     WalletController.setListeners(disconnect)
   }, [provider, disconnect])
 
-  return web3Provider ? (
+  return token ? (
     <div className="signed-user">
       <Menu>
         <MenuButton className="user-container">

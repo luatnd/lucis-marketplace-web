@@ -1,7 +1,7 @@
 export class NftStore {
-    nft = null
+  nft = null
 
-    setNft(data: any) {
-        this.nft = data
-    }
+  setNft(data: any) {
+    this.nft = data
+  }
 }

@@ -35,8 +35,16 @@ export const AuctionItem = (props: IProps) => {
   }
 
   const handleRedirect = () => {
-    Router.push('/nft/1')
-    NftStore.setNft({name, image, provider, endTime, price, auction, activeBtn})
+    Router.push("/nft/1")
+    NftStore.setNft({
+      name,
+      image,
+      provider,
+      endTime,
+      price,
+      auction,
+      activeBtn,
+    })
   }
 
   return (
