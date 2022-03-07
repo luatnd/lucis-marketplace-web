@@ -89,31 +89,31 @@ const DiscoverPage = () => {
           <Sort customClassName="price-to-sort" options={priceTo} />
         </div>
       </div>
-        <div className="grid-custom">
-          {data.map((auction, index) => (
-            <div className="grid-item" key={index}>
-              <AuctionItem
-                key={auction.id}
-                name={auction.name}
-                image={auction.image}
-                provider={auction.provider}
-                endTime={auction.endTime}
-                price={auction.price}
-                auction={auction.auction}
-              />
-            </div>
-          ))}
+      <div className="grid-custom">
+        {data.map((auction, index) => (
+          <div className="grid-item" key={index}>
+            <AuctionItem
+              key={auction.id}
+              name={auction.name}
+              image={auction.image}
+              provider={auction.provider}
+              endTime={auction.endTime}
+              price={auction.price}
+              auction={auction.auction}
+            />
+          </div>
+        ))}
       </div>
-        <Pagination
-          className="pagination-bar"
-          currentPage={currentPage}
-          totalCount={totalData}
-          pageSize={pageSize}
-          onPageChange={(page) => setCurrentPage(page)}
-          onPageSizeChange={(pageSize) => setPageSize(pageSize)}
-        />
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={totalData}
+        pageSize={pageSize}
+        onPageChange={(page) => setCurrentPage(page)}
+        onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+      />
     </div>
   )
 }
 
-export default DiscoverPage;
+export default DiscoverPage
