@@ -135,14 +135,20 @@
       }
       .button {
         button {
-          border: 1px solid linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
-          padding: 3px 25px;
+          width: 100px;
+          height: 32px;
+          border: solid 1px transparent !important;
+          background-image: linear-gradient(300deg, #78e4ff, #ff48fa);
+          box-shadow: 2px 1000px 1px #353571 inset !important;
           border-radius: 8px;
         }
       }
     }
     .tab-collected,
     .tab-favorite {
+      .hiden {
+        visibility: hidden;
+      }
       .sort {
         display: flex;
         justify-content: flex-end;
@@ -304,6 +310,8 @@
   align-items: center;
 }
 .dialog-confirm {
+  margin-top: 50vh !important;
+  transform: translateY(-50%) !important;
   background: linear-gradient(
     126.08deg,
     rgba(255, 255, 255, 0.3) 13.84%,

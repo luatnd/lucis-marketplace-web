@@ -6,7 +6,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "hidePrice": true
   },
   {
     "id": "2",
@@ -15,7 +16,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": false
+    "auction": false,
+    "hidePrice": true
   },
   {
     "id": "3",
@@ -24,7 +26,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "hidePrice": true
   },
   {
     "id": "4",
@@ -33,7 +36,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": false
+    "auction": false,
+    "hidePrice": false
   },
   {
     "id": "5",
@@ -42,7 +46,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "hidePrice": true
   },
   {
     "id": "6",
@@ -51,7 +56,9 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": false
+    "auction": false,
+    "hidePrice": false
+    
   },
   {
     "id": "7",
@@ -60,7 +67,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "hidePrice": false
   },
   {
     "id": "8",
@@ -69,7 +77,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": false
+    "auction": false,
+    "hidePrice": false
   },
   {
     "id": "9",
@@ -78,7 +87,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "hidePrice": false
   },
   {
     "id": "10",
@@ -87,7 +97,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "hidePrice": true
   },
   {
     "id": "11",
@@ -96,7 +107,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": false
+    "auction": false,
+    "hidePrice": true
   },
   {
     "id": "12",
@@ -105,7 +117,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": false
+    "auction": false,
+    "hidePrice": false
   },
   {
     "id": "13",
@@ -114,7 +127,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": false
+    "auction": false,
+    "hidePrice": true
   },
   {
     "id": "14",
@@ -123,7 +137,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "hidePrice": true
   },
   {
     "id": "15",
@@ -141,7 +156,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "hidePrice": true
   },
   {
     "id": "17",
@@ -150,7 +166,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "hidePrice": true
   },
   {
     "id": "18",
@@ -159,7 +176,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "hidePrice": true
   },
   {
     "id": "19",
