@@ -4,6 +4,8 @@ import { AuctionItem } from "src/components/Home/AuctionItem"
 import Sort from "src/components/Sort"
 import { useState } from "react"
 import Collected from "./Collected"
+import Favorite from "./Favorite"
+import OnSale from "./OnSale"
 
 const MyNft = () => {
   const [showSort, setShowSort] = useState([false])
@@ -322,13 +324,13 @@ const MyNft = () => {
               </div>
             </TabPanel>
             <TabPanel>
-              <p>two!</p>
+              <OnSale/>
             </TabPanel>
             <TabPanel>
               <Collected />
             </TabPanel>
             <TabPanel>
-              <p>four!</p>
+              <Favorite/>
             </TabPanel>
             <TabPanel>
               <p>five!</p>

@@ -88,6 +88,7 @@ const DiscoverPage = () => {
           <Sort customClassName="type-sort" options={typeSort} />
           <Sort customClassName="price-to-sort" options={priceTo} />
         </div>
+      </div>
         <div className="grid-custom">
           {data.map((auction, index) => (
             <div className="grid-item" key={index}>
@@ -101,7 +102,7 @@ const DiscoverPage = () => {
               />
             </div>
           ))}
-        </div>
+      </div>
         <Pagination
           className="pagination-bar"
           currentPage={currentPage}
@@ -110,7 +111,6 @@ const DiscoverPage = () => {
           onPageChange={(page) => setCurrentPage(page)}
           onPageSizeChange={(pageSize) => setPageSize(pageSize)}
         />
-      </div>
     </div>
   )
 }
