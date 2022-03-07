@@ -307,8 +307,11 @@
   align-items: center;
 }
 .dialog-confirm {
+<<<<<<< HEAD
   margin-top: 50vh !important;
   transform: translateY(-50%) !important;
+=======
+>>>>>>> d32b5a73325cfaac0a1183e7098a9a6eef621b53
   background: linear-gradient(
     126.08deg,
     rgba(255, 255, 255, 0.3) 13.84%,
@@ -328,6 +331,28 @@
       width: 100%;
       background: #808080;
       display: block;
+    }
+  }
+  .form-auction {
+    p {
+      .price {
+        font-size: 18px;
+        line-height: 28px;
+        color: #FFFFFF;
+      }
+    }
+    input {
+      border: 1px solid #D7D7D7;
+      box-sizing: border-box;
+      border-radius: 8px 0 0 8px;
+    }
+    .chakra-input__right-addon {
+      border: 1px solid #D7D7D7;
+    }
+    .desc {
+      font-size: 14px;
+      line-height: 22px;
+      color: #FFFFFF;
     }
   }
   footer {

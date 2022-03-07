@@ -5,7 +5,6 @@
 @import "./components/app-layout";
 @import "./components/app-empty";
 @import "./components/pageSpinner";
-@import "./components/user-tray";
 @import "./components/listing";
 @import "./components/launchpad-item";
 @import "./components/collection-item";
@@ -18,6 +17,7 @@
 @import "./components/pagination";
 @import "./components/sort";
 @import "./components/app-alert";
+@import "./components/web3-modal";
 @import "./pages/error-page";
 @import "./pages/home";
 @import "./pages/nft-details";
@@ -26,6 +26,7 @@
 @import "./pages/discover";
 @import "./pages/nft-ranking";
 @import "./pages/my-nft";
+@import "./pages/setting";
 @import url("https://fonts.googleapis.com/css?family=Saira:100,200,300,400,500,600,700,800,900");
 
 @font-face {

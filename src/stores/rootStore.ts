@@ -1,8 +1,12 @@
+import { WalletController } from "./../lib/WalletController"
 import { createContext } from "react"
 import { AuthStore } from "./AuthStore"
+import { NftStore } from "./NftStore"
 
 export const stores = {
   AuthStore: new AuthStore(),
+  NftStore: new NftStore(),
+  WalletController: new WalletController(),
 }
 
 export const rootStore = Object.freeze(stores)
