@@ -131,7 +131,13 @@ const Activities = () => {
                       <Td>Dong Van Cuong</Td>
                       <Td>0x531b…fFf8</Td>
                       <Td className="date">
-                        1 days ago <img src="/icons/open-new.png" alt="" />
+                        1 days ago{" "}
+                        <a
+                          href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
+                          target={"_blank"}
+                        >
+                          <img src="/icons/open-new.png" alt="" />
+                        </a>
                       </Td>
                     </Tr>
                   ))}
@@ -175,7 +181,13 @@ const Activities = () => {
                       <Td>Dong Van Cuong</Td>
                       <Td>0x531b…fFf8</Td>
                       <Td className="date">
-                        1 days ago <img src="/icons/open-new.png" alt="" />
+                        1 days ago{" "}
+                        <a
+                          href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
+                          target={"_blank"}
+                        >
+                          <img src="/icons/open-new.png" alt="" />
+                        </a>
                       </Td>
                     </Tr>
                   ))}

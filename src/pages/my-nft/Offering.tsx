@@ -15,8 +15,19 @@ import {
   Tr,
   Th,
   Td,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Text,
+  Button,
+  useDisclosure,
 } from "@chakra-ui/react"
 const Offering = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const [price, setPrice] = useState("All")
   const [made, setMade] = useState("All")
   const [currentPage, setCurrentPage] = useState(1)
@@ -313,7 +324,10 @@ const Offering = () => {
                     <Td className="item">
                       <img src="/icons/item.png" alt="" />
                       <div>
-                        <p>Animverse <img src="/common/my-nft/check.png" alt="" /></p>
+                        <p>
+                          Animverse{" "}
+                          <img src="/common/my-nft/check.png" alt="" />
+                        </p>
                         <p>CUONG DOLLA NFT</p>
                       </div>
                     </Td>
@@ -321,7 +335,9 @@ const Offering = () => {
                     <Td>Nhi</Td>
                     <Td>in 2 days</Td>
                     <Td>1 days ago</Td>
-                    <Td className="button"><button>Cancel</button></Td>
+                    <Td className="button">
+                      <button onClick={onOpen}>Cancel</button>
+                    </Td>
                   </Tr>
                 ))}
               </Tbody>
@@ -329,6 +345,23 @@ const Offering = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent className="dialog-confirm">
+          <ModalHeader>Confirm terms</ModalHeader>
+          <ModalCloseButton>
+            <img src="/icons/close.png" />
+          </ModalCloseButton>
+          <ModalBody>
+            <Text mb="1rem">Are you sure you want to cancel the offer ?</Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Approve
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   )
 }
