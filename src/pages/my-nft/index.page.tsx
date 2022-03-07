@@ -2,6 +2,8 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react"
 import Offering from "./Offering"
 import { useState } from "react"
 import Collected from "./Collected"
+import Favorite from "./Favorite"
+import OnSale from "./OnSale"
 import Activities from "./Activities"
 
 const MyNft = () => {
@@ -256,13 +258,13 @@ const MyNft = () => {
               <Offering/>
             </TabPanel>
             <TabPanel>
-              <p>two!</p>
+              <OnSale/>
             </TabPanel>
             <TabPanel>
               <Collected />
             </TabPanel>
             <TabPanel>
-              <p>four!</p>
+              <Favorite/>
             </TabPanel>
             <TabPanel>
               <Activities/>
