@@ -99,6 +99,7 @@ const DiscoverPage = () => {
                 provider={auction.provider}
                 endTime={auction.endTime}
                 price={auction.price}
+                auction={auction.auction}
               />
             </div>
           ))}
@@ -112,7 +113,7 @@ const DiscoverPage = () => {
           onPageSizeChange={(pageSize) => setPageSize(pageSize)}
         />
     </div>
-  </div>
+  )
 }
 
 export default DiscoverPage;
