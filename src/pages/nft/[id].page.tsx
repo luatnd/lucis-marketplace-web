@@ -1,12 +1,23 @@
-import { Button, Icon, Tab, TabList, Tabs } from "@chakra-ui/react"
+import { Button, Icon, Input, InputGroup, InputRightAddon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Tab, TabList, Tabs, Text, useDisclosure } from "@chakra-ui/react"
 import BoxIcon from "@static/icons/item-box.svg"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { ExternalLink, Eye, Heart } from "react-feather"
 import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
 import { AppTable } from "src/components/AppTable"
+import { useStore } from "src/hooks/useStore"
 
 const DetailsPage = () => {
+
+  const NftStore = useStore('NftStore')
+  const [nft, setNft] = useState(null)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  useEffect(() => {
+    setNft(NftStore.nft)
+  })
+
   const detailsStats = [
     {
       key: "Staking Score",
@@ -178,7 +189,9 @@ const DetailsPage = () => {
       <div className="details-card">
         <div className="details-image">
           <img src="/nft-details/nft-details.png" />
+          <Icon as={Heart} className="heart"/>
         </div>
+
         <div className="nft-description">
           8888 NFT Astar Punks derivatives from CryptoPunks built on the Astar
           Network. It focuses on being a gateway and support for artists who
@@ -191,7 +204,7 @@ const DetailsPage = () => {
           <img src="/nft-details/provider.png" />
           <span>Animverse</span>
         </div>
-        <span className="name">CUONG DOLLA NFT</span>
+        <span className="name">{nft?.name}</span>
         <div className="owner">
           <span>Preserved by Hlyman</span>
           <div className="owner-stat">
@@ -203,12 +216,20 @@ const DetailsPage = () => {
           <div className="buy-tray-body">
             <div className="price">
               <span>Price</span>
-              <span>1.000.000 BNB</span>
+              <span>{nft?.price} BNB</span>
               <span>($8.8)</span>
             </div>
             <div className="buy-nav">
-              <Button>Buy</Button>
-              <span>Or make offer other price</span>
+              {
+                nft?.auction ? (
+                  <Button onClick={onOpen}>AUC</Button>
+                ) : (
+                  <>
+                    <Button>BUY</Button>
+                  </>
+                )
+              }
+              <span style={nft?.auction && {'visibility': 'hidden'}}> Or make offer other price</span>
             </div>
           </div>
         </div>
@@ -226,6 +247,32 @@ const DetailsPage = () => {
         </div>
       </div>
     </div>
+  )
+
+  const _renderAuc = () => (
+    <Modal isOpen={isOpen} onClose={onClose} isCentered >
+      <ModalOverlay />
+      <ModalContent className="dialog-confirm">
+        <ModalHeader>Auction</ModalHeader>
+        <ModalCloseButton>
+          <img src="/icons/close.png" />
+        </ModalCloseButton>
+        <ModalBody className="form-auction">
+          <Text className="price">Price</Text>
+          <InputGroup>
+            <Input type='tel' placeholder='Price' colorScheme="#D7D7D7"/>
+            <InputRightAddon children='BNB' />
+          </InputGroup>
+          <Text className="desc">The minium auc price is 0.1785 BNB</Text>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button colorScheme='blue' mr={3} onClick={onClose}>
+            Apply
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   )
 
   const [offset, setOffset] = useState(10)
@@ -253,7 +300,13 @@ const DetailsPage = () => {
           className="filter"
           defaultValue={"1"}
           placeholder="All"
-          options={[{ label: "All", value: "1" }]}
+          options={[
+            { label: "All", value: "1" },
+            { label: "Listing", value: "2" },
+            { label: "Offer", value: "3" },
+            { label: "Auction", value: "4" },
+            { label: "Sale", value: "5" }
+          ]}
         />
       </div>
       <AppTable className="data-table" columns={columns} data={data} />
@@ -271,6 +324,7 @@ const DetailsPage = () => {
     <div className="nft-details">
       {_renderDetails()}
       {_renderTables()}
+      {_renderAuc()}
     </div>
   )
 }

@@ -325,6 +325,28 @@
       display: block;
     }
   }
+  .form-auction {
+    p {
+      .price {
+        font-size: 18px;
+        line-height: 28px;
+        color: #FFFFFF;
+      }
+    }
+    input {
+      border: 1px solid #D7D7D7;
+      box-sizing: border-box;
+      border-radius: 8px 0 0 8px;
+    }
+    .chakra-input__right-addon {
+      border: 1px solid #D7D7D7;
+    }
+    .desc {
+      font-size: 14px;
+      line-height: 22px;
+      color: #FFFFFF;
+    }
+  }
   footer {
     justify-content: center;
     button {
