@@ -167,7 +167,12 @@ export const Discover = () => {
 
   return (
     <div className="discover">
-      <HomeSection heading="DISCOVER" defaultNumber={5} rows={2}>
+      <HomeSection
+        heading="DISCOVER"
+        defaultNumber={5}
+        rows={2}
+        onViewAll="/discover"
+      >
         {auctions.map((auction) => (
           <AuctionItem
             key={auction.id}
