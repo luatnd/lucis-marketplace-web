@@ -336,11 +336,7 @@ const Offering = () => {
                     <Td>in 2 days</Td>
                     <Td>1 days ago</Td>
                     <Td className="button">
-<<<<<<< HEAD
                       <button onClick={onOpen}>Cancel</button>
-=======
-                      <button>Cancel</button>
->>>>>>> d32b5a73325cfaac0a1183e7098a9a6eef621b53
                     </Td>
                   </Tr>
                 ))}

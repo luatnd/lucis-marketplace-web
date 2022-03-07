@@ -55,7 +55,8 @@ const Favorite = () => {
                 endTime={auction.endTime}
                 price={auction.price}
                 auction={auction.auction}
-                activeBtn={true}
+                activeBtn={Math.random() < 0.9}
+                hidePrice={auction.hidePrice}
               />
             </div>
           ))}

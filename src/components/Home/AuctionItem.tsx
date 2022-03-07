@@ -14,10 +14,11 @@ interface IProps {
   price?: number
   auction?: boolean
   activeBtn?: boolean
+  hidePrice?: boolean
 }
 
 export const AuctionItem = (props: IProps) => {
-  const { name, image, provider, endTime, price, auction, activeBtn } = props
+  const { name, image, provider, endTime, price, auction, activeBtn, hidePrice } = props
 
   const { days, hours, seconds, minutes } = useCountdown("2022-03-20T00:00:00")
 
@@ -62,12 +63,11 @@ export const AuctionItem = (props: IProps) => {
         <div className="end-in">
           <span>END IN</span> {moment(endTime).format("HH:mm:ss")}
         </div>
-
-        <div className="price">
-          <span>
-            <BNBSymbol /> {price} BNB
-          </span>
-          {_renderAction()}
+        <div className={`price ${hidePrice && ('hiden')}`}>
+            <span>
+              <BNBSymbol /> {price} BNB
+            </span>
+            {_renderAction()}
         </div>
       </div>
     </div>

@@ -146,6 +146,9 @@
     }
     .tab-collected,
     .tab-favorite {
+      .hiden {
+        visibility: hidden;
+      }
       .sort {
         display: flex;
         justify-content: flex-end;
@@ -307,11 +310,8 @@
   align-items: center;
 }
 .dialog-confirm {
-<<<<<<< HEAD
   margin-top: 50vh !important;
   transform: translateY(-50%) !important;
-=======
->>>>>>> d32b5a73325cfaac0a1183e7098a9a6eef621b53
   background: linear-gradient(
     126.08deg,
     rgba(255, 255, 255, 0.3) 13.84%,
