@@ -33,7 +33,7 @@ export const AppTable = (props: IProps) => {
               {columns?.map((column, index) => (
                 <Td key={index}>
                   {column?.render
-                    ? column.render(item[`${column?.dataIndex}`] ?? null)
+                    ? column.render(item ?? null)
                     : item[`${column?.dataIndex}`] ?? null}
                 </Td>
               ))}

@@ -374,7 +374,7 @@ const DetailsPage = () => {
     </Modal>
   )
 
-  const [offset, setOffset] = useState(10)
+  const [offset, setOffset] = useState(0)
   const [pageSize, setPageSize] = useState(5)
   const [total, setTotal] = useState(21)
 
@@ -399,6 +399,7 @@ const DetailsPage = () => {
           className="filter"
           defaultValue={"1"}
           placeholder="All"
+          isSearchable={false}
           options={[
             { label: "All", value: "1" },
             { label: "Listing", value: "2" },

@@ -1,6 +1,6 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import { Listing } from "../components/Home/Listing"
+import { ListingBar } from "../components/Home/ListingBar"
 import Pagination from "../components/Pagination"
 import Sort from "../components/Sort"
 import activities from "./data/activities.json"
@@ -93,7 +93,7 @@ const ActivitiesPage = () => {
 
   return (
     <div className="activities-page">
-      <Listing />
+      <ListingBar />
       <h1 className="activities">Activities</h1>
       <div className="sort">
         <Sort customClassName="price-sort" options={priceSort} />

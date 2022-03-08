@@ -30,6 +30,16 @@
       rgba(255, 255, 255, 0.2) 73.85%
     );
     @include blurBack(20px);
+    overflow: hidden;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      top: 0;
+      right: 0;
+      background: url(/common/menu-corner.png);
+    }
     > div > div {
       transition: 0.2s;
       font-weight: 500;
