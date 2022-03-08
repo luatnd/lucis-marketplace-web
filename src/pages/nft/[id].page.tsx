@@ -18,7 +18,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import BoxIcon from "@static/icons/item-box.svg"
-import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { ExternalLink, Eye, Heart } from "react-feather"
 import { AppPagination } from "src/components/AppPagination"
@@ -86,7 +85,7 @@ const DetailsPage = () => {
     {
       title: "Item",
       dataIndex: "item",
-      render: (item) => (
+      render: ({ item }) => (
         <span className="item-column">
           <Button>
             <BoxIcon />
@@ -110,7 +109,7 @@ const DetailsPage = () => {
     {
       title: "Date",
       dataIndex: "date",
-      render: (date) => (
+      render: ({ date }) => (
         <span className="date-column">
           {date} <Icon as={ExternalLink} />
         </span>
