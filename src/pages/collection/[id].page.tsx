@@ -20,7 +20,7 @@ import BoxIcon from "@static/icons/item-box.svg"
 const CollectionDetails = () => {
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const [offset, setOffset] = useState(10)
+  const [offset, setOffset] = useState(0)
   const [pageSize, setPageSize] = useState(5)
   const [total, setTotal] = useState(2000)
 
