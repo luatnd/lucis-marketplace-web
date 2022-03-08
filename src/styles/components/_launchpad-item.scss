@@ -63,46 +63,53 @@
       font-size: 25px;
     }
   }
-  .launchpad-stats {
-    width: 90%;
-    margin: 10px;
+  .launchpad-info {
+    height: 50px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 50px;
     @include to(sm) {
-      flex-direction: column;
+      height: 60px;
     }
-    .stat {
+    .launchpad-stats {
+      width: 90%;
       display: flex;
       align-items: center;
-      font-size: 16px;
-      span {
-        font-weight: 700;
-        margin-right: 5px;
+      justify-content: space-between;
+      gap: 10px;
+      @include to(sm) {
+        flex-direction: column;
       }
-      svg {
-        height: 20px;
-        margin-right: 10px;
-        @include to(xs) {
-          margin-right: 1px;
+      .stat {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        line-height: 16px;
+        span {
+          font-weight: 700;
+          margin-right: 5px;
+        }
+        svg {
+          height: 20px;
+          margin-right: 10px;
+          @include to(xs) {
+            margin-right: 1px;
+          }
         }
       }
     }
-  }
-  .start-in {
-    height: 50px;
-    margin: 10px;
-    span {
-      font-size: 18px;
-      font-weight: 300;
-      @include to(xs) {
-        font-size: 16px;
+    .start-in {
+      span {
+        font-size: 18px;
+        font-weight: 300;
+        @include to(xs) {
+          font-size: 16px;
+        }
       }
-    }
-    span:first-child {
-      font-weight: 700;
-      margin-right: 5px;
+      span:first-child {
+        font-weight: 700;
+        margin-right: 5px;
+      }
     }
   }
 }

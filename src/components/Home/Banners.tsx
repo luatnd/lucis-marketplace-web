@@ -1,8 +1,5 @@
-import { Button, Icon } from "@chakra-ui/react"
-import { ChevronLeft, ChevronRight } from "react-feather"
-import Slider from "react-slick"
-import Marquee from "react-fast-marquee"
 import Link from "next/link"
+import Marquee from "react-fast-marquee"
 
 export const Banners = () => {
   const items = [
@@ -24,11 +21,11 @@ export const Banners = () => {
     },
     {
       key: "5",
-      image: "/home/banners/banner4.png",
+      image: "/home/banners/banner5.png",
     },
     {
       key: "6",
-      image: "/home/banners/banner4.png",
+      image: "/home/banners/banner6.png",
     },
   ]
 
