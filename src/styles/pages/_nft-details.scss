@@ -178,6 +178,16 @@
           }
         }
       }
+      .buy-tray-owner {
+        display: flex;
+        justify-content: space-between;
+        margin: 40px 0;
+        button {
+          background: linear-gradient(99.92deg, #CD28E8 0%, #0BEBD6 100%);
+          border-radius: 8px;
+          min-width: 190px;
+        }
+      }
     }
   }
   .tables {

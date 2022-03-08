@@ -1,4 +1,4 @@
-.auction-item {
+.nft-item {
   width: 100%;
   border: 1px solid $purple2;
   background: linear-gradient(
@@ -11,7 +11,7 @@
   overflow: hidden;
   transition: 0.5s;
   cursor: pointer;
-  .auction-image {
+  .nft-image {
     width: 100%;
     height: 50%;
     overflow: hidden;
@@ -20,7 +20,7 @@
       transition: 0.5s;
     }
   }
-  .auction-body {
+  .nft-body {
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -77,7 +77,7 @@
   }
   &:hover {
     box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.69);
-    .auction-image {
+    .nft-image {
       img {
         transform: scale(1.1);
       }

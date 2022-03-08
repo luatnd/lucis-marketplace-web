@@ -1,11 +1,11 @@
 import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
-import Sort from "../../components/Sort"
-import network from "../data/network.json"
-import * as Icons from "react-feather"
-import { AuctionItem } from "../../components/Home/AuctionItem"
-import auctions from "../data/auctions.json"
 import { useEffect, useState } from "react"
+import * as Icons from "react-feather"
+import { NftItem } from "../../components/NftItem"
 import Pagination from "../../components/Pagination"
+import Sort from "../../components/Sort"
+import auctions from "../data/auctions.json"
+import network from "../data/network.json"
 
 const Collected = () => {
   const [data, setData] = useState([])
@@ -54,7 +54,7 @@ const Collected = () => {
         <div className="grid-custom">
           {data.map((auction, index) => (
             <div className="grid-item" key={index}>
-              <AuctionItem
+              <NftItem
                 key={auction.id}
                 name={auction.name}
                 image={auction.image}

@@ -7,7 +7,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": true,
-    "hidePrice": true
+    "hidePrice": true,
+    "owner": true
   },
   {
     "id": "2",
@@ -17,7 +18,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": false,
-    "hidePrice": true
+    "hidePrice": true,
+    "owner": true
   },
   {
     "id": "3",
@@ -27,7 +29,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": true,
-    "hidePrice": true
+    "hidePrice": true,
+    "owner": true
   },
   {
     "id": "4",
@@ -37,7 +40,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": false,
-    "hidePrice": false
+    "hidePrice": false,
+    "owner": true
   },
   {
     "id": "5",
@@ -47,7 +51,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": true,
-    "hidePrice": true
+    "hidePrice": true,
+    "owner": false
   },
   {
     "id": "6",
@@ -57,8 +62,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": false,
-    "hidePrice": false
-    
+    "hidePrice": false,
+    "owner": false
   },
   {
     "id": "7",
@@ -68,7 +73,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": true,
-    "hidePrice": false
+    "hidePrice": false,
+    "owner": true
   },
   {
     "id": "8",
@@ -78,7 +84,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": false,
-    "hidePrice": false
+    "hidePrice": false,
+    "owner": false
   },
   {
     "id": "9",
@@ -88,7 +95,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": true,
-    "hidePrice": false
+    "hidePrice": false,
+    "owner": true
   },
   {
     "id": "10",
@@ -98,7 +106,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": true,
-    "hidePrice": true
+    "hidePrice": true,
+    "owner": true
   },
   {
     "id": "11",
@@ -108,7 +117,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": false,
-    "hidePrice": true
+    "hidePrice": true,
+    "owner": false
   },
   {
     "id": "12",
@@ -118,7 +128,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": false,
-    "hidePrice": false
+    "hidePrice": false,
+    "owner": false
   },
   {
     "id": "13",
@@ -128,7 +139,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": false,
-    "hidePrice": true
+    "hidePrice": true,
+    "owner": true
   },
   {
     "id": "14",
@@ -138,7 +150,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": true,
-    "hidePrice": true
+    "hidePrice": true,
+    "owner": true
   },
   {
     "id": "15",
@@ -147,7 +160,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "owner": true
   },
   {
     "id": "16",
@@ -157,7 +171,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": true,
-    "hidePrice": true
+    "hidePrice": true,
+    "owner": true
   },
   {
     "id": "17",
@@ -167,7 +182,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": true,
-    "hidePrice": true
+    "hidePrice": true,
+    "owner": false
   },
   {
     "id": "18",
@@ -177,7 +193,8 @@
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
     "auction": true,
-    "hidePrice": true
+    "hidePrice": true,
+    "owner": false
   },
   {
     "id": "19",
@@ -186,7 +203,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": false
+    "auction": false,
+    "owner": true
   },
   {
     "id": "20",
@@ -195,7 +213,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": false
+    "auction": false,
+    "owner": true
   },
   {
     "id": "21",
@@ -204,7 +223,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "owner": true
   },
   {
     "id": "22",
@@ -213,7 +233,8 @@
     "provider": "Animverse",
     "endTime": "2022-03-15T00:00:00",
     "price": 0.99,
-    "auction": true
+    "auction": true,
+    "owner": false
   },
   {
     "id": "23",

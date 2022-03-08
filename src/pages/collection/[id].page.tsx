@@ -7,15 +7,15 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react"
+import BoxIcon from "@static/icons/item-box.svg"
 import VerifiedIcon from "@static/icons/verified.svg"
 import { useEffect, useState } from "react"
 import { ChevronDown, ChevronUp, ExternalLink } from "react-feather"
 import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
 import { AppTable } from "src/components/AppTable"
-import { AuctionItem } from "src/components/Home/AuctionItem"
 import { ListingBar } from "src/components/Home/ListingBar"
-import BoxIcon from "@static/icons/item-box.svg"
+import { NftItem } from "src/components/NftItem"
 
 const CollectionDetails = () => {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -122,7 +122,7 @@ const CollectionDetails = () => {
       </div>
       <div className="item-list">
         {itemList.map((item) => (
-          <AuctionItem
+          <NftItem
             key={item.id}
             name={item.name}
             image={item.image}
