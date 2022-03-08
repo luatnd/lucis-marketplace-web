@@ -1,9 +1,9 @@
-import { Listing } from "../../components/Home/Listing"
+import { ListingBar } from "../../components/Home/ListingBar"
 import { RankingList } from "../../components/Nft-Ranking/RankingList"
 const NftRanking = () => {
   return (
     <div className="nft-ranking">
-      <Listing />
+      <ListingBar />
       <RankingList />
     </div>
   )

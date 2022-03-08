@@ -14,7 +14,7 @@ import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
 import { AppTable } from "src/components/AppTable"
 import { AuctionItem } from "src/components/Home/AuctionItem"
-import { Listing } from "src/components/Home/Listing"
+import { ListingBar } from "src/components/Home/ListingBar"
 import BoxIcon from "@static/icons/item-box.svg"
 
 const CollectionDetails = () => {
@@ -199,7 +199,7 @@ const CollectionDetails = () => {
         className="collection-banner"
         src="/common/example-collection-banner.png"
       />
-      <Listing />
+      <ListingBar />
       <div className="collection-content">
         <Tabs>
           <TabList>
