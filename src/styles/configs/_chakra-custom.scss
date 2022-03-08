@@ -3,11 +3,12 @@
 }
 
 .chakra-tabs {
+  padding: 20px 0;
   .chakra-tabs__tablist {
     justify-content: center !important;
     border-bottom: unset !important;
     .chakra-tabs__tab {
-      font-size: 36px;
+      font-size: 24px;
       color: rgba($white, 0.5);
       transition: 0.1s;
       &:focus {
@@ -22,6 +23,7 @@
   }
   .chakra-tabs__tab-panel {
     animation: fadeUp 0.5s;
+    padding: 0;
   }
 }
 

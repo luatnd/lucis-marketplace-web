@@ -14,7 +14,7 @@
     .header-container {
       @include container;
       padding: 10px 0;
-      height: 120px;
+      height: 80px;
       margin: 0 20px;
       display: flex;
       justify-content: space-between;
@@ -37,6 +37,7 @@
           .nav-item {
             background: none;
             font-size: 18px;
+            font-weight: 400;
             transition: 0.5s;
             @include to(lg) {
               font-size: 13px;
@@ -120,7 +121,7 @@
   }
   .content {
     min-height: calc(100vh - 130px);
-    padding: 120px 20px 20px 20px;
+    padding: 80px 20px 20px 20px;
     display: flex;
     justify-content: center;
     overflow: hidden;
