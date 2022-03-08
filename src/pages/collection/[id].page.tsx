@@ -89,6 +89,7 @@ const CollectionDetails = () => {
         <div className="filter">
           <AppSelect
             placeholder="Type"
+            isSearchable={false}
             options={[
               {
                 label: "Type",
@@ -98,6 +99,7 @@ const CollectionDetails = () => {
           />
           <AppSelect
             placeholder="Price: Min to Max"
+            isSearchable={false}
             options={[
               {
                 label: "Price: Min to Max",
@@ -134,6 +136,7 @@ const CollectionDetails = () => {
       <div className="filter-row">
         <AppSelect
           placeholder="All"
+          isSearchable={false}
           options={[
             {
               label: "All",

@@ -315,6 +315,7 @@ const DetailsPage = () => {
           className="filter"
           defaultValue={"1"}
           placeholder="All"
+          isSearchable={false}
           options={[
             { label: "All", value: "1" },
             { label: "Listing", value: "2" },
