@@ -1,9 +1,9 @@
-import Verified from "@static/icons/verified.svg"
-import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import { Button } from "@chakra-ui/react"
+import BNBSymbol from "@static/icons/bnb-symbol.svg"
+import Verified from "@static/icons/verified.svg"
 import moment from "moment"
-import { useCountdown } from "src/hooks/useCountdown"
 import Router from "next/router"
+import { useCountdown } from "src/hooks/useCountdown"
 import { useStore } from "src/hooks/useStore"
 
 interface IProps {
@@ -36,8 +36,16 @@ export const AuctionItem = (props: IProps) => {
   }
 
   const handleRedirect = () => {
-    Router.push('/nft/1')
-    NftStore.setNft({name, image, provider, endTime, price, auction, activeBtn})
+    Router.push("/nft/1")
+    NftStore.setNft({
+      name,
+      image,
+      provider,
+      endTime,
+      price,
+      auction,
+      activeBtn,
+    })
   }
 
   return (
@@ -61,7 +69,11 @@ export const AuctionItem = (props: IProps) => {
         </div>
         <span className="name">{name}</span>
         <div className="end-in">
-          <span>END IN</span> {moment(endTime).format("HH:mm:ss")}
+          {auction ? (
+            <div>
+              <span>END IN</span> {moment(endTime).format("HH:mm:ss")}
+            </div>
+          ) : null}
         </div>
         <div className={`price ${hidePrice && ('hiden')}`}>
             <span>

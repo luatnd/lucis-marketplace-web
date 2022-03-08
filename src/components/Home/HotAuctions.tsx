@@ -87,7 +87,11 @@ export const HotAuctions = () => {
 
   return (
     <div className="hot-auctions">
-      <HomeSection heading="HOT AUCTIONS" defaultNumber={5}>
+      <HomeSection
+        heading="HOT AUCTIONS"
+        defaultNumber={5}
+        onViewAll="/discover"
+      >
         {auctions.map((auction) => (
           <AuctionItem
             key={auction.id}
@@ -96,6 +100,7 @@ export const HotAuctions = () => {
             provider={auction.provider}
             endTime={auction.endTime}
             price={auction.price}
+            auction={true}
           />
         ))}
       </HomeSection>

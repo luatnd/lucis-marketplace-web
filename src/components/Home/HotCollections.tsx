@@ -67,7 +67,12 @@ export const HotCollections = () => {
 
   return (
     <div className="hot-collections">
-      <HomeSection heading="HOT COLLECTIONS" rows={2} defaultNumber={3}>
+      <HomeSection
+        heading="HOT COLLECTIONS"
+        rows={2}
+        defaultNumber={3}
+        onViewAll="/nft-ranking"
+      >
         {collections.map((collection) => (
           <CollectionItem
             key={collection.id}

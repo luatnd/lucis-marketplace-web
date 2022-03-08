@@ -76,6 +76,7 @@
           margin-left: 20px;
           font-size: 40px;
           cursor: pointer;
+          animation: fadein 0.1s;
         }
         .user {
           font-size: 50px;
@@ -93,6 +94,7 @@
           cursor: pointer;
           border-radius: 100%;
           position: relative;
+          animation: fadein 0.5s;
           .user-container {
             width: 100%;
             height: 100%;
@@ -133,6 +135,10 @@
       padding-bottom: 100px;
       display: flex;
       align-items: center;
+      gap: 0 200px;
+      @include to(lg) {
+        gap: 50px;
+      }
       @include to(md) {
         flex-direction: column;
       }
@@ -142,13 +148,11 @@
         margin-right: 25px;
       }
       .footer-content {
-        height: 100%;
         width: 100%;
         .footer-socials {
           display: grid;
           grid-template-columns: repeat(6, 1fr);
-          grid-gap: 50px;
-          padding: 30px 50px;
+          padding: 30px 0;
           width: 100%;
           @include to(lg) {
             grid-template-columns: repeat(3, 1fr);
@@ -161,31 +165,35 @@
           @include to(xs) {
             grid-gap: 10px;
           }
-          .footer-social-item {
-            border: 1px solid $purple2;
-            border-radius: 100%;
-            aspect-ratio: 1/1;
-            cursor: pointer;
-            transition: 0.5s;
-            img {
-              width: 100%;
-              object-fit: contain;
-            }
-            &:hover {
-              transform: scale(1.1);
-            }
-            @include lg {
-              width: 50%;
+          .footer-socials-item-wrapper {
+            display: flex;
+            justify-content: center;
+            .footer-social-item {
+              width: 56px;
+              border-radius: 100%;
+              aspect-ratio: 1/1;
+              cursor: pointer;
+              transition: 0.5s;
+              img {
+                width: 100%;
+                object-fit: contain;
+              }
+              &:hover {
+                transform: scale(1.1);
+              }
+              @include lg {
+                width: 50%;
+              }
             }
           }
         }
         .footer-navs {
           display: flex;
           width: 100%;
-          justify-content: center;
+          justify-content: space-evenly;
           .footer-nav-item {
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 400;
             transition: 0.5s;
             cursor: pointer;
             &:not(:last-child) {

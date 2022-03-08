@@ -1,23 +1,9 @@
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-  Button,
-  Icon,
-} from "@chakra-ui/react"
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { Listing } from "../components/Home/Listing"
-import activities from "./data/activities.json"
-import * as Icons from "react-feather"
 import Pagination from "../components/Pagination"
 import Sort from "../components/Sort"
+import activities from "./data/activities.json"
 
 const ActivitiesPage = () => {
   const [currentPage, setCurrentPage] = useState(1)

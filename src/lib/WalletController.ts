@@ -89,6 +89,7 @@ export class WalletController {
   public address: string = null
   public network: any = null
   public balance: string = null
+  public token: string = null
   public loading = false
 
   constructor() {
@@ -102,6 +103,7 @@ export class WalletController {
     this.address = null
     this.network = null
     this.balance = null
+    this.token = null
     this.loading = false
   }
 
@@ -212,6 +214,7 @@ export class WalletController {
   async login() {
     const token = this.getAuth()
     if (token) {
+      this.token = token
       apiClient.applyAuth(token)
       return true
     } else {
@@ -233,6 +236,7 @@ export class WalletController {
       if (res?.data?.error_code === "") {
         console.log("login success", res)
         const token = res?.data?.data?.token
+        this.token = token
         this.setAuth(token)
         apiClient.applyAuth(token)
         return true

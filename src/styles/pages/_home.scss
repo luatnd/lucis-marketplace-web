@@ -1,35 +1,43 @@
 .home-page {
   @include container;
-  .banners {
-    margin-bottom: 20px;
-    border-radius: 10px;
-    .banner-border {
-      margin: 10px;
-      height: 200px;
-      background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
-      box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.69);
-      border-radius: 10px;
-      padding: 2px;
-      .banner {
-        height: 100%;
-        border-radius: 8px;
-        overflow: hidden;
-        .banner-image {
-          cursor: pointer;
-          transition: 0.5s;
-          transform: scale(1.1);
-          object-fit: cover;
-          &:hover {
-            transform: scale(1.2);
+  .banner-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    top: 160px;
+    width: 100%;
+    .banners {
+      width: 100%;
+      max-width: 1920px;
+      .banner-border {
+        margin: 10px;
+        height: 200px;
+        background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
+        border-radius: 10px;
+        padding: 2px;
+        .banner {
+          height: 100%;
+          border-radius: 10px;
+          overflow: hidden;
+          .banner-image {
+            cursor: pointer;
+            transition: 0.5s;
+            transform: scale(1.1);
+            object-fit: cover;
+            &:hover {
+              transform: scale(1.2);
+            }
           }
         }
       }
-    }
-    .even-banner {
-      margin-top: 50px;
+      .even-banner {
+        margin-top: 50px;
+      }
     }
   }
   .listing {
+    margin-top: 300px;
     margin-bottom: 30px;
   }
   .home-section {
