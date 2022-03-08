@@ -27,6 +27,10 @@ export const Banners = () => {
       key: "6",
       image: "/home/banners/banner6.png",
     },
+    {
+      key: "7",
+      image: "/home/banners/banner7.png",
+    },
   ]
 
   return (
