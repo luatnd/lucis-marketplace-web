@@ -18,7 +18,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import BoxIcon from "@static/icons/item-box.svg"
-import { useRouter } from "next/router"
 import React, { useEffect, useState } from "react"
 import { ExternalLink, Eye, Heart } from "react-feather"
 import { AppPagination } from "src/components/AppPagination"
@@ -29,10 +28,13 @@ import { useStore } from "src/hooks/useStore"
 const DetailsPage = () => {
   const NftStore = useStore("NftStore")
   const [nft, setNft] = useState(null)
+  const [contentModal, setContentModal] = useState(null)
+  const [contentAlert, setContentAlert] = useState(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const alert = useDisclosure()
 
-  const btnAuction = React.useRef()
-  const btnBuy = React.useRef()
+  const btnModal = React.useRef()
+  const btnAlert = React.useRef()
 
   useEffect(() => {
     setNft(NftStore.nft)
@@ -204,6 +206,71 @@ const DetailsPage = () => {
     },
   ]
 
+  const handleOpenModal = (typeModal) => {
+    let data = null
+    if (typeModal == 'auction') {
+      data = {
+        header: 'Auction',
+        body: <>
+          <Text className="price">Price</Text>
+          <InputGroup>
+            <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
+            <InputRightAddon>BNB</InputRightAddon>
+          </InputGroup>
+          <Text className="desc">The minium auc price is 0.1785 BNB</Text>
+        </>
+      }
+    }
+    if (typeModal == 'buy') {
+      data = {
+        header: 'Buy',
+        body: <div className="form-buy">
+            <p className="label-price">Price:</p>
+            <Text className="price">
+              {nft?.price}
+              <p>($8.8)</p>
+            </Text>
+        </div>
+      }
+    }
+    if (typeModal == 'offer') {
+      data = {
+        header: 'Offer',
+        body: <>
+          <Text className="price">Price</Text>
+          <InputGroup>
+            <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
+            <InputRightAddon>BNB</InputRightAddon>
+          </InputGroup>
+        </>
+      }
+    }
+    setContentModal(data)
+    onOpen()
+  }
+
+  const handleApply = () => {
+    onClose()
+    if (Math.random() < 0.5){
+      setContentAlert({
+        body: <div className="alert-content">
+          <img src="/icons/congratulation.png" alt="" />
+          <p className="title">Congratulation!</p>
+          <p className="desc">You have successfully offer!</p>
+        </div>
+      })
+    } else {
+      setContentAlert({
+        body: <div className="alert-content">
+          <img src="/icons/sorry.png" alt="" />
+          <p className="title">Error!</p>
+          <p className="desc">Opp! something went wrong.</p>
+        </div>
+      })
+    }
+    alert.onOpen()
+  }
+
   const _renderDetails = () => (
     <div className="details">
       <div className="details-card">
@@ -241,13 +308,13 @@ const DetailsPage = () => {
             </div>
             <div className="buy-nav">
               {nft?.auction ? (
-                <Button ref={btnAuction} onClick={onOpen}>AUC</Button>
+                <Button ref={btnModal} onClick={ () => handleOpenModal('auction')}>AUC</Button>
               ) : (
                 <>
-                  <Button ref={btnBuy} onClick={onOpen}>BUY</Button>
+                    <Button ref={btnModal} onClick={() => handleOpenModal('buy')}>BUY</Button>
                 </>
               )}
-              {nft?.auction ? <span>Or make offer other price</span> : null}
+              {!nft?.auction ? <span ref={btnModal} onClick={() => handleOpenModal('offer')}>Or make offer other price</span> : null}
             </div>
           </div>
         </div>
@@ -267,49 +334,40 @@ const DetailsPage = () => {
     </div>
   )
 
-  const _renderAuc = () => (
-    <Modal finalFocusRef={btnAuction} isOpen={isOpen} onClose={onClose} isCentered>
+  const _renderModalConfirm = () => (
+    <Modal finalFocusRef={btnModal} isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent className="dialog-confirm">
-        <ModalHeader>Auction</ModalHeader>
+        <ModalHeader>{contentModal?.header}</ModalHeader>
         <ModalCloseButton>
           <img src="/icons/close.png" />
         </ModalCloseButton>
         <ModalBody className="form-auction">
-          <Text className="price">Price</Text>
-          <InputGroup>
-            <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
-            <InputRightAddon>BNB</InputRightAddon>
-          </InputGroup>
-          <Text className="desc">The minium auc price is 0.1785 BNB</Text>
+          {contentModal?.body}
         </ModalBody>
-
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
+          <Button colorScheme="blue" mr={3} onClick={handleApply}>
             Apply
           </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
   )
-
-  const _renderBuy = () => (
-    <Modal finalFocusRef={btnBuy} isOpen={isOpen} onClose={onClose} isCentered>
+  
+  const _renderModalAlert = () => (
+    <Modal finalFocusRef={btnAlert} isOpen={alert.isOpen} onClose={alert.onClose} isCentered>
       <ModalOverlay />
-      <ModalContent className="dialog-confirm dialog-buy">
-        <ModalHeader>Buy</ModalHeader>
+      <ModalContent className="dialog-confirm dialog-alert">
+        <ModalHeader> </ModalHeader>
         <ModalCloseButton>
           <img src="/icons/close.png" />
         </ModalCloseButton>
         <ModalBody className="form-auction">
-          <Text className="price">Price:</Text>
-          <Text className="price">{nft?.price}</Text>
-          <Text className="price">($8.8)</Text>
+          {contentAlert?.body}
         </ModalBody>
-
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>
-            Apply
+          <Button colorScheme="blue" mr={3} onClick={alert.onClose}>
+            OK
           </Button>
         </ModalFooter>
       </ModalContent>
@@ -365,8 +423,8 @@ const DetailsPage = () => {
     <div className="nft-details">
       {_renderDetails()}
       {_renderTables()}
-      {_renderAuc()}
-      {_renderBuy()}
+      {_renderModalConfirm()}
+      {_renderModalAlert()}
     </div>
   )
 }
