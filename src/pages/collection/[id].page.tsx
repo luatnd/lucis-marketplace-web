@@ -448,6 +448,7 @@ const columns = [
       <a
         className="date-column"
         href={process.env.NEXT_PUBLIC_BSC_SCAN_TX + to}
+        rel="noreferrer"
         target="_blank"
       >
         {date} <Icon as={ExternalLink} />
