@@ -35,7 +35,7 @@ export const Banners = () => {
   return (
     <div className="banner-wrapper">
       <div className="banners">
-        <Marquee speed={50} gradientWidth={70} gradientColor={[1, 1, 62]}>
+        <Marquee speed={25} gradientWidth={70} gradientColor={[1, 1, 62]}>
           {items.map((item) => (
             <Link key={item.key} href={"/collection/" + item.key}>
               <div className="banner-border">

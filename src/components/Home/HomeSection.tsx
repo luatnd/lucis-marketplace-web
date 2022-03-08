@@ -7,7 +7,7 @@ import Slider from "react-slick"
 interface IProps {
   heading: string
   children?: ReactNode
-  onViewAll?: () => void | string
+  onViewAll?: (() => void) | string
   defaultNumber?: number
   rows?: number
 }

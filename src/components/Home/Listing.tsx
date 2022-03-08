@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export const Listing = () => {
   return (
     <div className="listing">
@@ -6,10 +8,13 @@ export const Listing = () => {
         <img src="/home/listing-img.png" />
         <div className="listing-content">
           <span className="marquee-content">
-            <span className="cyan-text">Animverse</span> sold to{" "}
-            <span className="cyan-text">Nhinty </span>
-            from <span className="cyan-text">Animverse123456789</span> for
-            0,12BNB
+            <Link href="/nft/1">
+              <a>
+                <span className="cyan-text">Animverse </span>
+              </a>
+            </Link>
+            sold to<span className="cyan-text"> Nhinty </span>from{" "}
+            <span className="cyan-text">Animverse123456789</span> for0,12BNB
           </span>
         </div>
         <div className="time cyan-text">1 minutes ago</div>
