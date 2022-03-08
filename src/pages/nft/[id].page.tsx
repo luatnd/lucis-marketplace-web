@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react"
 import BoxIcon from "@static/icons/item-box.svg"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { ExternalLink, Eye, Heart } from "react-feather"
 import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
@@ -30,6 +30,9 @@ const DetailsPage = () => {
   const NftStore = useStore("NftStore")
   const [nft, setNft] = useState(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const btnAuction = React.useRef()
+  const btnBuy = React.useRef()
 
   useEffect(() => {
     setNft(NftStore.nft)
@@ -238,10 +241,10 @@ const DetailsPage = () => {
             </div>
             <div className="buy-nav">
               {nft?.auction ? (
-                <Button onClick={onOpen}>AUC</Button>
+                <Button ref={btnAuction} onClick={onOpen}>AUC</Button>
               ) : (
                 <>
-                  <Button>BUY</Button>
+                  <Button ref={btnBuy} onClick={onOpen}>BUY</Button>
                 </>
               )}
               <span style={nft?.auction && { visibility: "hidden" }}>
@@ -268,7 +271,7 @@ const DetailsPage = () => {
   )
 
   const _renderAuc = () => (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+    <Modal finalFocusRef={btnAuction} isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent className="dialog-confirm">
         <ModalHeader>Auction</ModalHeader>
@@ -282,6 +285,29 @@ const DetailsPage = () => {
             <InputRightAddon>BNB</InputRightAddon>
           </InputGroup>
           <Text className="desc">The minium auc price is 0.1785 BNB</Text>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={onClose}>
+            Apply
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  )
+
+  const _renderBuy = () => (
+    <Modal finalFocusRef={btnBuy} isOpen={isOpen} onClose={onClose} isCentered>
+      <ModalOverlay />
+      <ModalContent className="dialog-confirm dialog-buy">
+        <ModalHeader>Buy</ModalHeader>
+        <ModalCloseButton>
+          <img src="/icons/close.png" />
+        </ModalCloseButton>
+        <ModalBody className="form-auction">
+          <Text className="price">Price:</Text>
+          <Text className="price">{nft?.price}</Text>
+          <Text className="price">($8.8)</Text>
         </ModalBody>
 
         <ModalFooter>
@@ -343,6 +369,7 @@ const DetailsPage = () => {
       {_renderDetails()}
       {_renderTables()}
       {_renderAuc()}
+      {_renderBuy()}
     </div>
   )
 }
