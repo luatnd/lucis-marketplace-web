@@ -398,7 +398,12 @@ const DetailsPage = () => {
       <div className="details-card">
         <div className="details-image">
           <img src="/nft-details/nft-details.png" />
-          <Icon as={Heart} className="heart" />
+          <Icon
+            as={Heart}
+            className={`heart ${
+              Math.floor(Math.random() * 2) === 1 ? "heart-liked" : ""
+            }`}
+          />
         </div>
 
         <div className="nft-description">
