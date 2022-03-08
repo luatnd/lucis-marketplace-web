@@ -208,140 +208,160 @@ const DetailsPage = () => {
   const handleOpenModal = (typeModal) => {
     let data = null
     switch (typeModal) {
-      case 'auction':
+      case "auction":
         data = {
-          header: 'Auction',
-          body: <>
-            <Text className="price">Price</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-            <Text className="desc">The minium auc price is 0.1785 BNB</Text>
-          </>
+          header: "Auction",
+          body: (
+            <>
+              <Text className="price">Price</Text>
+              <InputGroup>
+                <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+              <Text className="desc">The minium auc price is 0.1785 BNB</Text>
+            </>
+          ),
         }
-        break;
-      case 'buy':
+        break
+      case "buy":
         data = {
-          header: 'Buy',
-          body: <div className="form-buy">
-            <p className="label-price">Price:</p>
-            <Text className="price">
-              {NftStore?.nft?.price}
-              <p>($8.8)</p>
-            </Text>
-          </div>
-        }
-        break;
-      case 'offer':
-        data = {
-          header: 'Offer',
-          body: <>
-            <Text className="price">Price</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-          </>
-        }
-        break;
-
-      case 'fixedPrice':
-        data = {
-          size: 'lg',
-          header: 'Fixed Price',
-          body: <div className="fixed-price">
-          <div>
-            <img src="/icons/owner.png" alt="" />
-            <p>
-              <p>
-                  Animverse
-                  <img src="/common/my-nft/check.png" alt="" />
-              </p>
-                CUONG DOLLA NFT
-            </p>
-          </div>
-            <Text className="price">Price</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-            <p>0 BNB = $0</p>
-            <p>The floor price is 0.0055 BNB. The item will be on sale until
-              you cancelled.</p>
-            <p>FEES</p>
-            <p>Listing is FREE! When the sale succeeds, the following fees will
-              occour.</p>
-            <div>
-              <p>
-                <span>To Lucis</span>
-                <span>2.5%</span>
-              </p>
-              <p>
-                <span>To Polychain Monsters</span>
-                <span>2.5%</span>
-              </p>
+          header: "Buy",
+          body: (
+            <div className="form-buy">
+              <p className="label-price">Price:</p>
+              <Text className="price">
+                {NftStore?.nft?.price}
+                <p>($8.8)</p>
+              </Text>
             </div>
-          </div>
+          ),
         }
-        break;
-
-      case 'ownerAuction':
+        break
+      case "offer":
         data = {
-          size: 'lg',
-          header: 'Auction',
-          body: <>
-            <div>
-              <img src="/icons/owner.png" alt="" />
-              <p>
+          header: "Offer",
+          body: (
+            <>
+              <Text className="price">Price</Text>
+              <InputGroup>
+                <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+            </>
+          ),
+        }
+        break
+
+      case "fixedPrice":
+        data = {
+          size: "lg",
+          header: "Fixed Price",
+          body: (
+            <div className="fixed-price">
+              <div>
+                <img src="/icons/owner.png" alt="" />
                 <p>
-                  Animverse
-                  <img src="/common/my-nft/check.png" alt="" />
+                  <p>
+                    Animverse
+                    <img src="/common/my-nft/check.png" alt="" />
+                  </p>
+                  CUONG DOLLA NFT
                 </p>
-                CUONG DOLLA NFT
-              </p>
-            </div>
-            <Text className="price">Price</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-            <p>0 BNB = $0</p>
-            <p>The floor price is 0.0055 BNB. The item will be on sale until
-              you cancelled.</p>
-            <p>FEES</p>
-            <p>Listing is FREE! When the sale succeeds, the following fees will
-              occour.</p>
-            <div>
+              </div>
+              <Text className="price">Price</Text>
+              <InputGroup>
+                <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+              <p>0 BNB = $0</p>
               <p>
-                <span>To Lucis</span>
-                <span>2.5%</span>
+                The floor price is 0.0055 BNB. The item will be on sale until
+                you cancelled.
               </p>
+              <p>FEES</p>
               <p>
-                <span>To Polychain Monsters</span>
-                <span>2.5%</span>
+                Listing is FREE! When the sale succeeds, the following fees will
+                occour.
               </p>
+              <div>
+                <p>
+                  <span>To Lucis</span>
+                  <span>2.5%</span>
+                </p>
+                <p>
+                  <span>To Polychain Monsters</span>
+                  <span>2.5%</span>
+                </p>
+              </div>
             </div>
-          </>
+          ),
         }
-        break;
+        break
 
-      case 'ownerSend':
+      case "ownerAuction":
         data = {
-          size: 'lg',
-          header: 'Send',
-          body: <>
-            <Text className="price">Price</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-          </>
+          size: "lg",
+          header: "Auction",
+          body: (
+            <>
+              <div>
+                <img src="/icons/owner.png" alt="" />
+                <p>
+                  <p>
+                    Animverse
+                    <img src="/common/my-nft/check.png" alt="" />
+                  </p>
+                  CUONG DOLLA NFT
+                </p>
+              </div>
+              <Text className="price">Price</Text>
+              <InputGroup>
+                <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+              <p>0 BNB = $0</p>
+              <p>
+                The floor price is 0.0055 BNB. The item will be on sale until
+                you cancelled.
+              </p>
+              <p>FEES</p>
+              <p>
+                Listing is FREE! When the sale succeeds, the following fees will
+                occour.
+              </p>
+              <div>
+                <p>
+                  <span>To Lucis</span>
+                  <span>2.5%</span>
+                </p>
+                <p>
+                  <span>To Polychain Monsters</span>
+                  <span>2.5%</span>
+                </p>
+              </div>
+            </>
+          ),
         }
-        break;
-    
+        break
+
+      case "ownerSend":
+        data = {
+          size: "lg",
+          header: "Send",
+          body: (
+            <>
+              <Text className="price">Price</Text>
+              <InputGroup>
+                <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+            </>
+          ),
+        }
+        break
+
       default:
-        break;
+        break
     }
     setContentModal(data)
     onOpen()
@@ -349,21 +369,25 @@ const DetailsPage = () => {
 
   const handleApply = () => {
     onClose()
-    if (Math.random() < 0.5){
+    if (Math.random() < 0.5) {
       setContentAlert({
-        body: <div className="alert-content">
-          <img src="/icons/congratulation.png" alt="" />
-          <p className="title">Congratulation!</p>
-          <p className="desc">You have successfully offer!</p>
-        </div>
+        body: (
+          <div className="alert-content">
+            <img src="/icons/congratulation.png" alt="" />
+            <p className="title">Congratulation!</p>
+            <p className="desc">You have successfully offer!</p>
+          </div>
+        ),
       })
     } else {
       setContentAlert({
-        body: <div className="alert-content">
-          <img src="/icons/sorry.png" alt="" />
-          <p className="title">Error!</p>
-          <p className="desc">Opp! something went wrong.</p>
-        </div>
+        body: (
+          <div className="alert-content">
+            <img src="/icons/sorry.png" alt="" />
+            <p className="title">Error!</p>
+            <p className="desc">Opp! something went wrong.</p>
+          </div>
+        ),
       })
     }
     alert.onOpen()
@@ -391,59 +415,80 @@ const DetailsPage = () => {
         </div>
         <span className="name">{NftStore?.nft?.name}</span>
         <div className="owner">
-          {
-            !NftStore?.nft?.owner ? (
-              <span>Preserved by Hlyman</span>
-            ) : (
-              <span>Preserved by Me</span>
-            )
-          }
+          {!NftStore?.nft?.owner ? (
+            <span>Preserved by Hlyman</span>
+          ) : (
+            <span>Preserved by Me</span>
+          )}
           <div className="owner-stat">
             <span>100</span> <Icon as={Heart} />
             <span>100</span> <Icon as={Eye} />
           </div>
         </div>
-          {
-            !NftStore?.nft?.owner ? (
-              <div className="buy-tray">
-                <div className="buy-tray-body">
-                  <div className="price">
-                    {
-                      !NftStore?.nft?.hidePrice ? (
-                        <>
-                          <span>Price</span>
-                          <span>{NftStore?.nft?.price} BNB</span>
-                          <span>($8.8)</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Price</span>
-                          <span>-</span>
-                          <span>Waiting first offer</span>
-                        </>
-                      )
-                    }
-                  </div>
-                  <div className="buy-nav">
-                    {NftStore?.nft?.auction ? (
-                      <Button ref={btnModal} onClick={ () => handleOpenModal('auction')}>AUC</Button>
-                    ) : (
-                      <>
-                          <Button ref={btnModal} onClick={() => handleOpenModal('buy')} isDisabled={NftStore?.nft?.hidePrice}>BUY</Button>
-                      </>
-                    )}
-                    {!NftStore?.nft?.auction ? <span ref={btnModal} onClick={() => handleOpenModal('offer')}>Or make offer other price</span> : null}
-                  </div>
-                </div>
+        {!NftStore?.nft?.owner ? (
+          <div className="buy-tray">
+            <div className="buy-tray-body">
+              <div className="price">
+                {!NftStore?.nft?.hidePrice ? (
+                  <>
+                    <span>Price</span>
+                    <span>{NftStore?.nft?.price} BNB</span>
+                    <span>($8.8)</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Price</span>
+                    <span>-</span>
+                    <span>Waiting first offer</span>
+                  </>
+                )}
               </div>
-            ) : (
-              <div className="buy-tray-owner">
-                <Button ref={btnModal} onClick={() => handleOpenModal('fixedPrice')}>Fixed Price</Button>
-                <Button ref={btnModal} onClick={() => handleOpenModal('ownerAuction')}>Auction</Button>
-                <Button ref={btnModal} onClick={() => handleOpenModal('ownerSend')}>Send</Button>
+              <div className="buy-nav">
+                {NftStore?.nft?.auction ? (
+                  <Button
+                    ref={btnModal}
+                    onClick={() => handleOpenModal("auction")}
+                  >
+                    AUC
+                  </Button>
+                ) : (
+                  <>
+                    <Button
+                      ref={btnModal}
+                      onClick={() => handleOpenModal("buy")}
+                      isDisabled={NftStore?.nft?.hidePrice}
+                    >
+                      BUY
+                    </Button>
+                  </>
+                )}
+                {!NftStore?.nft?.auction ? (
+                  <span ref={btnModal} onClick={() => handleOpenModal("offer")}>
+                    Or make offer other price
+                  </span>
+                ) : null}
               </div>
-            )
-          }
+            </div>
+          </div>
+        ) : (
+          <div className="buy-tray-owner">
+            <Button
+              ref={btnModal}
+              onClick={() => handleOpenModal("fixedPrice")}
+            >
+              Fixed Price
+            </Button>
+            <Button
+              ref={btnModal}
+              onClick={() => handleOpenModal("ownerAuction")}
+            >
+              Auction
+            </Button>
+            <Button ref={btnModal} onClick={() => handleOpenModal("ownerSend")}>
+              Send
+            </Button>
+          </div>
+        )}
         <div className="details-stats">
           <h1>Detail</h1>
           {detailsStats.map((stat) => (
@@ -461,16 +506,20 @@ const DetailsPage = () => {
   )
 
   const _renderModalConfirm = () => (
-    <Modal size={contentModal?.size != undefined ? contentModal.size : 'sm'} finalFocusRef={btnModal} isOpen={isOpen} onClose={onClose} isCentered={false}>
+    <Modal
+      size={contentModal?.size != undefined ? contentModal.size : "sm"}
+      finalFocusRef={btnModal}
+      isOpen={isOpen}
+      onClose={onClose}
+      isCentered={false}
+    >
       <ModalOverlay />
       <ModalContent className="dialog-confirm">
         <ModalHeader>{contentModal?.header}</ModalHeader>
         <ModalCloseButton>
           <img src="/icons/close.png" />
         </ModalCloseButton>
-        <ModalBody className="form-auction">
-          {contentModal?.body}
-        </ModalBody>
+        <ModalBody className="form-auction">{contentModal?.body}</ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={handleApply}>
             Apply
@@ -479,18 +528,21 @@ const DetailsPage = () => {
       </ModalContent>
     </Modal>
   )
-  
+
   const _renderModalAlert = () => (
-    <Modal finalFocusRef={btnAlert} isOpen={alert.isOpen} onClose={alert.onClose} isCentered>
+    <Modal
+      finalFocusRef={btnAlert}
+      isOpen={alert.isOpen}
+      onClose={alert.onClose}
+      isCentered
+    >
       <ModalOverlay />
       <ModalContent className="dialog-confirm dialog-alert">
         <ModalHeader> </ModalHeader>
         <ModalCloseButton>
           <img src="/icons/close.png" />
         </ModalCloseButton>
-        <ModalBody className="form-auction">
-          {contentAlert?.body}
-        </ModalBody>
+        <ModalBody className="form-auction">{contentAlert?.body}</ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={alert.onClose}>
             OK

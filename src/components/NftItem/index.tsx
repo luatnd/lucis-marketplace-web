@@ -19,7 +19,17 @@ interface IProps {
 }
 
 export const NftItem = (props: IProps) => {
-  const { name, image, provider, endTime, price, auction, activeBtn, hidePrice, owner } = props
+  const {
+    name,
+    image,
+    provider,
+    endTime,
+    price,
+    auction,
+    activeBtn,
+    hidePrice,
+    owner,
+  } = props
 
   const { days, hours, seconds, minutes } = useCountdown("2022-03-20T00:00:00")
 
@@ -47,7 +57,7 @@ export const NftItem = (props: IProps) => {
       auction,
       activeBtn,
       hidePrice,
-      owner
+      owner,
     })
   }
 
@@ -78,11 +88,11 @@ export const NftItem = (props: IProps) => {
             </div>
           ) : null}
         </div>
-        <div className={`price ${hidePrice && ('hidden')}`}>
-            <span>
-              <BNBSymbol /> {price} BNB
-            </span>
-            {_renderAction()}
+        <div className={`price ${hidePrice && "hidden"}`}>
+          <span>
+            <BNBSymbol /> {price} BNB
+          </span>
+          {_renderAction()}
         </div>
       </div>
     </div>
