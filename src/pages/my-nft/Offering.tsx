@@ -1,5 +1,5 @@
 import Pagination from "src/components/Pagination"
-import { AuctionItem } from "src/components/Home/AuctionItem"
+import { NftItem } from "src/components/NftItem"
 import Sort from "src/components/Sort"
 import { useState } from "react"
 import {
@@ -274,7 +274,7 @@ const Offering = () => {
             <div className="offering-auction">
               <div className="list">
                 {auctions.map((auction) => (
-                  <AuctionItem
+                  <NftItem
                     key={auction.id}
                     name={auction.name}
                     image={auction.image}

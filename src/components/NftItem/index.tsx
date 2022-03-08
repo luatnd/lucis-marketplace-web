@@ -16,7 +16,7 @@ interface IProps {
   activeBtn?: boolean
 }
 
-export const AuctionItem = (props: IProps) => {
+export const NftItem = (props: IProps) => {
   const { name, image, provider, endTime, price, auction, activeBtn } = props
 
   const { days, hours, seconds, minutes } = useCountdown("2022-03-20T00:00:00")
@@ -48,11 +48,11 @@ export const AuctionItem = (props: IProps) => {
   }
 
   return (
-    <div className="auction-item" onClick={handleRedirect}>
-      <div className="auction-image">
+    <div className="nft-item" onClick={handleRedirect}>
+      <div className="nft-image">
         <img src={image} />
       </div>
-      <div className="auction-body">
+      <div className="nft-body">
         <div className="provider">
           <div className="algin-center">
             <span>{provider}</span>
