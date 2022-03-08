@@ -1,4 +1,5 @@
 import {
+  Button,
   Icon,
   Menu,
   MenuButton,
@@ -78,10 +79,17 @@ export const UserTray = observer(() => {
       </Menu>
     </div>
   ) : (
-    <Icon
-      as={loading ? Spinner : UserIcon}
-      className="user"
-      onClick={connect}
-    />
+    <div className="spinner">
+      <Icon
+        as={loading ? Spinner : UserIcon}
+        className="user"
+        onClick={connect}
+      />
+      {cancelVisible ? (
+        <Button className="cancel-btn" onClick={disconnect}>
+          Cancel
+        </Button>
+      ) : null}
+    </div>
   )
 })

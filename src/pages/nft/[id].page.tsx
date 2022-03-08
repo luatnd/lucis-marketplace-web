@@ -90,7 +90,7 @@ const DetailsPage = () => {
     {
       title: "Item",
       dataIndex: "item",
-      render: (item) => (
+      render: ({ item }) => (
         <span className="item-column">
           <Button>
             <BoxIcon />
@@ -114,7 +114,7 @@ const DetailsPage = () => {
     {
       title: "Date",
       dataIndex: "date",
-      render: (date) => (
+      render: ({ date }) => (
         <span className="date-column">
           {date} <Icon as={ExternalLink} />
         </span>
