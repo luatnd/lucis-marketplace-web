@@ -9,6 +9,8 @@ import {
 } from "@chakra-ui/react"
 import BoxIcon from "@static/icons/item-box.svg"
 import VerifiedIcon from "@static/icons/verified.svg"
+import axios from "axios"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { ChevronDown, ChevronUp, ExternalLink } from "react-feather"
 import { AppPagination } from "src/components/AppPagination"
@@ -20,20 +22,53 @@ import { NftItem } from "src/components/NftItem"
 const CollectionDetails = () => {
   const [isExpanded, setIsExpanded] = useState(false)
 
+  const router = useRouter()
+  const [data, setData] = useState<any>()
+
+  const [items, setItems] = useState<any[]>()
+  const [itemTotal, setItemTotal] = useState(0)
   const [offset, setOffset] = useState(0)
+  const [itemType, setItemType] = useState(false)
+  const [itemSort, setItemSort] = useState("asc")
   const [pageSize, setPageSize] = useState(10)
+
   const [total, setTotal] = useState(2000)
 
   const [itemOffset, setItemOffset] = useState(0)
   const [itemPageSize, setItemPageSize] = useState(20)
 
-  const fetchData = () => {
-    console.log(offset, pageSize)
+  const fetchData = async () => {
+    const id = await router.query.id
+    if (id) {
+      const { data } = await axios.get(
+        process.env.NEXT_PUBLIC_API_TEST + "/collections/" + id
+      )
+      setData(data)
+    }
+  }
+
+  const fetchItems = async () => {
+    const id = await router.query.id
+    if (id) {
+      const { data, headers } = await axios.get(
+        process.env.NEXT_PUBLIC_API_TEST +
+          `/nft/?collection.id=${id}&&_page=${Math.ceil(
+            itemOffset / itemPageSize
+          )}&&_limit=${itemPageSize}&&isAuction=${itemType}&&_sort=price&&_order=${itemSort}`
+      )
+      setItems(data)
+      setItemTotal(+headers["x-total-count"])
+    }
   }
 
   useEffect(() => {
     fetchData()
-  }, [offset, pageSize])
+    fetchItems()
+  }, [router.query.id])
+
+  useEffect(() => {
+    fetchItems()
+  }, [router.query.id, itemOffset, itemPageSize, itemType, itemSort])
 
   const handleExpand = () => {
     setIsExpanded(!isExpanded)
@@ -61,27 +96,27 @@ const CollectionDetails = () => {
   const stats = [
     {
       key: "Traded",
-      value: "100+",
+      value: data?.stats?.traded + "+",
     },
     {
       key: "Player",
-      value: "100+",
+      value: data?.stats?.player + "+",
     },
     {
       key: "Listed",
-      value: "100+",
+      value: data?.stats?.listed + "+",
     },
     {
       key: "Volume",
-      value: "100+",
+      value: data?.stats?.volume + "+",
     },
     {
       key: "Floor Price",
-      value: "100+",
+      value: data?.stats?.floorPrice + "+",
     },
     {
       key: "Max Price",
-      value: "1000",
+      value: data?.stats?.maxPrice,
     },
   ]
 
@@ -91,50 +126,54 @@ const CollectionDetails = () => {
         <div className="total">137335 items listed</div>
         <div className="filter">
           <AppSelect
+            value={itemType}
             placeholder="Type"
             isSearchable={false}
+            onChange={({ value }) => setItemType(value as boolean)}
             options={[
               {
                 label: "Fix price",
-                value: "1",
+                value: false,
               },
               {
                 label: "Auc",
-                value: "2",
+                value: true,
               },
             ]}
           />
           <AppSelect
             placeholder="Price: Min to Max"
             isSearchable={false}
+            value={itemSort}
+            onChange={({ value }) => setItemSort(value)}
             options={[
               {
                 label: "Price: Min to Max",
-                value: "1",
+                value: "asc",
               },
               {
                 label: "Price: Max to Min",
-                value: "1",
+                value: "desc",
               },
             ]}
           />
         </div>
       </div>
       <div className="item-list">
-        {itemList.map((item) => (
+        {items?.map((item) => (
           <NftItem
             key={item.id}
             name={item.name}
             image={item.image}
-            provider={item.provider}
+            collection={item.collection}
             endTime={item.endTime}
             price={item.price}
-            auction={item.auction}
+            isAuction={item.isAuction}
           />
         ))}
       </div>
       <AppPagination
-        total={total}
+        total={itemTotal}
         offset={itemOffset}
         pageSize={itemPageSize}
         onChangeOffset={(value) => setItemOffset(value)}
@@ -187,7 +226,7 @@ const CollectionDetails = () => {
   return (
     <div className="collection-details-page">
       <div className="provider-name">
-        Animverse
+        {data?.name}
         <VerifiedIcon />
       </div>
       <div className="provider-socials">
@@ -196,7 +235,7 @@ const CollectionDetails = () => {
         ))}
       </div>
       <div className="collection-stats">
-        {stats.map((stat) => (
+        {stats?.map((stat) => (
           <div key={stat.key} className="stat">
             <p className="stat-key">{stat.key}</p>
             <p className="stat-value">{stat.value}</p>
@@ -204,32 +243,12 @@ const CollectionDetails = () => {
         ))}
       </div>
       <div className={`collection-description ${isExpanded ? "expanded" : ""}`}>
-        8888 NFT Astar Punks derivatives from CryptoPunks built on the Astar
-        Network. It focuses on being a gateway and support for artists who wish
-        to build their NFT collections on the Astar Network. It will build a DAO
-        where the community will drive the project. Among its future plans is
-        also to build a staking dApp to8888 NFT Astar Punks derivatives from
-        CryptoPunks built on the Astar Network. It focuses on being a gateway
-        and support for artists who wish to build their NFT collections on the
-        Astar Network. It will build a DAO where the community will drive the
-        project. Among its future plans is also to build a staking dApp to8888
-        NFT Astar Punks derivatives from CryptoPunks built on the Astar Network.
-        It focuses on being a gateway and support for artists who wish to build
-        their NFT collections on the Astar Network. It will build a DAO where
-        the community will drive the project. Among its future plans is also to
-        build a staking dApp to 8888 NFT Astar Punks derivatives from
-        CryptoPunks built on the Astar Network. It focuses on being a gateway
-        and support for artists who wish to build their NFT collections on the
-        Astar Network. It will build a DAO where the community will drive the
-        project. Among its future plans is also to build a staking dApp to...
+        {data?.description}
       </div>
       <Button className="expand-button" onClick={handleExpand}>
         <Icon as={isExpanded ? ChevronUp : ChevronDown} />
       </Button>
-      <img
-        className="collection-banner"
-        src="/common/example-collection-banner.png"
-      />
+      <img className="collection-banner" src={data?.banner} />
       <ListingBar />
       <div className="collection-content">
         <Tabs>
@@ -254,181 +273,181 @@ const itemList = [
     id: "1",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction1.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: true,
+    isAuction: true,
   },
   {
     id: "2",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction2.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: false,
+    isAuction: false,
   },
   {
     id: "3",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction3.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: true,
+    isAuction: true,
   },
   {
     id: "4",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction4.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: false,
+    isAuction: false,
   },
   {
     id: "5",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction5.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: true,
+    isAuction: true,
   },
   {
     id: "6",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction1.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: false,
+    isAuction: false,
   },
   {
     id: "7",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction2.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: true,
+    isAuction: true,
   },
   {
     id: "8",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction3.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: false,
+    isAuction: false,
   },
   {
     id: "9",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction4.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: true,
+    isAuction: true,
   },
   {
     id: "10",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction5.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: false,
+    isAuction: false,
   },
   {
     id: "11",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction1.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: true,
+    isAuction: true,
   },
   {
     id: "12",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction2.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: false,
+    isAuction: false,
   },
   {
     id: "13",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction3.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: true,
+    isAuction: true,
   },
   {
     id: "14",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction4.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: false,
+    isAuction: false,
   },
   {
     id: "15",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction5.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: true,
+    isAuction: true,
   },
   {
     id: "16",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction1.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: false,
+    isAuction: false,
   },
   {
     id: "17",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction2.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: true,
+    isAuction: true,
   },
   {
     id: "18",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction3.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: false,
+    isAuction: false,
   },
   {
     id: "19",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction4.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: true,
+    isAuction: true,
   },
   {
     id: "20",
     name: "CUONG DOLLA NFT",
     image: "/home/auctions/auction5.png",
-    provider: "Animverse",
+    collection: { id: "1", name: "Animverse" },
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
-    auction: false,
+    isAuction: false,
   },
 ]
 

@@ -1,37 +1,26 @@
+import axios from "axios"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 import Marquee from "react-fast-marquee"
 
+type TBanner = {
+  id?: string
+  banner?: string
+}
+
 export const Banners = () => {
-  const items = [
-    {
-      key: "1",
-      image: "/home/banners/banner1.png",
-    },
-    {
-      key: "2",
-      image: "/home/banners/banner2.png",
-    },
-    {
-      key: "3",
-      image: "/home/banners/banner3.png",
-    },
-    {
-      key: "4",
-      image: "/home/banners/banner4.png",
-    },
-    {
-      key: "5",
-      image: "/home/banners/banner5.png",
-    },
-    {
-      key: "6",
-      image: "/home/banners/banner6.png",
-    },
-    {
-      key: "7",
-      image: "/home/banners/banner7.png",
-    },
-  ]
+  const [banners, setBanners] = useState<TBanner[]>()
+
+  const fetchBanner = async () => {
+    const { data: banners } = await axios.get(
+      process.env.NEXT_PUBLIC_API_TEST + "/collections"
+    )
+    setBanners(banners)
+  }
+
+  useEffect(() => {
+    fetchBanner()
+  }, [])
 
   return (
     <div className="banner-wrapper">
@@ -42,11 +31,11 @@ export const Banners = () => {
           gradientColor={[1, 1, 62]}
           pauseOnHover={true}
         >
-          {items.map((item) => (
-            <Link key={item.key} href={"/collection/" + item.key}>
+          {banners?.map((item) => (
+            <Link key={item.id} href={"/collection/" + item.id}>
               <div className="banner-border">
-                <div key={item.key} className="banner">
-                  <img src={item.image} className="banner-image" />
+                <div key={item.id} className="banner">
+                  <img src={item.banner} className="banner-image" />
                 </div>
               </div>
             </Link>

@@ -1,89 +1,21 @@
+import axios from "axios"
+import { useEffect, useState } from "react"
 import { NftItem } from "../NftItem"
 import { HomeSection } from "./HomeSection"
 
 export const HotAuctions = () => {
-  const auctions = [
-    {
-      id: "1",
-      name: "CUONG DOLLA NFT",
-      image: "/home/auctions/auction1.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "2",
-      name: "CUONG DOLLA NFT",
-      image: "/home/auctions/auction2.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "3",
-      name: "CUONG DOLLA NFT",
-      image: "/home/auctions/auction3.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "4",
-      name: "CUONG DOLLA NFT",
-      image: "/home/auctions/auction4.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "5",
-      name: "CUONG DOLLA NFT",
-      image: "/home/auctions/auction5.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "6",
-      name: "CUONG DOLLA NFT",
-      image: "/home/auctions/auction1.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "7",
-      name: "CUONG DOLLA NFT",
-      image: "/home/auctions/auction2.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "8",
-      name: "CUONG DOLLA NFT",
-      image: "/home/auctions/auction3.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "9",
-      name: "CUONG DOLLA NFT",
-      image: "/home/auctions/auction4.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "10",
-      name: "CUONG DOLLA NFT",
-      image: "/home/auctions/auction5.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-  ]
+  const [hotAuction, setHotAuction] = useState<any[]>()
+
+  const fetchHotAuctions = async () => {
+    const { data: autions } = await axios.get(
+      process.env.NEXT_PUBLIC_API_TEST + "/nft/?isAuction=true&&_limit=10"
+    )
+    setHotAuction(autions)
+  }
+
+  useEffect(() => {
+    fetchHotAuctions()
+  }, [])
 
   return (
     <div className="hot-auctions">
@@ -92,15 +24,15 @@ export const HotAuctions = () => {
         defaultNumber={5}
         onViewAll="/discover"
       >
-        {auctions.map((auction) => (
+        {hotAuction?.map((auction) => (
           <NftItem
             key={auction.id}
             name={auction.name}
             image={auction.image}
-            provider={auction.provider}
+            collection={auction.collection}
             endTime={auction.endTime}
             price={auction.price}
-            auction={true}
+            isAuction={true}
           />
         ))}
       </HomeSection>
