@@ -321,14 +321,16 @@ const Offering = () => {
               <Tbody>
                 {dataSoure.map((data) => (
                   <Tr key={data.key}>
-                    <Td className="item">
-                      <img src="/icons/item.png" alt="" />
-                      <div>
-                        <p>
-                          Animverse{" "}
-                          <img src="/common/my-nft/check.png" alt="" />
-                        </p>
-                        <p>CUONG DOLLA NFT</p>
+                    <Td>
+                      <div className="item">
+                        <img src="/icons/item.png" alt="" />
+                        <div>
+                          <p>
+                            Animverse{" "}
+                            <img src="/common/my-nft/check.png" alt="" />
+                          </p>
+                          <p>CUONG DOLLA NFT</p>
+                        </div>
                       </div>
                     </Td>
                     <Td isNumeric>26.94 BNB</Td>

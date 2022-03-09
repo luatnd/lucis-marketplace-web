@@ -68,7 +68,7 @@ export const UserTray = observer(() => {
           <img src="/common/my-nft/account.png" />
         </MenuButton>
         <MenuList>
-          <Link href="/my-nft">
+          <Link href="/user/my-nft">
             <MenuItem>My NFTs</MenuItem>
           </Link>
           <Link href="/setting">
