@@ -44,22 +44,18 @@ const OnSale = () => {
   const [pageSize, setPageSize] = useState(20)
   const [pageSize1, setPageSize1] = useState(10)
   const [totalData, setTotalData] = useState(Number(auctions.length))
-  const [auTotal, setAuTotal] = useState(0)
-  const [seTotal, setSeTotal] = useState(0)
+  const [auTotal, setAuTotal] = useState([])
+  const [seTotal, setSeTotal] = useState([])
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   useEffect(() => {
-    let au = 0
-    let se = 0
     auctions.forEach((el) => {
-      if (el.auction == true) {
-        au++
+      if (el.auction != true) {
+        setSeTotal([...seTotal, el])
       } else {
-        se++
+        setAuTotal([...auTotal, el])
       }
     })
-    setAuTotal(au)
-    setSeTotal(se)
   }, [])
 
   useEffect(() => {
@@ -126,7 +122,7 @@ const OnSale = () => {
             <Pagination
               className="pagination-bar"
               currentPage={currentPage}
-              totalCount={seTotal}
+              totalCount={seTotal.length}
               pageSize={pageSize}
               onPageChange={(page) => setCurrentPage(page)}
               onPageSizeChange={(pageSize) => setPageSize(pageSize)}
@@ -160,7 +156,7 @@ const OnSale = () => {
             <Pagination
               className="pagination-bar"
               currentPage={currentPage}
-              totalCount={auTotal}
+              totalCount={auTotal.length}
               pageSize={pageSize}
               onPageChange={(page) => setCurrentPage(page)}
               onPageSizeChange={(pageSize) => setPageSize(pageSize)}
