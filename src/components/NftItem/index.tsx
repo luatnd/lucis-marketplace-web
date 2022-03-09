@@ -2,6 +2,7 @@ import { Button } from "@chakra-ui/react"
 import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import Verified from "@static/icons/verified.svg"
 import moment from "moment"
+import Link from "next/link"
 import Router from "next/router"
 import { useCountdown } from "src/hooks/useCountdown"
 import { useStore } from "src/hooks/useStore"
@@ -47,7 +48,6 @@ export const NftItem = (props: IProps) => {
   }
 
   const handleRedirect = () => {
-    Router.push("/nft/1")
     NftStore.setNft({
       name,
       image,
@@ -63,15 +63,19 @@ export const NftItem = (props: IProps) => {
 
   return (
     <div className="nft-item" onClick={handleRedirect}>
-      <div className="nft-image">
-        <img src={image} />
-      </div>
+      <Link href={"/nft/1"}>
+        <div className="nft-image">
+          <img src={image} />
+        </div>
+      </Link>
       <div className="nft-body">
         <div className="provider">
-          <div className="algin-center">
-            <span>{provider}</span>
-            <Verified />
-          </div>
+          <Link href={"/collection/a"}>
+            <div className="algin-center">
+              <span>{provider}</span>
+              <Verified />
+            </div>
+          </Link>
           <div>
             {auction != undefined && auction ? (
               <img src="/icons/auction.png" alt="" />
@@ -80,7 +84,9 @@ export const NftItem = (props: IProps) => {
             )}
           </div>
         </div>
-        <span className="name">{name}</span>
+        <Link href={"/user/" + name}>
+          <span className="name">{name}</span>
+        </Link>
         <div className="end-in">
           {auction ? (
             <div>

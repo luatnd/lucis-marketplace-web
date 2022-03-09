@@ -176,14 +176,18 @@ const Activities = () => {
                     <Tr key={data.key}>
                       <Td>{data.type}</Td>
                       <Td className="item">
-                        <Link href={"/user/" + data.to}>
+                        <Link href={"/nft/" + data.to}>
                           <a>
                             <img src="/icons/item.png" alt="" /> {data.item}
                           </a>
                         </Link>
                       </Td>
                       <Td isNumeric>{data.price}</Td>
-                      <Td>{data.from}</Td>
+                      <Td>
+                        <Link href={"/user/" + data.to}>
+                          <a>{data.from}</a>
+                        </Link>
+                      </Td>
                       <Td className="to">
                         <Link href={"/user/" + data.to}>
                           <a>{data.to}</a>
@@ -237,14 +241,18 @@ const Activities = () => {
                     <Tr key={data.key}>
                       <Td>{data.type}</Td>
                       <Td className="item">
-                        <Link href={"/user/" + data.to}>
+                        <Link href={"/nft/" + data.to}>
                           <a>
                             <img src="/icons/item.png" alt="" /> {data.item}
                           </a>
                         </Link>
                       </Td>
                       <Td isNumeric>{data.price}</Td>
-                      <Td>{data.from}</Td>
+                      <Td>
+                        <Link href={"/user/" + data.to}>
+                          <a>{data.from}</a>
+                        </Link>
+                      </Td>
                       <Td className="to">
                         <Link href={"/user/" + data.to}>
                           <a>{data.to}</a>

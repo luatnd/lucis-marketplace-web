@@ -183,23 +183,31 @@ const Offering = () => {
                 {dataSoure.map((data) => (
                   <Tr key={data.key}>
                     <Td>
-                      <Link href={"/user/profile-other"}>
-                        <a>
-                          <div className="item">
-                            <img src="/icons/item.png" alt="" />
-                            <div>
+                      <div className="item">
+                        <img src="/icons/item.png" alt="" />
+                        <div>
+                          <Link href={"/collection/animverse"}>
+                            <a>
                               <p>
                                 Animverse{" "}
                                 <img src="/common/my-nft/check.png" alt="" />
                               </p>
+                            </a>
+                          </Link>
+                          <Link href={"/nft/detail"}>
+                            <a>
                               <p>CUONG DOLLA NFT</p>
-                            </div>
-                          </div>
-                        </a>
-                      </Link>
+                            </a>
+                          </Link>
+                        </div>
+                      </div>
                     </Td>
                     <Td isNumeric>26.94 BNB</Td>
-                    <Td>Nhi</Td>
+                    <Td>
+                      <Link href={"/user/nhi"}>
+                        <a>Nhi</a>
+                      </Link>
+                    </Td>
                     <Td>in 2 days</Td>
                     <Td>1 days ago</Td>
                     <Td className="button">

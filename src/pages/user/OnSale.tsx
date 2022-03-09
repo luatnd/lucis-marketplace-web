@@ -189,11 +189,19 @@ const OnSale = () => {
                               <img src="/icons/item.png" alt="" />
                             </div>
                             <div className="name-item">
-                              <p className="animverse">
-                                Animverse
-                                <Verified />
-                              </p>
-                              <p>CUONG DOLLA NFT</p>
+                              <Link href={"/collection/animverse"}>
+                                <a>
+                                  <p className="animverse">
+                                    Animverse
+                                    <Verified />
+                                  </p>
+                                </a>
+                              </Link>
+                              <Link href={"/nft/detail"}>
+                                <a>
+                                  <p>CUONG DOLLA NFT</p>
+                                </a>
+                              </Link>
                             </div>
                           </div>
                         </Td>
