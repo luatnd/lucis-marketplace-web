@@ -134,8 +134,34 @@
               text-decoration: underline;
               cursor: pointer;
             }
+            &.flex-row {
+              flex-direction: row;
+              button {
+                min-width: auto;
+                &:first-child {
+                  margin-right: 10px;
+                }
+                &:last-child {
+                  border: solid 1px transparent !important;
+                  background-image: linear-gradient(300deg, #78e4ff, #ff48fa);
+                  background-origin: border-box;
+                  box-shadow: 2px 1000px 1px #030348 inset !important;
+                }
+              }
+            }
           }
         }
+      }
+      .auction-end {
+        margin-top: -20px;
+        margin-bottom: 20px;
+        justify-content: flex-end;
+        display: flex;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 31px;
+        text-transform: uppercase;
+        color: #FFFFFF;
       }
       .details-stats {
         position: relative;
@@ -214,17 +240,93 @@
           }
         }
       }
-      .date-column {
-        display: flex;
-        align-items: center;
-        svg {
-          color: $cyan;
-          margin-left: 10px;
-        }
-      }
+    }
+  }
+  .date-column {
+    display: flex;
+    align-items: center;
+    svg {
+      color: $cyan;
+      margin-left: 10px;
     }
   }
 }
 .fixed-price {
-  
+  .img {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 26px;
+    .right {
+      margin-left: 22px;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 38px;
+      color: #FFFFFF;
+      .animverse {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 25px;
+        color: #0BEBD6;
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        img {
+          margin-left: 7px;
+        }
+      }
+    }
+  }
+  .price {
+    font-size: 18px;
+    line-height: 28px;
+    color: #FFFFFF;
+  }
+  p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #FFFFFF;
+  }
+  .convert {
+    margin-bottom: 10px;
+  }
+  .price-floor {
+    margin-bottom: 26px;
+  }
+  .fees {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 31px;
+    color: #FFFFFF;
+    margin-bottom: 3px;
+  }
+  .desc-fees {
+    margin-bottom: 18px;
+  }
+  .card-fees {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 18px 23px;
+    p {
+      display: flex;
+      justify-content: space-between;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 22px;
+      margin-bottom: 8px;
+    }
+  }
+  .card-price {
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    button {
+      margin-right: 10px;
+      &:first-child {
+        background: #383874;
+        border-radius: 8px;
+      }
+    }
+  }
 }

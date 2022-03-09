@@ -135,6 +135,7 @@ const Activities = () => {
                         <a
                           href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
                           target={"_blank"}
+                          rel="noreferrer"
                         >
                           <img src="/icons/open-new.png" alt="" />
                         </a>
@@ -185,6 +186,7 @@ const Activities = () => {
                         <a
                           href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
                           target={"_blank"}
+                          rel="noreferrer"
                         >
                           <img src="/icons/open-new.png" alt="" />
                         </a>
