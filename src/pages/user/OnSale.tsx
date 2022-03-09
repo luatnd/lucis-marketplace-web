@@ -28,7 +28,7 @@ import {
 import Sort from "../../components/Sort"
 import network from "../data/network.json"
 import * as Icons from "react-feather"
-import { AuctionItem } from "../../components/Home/AuctionItem"
+import { NftItem } from "../../components/NftItem"
 import auctions from "../data/auctions.json"
 import { useEffect, useState } from "react"
 import Pagination from "../../components/Pagination"
@@ -91,7 +91,7 @@ const OnSale = () => {
               <div className="grid-custom">
                 {data.map((auction, index) => (
                   <div className="grid-item" key={index}>
-                    <AuctionItem
+                    <NftItem
                       key={auction.id}
                       name={auction.name}
                       image={auction.image}
@@ -123,7 +123,7 @@ const OnSale = () => {
               <div className="grid-custom">
                 {data.map((auction, index) => (
                   <div className="grid-item" key={index}>
-                    <AuctionItem
+                    <NftItem
                       key={auction.id}
                       name={auction.name}
                       image={auction.image}

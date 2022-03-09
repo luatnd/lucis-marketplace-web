@@ -218,7 +218,7 @@ export class WalletController {
       apiClient.applyAuth(token)
       return true
     } else {
-      const message = "Animverse sign"
+      const message = "Lucis sign"
       const account = this.address
       const nonceData = await apiClient.req({
         method: "GET",
@@ -234,7 +234,6 @@ export class WalletController {
         data: { address: account, sign: signed_hash },
       })
       if (res?.data?.error_code === "") {
-        console.log("login success", res)
         const token = res?.data?.data?.token
         this.token = token
         this.setAuth(token)

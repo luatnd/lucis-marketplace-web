@@ -7,22 +7,25 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react"
+import BoxIcon from "@static/icons/item-box.svg"
 import VerifiedIcon from "@static/icons/verified.svg"
 import { useEffect, useState } from "react"
 import { ChevronDown, ChevronUp, ExternalLink } from "react-feather"
 import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
 import { AppTable } from "src/components/AppTable"
-import { AuctionItem } from "src/components/Home/AuctionItem"
-import { Listing } from "src/components/Home/Listing"
-import BoxIcon from "@static/icons/item-box.svg"
+import { ListingBar } from "src/components/Home/ListingBar"
+import { NftItem } from "src/components/NftItem"
 
 const CollectionDetails = () => {
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const [offset, setOffset] = useState(10)
-  const [pageSize, setPageSize] = useState(5)
+  const [offset, setOffset] = useState(0)
+  const [pageSize, setPageSize] = useState(10)
   const [total, setTotal] = useState(2000)
+
+  const [itemOffset, setItemOffset] = useState(0)
+  const [itemPageSize, setItemPageSize] = useState(20)
 
   const fetchData = () => {
     console.log(offset, pageSize)
@@ -89,18 +92,28 @@ const CollectionDetails = () => {
         <div className="filter">
           <AppSelect
             placeholder="Type"
+            isSearchable={false}
             options={[
               {
-                label: "Type",
+                label: "Fix price",
                 value: "1",
+              },
+              {
+                label: "Auc",
+                value: "2",
               },
             ]}
           />
           <AppSelect
             placeholder="Price: Min to Max"
+            isSearchable={false}
             options={[
               {
                 label: "Price: Min to Max",
+                value: "1",
+              },
+              {
+                label: "Price: Max to Min",
                 value: "1",
               },
             ]}
@@ -109,22 +122,23 @@ const CollectionDetails = () => {
       </div>
       <div className="item-list">
         {itemList.map((item) => (
-          <AuctionItem
+          <NftItem
             key={item.id}
             name={item.name}
             image={item.image}
             provider={item.provider}
             endTime={item.endTime}
             price={item.price}
+            auction={item.auction}
           />
         ))}
       </div>
       <AppPagination
         total={total}
-        offset={offset}
-        pageSize={pageSize}
-        onChangeOffset={(value) => setOffset(value)}
-        onChangPageSize={(value) => setPageSize(value)}
+        offset={itemOffset}
+        pageSize={itemPageSize}
+        onChangeOffset={(value) => setItemOffset(value)}
+        onChangPageSize={(value) => setItemPageSize(value)}
       />
     </div>
   )
@@ -134,10 +148,27 @@ const CollectionDetails = () => {
       <div className="filter-row">
         <AppSelect
           placeholder="All"
+          isSearchable={false}
           options={[
             {
               label: "All",
               value: "1",
+            },
+            {
+              label: "Listing",
+              value: "2",
+            },
+            {
+              label: "Sale",
+              value: "3",
+            },
+            {
+              label: "Auction",
+              value: "4",
+            },
+            {
+              label: "Offer",
+              value: "5",
             },
           ]}
         />
@@ -199,7 +230,7 @@ const CollectionDetails = () => {
         className="collection-banner"
         src="/common/example-collection-banner.png"
       />
-      <Listing />
+      <ListingBar />
       <div className="collection-content">
         <Tabs>
           <TabList>
@@ -226,6 +257,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "2",
@@ -234,6 +266,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "3",
@@ -242,6 +275,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "4",
@@ -250,6 +284,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "5",
@@ -258,6 +293,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "6",
@@ -266,6 +302,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "7",
@@ -274,6 +311,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "8",
@@ -282,6 +320,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "9",
@@ -290,6 +329,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "10",
@@ -298,6 +338,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "11",
@@ -306,6 +347,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "12",
@@ -314,6 +356,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "13",
@@ -322,6 +365,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "14",
@@ -330,6 +374,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "15",
@@ -338,6 +383,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "16",
@@ -346,6 +392,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "17",
@@ -354,6 +401,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "18",
@@ -362,6 +410,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "19",
@@ -370,6 +419,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "20",
@@ -378,6 +428,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
 ]
 
@@ -389,7 +440,7 @@ const columns = [
   {
     title: "Item",
     dataIndex: "item",
-    render: (item) => (
+    render: ({ item }) => (
       <span className="item-column">
         <Button>
           <BoxIcon />
@@ -409,14 +460,20 @@ const columns = [
   {
     title: "To",
     dataIndex: "to",
+    render: ({ to }) => `${to?.slice(0, 5)}...${to?.slice(-4)}`,
   },
   {
     title: "Date",
     dataIndex: "date",
-    render: (date) => (
-      <span className="date-column">
+    render: ({ date, to }) => (
+      <a
+        className="date-column"
+        href={process.env.NEXT_PUBLIC_BSC_SCAN_TX + to}
+        rel="noreferrer"
+        target="_blank"
+      >
         {date} <Icon as={ExternalLink} />
-      </span>
+      </a>
     ),
   },
 ]
@@ -427,7 +484,7 @@ const tableData = [
     item: "Animverse",
     price: "26.94 BNB",
     from: "Dong Van Cuong",
-    to: "0x531b…fFf8",
+    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
     date: "1 days ago",
   },
   {
@@ -435,7 +492,7 @@ const tableData = [
     item: "Animverse",
     price: "26.94 BNB",
     from: "Dong Van Cuong",
-    to: "0x531b…fFf8",
+    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
     date: "1 days ago",
   },
   {
@@ -443,7 +500,7 @@ const tableData = [
     item: "Animverse",
     price: "26.94 BNB",
     from: "Dong Van Cuong",
-    to: "0x531b…fFf8",
+    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
     date: "1 days ago",
   },
   {
@@ -451,7 +508,7 @@ const tableData = [
     item: "Animverse",
     price: "26.94 BNB",
     from: "Dong Van Cuong",
-    to: "0x531b…fFf8",
+    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
     date: "1 days ago",
   },
   {
@@ -459,7 +516,7 @@ const tableData = [
     item: "Animverse",
     price: "26.94 BNB",
     from: "Dong Van Cuong",
-    to: "0x531b…fFf8",
+    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
     date: "1 days ago",
   },
   {
@@ -467,7 +524,7 @@ const tableData = [
     item: "Animverse",
     price: "26.94 BNB",
     from: "Dong Van Cuong",
-    to: "0x531b…fFf8",
+    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
     date: "1 days ago",
   },
   {
@@ -475,7 +532,7 @@ const tableData = [
     item: "Animverse",
     price: "26.94 BNB",
     from: "Dong Van Cuong",
-    to: "0x531b…fFf8",
+    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
     date: "1 days ago",
   },
   {
@@ -483,7 +540,7 @@ const tableData = [
     item: "Animverse",
     price: "26.94 BNB",
     from: "Dong Van Cuong",
-    to: "0x531b…fFf8",
+    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
     date: "1 days ago",
   },
   {
@@ -491,7 +548,7 @@ const tableData = [
     item: "Animverse",
     price: "26.94 BNB",
     from: "Dong Van Cuong",
-    to: "0x531b…fFf8",
+    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
     date: "1 days ago",
   },
   {
@@ -499,7 +556,7 @@ const tableData = [
     item: "Animverse",
     price: "26.94 BNB",
     from: "Dong Van Cuong",
-    to: "0x531b…fFf8",
+    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
     date: "1 days ago",
   },
 ]

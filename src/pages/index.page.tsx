@@ -6,7 +6,7 @@ import { Banners } from "../components/Home/Banners"
 import { HotAuctions } from "../components/Home/HotAuctions"
 import { HotCollections } from "../components/Home/HotCollections"
 import { Launchpad } from "../components/Home/Launchpad"
-import { Listing } from "../components/Home/Listing"
+import { ListingBar } from "../components/Home/ListingBar"
 
 const Home = () => {
   useEffect(() => {
@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div className="home-page">
       <Banners />
-      <Listing />
+      <ListingBar />
       <Launchpad />
       <HotCollections />
       <HotAuctions />

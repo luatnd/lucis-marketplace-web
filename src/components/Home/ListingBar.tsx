@@ -1,8 +1,8 @@
 import Link from "next/link"
 
-export const Listing = () => {
+export const ListingBar = () => {
   return (
-    <div className="listing">
+    <div className="listing-bar">
       <div className="listing-body">
         <div className="listing-label">Listing</div>
         <img src="/home/listing-img.png" />

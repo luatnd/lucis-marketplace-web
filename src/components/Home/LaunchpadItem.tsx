@@ -33,23 +33,25 @@ export const LaunchpadItem = (props: IProps) => {
         {isOnGoing ? "Ongoing" : "Upcoming"}
       </span>
       <span className="launchpad-name">{name}</span>
-      {isOnGoing ? (
-        <div className="launchpad-stats">
-          <div className="stat">
-            <BoxsIcon />
-            <span>{boxs}</span> BOXES
+      <div className="launchpad-info">
+        {isOnGoing ? (
+          <div className="launchpad-stats">
+            <div className="stat">
+              <BoxsIcon />
+              <span>{boxs}</span> BOXES
+            </div>
+            <div className="stat">
+              <ItemsIcon />
+              <span>{items}</span> ITEMS
+            </div>
           </div>
-          <div className="stat">
-            <ItemsIcon />
-            <span>{items}</span> ITEMS
+        ) : (
+          <div className="start-in">
+            <span>START IN</span>
+            <span>{moment(startTime).format("HH:mm:ss")}</span>
           </div>
-        </div>
-      ) : (
-        <div className="start-in">
-          <span>START IN</span>
-          <span>{moment(startTime).format("HH:mm:ss")}</span>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

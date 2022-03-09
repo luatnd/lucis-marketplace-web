@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { AuctionItem } from "../components/Home/AuctionItem"
-import { Listing } from "../components/Home/Listing"
+import { ListingBar } from "../components/Home/ListingBar"
+import { NftItem } from "../components/NftItem"
 import Pagination from "../components/Pagination"
 import Sort from "../components/Sort"
 import auctions from "./data/auctions.json"
@@ -79,7 +79,7 @@ const DiscoverPage = () => {
 
   return (
     <div className="discover-page">
-      <Listing />
+      <ListingBar />
       <h1 className="discover">Discover</h1>
       <div className="discover-sort">
         <p>{auctions.length} items listed</p>
@@ -92,7 +92,7 @@ const DiscoverPage = () => {
       <div className="grid-custom">
         {data.map((auction, index) => (
           <div className="grid-item" key={index}>
-            <AuctionItem
+            <NftItem
               key={auction.id}
               name={auction.name}
               image={auction.image}
