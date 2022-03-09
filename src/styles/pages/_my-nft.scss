@@ -283,11 +283,10 @@
     .offering-make {
       margin-top: 40px;
       min-width: 1000px;
-      overflow-x: scroll;
+      overflow-x: auto;
       .item {
         display: flex;
         align-items: center;
-        height: 73.5px;
         img {
           width: 50px;
           margin-right: 17px;
