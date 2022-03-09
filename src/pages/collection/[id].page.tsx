@@ -129,6 +129,7 @@ const CollectionDetails = () => {
             provider={item.provider}
             endTime={item.endTime}
             price={item.price}
+            auction={item.auction}
           />
         ))}
       </div>
@@ -256,6 +257,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "2",
@@ -264,6 +266,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "3",
@@ -272,6 +275,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "4",
@@ -280,6 +284,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "5",
@@ -288,6 +293,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "6",
@@ -296,6 +302,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "7",
@@ -304,6 +311,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "8",
@@ -312,6 +320,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "9",
@@ -320,6 +329,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "10",
@@ -328,6 +338,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "11",
@@ -336,6 +347,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "12",
@@ -344,6 +356,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "13",
@@ -352,6 +365,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "14",
@@ -360,6 +374,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "15",
@@ -368,6 +383,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "16",
@@ -376,6 +392,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "17",
@@ -384,6 +401,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "18",
@@ -392,6 +410,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
   {
     id: "19",
@@ -400,6 +419,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: true,
   },
   {
     id: "20",
@@ -408,6 +428,7 @@ const itemList = [
     provider: "Animverse",
     endTime: "2022-03-15T00:00:00",
     price: 0.99,
+    auction: false,
   },
 ]
 

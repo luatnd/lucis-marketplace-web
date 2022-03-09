@@ -89,94 +89,108 @@ const DetailsPage = () => {
   const handleOpenModal = (typeModal) => {
     let data = null
     switch (typeModal) {
-      case 'auction':
+      case "auction":
         data = {
           header: 'Auction',
           footer: 'Apply',
-          body: <>
+          body: (<>
             <Text className="price">Price</Text>
             <InputGroup>
               <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
               <InputRightAddon>BNB</InputRightAddon>
             </InputGroup>
             <Text className="desc">The minium auc price is 0.1785 BNB</Text>
-          </>
+          </>)
         }
-        break;
-      case 'buy':
+        break
+      case "buy":
         data = {
           header: 'Buy',
           footer: 'Apply',
-          body: <div className="form-buy">
+          body: (<div className="form-buy">
             <p className="label-price">Price:</p>
             <Text className="price">
               {NftStore?.nft?.price}
               <p>($8.8)</p>
             </Text>
-          </div>
+          </div>)
         }
-        break;
-      case 'offer':
+        break
+      case "offer":
         data = {
           header: 'Offer',
           footer: 'Apply',
-          body: <>
+          body: (<>
             <Text className="price">Price</Text>
             <InputGroup>
               <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
               <InputRightAddon>BNB</InputRightAddon>
             </InputGroup>
-          </>
+          </>)
         }
-        break;
+        break
 
-      case 'fixedPrice':
+      case "fixedPrice":
         data = {
           size: 'lg',
           header: 'Fixed Price',
           footer: 'Approve',
-          body: <div className="fixed-price">
-          <div className="img">
-            <img src="/icons/owner.png" alt="" />
-            <p className="right">
-              <p className="animverse">
-                  Animverse
-                  <img src="/common/my-nft/check.png" alt="" />
-              </p>
-                CUONG DOLLA NFT
-            </p>
-          </div>
-            <Text className="price">Price</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="0.0" colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-            <p className="convert">0 BNB = $0</p>
-            <p className="price-floor">The floor price is 0.0055 BNB. The item will be on sale until
-              you cancelled.</p>
-            <p className="fees">FEES</p>
-            <p className="desc-fees">Listing is FREE! When the sale succeeds, the following fees will
-              occour.</p>
-            <div className="card-fees">
-              <p>
-                <span>To Lucis</span>
-                <span>2.5%</span>
-              </p>
-              <p>
-                <span>To Polychain Monsters</span>
-                <span>2.5%</span>
+          body: (
+          <div className="fixed-price">
+            <div className="img">
+              <img src="/icons/owner.png" alt="" />
+              <p className="right">
+                <p className="animverse">
+                    Animverse
+                    <img src="/common/my-nft/check.png" alt="" />
+                </p>
+                  CUONG DOLLA NFT
               </p>
             </div>
-          </div>
+              <Text className="price">Price</Text>
+              <InputGroup>
+                <Input type="tel" placeholder="0.0" colorScheme="#D7D7D7" />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+              <p className="convert">0 BNB = $0</p>
+              <p className="price-floor">The floor price is 0.0055 BNB. The item will be on sale until
+                you cancelled.</p>
+              <p className="fees">FEES</p>
+              <p className="desc-fees">Listing is FREE! When the sale succeeds, the following fees will
+                occour.</p>
+              <div className="card-fees">
+                <p>
+                  The floor price is 0.0055 BNB. The item will be on sale until
+                  you cancelled.
+                </p>
+                <p>FEES</p>
+                <p>
+                  Listing is FREE! When the sale succeeds, the following fees will
+                  occour.
+                </p>
+                <div>
+                  <p>
+                    <span>To Lucis</span>
+                    <span>2.5%</span>
+                  </p>
+                  <p>
+                    <span>To Polychain Monsters</span>
+                    <span>2.5%</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )
         }
-        break;
+        break
 
-      case 'ownerAuction':
+      case "ownerAuction":
         data = {
           size: 'lg',
           header: 'Auction',
           footer: 'Approve',
-          body: <div className="fixed-price">
+          body: (
+          <div className="fixed-price">
             <div className="img">
               <img src="/icons/owner.png" alt="" />
               <p className="right">
@@ -206,24 +220,26 @@ const DetailsPage = () => {
               occour.</p>
             <div className="card-fees">
               <p>
-                <span>To Lucis</span>
-                <span>2.5%</span>
+                The floor price is 0.0055 BNB. The item will be on sale until
+                you cancelled.
               </p>
+              <p>FEES</p>
               <p>
-                <span>To Polychain Monsters</span>
-                <span>2.5%</span>
+                Listing is FREE! When the sale succeeds, the following fees will
+                occour.
               </p>
             </div>
           </div>
+          )
         }
-        break;
+        break
 
-      case 'ownerSend':
+      case "ownerSend":
         data = {
           size: 'lg',
           header: 'Send',
           footer: 'Approve',
-          body: <div className="fixed-price">
+          body: (<div className="fixed-price">
             <div className="img">
               <img src="/icons/owner.png" alt="" />
               <p className="right">
@@ -240,7 +256,7 @@ const DetailsPage = () => {
               <InputRightAddon>BNB</InputRightAddon>
             </InputGroup>
             <p className="convert">You won’t be able to take back the NFT after the transaction.</p>
-          </div>
+          </div>)
         }
         break;
         
@@ -249,7 +265,7 @@ const DetailsPage = () => {
           size: 'lg',
           header: 'Send',
           footer: 'OK',
-          body: <div className="fixed-price">
+          body: (<div className="fixed-price">
             <Text className="price">From</Text>
             <InputGroup>
               <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
@@ -260,11 +276,11 @@ const DetailsPage = () => {
               <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
               <InputRightAddon>BNB</InputRightAddon>
             </InputGroup>
-          </div>
+          </div>)
         }
         break;
       default:
-        break;
+        break
     }
     setContentModal(data)
     onOpen()
@@ -272,21 +288,25 @@ const DetailsPage = () => {
 
   const handleApply = () => {
     onClose()
-    if (Math.random() < 0.5){
+    if (Math.random() < 0.5) {
       setContentAlert({
-        body: <div className="alert-content">
-          <img src="/icons/congratulation.png" alt="" />
-          <p className="title">Congratulation!</p>
-          <p className="desc">You have successfully offer!</p>
-        </div>
+        body: (
+          <div className="alert-content">
+            <img src="/icons/congratulation.png" alt="" />
+            <p className="title">Congratulation!</p>
+            <p className="desc">You have successfully offer!</p>
+          </div>
+        ),
       })
     } else {
       setContentAlert({
-        body: <div className="alert-content">
-          <img src="/icons/sorry.png" alt="" />
-          <p className="title">Error!</p>
-          <p className="desc">Opp! something went wrong.</p>
-        </div>
+        body: (
+          <div className="alert-content">
+            <img src="/icons/sorry.png" alt="" />
+            <p className="title">Error!</p>
+            <p className="desc">Opp! something went wrong.</p>
+          </div>
+        ),
       })
     }
     alert.onOpen()
@@ -368,7 +388,9 @@ const DetailsPage = () => {
           <div className="owner">
             {
               !nft?.owner ? (
-                <span>Preserved by Hlyman</span>
+                <span>Preserved by <a href="/user/1"
+                  target={"_blank"}
+                  rel="noreferrer">Hlyman</a></span>
               ) : (
                 <span>Preserved by Me</span>
               )
@@ -438,16 +460,20 @@ const DetailsPage = () => {
   
 
   const _renderModalConfirm = () => (
-    <Modal size={contentModal?.size != undefined ? contentModal.size : 'sm'} finalFocusRef={btnModal} isOpen={isOpen} onClose={onClose} isCentered={false}>
+    <Modal
+      size={contentModal?.size != undefined ? contentModal.size : "sm"}
+      finalFocusRef={btnModal}
+      isOpen={isOpen}
+      onClose={onClose}
+      isCentered={false}
+    >
       <ModalOverlay />
       <ModalContent className="dialog-confirm">
         <ModalHeader>{contentModal?.header}</ModalHeader>
         <ModalCloseButton>
           <img src="/icons/close.png" />
         </ModalCloseButton>
-        <ModalBody className="form-auction">
-          {contentModal?.body}
-        </ModalBody>
+        <ModalBody className="form-auction">{contentModal?.body}</ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={handleApply}>
             {contentModal?.footer}
@@ -456,18 +482,22 @@ const DetailsPage = () => {
       </ModalContent>
     </Modal>
   )
-  
+
   const _renderModalAlert = () => (
-    <Modal size="sm" finalFocusRef={btnAlert} isOpen={alert.isOpen} onClose={alert.onClose} isCentered={false}>
+    <Modal
+      size="sm"
+      finalFocusRef={btnAlert}
+      isOpen={alert.isOpen}
+      onClose={alert.onClose}
+      isCentered={false}
+    >
       <ModalOverlay />
       <ModalContent className="dialog-confirm dialog-alert">
         <ModalHeader> </ModalHeader>
         <ModalCloseButton>
           <img src="/icons/close.png" />
         </ModalCloseButton>
-        <ModalBody className="form-auction">
-          {contentAlert?.body}
-        </ModalBody>
+        <ModalBody className="form-auction">{contentAlert?.body}</ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={alert.onClose}>
             OK

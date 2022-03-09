@@ -43,12 +43,30 @@ const Activities = () => {
         {
             title: "From",
             dataIndex: "from",
+            render: (({from}) => (
+                <a
+                    href="/user/1"
+                    target={"_blank"}
+                    rel="noreferrer"
+                    className="date-column"
+                >
+                    {from}
+                </a>
+            ))
         },
         {
             title: "To",
             dataIndex: "to",
             render: (({to, type}) => type != 'Listing' ? (
-                <>{to}</>
+                <a
+                    href="/user/1"
+                    target={"_blank"}
+                    rel="noreferrer"
+                    className="date-column"
+                    style={{ color: '#0BEBD6'}}
+                >
+                    {to}
+                </a>
             ): '')
         },
         {

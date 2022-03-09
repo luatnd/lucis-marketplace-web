@@ -3,6 +3,129 @@
   margin: auto;
   margin-top: 44px;
   max-width: 1242px;
+  @include to(md) {
+    margin-top: 36px;
+  }
+  .account-other {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 56px;
+    @include to(md){
+      margin-bottom: 48px;
+    }
+    @include to(sm){
+      flex-flow: column;
+    }
+    .info {
+      display: flex;
+      align-items: center;
+      @include to(sm){
+        flex-flow: column;
+        margin-bottom: 20px;
+      }
+      .left {
+        width: 153px;
+        margin-right: 37px;
+        @include to(md){
+          width: 130px;
+          margin-right: 28px;
+        }
+        @include to(sm){
+          margin: 0;
+          margin-bottom: 16px;
+        }
+      }
+      .right {
+        display: flex;
+        .name-id {
+          margin-right: 20px;
+          @include to(md){
+            margin-right: 16px;
+          }
+          h2 {
+            font-weight: 700;
+            font-size: 36px;
+            line-height: 42px;
+            @include to(md){
+              font-size: 32px;
+              line-height: 36px;
+            }
+          }
+          div {
+            margin-top: 17px;
+            height: 48px;
+            min-width: 230px;
+            width: 100%;
+            border: solid 1px transparent !important;
+            background-image: linear-gradient(300deg, #78e4ff, #ff48fa);
+            box-shadow: 2px 1000px 1px #353571 inset !important;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            cursor: pointer;
+            @include to(md){
+              margin-top: 13px;
+              height: 44px;
+              min-width: 200px;
+            }
+            span {
+              font-weight: 400;
+              font-size: 18px;
+              line-height: 29px;
+              @include to(md){
+                font-size: 16px;
+                list-style: 24px;
+              }
+            }
+          }
+        }
+        .social {
+          display: flex;
+          flex-flow: column;
+          justify-content: space-between;
+          .vip {
+            width: 50px;
+            @include to(md){
+              width: 40px;
+            }
+          }
+          .list {
+            display: flex;
+            margin-bottom: 4px;
+            margin-left: 8px;
+            img {
+              cursor: pointer;
+              width: 32px;
+              margin-right: 18px;
+              @include to(md){
+                width: 28px;
+                margin-right: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+    button {
+      background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
+      border-radius: 8px;
+      width: 167px;
+      height: 56px;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 38px;
+      text-transform: uppercase;
+      @include to(md){
+        width: 140px;
+        height: 48px;
+        font-size: 20px;
+        line-height: 32px;
+      }
+    }
+  }
   .account {
     display: flex;
     align-items: center;
@@ -29,8 +152,9 @@
         margin-top: 17px;
         height: 48px;
         width: 230px;
-        background: #030348;
-        box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4);
+        border: solid 1px transparent !important;
+        background-image: linear-gradient(300deg, #78e4ff, #ff48fa);
+        box-shadow: 2px 1000px 1px #353571 inset !important;
         border-radius: 8px;
         display: flex;
         justify-content: space-between;
@@ -51,9 +175,15 @@
     }
     .chakra-tabs__tablist {
       border: none;
+      min-width: 700px;
       width: 80%;
       margin: auto;
       margin-bottom: 56px;
+      @include to(sm){
+        margin-bottom: 40px;
+        min-width: auto;
+        width: 100%;
+      }
       button {
         transition: all 1s;
         width: 20%;
@@ -63,6 +193,18 @@
         text-align: center;
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.5);
+        @include to(sm){
+          width: 20%;
+          font-size: 16px;
+          line-height: 36px;
+          padding: 2px 4px;
+        }
+        @include to(xs){
+          width: fit-content;
+          font-size: 16px;
+          line-height: 36px;
+          padding: 2px 6px;
+        }
         &:focus {
           box-shadow: none;
         }
@@ -79,17 +221,30 @@
       font-weight: 700;
       font-size: 72px;
       line-height: 83px;
+      @include to(md){
+        font-size: 64px;
+        line-height: 70px;
+      }
     }
     .tab {
       .tab-sort {
+        width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        @include to(sm){
+          flex-flow: column;
+          align-items: flex-start;
+        }
         .chakra-tabs__tablist {
           display: flex;
           justify-content: flex-start !important;
           margin: 0;
           width: fit-content;
+          min-width: auto;
+          @include to(sm){
+            margin-bottom: 20px;
+          }
           button {
             width: 120px;
             font-weight: 600;
@@ -102,6 +257,8 @@
         .right {
           display: flex;
           justify-items: flex-end;
+          .select-sort{
+          }
         }
       }
     }
@@ -112,10 +269,21 @@
         grid-template-columns: repeat(5, 1fr);
         grid-row-gap: 20px;
         grid-column-gap: 24px;
+        @include to(lg){
+          grid-template-columns: repeat(4, 1fr);
+        }
+        @include to(md){
+          grid-template-columns: repeat(3, 1fr);
+        }
+        @include to(sm){
+          grid-template-columns: repeat(2, 1fr);
+        }
       }
     }
     .offering-make {
       margin-top: 40px;
+      min-width: 1000px;
+      overflow-x: auto;
       .item {
         display: flex;
         align-items: center;
@@ -321,19 +489,19 @@
         font-weight: normal;
         font-size: 18px;
         line-height: 28px;
-        color: #FFFFFF;
+        color: #ffffff;
       }
       &.price {
         font-weight: 600;
         font-size: 36px;
         line-height: 115%;
         text-align: right;
-        color: #0BEBD6;
+        color: #0bebd6;
         p {
           font-size: 20px;
           line-height: 31px;
           text-align: right;
-          color: #FFFFFF;
+          color: #ffffff;
           font-weight: normal;
         }
       }
@@ -354,12 +522,12 @@
         font-weight: 500;
         font-size: 24px;
         line-height: 38px;
-        color: #FFFFFF;
+        color: #ffffff;
       }
       .desc {
         font-size: 16px;
         line-height: 22px;
-        color: #FFFFFF;
+        color: #ffffff;
       }
     }
     button {
