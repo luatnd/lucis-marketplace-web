@@ -58,10 +58,10 @@ const Collected = () => {
                 key={auction.id}
                 name={auction.name}
                 image={auction.image}
-                provider={auction.provider}
+                collection={auction.collection}
                 endTime={auction.endTime}
                 price={auction.price}
-                auction={auction.auction}
+                isAuction={auction.isAuction}
                 activeBtn={true}
               />
             </div>

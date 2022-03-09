@@ -49,10 +49,10 @@ const Favorite = () => {
                 key={auction.id}
                 name={auction.name}
                 image={auction.image}
-                provider={auction.provider}
+                collection={auction.collection}
                 endTime={auction.endTime}
                 price={auction.price}
-                auction={auction.auction}
+                isAuction={auction.auction}
                 activeBtn={Math.random() < 0.9}
                 hidePrice={auction?.hidePrice}
                 owner={auction?.owner}
