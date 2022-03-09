@@ -27,6 +27,7 @@ export const Discover = () => {
       >
         {nfts?.map((auction) => (
           <NftItem
+            id={auction.id}
             key={auction.id}
             name={auction.name}
             image={auction.image}

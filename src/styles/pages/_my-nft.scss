@@ -11,27 +11,27 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 56px;
-    @include to(md){
+    @include to(md) {
       margin-bottom: 48px;
     }
-    @include to(sm){
+    @include to(sm) {
       flex-flow: column;
     }
     .info {
       display: flex;
       align-items: center;
-      @include to(sm){
+      @include to(sm) {
         flex-flow: column;
         margin-bottom: 20px;
       }
       .left {
         width: 153px;
         margin-right: 37px;
-        @include to(md){
+        @include to(md) {
           width: 130px;
           margin-right: 28px;
         }
-        @include to(sm){
+        @include to(sm) {
           margin: 0;
           margin-bottom: 16px;
         }
@@ -40,14 +40,14 @@
         display: flex;
         .name-id {
           margin-right: 20px;
-          @include to(md){
+          @include to(md) {
             margin-right: 16px;
           }
           h2 {
             font-weight: 700;
             font-size: 36px;
             line-height: 42px;
-            @include to(md){
+            @include to(md) {
               font-size: 32px;
               line-height: 36px;
             }
@@ -66,7 +66,7 @@
             align-items: center;
             padding: 0 15px;
             cursor: pointer;
-            @include to(md){
+            @include to(md) {
               margin-top: 13px;
               height: 44px;
               min-width: 200px;
@@ -75,7 +75,7 @@
               font-weight: 400;
               font-size: 18px;
               line-height: 29px;
-              @include to(md){
+              @include to(md) {
                 font-size: 16px;
                 list-style: 24px;
               }
@@ -88,7 +88,7 @@
           justify-content: space-between;
           .vip {
             width: 50px;
-            @include to(md){
+            @include to(md) {
               width: 40px;
             }
           }
@@ -100,7 +100,7 @@
               cursor: pointer;
               width: 32px;
               margin-right: 18px;
-              @include to(md){
+              @include to(md) {
                 width: 28px;
                 margin-right: 14px;
               }
@@ -118,7 +118,7 @@
       font-size: 24px;
       line-height: 38px;
       text-transform: uppercase;
-      @include to(md){
+      @include to(md) {
         width: 140px;
         height: 48px;
         font-size: 20px;
@@ -179,7 +179,7 @@
       width: 80%;
       margin: auto;
       margin-bottom: 56px;
-      @include to(sm){
+      @include to(sm) {
         margin-bottom: 40px;
         min-width: auto;
         width: 100%;
@@ -193,13 +193,13 @@
         text-align: center;
         text-transform: uppercase;
         color: rgba(255, 255, 255, 0.5);
-        @include to(sm){
+        @include to(sm) {
           width: 20%;
           font-size: 16px;
           line-height: 36px;
           padding: 2px 4px;
         }
-        @include to(xs){
+        @include to(xs) {
           width: fit-content;
           font-size: 16px;
           line-height: 36px;
@@ -221,7 +221,7 @@
       font-weight: 700;
       font-size: 72px;
       line-height: 83px;
-      @include to(md){
+      @include to(md) {
         font-size: 64px;
         line-height: 70px;
       }
@@ -232,7 +232,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        @include to(sm){
+        @include to(sm) {
           flex-flow: column;
           align-items: flex-start;
         }
@@ -242,7 +242,7 @@
           margin: 0;
           width: fit-content;
           min-width: auto;
-          @include to(sm){
+          @include to(sm) {
             margin-bottom: 20px;
           }
           button {
@@ -257,7 +257,7 @@
         .right {
           display: flex;
           justify-items: flex-end;
-          .select-sort{
+          .select-sort {
           }
         }
       }
@@ -269,13 +269,13 @@
         grid-template-columns: repeat(5, 1fr);
         grid-row-gap: 20px;
         grid-column-gap: 24px;
-        @include to(lg){
+        @include to(lg) {
           grid-template-columns: repeat(4, 1fr);
         }
-        @include to(md){
+        @include to(md) {
           grid-template-columns: repeat(3, 1fr);
         }
-        @include to(sm){
+        @include to(sm) {
           grid-template-columns: repeat(2, 1fr);
         }
       }
@@ -381,7 +381,7 @@
           top: 0px;
           right: 0;
         }
-        }
+      }
     }
     .tab-activities {
       margin-top: 40px;
@@ -539,7 +539,8 @@
   margin-top: 35px;
 
   table {
-    thead {}
+    thead {
+    }
 
     tbody {
       tr {
@@ -568,9 +569,7 @@
             color: #ffffff;
 
             &.accept {
-              background: linear-gradient(99.92deg,
-                  #cd28e8 0%,
-                  #0bebd6 100%);
+              background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
               border-radius: 8px;
               margin-right: 8px;
             }
@@ -578,13 +577,12 @@
             &.cancel {
               border-radius: 8px;
               border: solid 1px transparent !important;
-              background-image: linear-gradient(300deg,
-                  #78e4ff,
-                  #ff48fa);
+              background-image: linear-gradient(300deg, #78e4ff, #ff48fa);
               background-origin: border-box;
               box-shadow: 2px 1000px 1px #353571 inset !important;
 
-              &:focus {}
+              &:focus {
+              }
             }
           }
         }

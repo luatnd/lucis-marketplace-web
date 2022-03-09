@@ -7,97 +7,90 @@ import Pagination from "src/components/Pagination"
 import { useState } from "react"
 
 const ReceivedOffer = () => {
+  const NftStore = useStore("NftStore")
 
-    const NftStore = useStore('NftStore')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(20)
+  const [totalData, setTotalData] = useState(Number(receivedList.length))
 
-    const [currentPage, setCurrentPage] = useState(1)
-    const [pageSize, setPageSize] = useState(20)
-    const [totalData, setTotalData] = useState(Number(receivedList.length))
+  const typeSort = [
+    {
+      img: "",
+      name: "Newest",
+    },
+    {
+      img: "",
+      name: "Price: Min to Max",
+    },
+    {
+      img: "",
+      name: "Price: Max to Min",
+    },
+  ]
 
-    const typeSort = [
-        {
-            img: "",
-            name: "Newest",
-        },
-        {
-            img: "",
-            name: "Price: Min to Max",
-        },
-        {
-            img: "",
-            name: "Price: Max to Min",
-        },
-    ]
-
-    return (
-        <>
-            <div className="sort">
-                <Sort customClassName="type-sort" options={typeSort} />
-            </div>
-            <div className="table-activity">
-                <Table variant="simple">
-                    <Thead>
-                        <Tr>
-                            <Th>Item</Th>
-                            <Th>Price</Th>
-                            <Th>To</Th>
-                            <Th>Expiration</Th> 
-                            <Th>Date</Th>
-                            {
-                                NftStore?.nft?.owner && (
-                                    <Th>Action</Th>
-                                )
-                            }
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {receivedList.map((el, index) => (
-                            <Tr key={index}>
-                                <Td>
-                                    <div className="align-center item">
-                                        <div>
-                                            <img src="/icons/item.png" alt="" />
-                                        </div>
-                                        <div className="name-item">
-                                            <p className="animverse">
-                                                Animverse
-                                                <Verified />
-                                            </p>
-                                            <p>CUONG DOLLA NFT</p>
-                                        </div>
-                                    </div>
-                                </Td>
-                                <Td>{el.price}</Td>
-                                <Td>{el.to}</Td>
-                                <Td>in 2 days</Td>
-                                <Td>
-                                    <span>{el.date}</span>
-                                </Td>
-                                {
-                                    NftStore?.nft?.owner && (
-                                        <Td>
-                                            <Button className="accept">Accept</Button>
-                                            <Button className="cancel">
-                                                <span>Cancel</span>
-                                            </Button>
-                                        </Td>
-                                    )
-                                }
-                            </Tr>
-                        ))}
-                    </Tbody>
-                </Table>
-            </div>
-            <Pagination
-                className="pagination-bar"
-                currentPage={currentPage}
-                totalCount={totalData}
-                pageSize={pageSize}
-                onPageChange={(page) => setCurrentPage(page)}
-                onPageSizeChange={(pageSize) => setPageSize(pageSize)}
-            />
-        </>
-    )
+  return (
+    <>
+      <div className="sort">
+        <Sort customClassName="type-sort" options={typeSort} />
+      </div>
+      <div className="table-activity">
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Item</Th>
+              <Th>Price</Th>
+              <Th>To</Th>
+              <Th>Expiration</Th>
+              <Th>Date</Th>
+              {NftStore?.nft?.owner && <Th>Action</Th>}
+            </Tr>
+          </Thead>
+          <Tbody>
+            {receivedList.map((el, index) => (
+              <Tr key={index}>
+                <Td>
+                  <div className="align-center item">
+                    <div>
+                      <img src="/icons/item.png" alt="" />
+                    </div>
+                    <div className="name-item">
+                      <p className="animverse">
+                        Animverse
+                        <Verified />
+                      </p>
+                      <p>CUONG DOLLA NFT</p>
+                    </div>
+                  </div>
+                </Td>
+                <Td>{el.price}</Td>
+                <Td>{el.to}</Td>
+                <Td>in 2 days</Td>
+                <Td>
+                  <span>{el.date}</span>
+                </Td>
+                {NftStore?.nft?.owner && (
+                  <Td>
+                    <Button className="accept">Accept</Button>
+                    <Button className="cancel">
+                      <span>Cancel</span>
+                    </Button>
+                  </Td>
+                )}
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </div>
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={totalData}
+        pageSize={pageSize}
+        onPageChange={(page) => setCurrentPage(page)}
+        onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+      />
+    </>
+  )
 }
 
 export default ReceivedOffer

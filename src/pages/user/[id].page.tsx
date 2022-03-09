@@ -10,7 +10,7 @@ import { useRouter } from "next/router"
 
 const MyNft = () => {
   const router = useRouter()
-  const { id } = router.query;
+  const { id } = router.query
   const [showSort, setShowSort] = useState([false])
   const [money, setMoney] = useState("All")
   const [price, setPrice] = useState("All")
@@ -229,7 +229,7 @@ const MyNft = () => {
   ]
   return (
     <div className="my-nft">
-      {id=="my-nft" ? (
+      {id == "my-nft" ? (
         <div className="account">
           <img className="left" src="/common/my-nft/account.png" alt="" />
           <div className="right">

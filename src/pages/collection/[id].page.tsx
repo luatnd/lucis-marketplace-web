@@ -162,6 +162,7 @@ const CollectionDetails = () => {
       <div className="item-list">
         {items?.map((item) => (
           <NftItem
+            id={item.id}
             key={item.id}
             name={item.name}
             image={item.image}

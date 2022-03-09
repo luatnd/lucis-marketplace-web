@@ -7,6 +7,7 @@ import { useCountdown } from "src/hooks/useCountdown"
 import { useStore } from "src/hooks/useStore"
 
 interface IProps {
+  id?: string
   name?: string
   image?: string
   collection?: {
@@ -23,6 +24,7 @@ interface IProps {
 
 export const NftItem = (props: IProps) => {
   const {
+    id,
     name,
     image,
     collection,
@@ -50,7 +52,7 @@ export const NftItem = (props: IProps) => {
   }
 
   const handleRedirect = () => {
-    Router.push("/nft/1")
+    Router.push("/nft/" + id)
     NftStore.setNft({
       name,
       image,

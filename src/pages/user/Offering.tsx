@@ -286,6 +286,7 @@ const Offering = () => {
               <div className="list">
                 {auctions.map((auction) => (
                   <NftItem
+                    id={auction.id}
                     key={auction.id}
                     name={auction.name}
                     image={auction.image}

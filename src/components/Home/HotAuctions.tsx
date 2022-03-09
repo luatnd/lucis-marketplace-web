@@ -26,6 +26,7 @@ export const HotAuctions = () => {
       >
         {hotAuction?.map((auction) => (
           <NftItem
+            id={auction.id}
             key={auction.id}
             name={auction.name}
             image={auction.image}

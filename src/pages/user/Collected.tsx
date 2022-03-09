@@ -55,6 +55,7 @@ const Collected = () => {
           {data.map((auction, index) => (
             <div className="grid-item" key={index}>
               <NftItem
+                id={auction.id}
                 key={auction.id}
                 name={auction.name}
                 image={auction.image}

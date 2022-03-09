@@ -19,7 +19,9 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react"
-import React, { useState } from "react"
+import axios from "axios"
+import { useRouter } from "next/router"
+import React, { useEffect, useState } from "react"
 import { ExternalLink, Eye, Heart } from "react-feather"
 
 import { useStore } from "src/hooks/useStore"
@@ -37,9 +39,21 @@ const DetailsPage = () => {
   const btnModal = React.useRef()
   const btnAlert = React.useRef()
 
-  // useEffect(() => {
-  //   setNft(NftStore.nft)
-  // }, [])
+  const router = useRouter()
+  const [data, setData] = useState<any>()
+  const fetchData = async () => {
+    const id = await router.query.id
+    if (id) {
+      const { data } = await await axios.get(
+        process.env.NEXT_PUBLIC_API_TEST + "/nft/" + id
+      )
+      setData(data)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [router.query.id])
 
   const detailsStats = [
     {
@@ -84,80 +98,88 @@ const DetailsPage = () => {
     },
   ]
 
-
-
   const handleOpenModal = (typeModal) => {
     let data = null
     switch (typeModal) {
       case "auction":
         data = {
-          header: 'Auction',
-          footer: 'Apply',
-          body: (<>
-            <Text className="price">Price</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-            <Text className="desc">The minium auc price is 0.1785 BNB</Text>
-          </>)
+          header: "Auction",
+          footer: "Apply",
+          body: (
+            <>
+              <Text className="price">Price</Text>
+              <InputGroup>
+                <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+              <Text className="desc">The minium auc price is 0.1785 BNB</Text>
+            </>
+          ),
         }
         break
       case "buy":
         data = {
-          header: 'Buy',
-          footer: 'Apply',
-          body: (<div className="form-buy">
-            <p className="label-price">Price:</p>
-            <Text className="price">
-              {NftStore?.nft?.price}
-              <p>($8.8)</p>
-            </Text>
-          </div>)
+          header: "Buy",
+          footer: "Apply",
+          body: (
+            <div className="form-buy">
+              <p className="label-price">Price:</p>
+              <Text className="price">
+                {NftStore?.nft?.price}
+                <p>($8.8)</p>
+              </Text>
+            </div>
+          ),
         }
         break
       case "offer":
         data = {
-          header: 'Offer',
-          footer: 'Apply',
-          body: (<>
-            <Text className="price">Price</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-          </>)
+          header: "Offer",
+          footer: "Apply",
+          body: (
+            <>
+              <Text className="price">Price</Text>
+              <InputGroup>
+                <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+            </>
+          ),
         }
         break
 
       case "fixedPrice":
         data = {
-          size: 'lg',
-          header: 'Fixed Price',
-          footer: 'Approve',
+          size: "lg",
+          header: "Fixed Price",
+          footer: "Approve",
           body: (
-          <div className="fixed-price">
-            <div className="img">
-              <img src="/icons/owner.png" alt="" />
-              <p className="right">
-                <p className="animverse">
+            <div className="fixed-price">
+              <div className="img">
+                <img src="/icons/owner.png" alt="" />
+                <p className="right">
+                  <p className="animverse">
                     Animverse
                     <img src="/common/my-nft/check.png" alt="" />
-                </p>
+                  </p>
                   CUONG DOLLA NFT
-              </p>
-            </div>
+                </p>
+              </div>
               <Text className="price">Price</Text>
               <InputGroup>
                 <Input type="tel" placeholder="0.0" colorScheme="#D7D7D7" />
                 <InputRightAddon>BNB</InputRightAddon>
               </InputGroup>
               <p className="convert">0 BNB = $0</p>
-              <p className="price-floor">The floor price is 0.0055 BNB. The item will be on sale until
-                you cancelled.</p>
+              <p className="price-floor">
+                The floor price is 0.0055 BNB. The item will be on sale until
+                you cancelled.
+              </p>
               <p className="fees">FEES</p>
-              <p className="desc-fees">Listing is FREE! When the sale succeeds, the following fees will
-                occour.</p>
+              <p className="desc-fees">
+                Listing is FREE! When the sale succeeds, the following fees will
+                occour.
+              </p>
               <div className="card-fees">
                 <p>
                   The floor price is 0.0055 BNB. The item will be on sale until
@@ -165,8 +187,8 @@ const DetailsPage = () => {
                 </p>
                 <p>FEES</p>
                 <p>
-                  Listing is FREE! When the sale succeeds, the following fees will
-                  occour.
+                  Listing is FREE! When the sale succeeds, the following fees
+                  will occour.
                 </p>
                 <div>
                   <p>
@@ -180,105 +202,121 @@ const DetailsPage = () => {
                 </div>
               </div>
             </div>
-          )
+          ),
         }
         break
 
       case "ownerAuction":
         data = {
-          size: 'lg',
-          header: 'Auction',
-          footer: 'Approve',
+          size: "lg",
+          header: "Auction",
+          footer: "Approve",
           body: (
-          <div className="fixed-price">
-            <div className="img">
-              <img src="/icons/owner.png" alt="" />
-              <p className="right">
-                <p className="animverse">
-                  Animverse
-                  <img src="/common/my-nft/check.png" alt="" />
+            <div className="fixed-price">
+              <div className="img">
+                <img src="/icons/owner.png" alt="" />
+                <p className="right">
+                  <p className="animverse">
+                    Animverse
+                    <img src="/common/my-nft/check.png" alt="" />
+                  </p>
+                  CUONG DOLLA NFT
                 </p>
-                CUONG DOLLA NFT
-              </p>
-            </div>
-            <Text className="price">Price</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="0.0" colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-            <p className="convert">0 BNB = $0</p>
-            <p className="price-floor">The floor price is 0.0055 BNB. The item will be on sale until
-              you cancelled.</p>
-            <Text className="price">Price</Text>
-            <div className="card-price">
-              <Button>1 Day</Button>
-              <Button>3 Days</Button>
-              <Button>5 Days</Button>
-            </div>
-            <p className="fees">FEES</p>
-            <p className="desc-fees">Listing is FREE! When the sale succeeds, the following fees will
-              occour.</p>
-            <div className="card-fees">
-              <p>
+              </div>
+              <Text className="price">Price</Text>
+              <InputGroup>
+                <Input type="tel" placeholder="0.0" colorScheme="#D7D7D7" />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+              <p className="convert">0 BNB = $0</p>
+              <p className="price-floor">
                 The floor price is 0.0055 BNB. The item will be on sale until
                 you cancelled.
               </p>
-              <p>FEES</p>
-              <p>
+              <Text className="price">Price</Text>
+              <div className="card-price">
+                <Button>1 Day</Button>
+                <Button>3 Days</Button>
+                <Button>5 Days</Button>
+              </div>
+              <p className="fees">FEES</p>
+              <p className="desc-fees">
                 Listing is FREE! When the sale succeeds, the following fees will
                 occour.
               </p>
+              <div className="card-fees">
+                <p>
+                  The floor price is 0.0055 BNB. The item will be on sale until
+                  you cancelled.
+                </p>
+                <p>FEES</p>
+                <p>
+                  Listing is FREE! When the sale succeeds, the following fees
+                  will occour.
+                </p>
+              </div>
             </div>
-          </div>
-          )
+          ),
         }
         break
 
       case "ownerSend":
         data = {
-          size: 'lg',
-          header: 'Send',
-          footer: 'Approve',
-          body: (<div className="fixed-price">
-            <div className="img">
-              <img src="/icons/owner.png" alt="" />
-              <p className="right">
-                <p className="animverse">
-                  Animverse
-                  <img src="/common/my-nft/check.png" alt="" />
+          size: "lg",
+          header: "Send",
+          footer: "Approve",
+          body: (
+            <div className="fixed-price">
+              <div className="img">
+                <img src="/icons/owner.png" alt="" />
+                <p className="right">
+                  <p className="animverse">
+                    Animverse
+                    <img src="/common/my-nft/check.png" alt="" />
+                  </p>
+                  CUONG DOLLA NFT
                 </p>
-                CUONG DOLLA NFT
+              </div>
+              <Text className="price">Target wallet address</Text>
+              <InputGroup>
+                <Input
+                  type="tel"
+                  placeholder="0xadabc..."
+                  colorScheme="#D7D7D7"
+                />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+              <p className="convert">
+                You won’t be able to take back the NFT after the transaction.
               </p>
             </div>
-            <Text className="price">Target wallet address</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="0xadabc..." colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-            <p className="convert">You won’t be able to take back the NFT after the transaction.</p>
-          </div>)
+          ),
         }
-        break;
-        
-      case 'changePrice':
+        break
+
+      case "changePrice":
         data = {
-          size: 'lg',
-          header: 'Send',
-          footer: 'OK',
-          body: (<div className="fixed-price">
-            <Text className="price">From</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-            <Text className="price" mt={5}>To</Text>
-            <InputGroup>
-              <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
-              <InputRightAddon>BNB</InputRightAddon>
-            </InputGroup>
-          </div>)
+          size: "lg",
+          header: "Send",
+          footer: "OK",
+          body: (
+            <div className="fixed-price">
+              <Text className="price">From</Text>
+              <InputGroup>
+                <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+              <Text className="price" mt={5}>
+                To
+              </Text>
+              <InputGroup>
+                <Input type="tel" placeholder="Price" colorScheme="#D7D7D7" />
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+            </div>
+          ),
         }
-        break;
+        break
       default:
         break
     }
@@ -315,8 +353,8 @@ const DetailsPage = () => {
   const _renderDetails = () => {
     let renderAction = null
     const nft = NftStore?.nft
-    
-    if (nft?.owner) { 
+
+    if (nft?.owner) {
       if (!nft?.hidePrice && !nft?.auction) {
         renderAction = (
           <>
@@ -328,22 +366,45 @@ const DetailsPage = () => {
                   <span>($8.8)</span>
                 </div>
                 <div className="buy-nav flex-row">
-                  <Button ref={btnModal} onClick={() => handleOpenModal('changePrice')}>Change price</Button>
-                  <Button className="cancel" ref={btnModal} onClick={() => handleOpenModal('cancel')}>Cancel</Button>
+                  <Button
+                    ref={btnModal}
+                    onClick={() => handleOpenModal("changePrice")}
+                  >
+                    Change price
+                  </Button>
+                  <Button
+                    className="cancel"
+                    ref={btnModal}
+                    onClick={() => handleOpenModal("cancel")}
+                  >
+                    Cancel
+                  </Button>
                 </div>
               </div>
             </div>
           </>
-        ) 
-      }else if(nft.hidePrice) {
+        )
+      } else if (nft.hidePrice) {
         renderAction = (
-            <div className="buy-tray-owner">
-              <Button ref={btnModal} onClick={() => handleOpenModal('fixedPrice')}>Fixed Price</Button>
-              <Button ref={btnModal} onClick={() => handleOpenModal('ownerAuction')}>Auction</Button>
-              <Button ref={btnModal} onClick={() => handleOpenModal('ownerSend')}>Send</Button>
-            </div>
-          )
-        }else {
+          <div className="buy-tray-owner">
+            <Button
+              ref={btnModal}
+              onClick={() => handleOpenModal("fixedPrice")}
+            >
+              Fixed Price
+            </Button>
+            <Button
+              ref={btnModal}
+              onClick={() => handleOpenModal("ownerAuction")}
+            >
+              Auction
+            </Button>
+            <Button ref={btnModal} onClick={() => handleOpenModal("ownerSend")}>
+              Send
+            </Button>
+          </div>
+        )
+      } else {
         renderAction = (
           <>
             <div className="buy-tray">
@@ -354,24 +415,30 @@ const DetailsPage = () => {
                   <span>($8.8)</span>
                 </div>
                 <div className="buy-nav flex-row">
-                  <Button className="cancel" ref={btnModal} onClick={() => handleOpenModal('cancel')}>Cancel</Button>
+                  <Button
+                    className="cancel"
+                    ref={btnModal}
+                    onClick={() => handleOpenModal("cancel")}
+                  >
+                    Cancel
+                  </Button>
                 </div>
               </div>
             </div>
             <p className="auction-end">Auction end in 10:00:00</p>
           </>
         )
-        }
+      }
     }
 
     return (
       <div className="details">
         <div className="details-card">
           <div className="details-image">
-            <img src="/nft-details/nft-details.png" />
+            <img src={data?.image} />
             <Icon as={Heart} className="heart" />
           </div>
-  
+
           <div className="nft-description">
             8888 NFT Astar Punks derivatives from CryptoPunks built on the Astar
             Network. It focuses on being a gateway and support for artists who
@@ -382,66 +449,81 @@ const DetailsPage = () => {
         <div className="details-content">
           <div className="provider">
             <img src="/nft-details/provider.png" />
-            <span>Animverse</span>
+            <span>{data?.collection?.name}</span>
           </div>
-          <span className="name">{nft?.name}</span>
+          <span className="name">{data?.name}</span>
           <div className="owner">
-            {
-              !nft?.owner ? (
-                <span>Preserved by <a href="/user/1"
-                  target={"_blank"}
-                  rel="noreferrer">Hlyman</a></span>
-              ) : (
-                <span>Preserved by Me</span>
-              )
-            }
+            {!nft?.owner ? (
+              <span>
+                Preserved by{" "}
+                <a href="/user/1" target={"_blank"} rel="noreferrer">
+                  Hlyman
+                </a>
+              </span>
+            ) : (
+              <span>Preserved by Me</span>
+            )}
             <div className="owner-stat">
               <span>100</span> <Icon as={Heart} />
               <span>100</span> <Icon as={Eye} />
             </div>
           </div>
-            {
-              !nft?.owner && (
-                <>
-                  <div className="buy-tray">
-                    <div className="buy-tray-body">
-                      <div className="price">
-                        {
-                        !nft?.hidePrice && !nft?.owner ? (
-                            <>
-                              <span>Price</span>
-                              <span>{nft?.price} BNB</span>
-                              <span>($8.8)</span>
-                            </>
-                          ) : (
-                            <>
-                              <span>Price</span>
-                              <span>-</span>
-                              <span>Waiting first offer</span>
-                            </>
-                          )
-                        }
-                      </div>
-                      <div className="buy-nav">
-                        {nft?.auction ? (
-                          <Button ref={btnModal} onClick={ () => handleOpenModal('auction')}>AUC</Button>
-                        ) : (
-                          <>
-                              <Button ref={btnModal} onClick={() => handleOpenModal('buy')} isDisabled={nft?.hidePrice}>BUY</Button>
-                          </>
-                        )}
-                        {!nft?.auction ? <span ref={btnModal} onClick={() => handleOpenModal('offer')}>Or make offer other price</span> : null}
-                      </div>
-                    </div>
+          {!nft?.owner && (
+            <>
+              <div className="buy-tray">
+                <div className="buy-tray-body">
+                  <div className="price">
+                    {!nft?.hidePrice && !nft?.owner ? (
+                      <>
+                        <span>Price</span>
+                        <span>{nft?.price} BNB</span>
+                        <span>($8.8)</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Price</span>
+                        <span>-</span>
+                        <span>Waiting first offer</span>
+                      </>
+                    )}
                   </div>
-                  {nft?.auction && (
-                    <p className="auction-end">Auction end in 10:00:00</p>
-                  )}
-                </>
-              )
-            }
-            {renderAction}
-            <div className="details-stats">
+                  <div className="buy-nav">
+                    {data?.isAuction ? (
+                      <Button
+                        ref={btnModal}
+                        onClick={() => handleOpenModal("auction")}
+                      >
+                        AUC
+                      </Button>
+                    ) : (
+                      <>
+                        <Button
+                          ref={btnModal}
+                          onClick={() => handleOpenModal("buy")}
+                          isDisabled={nft?.hidePrice}
+                        >
+                          BUY
+                        </Button>
+                      </>
+                    )}
+                    {!nft?.auction ? (
+                      <span
+                        ref={btnModal}
+                        onClick={() => handleOpenModal("offer")}
+                      >
+                        Or make offer other price
+                      </span>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+              {nft?.auction && (
+                <p className="auction-end">Auction end in 10:00:00</p>
+              )}
+            </>
+          )}
+          {renderAction}
+          <div className="details-stats">
             <h1>Detail</h1>
             {detailsStats.map((stat) => (
               <div className="stat" key={stat.key}>
@@ -457,7 +539,6 @@ const DetailsPage = () => {
       </div>
     )
   }
-  
 
   const _renderModalConfirm = () => (
     <Modal
@@ -507,23 +588,21 @@ const DetailsPage = () => {
     </Modal>
   )
 
-const _renderTables = () => (
+  const _renderTables = () => (
     <div className="tables">
       <Tabs>
         <TabList>
           <Tab className="tab-item">ACTIVITIES</Tab>
-          <Tab className="tab-item">{NftStore?.nft?.auction ? 'AUCTIONS' : 'RECEIVED OFFER' }</Tab>
+          <Tab className="tab-item">
+            {NftStore?.nft?.auction ? "AUCTIONS" : "RECEIVED OFFER"}
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Activities/>
-          </TabPanel >
+            <Activities />
+          </TabPanel>
           <TabPanel>
-          {!NftStore?.nft?.auction ? (
-            <ReceivedOffer/>
-          ) : (
-            <Auction/>
-          )}
+            {!NftStore?.nft?.auction ? <ReceivedOffer /> : <Auction />}
           </TabPanel>
         </TabPanels>
       </Tabs>
