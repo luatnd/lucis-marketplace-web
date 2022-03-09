@@ -34,6 +34,7 @@ import { useEffect, useState } from "react"
 import Pagination from "../../components/Pagination"
 import receivedList from "../data/activities.json"
 import Verified from "@static/icons/verified.svg"
+import Link from "next/link"
 
 const OnSale = () => {
   const [data, setData] = useState([])
@@ -41,10 +42,25 @@ const OnSale = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [currentPage1, setCurrentPage1] = useState(1)
   const [pageSize, setPageSize] = useState(20)
-  const [pageSize1, setPageSize1] = useState(20)
+  const [pageSize1, setPageSize1] = useState(10)
   const [totalData, setTotalData] = useState(Number(auctions.length))
+  const [auTotal, setAuTotal] = useState(0)
+  const [seTotal, setSeTotal] = useState(0)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
+  useEffect(() => {
+    let au = 0
+    let se = 0
+    auctions.forEach((el) => {
+      if (el.auction == true) {
+        au++
+      } else {
+        se++
+      }
+    })
+    setAuTotal(au)
+    setSeTotal(se)
+  }, [])
 
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * pageSize
@@ -89,26 +105,28 @@ const OnSale = () => {
             </div>
             <div className="">
               <div className="grid-custom">
-                {data.map((auction, index) => (
-                  <div className="grid-item" key={index}>
-                    <NftItem
-                      key={auction.id}
-                      name={auction.name}
-                      image={auction.image}
-                      provider={auction.provider}
-                      endTime={auction.endTime}
-                      price={auction.price}
-                      auction={auction.auction}
-                      activeBtn={true}
-                    />
-                  </div>
-                ))}
+                {data.map((auction, index) =>
+                  auction.auction != true ? (
+                    <div className="grid-item" key={index}>
+                      <NftItem
+                        key={auction.id}
+                        name={auction.name}
+                        image={auction.image}
+                        provider={auction.provider}
+                        endTime={auction.endTime}
+                        price={auction.price}
+                        auction={auction.auction}
+                        activeBtn={true}
+                      />
+                    </div>
+                  ) : null
+                )}
               </div>
             </div>
             <Pagination
               className="pagination-bar"
               currentPage={currentPage}
-              totalCount={totalData}
+              totalCount={seTotal}
               pageSize={pageSize}
               onPageChange={(page) => setCurrentPage(page)}
               onPageSizeChange={(pageSize) => setPageSize(pageSize)}
@@ -121,26 +139,28 @@ const OnSale = () => {
             </div>
             <div className="">
               <div className="grid-custom">
-                {data.map((auction, index) => (
-                  <div className="grid-item" key={index}>
-                    <NftItem
-                      key={auction.id}
-                      name={auction.name}
-                      image={auction.image}
-                      provider={auction.provider}
-                      endTime={auction.endTime}
-                      price={auction.price}
-                      auction={auction.auction}
-                      activeBtn={true}
-                    />
-                  </div>
-                ))}
+                {data.map((auction, index) =>
+                  auction.auction == true ? (
+                    <div className="grid-item" key={index}>
+                      <NftItem
+                        key={auction.id}
+                        name={auction.name}
+                        image={auction.image}
+                        provider={auction.provider}
+                        endTime={auction.endTime}
+                        price={auction.price}
+                        auction={auction.auction}
+                        activeBtn={true}
+                      />
+                    </div>
+                  ) : null
+                )}
               </div>
             </div>
             <Pagination
               className="pagination-bar"
               currentPage={currentPage}
-              totalCount={totalData}
+              totalCount={auTotal}
               pageSize={pageSize}
               onPageChange={(page) => setCurrentPage(page)}
               onPageSizeChange={(pageSize) => setPageSize(pageSize)}
@@ -182,7 +202,11 @@ const OnSale = () => {
                           </div>
                         </Td>
                         <Td>{el.price}</Td>
-                        <Td>{el.to}</Td>
+                        <Td className="to">
+                          <Link href={"/user/" + el.to}>
+                            <a>{el.to}</a>
+                          </Link>
+                        </Td>
                         <Td>in 2 days</Td>
                         <Td>
                           <span>{el.date}</span>

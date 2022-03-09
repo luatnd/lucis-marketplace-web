@@ -1,7 +1,9 @@
 import Pagination from "src/components/Pagination"
 import { NftItem } from "src/components/NftItem"
 import Sort from "src/components/Sort"
-import { useState } from "react"
+import auctions from "../data/auctions.json"
+import network from "../data/network.json"
+import { useEffect, useState } from "react"
 import {
   Tabs,
   TabList,
@@ -26,12 +28,20 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react"
+import Link from "next/link"
 const Offering = () => {
+  const [data, setData] = useState([])
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [price, setPrice] = useState("All")
   const [made, setMade] = useState("All")
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(20)
+
+  useEffect(() => {
+    const firstPageIndex = (currentPage - 1) * pageSize
+    const lastPageIndex = firstPageIndex + pageSize
+    setData(auctions.slice(firstPageIndex, lastPageIndex))
+  }, [currentPage, pageSize])
   const priceSort = [
     { img: "/common/bnb.png", name: "BNB chain" },
     { img: "/common/walletConnect.png", name: "WalletConnect" },
@@ -97,180 +107,30 @@ const Offering = () => {
       type: "Sale",
     },
   ]
-  const auctions = [
-    {
-      id: "1",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover1.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "2",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover2.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "3",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover3.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "4",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover4.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "5",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover5.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "6",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover1.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "7",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover2.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "8",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover3.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "9",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover4.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "10",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover5.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "11",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover1.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "12",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover2.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "13",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover3.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "14",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover4.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "15",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover5.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "16",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover1.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "17",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover2.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "18",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover3.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "19",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover4.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "20",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover5.png",
-      provider: "Animverse",
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-  ]
   return (
     <div className="tab">
       <Tabs>
         <div className="tab-sort">
           <TabList>
-            <Tab>auction</Tab>
-            <Tab>Make Offer</Tab>
+            <Tab
+              onClick={() => {
+                setPageSize(20)
+              }}
+            >
+              auction
+            </Tab>
+            <Tab
+              onClick={() => {
+                setPageSize(10)
+              }}
+            >
+              Make Offer
+            </Tab>
           </TabList>
           <div className="right">
             <Sort
               customClassName="price-sort"
-              options={priceSort}
+              options={network}
               onSelectOption={(price) => setPrice(price)}
             />
             <Sort
@@ -284,7 +144,7 @@ const Offering = () => {
           <TabPanel>
             <div className="offering-auction">
               <div className="list">
-                {auctions.map((auction) => (
+                {data.map((auction) => (
                   <NftItem
                     key={auction.id}
                     name={auction.name}
@@ -293,14 +153,15 @@ const Offering = () => {
                     endTime={auction.endTime}
                     price={auction.price}
                     activeBtn={true}
+                    auction={true}
                   />
                 ))}
               </div>
               <Pagination
                 className="pagination-bar"
                 currentPage={currentPage}
-                totalCount={500}
-                pageSize={10}
+                totalCount={auctions.length}
+                pageSize={pageSize}
                 onPageChange={(page) => setCurrentPage(page)}
                 onPageSizeChange={(pageSize) => setPageSize(pageSize)}
               />
@@ -322,16 +183,20 @@ const Offering = () => {
                 {dataSoure.map((data) => (
                   <Tr key={data.key}>
                     <Td>
-                      <div className="item">
-                        <img src="/icons/item.png" alt="" />
-                        <div>
-                          <p>
-                            Animverse{" "}
-                            <img src="/common/my-nft/check.png" alt="" />
-                          </p>
-                          <p>CUONG DOLLA NFT</p>
-                        </div>
-                      </div>
+                      <Link href={"/user/profile-other"}>
+                        <a>
+                          <div className="item">
+                            <img src="/icons/item.png" alt="" />
+                            <div>
+                              <p>
+                                Animverse{" "}
+                                <img src="/common/my-nft/check.png" alt="" />
+                              </p>
+                              <p>CUONG DOLLA NFT</p>
+                            </div>
+                          </div>
+                        </a>
+                      </Link>
                     </Td>
                     <Td isNumeric>26.94 BNB</Td>
                     <Td>Nhi</Td>
@@ -344,6 +209,14 @@ const Offering = () => {
                 ))}
               </Tbody>
             </Table>
+            <Pagination
+              className="pagination-bar"
+              currentPage={currentPage}
+              totalCount={dataSoure.length}
+              pageSize={pageSize}
+              onPageChange={(page) => setCurrentPage(page)}
+              onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+            />
           </TabPanel>
         </TabPanels>
       </Tabs>

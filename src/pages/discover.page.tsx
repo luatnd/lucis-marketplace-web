@@ -43,7 +43,7 @@ const DiscoverPage = () => {
     },
     {
       img: "",
-      name: "Fixed",
+      name: "Fixed Price",
     },
     {
       img: "",
