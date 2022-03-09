@@ -51,9 +51,10 @@ const CollectionDetails = () => {
     const id = await router.query.id
     if (id) {
       const { data, headers } = await axios.get(
-        `process.env.NEXT_PUBLIC_API_TEST/nft/?collection.id=${id}&&_page=${Math.ceil(
-          itemOffset / itemPageSize
-        )}&&_limit=${itemPageSize}&&isAuction=${itemType}&&_sort=price&&_order=${itemSort}`
+        process.env.NEXT_PUBLIC_API_TEST +
+          `/nft/?collection.id=${id}&&_page=${Math.ceil(
+            itemOffset / itemPageSize
+          )}&&_limit=${itemPageSize}&&isAuction=${itemType}&&_sort=price&&_order=${itemSort}`
       )
       setItems(data)
       setItemTotal(+headers["x-total-count"])
