@@ -1,4 +1,4 @@
-import { AuctionItem } from "./AuctionItem"
+import { NftItem } from "../NftItem"
 import { HomeSection } from "./HomeSection"
 
 export const Discover = () => {
@@ -194,7 +194,7 @@ export const Discover = () => {
         onViewAll="/discover"
       >
         {auctions.map((auction) => (
-          <AuctionItem
+          <NftItem
             key={auction.id}
             name={auction.name}
             image={auction.image}

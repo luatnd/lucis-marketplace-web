@@ -315,7 +315,7 @@
     }
     .tab-collected,
     .tab-favorite {
-      .hiden {
+      .hidden {
         visibility: hidden;
       }
       .sort {
@@ -536,6 +536,59 @@
       color: #ffffff;
       width: 130px;
       height: 40px;
+    }
+  }
+  .form-buy {
+    display: flex;
+    justify-content: space-between;
+    p {
+      &.label-price {
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 28px;
+        color: #ffffff;
+      }
+      &.price {
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 115%;
+        text-align: right;
+        color: #0bebd6;
+        p {
+          font-size: 20px;
+          line-height: 31px;
+          text-align: right;
+          color: #ffffff;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+  &.dialog-alert {
+    header {
+      &::after {
+        border-bottom: none;
+      }
+    }
+    .alert-content {
+      text-align: center;
+      img {
+        margin: auto;
+      }
+      .title {
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 38px;
+        color: #ffffff;
+      }
+      .desc {
+        font-size: 16px;
+        line-height: 22px;
+        color: #ffffff;
+      }
+    }
+    button {
+      margin-right: 0;
     }
   }
 }

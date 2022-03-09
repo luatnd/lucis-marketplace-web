@@ -5,13 +5,13 @@
     display: flex;
     justify-content: center;
     left: 0;
-    top: 160px;
+    top: 95px;
     width: 100%;
     .banners {
       width: 100%;
       max-width: 1920px;
       .banner-border {
-        margin: 10px;
+        margin: 15px;
         height: 200px;
         background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
         border-radius: 10px;
@@ -36,8 +36,8 @@
       }
     }
   }
-  .listing {
-    margin-top: 300px;
+  .listing-bar {
+    margin-top: 260px;
     margin-bottom: 30px;
   }
   .home-section {

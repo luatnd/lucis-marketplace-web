@@ -18,7 +18,7 @@ interface IProps {
   owner?: boolean
 }
 
-export const AuctionItem = (props: IProps) => {
+export const NftItem = (props: IProps) => {
   const {
     name,
     image,
@@ -62,11 +62,11 @@ export const AuctionItem = (props: IProps) => {
   }
 
   return (
-    <div className="auction-item" onClick={handleRedirect}>
-      <div className="auction-image">
+    <div className="nft-item" onClick={handleRedirect}>
+      <div className="nft-image">
         <img src={image} />
       </div>
-      <div className="auction-body">
+      <div className="nft-body">
         <div className="provider">
           <div className="algin-center">
             <span>{provider}</span>

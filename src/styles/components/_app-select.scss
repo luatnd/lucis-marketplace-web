@@ -7,6 +7,7 @@
     text-align: left;
     font-size: 18px;
     font-weight: 500;
+    min-width: 200px;
     cursor: pointer;
     * {
       color: white;
@@ -29,7 +30,18 @@
       rgba(255, 255, 255, 0.3) -26.88%,
       rgba(255, 255, 255, 0.2) 73.85%
     );
+    white-space: nowrap;
     @include blurBack(20px);
+    overflow: hidden;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      top: 0;
+      right: 0;
+      background: url(/common/menu-corner.png);
+    }
     > div > div {
       transition: 0.2s;
       font-weight: 500;
