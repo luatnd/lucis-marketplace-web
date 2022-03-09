@@ -218,7 +218,7 @@ export class WalletController {
       apiClient.applyAuth(token)
       return true
     } else {
-      const message = "Lucis sign"
+      const message = "Animverse sign"
       const account = this.address
       const nonceData = await apiClient.req({
         method: "GET",
