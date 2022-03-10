@@ -1,7 +1,7 @@
 import Pagination from "src/components/Pagination"
 import { NftItem } from "src/components/NftItem"
 import Sort from "src/components/Sort"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   Tabs,
   TabList,
@@ -26,21 +26,24 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react"
-const Offering = () => {
+import Link from "next/link"
+import { getNft, getNfts } from "src/services/nft"
+import { useStore } from "src/hooks/useStore"
+import network from "../data/network.json"
+import { observer } from "mobx-react-lite"
+import { set } from "mobx"
+const Offering = observer(() => {
+  const WalletController = useStore("WalletController")
+  const { address } = WalletController
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [price, setPrice] = useState("All")
-  const [made, setMade] = useState("All")
+  const [made, setMade] = useState("null")
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(20)
-  const priceSort = [
-    { img: "/common/bnb.png", name: "BNB chain" },
-    { img: "/common/walletConnect.png", name: "WalletConnect" },
-    { img: "/common/ethereum.png", name: "Ethereum" },
-    { img: "/common/celo.png", name: "Celo" },
-    { img: "/common/aurora.png", name: "Aurora" },
-    { img: "/common/arbitrum.png", name: "Arbitrum" },
-    { img: "/common/fantom.png", name: "Fantom" },
-  ]
+  const [currentPage1, setCurrentPage1] = useState(1)
+  const [pageSize1, setPageSize1] = useState(10)
+  const [auctions, setAuctions] = useState([])
+  const [totalAuc, setTotalAuc] = useState(0)
   const madeSort = [
     {
       img: "",
@@ -97,168 +100,24 @@ const Offering = () => {
       type: "Sale",
     },
   ]
-  const auctions = [
-    {
-      id: "1",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover1.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "2",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover2.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "3",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover3.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "4",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover4.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "5",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover5.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "6",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover1.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "7",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover2.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "8",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover3.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "9",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover4.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "10",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover5.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "11",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover1.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "12",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover2.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "13",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover3.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "14",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover4.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "15",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover5.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "16",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover1.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "17",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover2.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "18",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover3.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "19",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover4.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-    {
-      id: "20",
-      name: "CUONG DOLLA NFT",
-      image: "/home/discovers/discover5.png",
-      collection: { id: "1", name: "Animverse" },
-      endTime: "2022-03-15T00:00:00",
-      price: 0.99,
-    },
-  ]
+  const getdata = async () => {
+    const res = await getNfts({
+      owner: address,
+      isAuction: true,
+      _sort: "price",
+      _order: made,
+      _limit:pageSize,
+      _page:currentPage
+    })    
+    setAuctions(res.data)
+    setTotalAuc(res.total)
+  }
+  useEffect(() => {
+    getdata()
+  }, [])
+  useEffect(() => {
+    getdata()
+  }, [made,pageSize,currentPage])
   return (
     <div className="tab">
       <Tabs>
@@ -270,13 +129,25 @@ const Offering = () => {
           <div className="right">
             <Sort
               customClassName="price-sort"
-              options={priceSort}
+              options={network}
               onSelectOption={(price) => setPrice(price)}
             />
             <Sort
               customClassName="type-sort"
               options={madeSort}
-              onSelectOption={(made) => setMade(price)}
+              onSelectOption={(made) => {
+                switch (made) {
+                  case "Price: Max to Min":
+                    setMade("desc")
+                    break
+                  case "Price: Min to Max":
+                    setMade("asc")
+                    break
+                  default:
+                    setMade("null")
+                    break
+                }
+              }}
             />
           </div>
         </div>
@@ -293,6 +164,7 @@ const Offering = () => {
                     collection={auction.collection}
                     endTime={auction.endTime}
                     price={auction.price}
+                    isAuction={auction.isAuction}
                     activeBtn={true}
                   />
                 ))}
@@ -300,8 +172,8 @@ const Offering = () => {
               <Pagination
                 className="pagination-bar"
                 currentPage={currentPage}
-                totalCount={500}
-                pageSize={10}
+                totalCount={totalAuc}
+                pageSize={pageSize}
                 onPageChange={(page) => setCurrentPage(page)}
                 onPageSizeChange={(pageSize) => setPageSize(pageSize)}
               />
@@ -326,16 +198,28 @@ const Offering = () => {
                       <div className="item">
                         <img src="/icons/item.png" alt="" />
                         <div>
-                          <p>
-                            Animverse{" "}
-                            <img src="/common/my-nft/check.png" alt="" />
-                          </p>
-                          <p>CUONG DOLLA NFT</p>
+                          <Link href={"/collection/1"}>
+                            <a>
+                              <p>
+                                Animverse{" "}
+                                <img src="/common/my-nft/check.png" alt="" />
+                              </p>
+                            </a>
+                          </Link>
+                          <Link href={"/user/1"}>
+                            <a>
+                              <p>CUONG DOLLA NFT</p>
+                            </a>
+                          </Link>
                         </div>
                       </div>
                     </Td>
                     <Td isNumeric>26.94 BNB</Td>
-                    <Td>Nhi</Td>
+                    <Td>
+                      <Link href={"/user/nhi"}>
+                        <a>Nhi</a>
+                      </Link>
+                    </Td>
                     <Td>in 2 days</Td>
                     <Td>1 days ago</Td>
                     <Td className="button">
@@ -345,6 +229,14 @@ const Offering = () => {
                 ))}
               </Tbody>
             </Table>
+            <Pagination
+                className="pagination-bar"
+                currentPage={currentPage1}
+                totalCount={10}
+                pageSize={pageSize1}
+                onPageChange={(page) => setCurrentPage1(page)}
+                onPageSizeChange={(pageSize) => setPageSize1(pageSize)}
+              />
           </TabPanel>
         </TabPanels>
       </Tabs>
@@ -367,5 +259,5 @@ const Offering = () => {
       </Modal>
     </div>
   )
-}
+})
 export default Offering

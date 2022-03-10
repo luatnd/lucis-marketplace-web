@@ -57,10 +57,10 @@ export const getCollectionItems = async (
 }
 
 export const getNfts = async (params) => {
-  const { data } = await axios.get(BASE_URL + "/nft", {
+  const { data, headers } = await axios.get(BASE_URL + "/nft", {
     params,
   })
-  return data
+  return { data, total: +headers["x-total-count"] }
 }
 
 export const getNft = async (id: number, params?: any) => {

@@ -1,24 +1,35 @@
 import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
+import { useStore } from "src/hooks/useStore"
+import { getNft, getNfts } from "src/services/nft"
 import { NftItem } from "../../components/NftItem"
 import Pagination from "../../components/Pagination"
 import Sort from "../../components/Sort"
-import auctions from "../data/auctions.json"
 import network from "../data/network.json"
 
 const Collected = () => {
+  const WalletController = useStore("WalletController")
+  const { address } = WalletController
   const [data, setData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(20)
-  const [totalData, setTotalData] = useState(Number(auctions.length))
-
+  const [totalData, setTotalData] = useState(0)
+  const getdata = async () => {
+    const res = await getNfts({
+      owner: address,
+      _limit: pageSize,
+      _page: currentPage,
+    })
+    setData(res.data)
+    setTotalData(res.total)
+  }
   useEffect(() => {
-    const firstPageIndex = (currentPage - 1) * pageSize
-    const lastPageIndex = firstPageIndex + pageSize
-    setData(auctions.slice(firstPageIndex, lastPageIndex))
-  }, [currentPage, pageSize])
-
+    getdata()
+  }, [])
+  useEffect(() => {
+    getdata()
+  }, [pageSize,currentPage])
   const typeSort = [
     {
       img: "",
@@ -52,8 +63,8 @@ const Collected = () => {
       </div>
       <div className="">
         <div className="grid-custom">
-          {data.map((auction, index) => (
-            <div className="grid-item" key={index}>
+          {data.map((auction) => (
+            <div className="grid-item" key={auction.id}>
               <NftItem
                 id={auction.id}
                 key={auction.id}

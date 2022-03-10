@@ -257,8 +257,6 @@
         .right {
           display: flex;
           justify-items: flex-end;
-          .select-sort {
-          }
         }
       }
     }
@@ -394,6 +392,9 @@
               vertical-align: middle;
               cursor: pointer;
             }
+          }
+          .to{
+            color: #0bebd6;
           }
           .item {
             img {

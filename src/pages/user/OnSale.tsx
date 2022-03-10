@@ -29,35 +29,52 @@ import Sort from "../../components/Sort"
 import network from "../data/network.json"
 import * as Icons from "react-feather"
 import { NftItem } from "../../components/NftItem"
-import auctions from "../data/auctions.json"
 import { useEffect, useState } from "react"
 import Pagination from "../../components/Pagination"
 import receivedList from "../data/activities.json"
 import Verified from "@static/icons/verified.svg"
+import Link from "next/link"
+import { getNft, getNfts } from "src/services/nft"
+import { useStore } from "src/hooks/useStore"
 
 const OnSale = () => {
+  const WalletController = useStore("WalletController")
+  const { address } = WalletController
+  const [isAuction, setisAuction] = useState(false)
   const [data, setData] = useState([])
   const [received, setReceived] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [currentPage1, setCurrentPage1] = useState(1)
+  const [currentPage2, setCurrentPage2] = useState(1)
   const [pageSize, setPageSize] = useState(20)
   const [pageSize1, setPageSize1] = useState(20)
-  const [totalData, setTotalData] = useState(Number(auctions.length))
+  const [pageSize2, setPageSize2] = useState(10)
+  const [totalData, setTotalData] = useState(0)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
-    const firstPageIndex = (currentPage - 1) * pageSize
-    const lastPageIndex = firstPageIndex + pageSize
-    setData(auctions.slice(firstPageIndex, lastPageIndex))
-  }, [currentPage, pageSize])
-
-  useEffect(() => {
-    const firstPageIndex = (currentPage1 - 1) * pageSize1
-    const lastPageIndex = firstPageIndex + pageSize1
+    const firstPageIndex = (currentPage2 - 1) * pageSize2
+    const lastPageIndex = Number(firstPageIndex) + Number(pageSize2)
     setReceived(receivedList.slice(firstPageIndex, lastPageIndex))
-  }, [currentPage1, pageSize1])
+  }, [currentPage2, pageSize2])
 
+  const getdata = async () => {
+    const res = await getNfts({
+      owner: address,
+      isAuction: isAuction,
+      _limit: isAuction ? pageSize1 : pageSize,
+      _page: isAuction ? currentPage1 : currentPage2,
+    })
+    setData(res.data)
+    setTotalData(res.total)
+  }
+  useEffect(() => {
+    getdata()
+  }, [])
+  useEffect(() => {
+    getdata()
+  }, [pageSize, currentPage, currentPage1, pageSize2,isAuction])
   const typeSort = [
     {
       img: "",
@@ -77,8 +94,20 @@ const OnSale = () => {
     <div className="tab-on-sale">
       <Tabs className="tab-os">
         <TabList className="header-tab">
-          <Tab>Selling</Tab>
-          <Tab>Auction</Tab>
+          <Tab
+            onClick={() => {
+              setisAuction(false)
+            }}
+          >
+            Selling
+          </Tab>
+          <Tab
+            onClick={() => {
+              setisAuction(true)
+            }}
+          >
+            Auction
+          </Tab>
           <Tab>Received Offer</Tab>
         </TabList>
         <TabPanels>
@@ -89,8 +118,8 @@ const OnSale = () => {
             </div>
             <div className="">
               <div className="grid-custom">
-                {data.map((auction, index) => (
-                  <div className="grid-item" key={index}>
+                {data.map((auction) => (
+                  <div className="grid-item" key={auction.id}>
                     <NftItem
                       id={auction.id}
                       key={auction.id}
@@ -122,8 +151,8 @@ const OnSale = () => {
             </div>
             <div className="">
               <div className="grid-custom">
-                {data.map((auction, index) => (
-                  <div className="grid-item" key={index}>
+                {data.map((auction) => (
+                  <div className="grid-item" key={auction.id}>
                     <NftItem
                       id={auction.id}
                       key={auction.id}
@@ -141,11 +170,11 @@ const OnSale = () => {
             </div>
             <Pagination
               className="pagination-bar"
-              currentPage={currentPage}
+              currentPage={currentPage1}
               totalCount={totalData}
-              pageSize={pageSize}
-              onPageChange={(page) => setCurrentPage(page)}
-              onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+              pageSize={pageSize1}
+              onPageChange={(page) => setCurrentPage1(page)}
+              onPageSizeChange={(pageSize) => setPageSize1(pageSize)}
             />
           </TabPanel>
           <TabPanel>
@@ -175,16 +204,28 @@ const OnSale = () => {
                               <img src="/icons/item.png" alt="" />
                             </div>
                             <div className="name-item">
-                              <p className="animverse">
-                                Animverse
-                                <Verified />
-                              </p>
-                              <p>CUONG DOLLA NFT</p>
+                              <Link href={"/collection/1"}>
+                                <a>
+                                  <p className="animverse">
+                                    Animverse
+                                    <Verified />
+                                  </p>
+                                </a>
+                              </Link>
+                              <Link href={"/user/1"}>
+                                <a>
+                                  <p>CUONG DOLLA NFT</p>
+                                </a>
+                              </Link>
                             </div>
                           </div>
                         </Td>
                         <Td>{el.price}</Td>
-                        <Td>{el.to}</Td>
+                        <Td>
+                          <Link href={"/user/1"}>
+                            <a>{el.to}</a>
+                          </Link>
+                        </Td>
                         <Td>in 2 days</Td>
                         <Td>
                           <span>{el.date}</span>
@@ -203,11 +244,11 @@ const OnSale = () => {
             </div>
             <Pagination
               className="pagination-bar"
-              currentPage={currentPage1}
-              totalCount={totalData}
-              pageSize={pageSize1}
-              onPageChange={(page) => setCurrentPage1(page)}
-              onPageSizeChange={(pageSize) => setPageSize1(pageSize)}
+              currentPage={currentPage2}
+              totalCount={receivedList.length}
+              pageSize={pageSize2}
+              onPageChange={(page) => setCurrentPage2(page)}
+              onPageSizeChange={(pageSize) => setPageSize2(pageSize)}
             />
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
