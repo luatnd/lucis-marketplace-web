@@ -92,13 +92,14 @@ const OnSale = () => {
                 {data.map((auction, index) => (
                   <div className="grid-item" key={index}>
                     <NftItem
+                      id={auction.id}
                       key={auction.id}
                       name={auction.name}
                       image={auction.image}
-                      provider={auction.provider}
+                      collection={auction.collection}
                       endTime={auction.endTime}
                       price={auction.price}
-                      auction={auction.auction}
+                      isAuction={auction.isAuction}
                       activeBtn={true}
                     />
                   </div>
@@ -124,13 +125,14 @@ const OnSale = () => {
                 {data.map((auction, index) => (
                   <div className="grid-item" key={index}>
                     <NftItem
+                      id={auction.id}
                       key={auction.id}
                       name={auction.name}
                       image={auction.image}
-                      provider={auction.provider}
+                      collection={auction.collection}
                       endTime={auction.endTime}
                       price={auction.price}
-                      auction={auction.auction}
+                      isAuction={auction.isAuction}
                       activeBtn={true}
                     />
                   </div>

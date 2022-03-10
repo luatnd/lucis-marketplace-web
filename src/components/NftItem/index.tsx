@@ -7,12 +7,16 @@ import { useCountdown } from "src/hooks/useCountdown"
 import { useStore } from "src/hooks/useStore"
 
 interface IProps {
+  id?: string
   name?: string
   image?: string
-  provider?: string
+  collection?: {
+    id?: string
+    name?: string
+  }
   endTime?: string
   price?: number
-  auction?: boolean
+  isAuction?: boolean
   activeBtn?: boolean
   hidePrice?: boolean
   owner?: boolean
@@ -20,12 +24,13 @@ interface IProps {
 
 export const NftItem = (props: IProps) => {
   const {
+    id,
     name,
     image,
-    provider,
+    collection,
     endTime,
     price,
-    auction,
+    isAuction,
     activeBtn,
     hidePrice,
     owner,
@@ -37,7 +42,7 @@ export const NftItem = (props: IProps) => {
 
   const _renderAction = () => {
     if (!activeBtn) {
-      if (auction != undefined && auction) {
+      if (isAuction != undefined && isAuction) {
         return <Button size="sm">AUC</Button>
       } else {
         return <Button size="sm">BUY</Button>
@@ -47,14 +52,14 @@ export const NftItem = (props: IProps) => {
   }
 
   const handleRedirect = () => {
-    Router.push("/nft/1")
+    Router.push("/nft/" + id)
     NftStore.setNft({
       name,
       image,
-      provider,
+      collection,
       endTime,
       price,
-      auction,
+      isAuction,
       activeBtn,
       hidePrice,
       owner,
@@ -69,11 +74,11 @@ export const NftItem = (props: IProps) => {
       <div className="nft-body">
         <div className="provider">
           <div className="algin-center">
-            <span>{provider}</span>
+            <span>{collection.name}</span>
             <Verified />
           </div>
           <div>
-            {auction != undefined && auction ? (
+            {isAuction != undefined && isAuction ? (
               <img src="/icons/auction.png" alt="" />
             ) : (
               <img src="/icons/dollar.png" alt="" />
@@ -82,7 +87,7 @@ export const NftItem = (props: IProps) => {
         </div>
         <span className="name">{name}</span>
         <div className="end-in">
-          {auction ? (
+          {isAuction ? (
             <div>
               <span>END IN</span> {moment(endTime).format("HH:mm:ss")}
             </div>

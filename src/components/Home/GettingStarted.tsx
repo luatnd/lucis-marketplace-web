@@ -1,53 +1,25 @@
+import axios from "axios"
+import { useEffect, useState } from "react"
 import { HomeSection } from "./HomeSection"
 
 export const GettingStarted = () => {
-  const items = [
-    {
-      id: "1",
-      title: `Seamlessly Migrating Guide, from SCV to tofuNFT`,
-      image: "/home/getting-started/getting-started1.png",
-    },
-    {
-      id: "2",
-      title: `Seamlessly Migrating Guide, from SCV to tofuNFT`,
-      image: "/home/getting-started/getting-started2.png",
-    },
-    {
-      id: "3",
-      title: `Seamlessly Migrating Guide, from SCV to tofuNFT`,
-      image: "/home/getting-started/getting-started3.png",
-    },
-    {
-      id: "4",
-      title: `Seamlessly Migrating Guide, from SCV to tofuNFT`,
-      image: "/home/getting-started/getting-started4.png",
-    },
-    {
-      id: "5",
-      title: `Seamlessly Migrating Guide, from SCV to tofuNFT`,
-      image: "/home/getting-started/getting-started1.png",
-    },
-    {
-      id: "6",
-      title: `Seamlessly Migrating Guide, from SCV to tofuNFT`,
-      image: "/home/getting-started/getting-started2.png",
-    },
-    {
-      id: "7",
-      title: `Seamlessly Migrating Guide, from SCV to tofuNFT`,
-      image: "/home/getting-started/getting-started3.png",
-    },
-    {
-      id: "8",
-      title: `Seamlessly Migrating Guide, from SCV to tofuNFT`,
-      image: "/home/getting-started/getting-started4.png",
-    },
-  ]
+  const [data, setData] = useState<any[]>()
+
+  const fetchData = async () => {
+    const { data } = await axios.get(
+      process.env.NEXT_PUBLIC_API_TEST + "/gettingStarted"
+    )
+    setData(data)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return (
     <div className="getting-started">
       <HomeSection heading="GETTING STARTED">
-        {items.map((item) => (
+        {data?.map((item) => (
           <div key={item.id} className="getting-started-item">
             <div className="item-image">
               <img src={item.image} />
