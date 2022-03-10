@@ -106,9 +106,9 @@ const Offering = observer(() => {
       isAuction: true,
       _sort: "price",
       _order: made,
-      _limit:pageSize,
-      _page:currentPage
-    })    
+      _limit: pageSize,
+      _page: currentPage,
+    })
     setAuctions(res.data)
     setTotalAuc(res.total)
   }
@@ -117,7 +117,7 @@ const Offering = observer(() => {
   }, [])
   useEffect(() => {
     getdata()
-  }, [made,pageSize,currentPage])
+  }, [made, pageSize, currentPage])
   return (
     <div className="tab">
       <Tabs>
@@ -230,13 +230,13 @@ const Offering = observer(() => {
               </Tbody>
             </Table>
             <Pagination
-                className="pagination-bar"
-                currentPage={currentPage1}
-                totalCount={10}
-                pageSize={pageSize1}
-                onPageChange={(page) => setCurrentPage1(page)}
-                onPageSizeChange={(pageSize) => setPageSize1(pageSize)}
-              />
+              className="pagination-bar"
+              currentPage={currentPage1}
+              totalCount={10}
+              pageSize={pageSize1}
+              onPageChange={(page) => setCurrentPage1(page)}
+              onPageSizeChange={(pageSize) => setPageSize1(pageSize)}
+            />
           </TabPanel>
         </TabPanels>
       </Tabs>

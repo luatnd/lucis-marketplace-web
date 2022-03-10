@@ -74,7 +74,7 @@ const OnSale = () => {
   }, [])
   useEffect(() => {
     getdata()
-  }, [pageSize, currentPage, currentPage1, pageSize2,isAuction])
+  }, [pageSize, currentPage, currentPage1, pageSize2, isAuction])
   const typeSort = [
     {
       img: "",

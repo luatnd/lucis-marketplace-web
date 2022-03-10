@@ -22,7 +22,7 @@ import { useRouter } from "next/router"
 import React, { useState } from "react"
 import { ExternalLink, Eye, Heart } from "react-feather"
 import { useStore } from "src/hooks/useStore"
-import { aucNft, buyNft, getNft } from "src/services/nft"
+import { aucNft, buyNft, getNft, likeNft, unLikeNft } from "src/services/nft"
 import { currency } from "src/utils/Number"
 import Activities from "./Activities"
 import ReceivedOffer from "./ReceivedOffer"
@@ -38,6 +38,16 @@ const DetailsPage = observer((props: any) => {
     const { id } = router.query
     const res = await getNft(+id)
     setInfo(res)
+  }
+
+  const handleLike = async () => {
+    if (info.liked.includes(address)) {
+      await unLikeNft(info.id, address, info.liked)
+      fetchData()
+    } else {
+      await likeNft(info.id, address, info.liked)
+      fetchData()
+    }
   }
 
   const _renderBuyTray = () => {
@@ -168,7 +178,13 @@ const DetailsPage = observer((props: any) => {
         <div className="details-card">
           <div className="details-image">
             <img src={data?.image} />
-            <Icon as={Heart} className="heart" />
+            <Icon
+              as={Heart}
+              className={`heart ${
+                info.liked.includes(address) ? "heart-liked" : ""
+              }`}
+              onClick={handleLike}
+            />
           </div>
 
           <div className="nft-description">{info.description}</div>

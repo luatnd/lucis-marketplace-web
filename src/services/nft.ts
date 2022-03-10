@@ -81,3 +81,16 @@ export const aucNft = async (price: number, id: number) => {
     topAuc: price,
   })
 }
+
+export const likeNft = async (id: number, address: string, lastLike: any) => {
+  await axios.patch(BASE_URL + "/nft/" + id, {
+    liked: [...lastLike, address],
+  })
+}
+
+export const unLikeNft = async (id: number, address: string, lastLike: any) => {
+  const newList = lastLike.filter((item) => item !== address)
+  await axios.patch(BASE_URL + "/nft/" + id, {
+    liked: newList,
+  })
+}

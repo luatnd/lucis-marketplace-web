@@ -29,7 +29,7 @@ const Collected = () => {
   }, [])
   useEffect(() => {
     getdata()
-  }, [pageSize,currentPage])
+  }, [pageSize, currentPage])
   const typeSort = [
     {
       img: "",
