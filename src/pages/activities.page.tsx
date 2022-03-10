@@ -7,7 +7,7 @@ import activities from "./data/activities.json"
 
 const ActivitiesPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(20)
+  const [pageSize, setPageSize] = useState(10)
   const [data, setData] = useState([])
   const [sort, setSort] = useState("All")
   const [totalData, setTotalData] = useState(Number(activities.length))
@@ -127,8 +127,33 @@ const ActivitiesPage = () => {
                     </div>
                   </Td>
                   <Td>{el.price}</Td>
-                  <Td>{el.from}</Td>
-                  <Td>{el.to}</Td>
+                  <Td>
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      className="align-center date"
+                      href="/user/10"
+                    >
+                      {el.from}
+                    </a>
+                  </Td>
+                  <Td>
+                    {
+                      el.type != 'Listing' && (
+                        <>
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            className="align-center date"
+                            href="/user/1"
+                            style={{ color: 'rgba(11, 235, 214, 1)'}}
+                          >
+                            { el.to }
+                          </a>
+                        </>
+                      )
+                    }
+                  </Td>
                   <Td>
                     <a
                       target="_blank"
@@ -137,7 +162,11 @@ const ActivitiesPage = () => {
                       href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
                     >
                       <span>{el.date}</span>
-                      <img src="/icons/open-new.png" alt="" />
+                      {
+                        el.type != 'Listing' && (
+                          <img src="/icons/open-new.png" alt="" />
+                        )
+                      }
                     </a>
                   </Td>
                 </Tr>

@@ -93,6 +93,7 @@ const Pagination = (props) => {
         className="page-size"
         width="150px"
       >
+        <option value="20">10 / page</option>
         <option value="20">20 / page</option>
         <option value="30">30 / page</option>
         <option value="40">40 / page</option>
