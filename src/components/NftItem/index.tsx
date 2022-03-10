@@ -5,6 +5,7 @@ import moment from "moment"
 import Router from "next/router"
 import { useCountdown } from "src/hooks/useCountdown"
 import { useStore } from "src/hooks/useStore"
+import { currency } from "src/utils/Number"
 
 interface IProps {
   id?: string
@@ -95,7 +96,7 @@ export const NftItem = (props: IProps) => {
         </div>
         <div className={`price ${hidePrice && "hidden"}`}>
           <span>
-            <BNBSymbol /> {price} BNB
+            <BNBSymbol /> {currency(price)} BNB
           </span>
           {_renderAction()}
         </div>

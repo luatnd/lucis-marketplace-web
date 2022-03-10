@@ -56,9 +56,22 @@ export const getCollectionItems = async (
   }
 }
 
-export const getNft = async (params) => {
+export const getNfts = async (params) => {
   const { data } = await axios.get(BASE_URL + "/nft", {
     params,
   })
   return data
+}
+
+export const getNft = async (id: number, params?: any) => {
+  const { data } = await axios.get(BASE_URL + "/nft/" + id, {
+    params,
+  })
+  return data
+}
+
+export const buyNft = async (address: string, id: number) => {
+  await axios.patch(BASE_URL + "/nft/" + id, {
+    owner: address,
+  })
 }
