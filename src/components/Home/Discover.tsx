@@ -3,19 +3,8 @@ import { useEffect, useState } from "react"
 import { NftItem } from "../NftItem"
 import { HomeSection } from "./HomeSection"
 
-export const Discover = () => {
-  const [nfts, setNfts] = useState<any[]>()
-
-  const fetchNfts = async () => {
-    const { data: discovers } = await axios.get(
-      process.env.NEXT_PUBLIC_API_TEST + "/nft"
-    )
-    setNfts(discovers)
-  }
-
-  useEffect(() => {
-    fetchNfts()
-  }, [])
+export const Discover = (props) => {
+  const { data } = props
 
   return (
     <div className="discover">
@@ -25,7 +14,7 @@ export const Discover = () => {
         rows={2}
         onViewAll="/discover"
       >
-        {nfts?.map((auction) => (
+        {data?.map((auction) => (
           <NftItem
             id={auction.id}
             key={auction.id}

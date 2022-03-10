@@ -10,6 +10,7 @@ import {
 import BoxIcon from "@static/icons/item-box.svg"
 import VerifiedIcon from "@static/icons/verified.svg"
 import axios from "axios"
+import { GetServerSidePropsContext } from "next"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { ChevronDown, ChevronUp, ExternalLink } from "react-feather"
@@ -18,12 +19,14 @@ import { AppSelect } from "src/components/AppSelect"
 import { AppTable } from "src/components/AppTable"
 import { ListingBar } from "src/components/Home/ListingBar"
 import { NftItem } from "src/components/NftItem"
+import { getCollection, getCollectionItems } from "src/services/nft"
 
-const CollectionDetails = () => {
+const CollectionDetails = (props) => {
+  const { data } = props
+
   const [isExpanded, setIsExpanded] = useState(false)
 
   const router = useRouter()
-  const [data, setData] = useState<any>()
 
   const [items, setItems] = useState<any[]>()
   const [itemTotal, setItemTotal] = useState(0)
@@ -37,32 +40,22 @@ const CollectionDetails = () => {
   const [itemOffset, setItemOffset] = useState(0)
   const [itemPageSize, setItemPageSize] = useState(20)
 
-  const fetchData = async () => {
-    const id = await router.query.id
-    if (id) {
-      const { data } = await axios.get(
-        process.env.NEXT_PUBLIC_API_TEST + "/collections/" + id
-      )
-      setData(data)
-    }
-  }
-
   const fetchItems = async () => {
     const id = await router.query.id
     if (id) {
-      const { data, headers } = await axios.get(
-        process.env.NEXT_PUBLIC_API_TEST +
-          `/nft/?collection.id=${id}&&_page=${Math.ceil(
-            itemOffset / itemPageSize
-          )}&&_limit=${itemPageSize}&&isAuction=${itemType}&&_sort=price&&_order=${itemSort}`
+      const { data, total } = await getCollectionItems(
+        +id,
+        itemOffset,
+        itemPageSize,
+        itemType,
+        itemSort
       )
       setItems(data)
-      setItemTotal(+headers["x-total-count"])
+      setItemTotal(total)
     }
   }
 
   useEffect(() => {
-    fetchData()
     fetchItems()
   }, [router.query.id])
 
@@ -269,188 +262,17 @@ const CollectionDetails = () => {
 
 export default CollectionDetails
 
-const itemList = [
-  {
-    id: "1",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction1.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: true,
-  },
-  {
-    id: "2",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction2.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: false,
-  },
-  {
-    id: "3",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction3.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: true,
-  },
-  {
-    id: "4",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction4.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: false,
-  },
-  {
-    id: "5",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction5.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: true,
-  },
-  {
-    id: "6",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction1.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: false,
-  },
-  {
-    id: "7",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction2.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: true,
-  },
-  {
-    id: "8",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction3.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: false,
-  },
-  {
-    id: "9",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction4.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: true,
-  },
-  {
-    id: "10",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction5.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: false,
-  },
-  {
-    id: "11",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction1.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: true,
-  },
-  {
-    id: "12",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction2.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: false,
-  },
-  {
-    id: "13",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction3.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: true,
-  },
-  {
-    id: "14",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction4.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: false,
-  },
-  {
-    id: "15",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction5.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: true,
-  },
-  {
-    id: "16",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction1.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: false,
-  },
-  {
-    id: "17",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction2.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: true,
-  },
-  {
-    id: "18",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction3.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: false,
-  },
-  {
-    id: "19",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction4.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: true,
-  },
-  {
-    id: "20",
-    name: "CUONG DOLLA NFT",
-    image: "/home/auctions/auction5.png",
-    collection: { id: "1", name: "Animverse" },
-    endTime: "2022-03-15T00:00:00",
-    price: 0.99,
-    isAuction: false,
-  },
-]
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const { id } = ctx.query
+
+  const [data] = await Promise.all([getCollection(+id)])
+
+  return {
+    props: {
+      data,
+    },
+  }
+}
 
 const columns = [
   {

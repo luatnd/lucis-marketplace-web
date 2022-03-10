@@ -74,7 +74,7 @@ export const NftItem = (props: IProps) => {
       <div className="nft-body">
         <div className="provider">
           <div className="algin-center">
-            <span>{collection.name}</span>
+            <span>{collection?.name}</span>
             <Verified />
           </div>
           <div>

@@ -1,20 +1,7 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
 import { HomeSection } from "./HomeSection"
 
-export const GettingStarted = () => {
-  const [data, setData] = useState<any[]>()
-
-  const fetchData = async () => {
-    const { data } = await axios.get(
-      process.env.NEXT_PUBLIC_API_TEST + "/gettingStarted"
-    )
-    setData(data)
-  }
-
-  useEffect(() => {
-    fetchData()
-  }, [])
+export const GettingStarted = (props) => {
+  const { data } = props
 
   return (
     <div className="getting-started">
