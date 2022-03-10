@@ -1,21 +1,8 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
 import { CollectionItem } from "./CollectionItem"
 import { HomeSection } from "./HomeSection"
 
-export const HotCollections = () => {
-  const [collections, setCollections] = useState<any[]>()
-
-  const fetchCollections = async () => {
-    const { data: collections } = await axios.get(
-      process.env.NEXT_PUBLIC_API_TEST + "/collections"
-    )
-    setCollections(collections)
-  }
-
-  useEffect(() => {
-    fetchCollections()
-  }, [])
+export const HotCollections = (props) => {
+  const { data } = props
 
   return (
     <div className="hot-collections">
@@ -25,7 +12,7 @@ export const HotCollections = () => {
         defaultNumber={3}
         onViewAll="/nft-ranking"
       >
-        {collections?.map((collection) => (
+        {data?.map((collection) => (
           <CollectionItem
             key={collection.id}
             name={collection.name}
