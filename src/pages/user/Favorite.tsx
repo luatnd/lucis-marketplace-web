@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useStore } from "src/hooks/useStore"
-import { getNft } from "src/services/nft"
+import { getNft, getNfts } from "src/services/nft"
 import { NftItem } from "../../components/NftItem"
 import Pagination from "../../components/Pagination"
 import Sort from "../../components/Sort"
@@ -15,7 +15,7 @@ const Favorite = () => {
   const [totalData, setTotalData] = useState(0)
 
   const getdata = async () => {
-    const res = await getNft({
+    const res = await getNfts({
       liked_ne: address,
       _limit: pageSize,
       _page: currentPage,

@@ -40,7 +40,8 @@
   }
   .on-going {
     padding: 0 10px;
-    background: url(/home/on-going.png);
+    background: #0bebd6;
+    border-radius: 8px;
     background-size: 100% 100%;
     font-size: 18px;
     font-weight: 400;
@@ -48,7 +49,8 @@
   }
   .up-coming {
     padding: 0 10px;
-    background: url(/home/up-coming.png);
+    background: #cd28e8;
+    border-radius: 8px;
     background-size: 100% 100%;
     font-size: 18px;
     font-weight: 400;

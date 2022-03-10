@@ -27,7 +27,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import Link from "next/link"
-import { getNft } from "src/services/nft"
+import { getNft, getNfts } from "src/services/nft"
 import { useStore } from "src/hooks/useStore"
 import network from "../data/network.json"
 import { observer } from "mobx-react-lite"
@@ -101,7 +101,7 @@ const Offering = observer(() => {
     },
   ]
   const getdata = async () => {
-    const res = await getNft({
+    const res = await getNfts({
       owner: address,
       isAuction: true,
       _sort: "price",

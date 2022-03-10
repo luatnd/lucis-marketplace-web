@@ -74,6 +74,10 @@ export type TNetwork = {
 }
 
 export class WalletController {
+  constructor() {
+    makeAutoObservable(this)
+  }
+
   public web3Modal =
     typeof window !== "undefined"
       ? new Web3Modal({
@@ -91,10 +95,6 @@ export class WalletController {
   public balance: string = null
   public token: string = null
   public loading = false
-
-  constructor() {
-    makeAutoObservable(this)
-  }
 
   resetStates() {
     this.provider = null

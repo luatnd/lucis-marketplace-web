@@ -2,7 +2,7 @@ import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
 import { useStore } from "src/hooks/useStore"
-import { getNft } from "src/services/nft"
+import { getNft, getNfts } from "src/services/nft"
 import { NftItem } from "../../components/NftItem"
 import Pagination from "../../components/Pagination"
 import Sort from "../../components/Sort"
@@ -16,7 +16,7 @@ const Collected = () => {
   const [pageSize, setPageSize] = useState(20)
   const [totalData, setTotalData] = useState(0)
   const getdata = async () => {
-    const res = await getNft({
+    const res = await getNfts({
       owner: address,
       _limit: pageSize,
       _page: currentPage,

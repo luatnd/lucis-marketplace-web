@@ -195,7 +195,8 @@ export const RankingList = () => {
           onSelectOption={(time) => setTime(time)}
         />
       </div>
-      <Table variant="simple">
+      <div className="table-activity">
+        <Table variant="simple">
         <Thead>
           <Tr>
             <Th>STT</Th>
@@ -230,7 +231,8 @@ export const RankingList = () => {
             </Tr>
           ))}
         </Tbody>
-      </Table>
+        </Table>
+      </div>
       <Pagination
         className="pagination-bar"
         currentPage={currentPage}

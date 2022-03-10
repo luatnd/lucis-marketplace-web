@@ -34,7 +34,7 @@ import Pagination from "../../components/Pagination"
 import receivedList from "../data/activities.json"
 import Verified from "@static/icons/verified.svg"
 import Link from "next/link"
-import { getNft } from "src/services/nft"
+import { getNft, getNfts } from "src/services/nft"
 import { useStore } from "src/hooks/useStore"
 
 const OnSale = () => {
@@ -60,7 +60,7 @@ const OnSale = () => {
   }, [currentPage2, pageSize2])
 
   const getdata = async () => {
-    const res = await getNft({
+    const res = await getNfts({
       owner: address,
       isAuction: isAuction,
       _limit: isAuction ? pageSize1 : pageSize,
