@@ -197,40 +197,40 @@ export const RankingList = () => {
       </div>
       <div className="table-activity">
         <Table variant="simple">
-        <Thead>
-          <Tr>
-            <Th>STT</Th>
-            <Th>Collection</Th>
-            <Th isNumeric>Vol</Th>
-            <Th>24h</Th>
-            <Th>7day</Th>
-            <Th isNumeric>Floor Price</Th>
-            <Th isNumeric>Player</Th>
-            <Th>Item</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {dataSource.map((data) => (
-            <Tr key={data.key}>
-              <Td>{data.key}</Td>
-              <Td>
-                <div className="collection">
-                  <img
-                    src={"/common/nft/item" + (data.key - 1) + ".png"}
-                    alt=""
-                  />{" "}
-                  <span>{data.collection}</span>
-                </div>
-              </Td>
-              <Td isNumeric>{data.vol}</Td>
-              <Td>{data.day}</Td>
-              <Td>{data.week}</Td>
-              <Td isNumeric>{data.price}</Td>
-              <Td isNumeric>{data.player}</Td>
-              <Td>{data.item}</Td>
+          <Thead>
+            <Tr>
+              <Th>STT</Th>
+              <Th>Collection</Th>
+              <Th isNumeric>Vol</Th>
+              <Th>24h</Th>
+              <Th>7day</Th>
+              <Th isNumeric>Floor Price</Th>
+              <Th isNumeric>Player</Th>
+              <Th>Item</Th>
             </Tr>
-          ))}
-        </Tbody>
+          </Thead>
+          <Tbody>
+            {dataSource.map((data) => (
+              <Tr key={data.key}>
+                <Td>{data.key}</Td>
+                <Td>
+                  <div className="collection">
+                    <img
+                      src={"/common/nft/item" + (data.key - 1) + ".png"}
+                      alt=""
+                    />{" "}
+                    <span>{data.collection}</span>
+                  </div>
+                </Td>
+                <Td isNumeric>{data.vol}</Td>
+                <Td>{data.day}</Td>
+                <Td>{data.week}</Td>
+                <Td isNumeric>{data.price}</Td>
+                <Td isNumeric>{data.player}</Td>
+                <Td>{data.item}</Td>
+              </Tr>
+            ))}
+          </Tbody>
         </Table>
       </div>
       <Pagination

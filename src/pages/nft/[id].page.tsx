@@ -1,11 +1,15 @@
 import {
   Button,
   Icon,
+  InputGroup,
+  InputRightAddon,
   Modal,
   ModalBody,
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  NumberInput,
+  NumberInputField,
   Tab,
   TabList,
   TabPanel,
@@ -18,7 +22,7 @@ import { useRouter } from "next/router"
 import React, { useState } from "react"
 import { ExternalLink, Eye, Heart } from "react-feather"
 import { useStore } from "src/hooks/useStore"
-import { buyNft, getNft } from "src/services/nft"
+import { aucNft, buyNft, getNft } from "src/services/nft"
 import { currency } from "src/utils/Number"
 import Activities from "./Activities"
 import ReceivedOffer from "./ReceivedOffer"
@@ -51,12 +55,10 @@ const DetailsPage = observer((props: any) => {
           <div className="price">
             <span>Price</span>
             <span>{currency(info.price)} BNB</span>
-            <span>($8.8)</span>
+            <span>(${currency(info.price * 376)})</span>
           </div>
           <div className="buy-nav">
-            <Button onClick={() => setBuyVisible(true)}>
-              {info.isAuction ? "AUC" : "BUY"}
-            </Button>
+            <Button onClick={() => setBuyVisible(true)}>BUY</Button>
             <span>Or make offer other price</span>
           </div>
         </div>
@@ -72,11 +74,74 @@ const DetailsPage = observer((props: any) => {
               <div className="price">
                 <span>Price:</span>
                 <div className="price-col">
-                  <h1>1000 BNB</h1>
-                  <span>($3995333.67)</span>
+                  <h1>{currency(info.price)}</h1>
+                  <span>(${currency(info.price * 376)})</span>
                 </div>
               </div>
               <Button onClick={() => handleBuy()}>Apply</Button>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+        <Modal
+          isOpen={resultVisible}
+          onClose={() => setResultVisible(false)}
+          isCentered
+        >
+          <ModalContent>
+            <ModalBody className="result-modal">
+              <h1>Successful !</h1>
+              <p>You have successful transaction</p>
+              <Button onClick={() => setResultVisible(false)}>OK</Button>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </div>
+    )
+  }
+
+  const _renderAucTray = () => {
+    const [aucVisible, setAucVisible] = useState(false)
+    const [resultVisible, setResultVisible] = useState(false)
+    const [priceToAuc, setPriceToAuc] = useState<number>()
+    const handleAuc = async () => {
+      setAucVisible(false)
+      await aucNft(priceToAuc, info.id)
+      fetchData()
+      setResultVisible(true)
+    }
+    return (
+      <div className="auc-tray">
+        <div className="auc-tray-body">
+          <div className="price">
+            <span>Top auc</span>
+            <span>{currency(info.topAuc)} BNB</span>
+            <span>(${currency(info.topAuc * 376)})</span>
+          </div>
+          <div className="auc-nav">
+            <Button onClick={() => setAucVisible(true)}>AUC</Button>
+          </div>
+        </div>
+        <Modal
+          isOpen={aucVisible}
+          onClose={() => setAucVisible(false)}
+          isCentered
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Auction</ModalHeader>
+            <ModalBody className="auc-modal">
+              <label>Price</label>
+              <InputGroup>
+                <NumberInput>
+                  <NumberInputField
+                    placeholder="Price"
+                    onChange={(e) => setPriceToAuc(+e.target.value)}
+                  />
+                </NumberInput>
+                <InputRightAddon>BNB</InputRightAddon>
+              </InputGroup>
+              <p>The minium auc price is {info.aucPrice} BNB</p>
+              <Button onClick={() => handleAuc()}>Apply</Button>
             </ModalBody>
           </ModalContent>
         </Modal>
@@ -132,7 +197,7 @@ const DetailsPage = observer((props: any) => {
               <span>{info.views}</span> <Icon as={Eye} />
             </div>
           </div>
-          {_renderBuyTray()}
+          {info.isAuction ? _renderAucTray() : _renderBuyTray()}
           <div className="details-stats">
             <h1>Detail</h1>
             {detailsStats.map((stat) => (

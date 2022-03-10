@@ -138,21 +138,19 @@ const ActivitiesPage = () => {
                     </a>
                   </Td>
                   <Td>
-                    {
-                      el.type != 'Listing' && (
-                        <>
-                          <a
-                            target="_blank"
-                            rel="noreferrer"
-                            className="align-center date"
-                            href="/user/1"
-                            style={{ color: 'rgba(11, 235, 214, 1)'}}
-                          >
-                            { el.to }
-                          </a>
-                        </>
-                      )
-                    }
+                    {el.type != "Listing" && (
+                      <>
+                        <a
+                          target="_blank"
+                          rel="noreferrer"
+                          className="align-center date"
+                          href="/user/1"
+                          style={{ color: "rgba(11, 235, 214, 1)" }}
+                        >
+                          {el.to}
+                        </a>
+                      </>
+                    )}
                   </Td>
                   <Td>
                     <a
@@ -162,11 +160,9 @@ const ActivitiesPage = () => {
                       href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
                     >
                       <span>{el.date}</span>
-                      {
-                        el.type != 'Listing' && (
-                          <img src="/icons/open-new.png" alt="" />
-                        )
-                      }
+                      {el.type != "Listing" && (
+                        <img src="/icons/open-new.png" alt="" />
+                      )}
                     </a>
                   </Td>
                 </Tr>

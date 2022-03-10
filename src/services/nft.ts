@@ -75,3 +75,9 @@ export const buyNft = async (address: string, id: number) => {
     owner: address,
   })
 }
+
+export const aucNft = async (price: number, id: number) => {
+  await axios.patch(BASE_URL + "/nft/" + id, {
+    topAuc: price,
+  })
+}
