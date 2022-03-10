@@ -116,7 +116,7 @@ const CollectionDetails = (props) => {
   const _renderItemList = () => (
     <div className="collection-item-list">
       <div className="filter-row">
-        <div className="total">137335 items listed</div>
+        <div className="total">{itemTotal} items listed</div>
         <div className="filter">
           <AppSelect
             value={itemType}
