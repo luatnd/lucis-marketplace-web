@@ -1,11 +1,16 @@
+import { GetServerSidePropsContext } from "next"
 import { useEffect, useState } from "react"
+import { getDiscovers } from "src/services/nft"
 import { ListingBar } from "../components/Home/ListingBar"
 import { NftItem } from "../components/NftItem"
 import Pagination from "../components/Pagination"
 import Sort from "../components/Sort"
 import auctions from "./data/auctions.json"
 
-const DiscoverPage = () => {
+const DiscoverPage = (props) => {
+  const {
+    discovers
+  } = props
   const priceSort = [
     {
       img: "/common/bnb-logo.png",
@@ -66,15 +71,15 @@ const DiscoverPage = () => {
   ]
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(20)
+  const [pageSize, setPageSize] = useState(10)
   const [data, setData] = useState([])
   const [sort, setSort] = useState("All")
-  const [totalData, setTotalData] = useState(Number(auctions.length))
+  const [totalData, setTotalData] = useState(Number(discovers.length))
 
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * pageSize
     const lastPageIndex = firstPageIndex + pageSize
-    setData(auctions.slice(firstPageIndex, lastPageIndex))
+    setData(discovers.slice(firstPageIndex, lastPageIndex))
   }, [currentPage, pageSize, sort])
 
   return (
@@ -82,7 +87,7 @@ const DiscoverPage = () => {
       <ListingBar />
       <h1 className="discover">Discover</h1>
       <div className="discover-sort">
-        <p>{auctions.length} items listed</p>
+        <p>{discovers.length} items listed</p>
         <div className="sorts">
           <Sort customClassName="price-sort" options={priceSort} />
           <Sort customClassName="type-sort" options={typeSort} />
@@ -90,17 +95,17 @@ const DiscoverPage = () => {
         </div>
       </div>
       <div className="grid-custom">
-        {data.map((auction, index) => (
+        {data.map((el, index) => (
           <div className="grid-item" key={index}>
             <NftItem
-              id={auction.id}
-              key={auction.id}
-              name={auction.name}
-              image={auction.image}
-              collection={auction.collection}
-              endTime={auction.endTime}
-              price={auction.price}
-              isAuction={auction.isAuction}
+              id={el.id}
+              key={el.id}
+              name={el.name}
+              image={el.image}
+              collection={el.collection}
+              endTime={el.endTime}
+              price={el.price}
+              isAuction={el.isAuction}
             />
           </div>
         ))}
@@ -118,3 +123,17 @@ const DiscoverPage = () => {
 }
 
 export default DiscoverPage
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const [
+    discovers
+  ] = await Promise.all([
+    getDiscovers(),
+  ])
+
+  return {
+    props: {
+      discovers
+    },
+  }
+}
