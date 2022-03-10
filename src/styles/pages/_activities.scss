@@ -11,58 +11,59 @@
       font-family: SVN-Transformer;
       transition: 0.5s;
       text-transform: uppercase;
+      margin-top: 30px;
       @include to(sm) {
         font-size: 50px;
       }
     }
   }
-  .table-activity {
-    margin-top: 30px;
-    border: 1px solid #d7d7d7;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(40px);
-    font-style: normal;
-    color: #ffffff;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    thead {
-      tr {
-        border-bottom: 1px solid #d7d7d7 !important;
-        th {
-          font-weight: bold;
-          font-size: 24px;
-          line-height: 38px;
-          color: #ffffff;
-          font-family: Saira;
-          text-transform: capitalize;
-          padding-top: 25px;
-          border-bottom-color: #d7d7d7;
-          border: none;
-        }
-      }
-    }
+}
+.table-activity {
+  margin-top: 30px;
+  border: 1px solid #d7d7d7;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(40px);
+  font-style: normal;
+  color: #ffffff;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  thead {
     tr {
-      border-bottom: 1px solid #d7d7d7;
-      &:last-child {
-        border-bottom: 0px;
+      border-bottom: 1px solid #d7d7d7 !important;
+      th {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 28px;
+        color: #ffffff;
+        font-family: Saira;
+        text-transform: capitalize;
+        padding-top: 25px;
+        border-bottom-color: #d7d7d7;
+        border: none;
       }
     }
-    td {
-      border-bottom: none;
-      font-size: 18px;
-      line-height: 28px;
+  }
+  tr {
+    border-bottom: 1px solid #d7d7d7;
+    &:last-child {
+      border-bottom: 0px;
+    }
+  }
+  td {
+    border-bottom: none;
+    font-size: 18px;
+    line-height: 28px;
 
-      .type {
-        img {
-          margin-right: 15px;
-        }
+    .type {
+      img {
+        margin-right: 15px;
       }
-      .date {
-        cursor: pointer;
-        img {
-          margin-left: 15px;
-        }
+    }
+    .date {
+      cursor: pointer;
+      img {
+        margin-left: 15px;
       }
     }
   }
