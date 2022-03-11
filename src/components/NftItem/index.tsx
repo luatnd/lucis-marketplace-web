@@ -38,6 +38,9 @@ export const NftItem = observer((props: IProps) => {
       <div className="nft-image">
         <img src={info.image} />
       </div>
+      <div className="network">
+        <img src={info.network} />
+      </div>
       <div className="nft-body">
         <div className="provider">
           <div className="algin-center">
