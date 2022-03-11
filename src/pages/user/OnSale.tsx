@@ -41,7 +41,11 @@ const OnSale = () => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
   const [isAuction, setisAuction] = useState(false)
+  const [order, setOrder] = useState("null")
+  const [order1, setOrder1] = useState("null")
   const [data, setData] = useState([])
+  const [data1, setData1] = useState([])
+  const [receivedData, setReceivedData] = useState(receivedList)
   const [received, setReceived] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [currentPage1, setCurrentPage1] = useState(1)
@@ -49,32 +53,95 @@ const OnSale = () => {
   const [pageSize, setPageSize] = useState(20)
   const [pageSize1, setPageSize1] = useState(20)
   const [pageSize2, setPageSize2] = useState(10)
+  const [offset, setOffset] = useState(1)
+  const [offset1, setOffset1] = useState(1)
+  const [offset2, setOffset2] = useState(1)
   const [totalData, setTotalData] = useState(0)
+  const [totalData1, setTotalData1] = useState(0)
+  const [actionID, setActionID] = useState(null)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
-    const firstPageIndex = (currentPage2 - 1) * pageSize2
-    const lastPageIndex = Number(firstPageIndex) + Number(pageSize2)
-    setReceived(receivedList.slice(firstPageIndex, lastPageIndex))
-  }, [currentPage2, pageSize2])
+    setReceived(receivedData.slice(offset2 - 1, offset2 - 1 + pageSize2))
+  }, [offset2, pageSize2, receivedData])
 
+  const accpet = (id) => {
+    setReceivedData(
+      receivedData.map((data) =>
+        data.key == id ? { ...data, action: true } : data
+      )
+    )
+    setReceived(receivedData.slice(offset2 - 1, offset2 - 1 + pageSize2))
+  }
+  const cancel = (id) => {
+    setReceivedData(
+      receivedData.map((data) =>
+        data.key == id ? { ...data, action: false } : data
+      )
+    )
+    setReceived(receivedList.slice(offset2 - 1, offset2 - 1 + pageSize2))
+  }
   const getdata = async () => {
     const res = await getNfts({
       owner: address,
-      isAuction: isAuction,
-      _limit: isAuction ? pageSize1 : pageSize,
-      _page: isAuction ? currentPage1 : currentPage2,
+      isAuction: false,
+      _sort: "price",
+      _order: order,
+      _limit: pageSize,
+      _page: currentPage,
     })
     setData(res.data)
     setTotalData(res.total)
   }
+  const getdata1 = async () => {
+    const res = await getNfts({
+      owner: address,
+      isAuction: true,
+      _sort: "price",
+      _order: order1,
+      _limit: pageSize1,
+      _page: currentPage1,
+    })
+    setData1(res.data)
+    setTotalData1(res.total)
+  }
   useEffect(() => {
     getdata()
+    getdata1()
   }, [])
+
   useEffect(() => {
     getdata()
-  }, [pageSize, currentPage, currentPage1, pageSize2, isAuction])
+  }, [currentPage, order])
+  
+  useEffect(() => {
+    getdata1()
+  }, [currentPage1, order1])
+
+  useEffect(() => {
+    setOffset(Number(pageSize * currentPage - pageSize + 1))
+  }, [currentPage])
+
+  useEffect(() => {
+    setCurrentPage(Math.ceil(offset / pageSize))
+  }, [pageSize])
+
+  useEffect(() => {
+    setOffset1(Number(pageSize1 * currentPage1 - pageSize1 + 1))
+  }, [currentPage1])
+
+  useEffect(() => {
+    setCurrentPage1(Math.ceil(offset1 / pageSize1))
+  }, [pageSize1])
+
+  useEffect(() => {
+    setOffset2(Number(pageSize2 * currentPage2 - pageSize2 + 1))
+  }, [currentPage2])
+
+  useEffect(() => {
+    setCurrentPage2(Math.ceil(offset2 / pageSize2))
+  }, [pageSize2])
   const typeSort = [
     {
       img: "",
@@ -114,7 +181,23 @@ const OnSale = () => {
           <TabPanel>
             <div className="sort">
               <Sort customClassName="price-sort" options={network} />
-              <Sort customClassName="type-sort" options={typeSort} />
+              <Sort
+                customClassName="type-sort"
+                options={typeSort}
+                onSelectOption={(made) => {
+                  switch (made) {
+                    case "Price: Max to Min":
+                      setOrder("desc")
+                      break
+                    case "Price: Min to Max":
+                      setOrder("asc")
+                      break
+                    default:
+                      setOrder("null")
+                      break
+                  }
+                }}
+              />
             </div>
             <div className="">
               <div className="grid-custom">
@@ -147,11 +230,27 @@ const OnSale = () => {
           <TabPanel>
             <div className="sort">
               <Sort customClassName="price-sort" options={network} />
-              <Sort customClassName="type-sort" options={typeSort} />
+              <Sort
+                customClassName="type-sort"
+                options={typeSort}
+                onSelectOption={(made) => {
+                  switch (made) {
+                    case "Price: Max to Min":
+                      setOrder1("desc")
+                      break
+                    case "Price: Min to Max":
+                      setOrder1("asc")
+                      break
+                    default:
+                      setOrder1("null")
+                      break
+                  }
+                }}
+              />
             </div>
             <div className="">
               <div className="grid-custom">
-                {data.map((auction) => (
+                {data1.map((auction) => (
                   <div className="grid-item" key={auction.id}>
                     <NftItem
                       id={auction.id}
@@ -171,7 +270,7 @@ const OnSale = () => {
             <Pagination
               className="pagination-bar"
               currentPage={currentPage1}
-              totalCount={totalData}
+              totalCount={totalData1}
               pageSize={pageSize1}
               onPageChange={(page) => setCurrentPage1(page)}
               onPageSizeChange={(pageSize) => setPageSize1(pageSize)}
@@ -212,7 +311,7 @@ const OnSale = () => {
                                   </p>
                                 </a>
                               </Link>
-                              <Link href={"/user/1"}>
+                              <Link href={"/nft/1"}>
                                 <a>
                                   <p>CUONG DOLLA NFT</p>
                                 </a>
@@ -231,10 +330,31 @@ const OnSale = () => {
                           <span>{el.date}</span>
                         </Td>
                         <Td>
-                          <Button className="accept">Accept</Button>
-                          <Button className="cancel" onClick={onOpen}>
-                            <span>Cancel</span>
-                          </Button>
+                          {el.action == null ? (
+                            <>
+                              <Button
+                                className="accept"
+                                onClick={() => {
+                                  accpet(el.key)
+                                }}
+                              >
+                                Accept
+                              </Button>
+                              <Button
+                                className="cancel"
+                                onClick={() => {
+                                  onOpen()
+                                  setActionID(el.key)
+                                }}
+                              >
+                                <span>Cancel</span>
+                              </Button>
+                            </>
+                          ) : el.action == true ? (
+                            "Accepted"
+                          ) : (
+                            "Canceled"
+                          )}
                         </Td>
                       </Tr>
                     ))}
@@ -253,7 +373,7 @@ const OnSale = () => {
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />
               <ModalContent className="dialog-confirm">
-                <ModalHeader>Confirm terms</ModalHeader>
+                <ModalHeader>Confirm</ModalHeader>
                 <ModalCloseButton>
                   <img src="/icons/close.png" />
                 </ModalCloseButton>
@@ -264,7 +384,14 @@ const OnSale = () => {
                 </ModalBody>
 
                 <ModalFooter>
-                  <Button colorScheme="blue" mr={3} onClick={onClose}>
+                  <Button
+                    colorScheme="blue"
+                    mr={3}
+                    onClick={() => {
+                      onClose()
+                      cancel(actionID)
+                    }}
+                  >
                     Approve
                   </Button>
                 </ModalFooter>
