@@ -10,6 +10,7 @@ import {
 import BoxIcon from "@static/icons/item-box.svg"
 import VerifiedIcon from "@static/icons/verified.svg"
 import { GetServerSidePropsContext } from "next"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { ChevronDown, ChevronUp, ExternalLink } from "react-feather"
@@ -281,7 +282,9 @@ const columns = [
         <Button>
           <BoxIcon />
         </Button>
-        {item}
+          <a href="/nft/53" rel="noreferrer" target={"_blank"}>
+            <span>{item}</span>
+          </a>
       </span>
     ),
   },
@@ -291,26 +294,45 @@ const columns = [
   },
   {
     title: "From",
-    dataIndex: "from",
+    render: ({from}) => (
+      <a href="/user/1" rel="noreferrer" target={"_blank"}>
+        <span>{from}</span>
+      </a>
+    )
   },
   {
     title: "To",
     dataIndex: "to",
-    render: ({ to }) => `${to?.slice(0, 5)}...${to?.slice(-4)}`,
+    render: ({ to, type }) => type != "Listing" ? (
+      <a
+        href="/user/1"
+        target={"_blank"}
+        rel="noreferrer"
+        className="date-column"
+        style={{ color: "#0BEBD6" }}
+      >
+        {to?.slice(0, 5)}...${to?.slice(- 4)}
+      </a>
+    ) : (
+      ""
+    ),
   },
   {
     title: "Date",
     dataIndex: "date",
-    render: ({ date, to }) => (
-      <a
-        className="date-column"
-        href={process.env.NEXT_PUBLIC_BSC_SCAN_TX + to}
-        rel="noreferrer"
-        target="_blank"
-      >
-        {date} <Icon as={ExternalLink} />
-      </a>
-    ),
+    render: ({ date, type, to }) =>
+      type != "Listing" ? (
+        <a
+          href={process.env.NEXT_PUBLIC_BSC_SCAN_TX + to}
+          target={"_blank"}
+          rel="noreferrer"
+          className="date-column"
+        >
+          {date} <Icon as={ExternalLink} />
+        </a>
+      ) : (
+        <span className="date-column">{date}</span>
+      )
   },
 ]
 
