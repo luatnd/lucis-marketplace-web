@@ -1,3 +1,4 @@
+import moment from "moment"
 import axios from "axios"
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_TEST
@@ -18,13 +19,19 @@ export const getCollections = async () => {
 }
 
 export const getHotAuctions = async () => {
-  const { data } = await axios.get(BASE_URL + "/nft/?isAuction=true&&_limit=10")
+  const { data } = await axios.get(BASE_URL + "/nft", {
+    params: {
+      aucPrice_gte: 0,
+      _limit: 10,
+    },
+  })
   return data
 }
 
 export const getDiscovers = async () => {
   const { data } = await axios.get(BASE_URL + "/nft")
-  return data
+  const res = data.filter((item) => item.price || item.aucPrice)
+  return res
 }
 
 export const getGettingStarted = async () => {
@@ -44,12 +51,15 @@ export const getCollectionItems = async (
   type: boolean,
   sort: string
 ) => {
-  const { data, headers } = await axios.get(
-    BASE_URL +
-      `/nft/?collection.id=${id}&&_page=${Math.ceil(
-        offset / pageSize
-      )}&&_limit=${pageSize}&&isAuction=${type}&&_sort=price&&_order=${sort}`
-  )
+  const { data, headers } = await axios.get(BASE_URL + `/nft`, {
+    params: {
+      "collection.id": id,
+      _page: Math.ceil(offset / pageSize),
+      _limit: pageSize,
+      _sort: "price",
+      _order: sort,
+    },
+  })
   return {
     data,
     total: +headers["x-total-count"],
@@ -92,5 +102,37 @@ export const unLikeNft = async (id: number, address: string, lastLike: any) => {
   const newList = lastLike.filter((item) => item !== address)
   await axios.patch(BASE_URL + "/nft/" + id, {
     liked: newList,
+  })
+}
+
+export const cancelPrice = async (id: number) => {
+  await axios.patch(BASE_URL + "/nft/" + id, {
+    price: null,
+    aucPrice: null,
+    topAuc: null,
+    aucTime: null,
+  })
+}
+
+export const fixPrice = async (price: number, id: number) => {
+  await axios.patch(BASE_URL + "/nft/" + id, {
+    price,
+  })
+}
+
+export const auctionNft = async (
+  id: number,
+  aucPrice: number,
+  time: number
+) => {
+  await axios.patch(BASE_URL + "/nft/" + id, {
+    aucPrice,
+    endTime: moment().add(time, "days").format("YYYY-MM-DDTHH:mm:ss"),
+  })
+}
+
+export const sendNft = async (id: number, owner: string) => {
+  await axios.patch(BASE_URL + "/nft/" + id, {
+    owner,
   })
 }

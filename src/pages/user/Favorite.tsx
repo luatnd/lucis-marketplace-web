@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useStore } from "src/hooks/useStore"
-import { getNft, getNfts } from "src/services/nft"
+import { getNfts } from "src/services/nft"
 import { NftItem } from "../../components/NftItem"
 import Pagination from "../../components/Pagination"
 import Sort from "../../components/Sort"
@@ -16,7 +16,7 @@ const Favorite = () => {
 
   const getdata = async () => {
     const res = await getNfts({
-      liked_ne: address,
+      liked_like: address,
       _limit: pageSize,
       _page: currentPage,
     })
@@ -58,17 +58,7 @@ const Favorite = () => {
         <div className="grid-custom">
           {data.map((auction) => (
             <div className="grid-item" key={auction.id}>
-              <NftItem
-                id={auction.id}
-                key={auction.id}
-                name={auction.name}
-                image={auction.image}
-                collection={auction.collection}
-                endTime={auction.endTime}
-                price={auction.price}
-                isAuction={auction.isAuction}
-                activeBtn={true}
-              />
+              <NftItem info={auction} />
             </div>
           ))}
         </div>

@@ -92,16 +92,7 @@ const DiscoverPage = () => {
       <div className="grid-custom">
         {data.map((auction, index) => (
           <div className="grid-item" key={index}>
-            <NftItem
-              id={auction.id}
-              key={auction.id}
-              name={auction.name}
-              image={auction.image}
-              collection={auction.collection}
-              endTime={auction.endTime}
-              price={auction.price}
-              isAuction={auction.isAuction}
-            />
+            <NftItem info={auction} />
           </div>
         ))}
       </div>

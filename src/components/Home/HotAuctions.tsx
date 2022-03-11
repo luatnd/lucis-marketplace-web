@@ -12,16 +12,7 @@ export const HotAuctions = (props) => {
         onViewAll="/discover"
       >
         {data?.map((auction) => (
-          <NftItem
-            id={auction.id}
-            key={auction.id}
-            name={auction.name}
-            image={auction.image}
-            collection={auction.collection}
-            endTime={auction.endTime}
-            price={auction.price}
-            isAuction={true}
-          />
+          <NftItem key={auction.id} info={auction} />
         ))}
       </HomeSection>
     </div>

@@ -1,15 +1,16 @@
 import Link from "next/link"
 
 interface IProps {
+  id?: number
   name?: string
   image?: string
 }
 
 export const CollectionItem = (props: IProps) => {
-  const { name, image } = props
+  const { name, image, id } = props
 
   return (
-    <Link href={"collection/1"}>
+    <Link href={"/collection/" + id}>
       <div className="collection-item">
         <div className="collection-image">
           <div className="image-content">

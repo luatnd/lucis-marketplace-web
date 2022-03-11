@@ -1,5 +1,5 @@
 .chakra-modal__overlay {
-  @include blurBack(10px);
+  @include blurBack(20px);
 }
 .chakra-modal__content {
   background: linear-gradient(

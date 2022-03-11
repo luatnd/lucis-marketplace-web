@@ -14,6 +14,7 @@ export const HotCollections = (props) => {
       >
         {data?.map((collection) => (
           <CollectionItem
+            id={collection.id}
             key={collection.id}
             name={collection.name}
             image={collection.logo}

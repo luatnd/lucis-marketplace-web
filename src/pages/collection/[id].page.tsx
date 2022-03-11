@@ -154,16 +154,7 @@ const CollectionDetails = (props) => {
       </div>
       <div className="item-list">
         {items?.map((item) => (
-          <NftItem
-            id={item.id}
-            key={item.id}
-            name={item.name}
-            image={item.image}
-            collection={item.collection}
-            endTime={item.endTime}
-            price={item.price}
-            isAuction={item.isAuction}
-          />
+          <NftItem info={item} key={item.id} />
         ))}
       </div>
       <AppPagination

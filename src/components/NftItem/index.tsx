@@ -1,106 +1,64 @@
 import { Button } from "@chakra-ui/react"
 import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import Verified from "@static/icons/verified.svg"
+import { observer } from "mobx-react-lite"
 import moment from "moment"
 import Router from "next/router"
-import { useCountdown } from "src/hooks/useCountdown"
 import { useStore } from "src/hooks/useStore"
 import { currency } from "src/utils/Number"
 
 interface IProps {
-  id?: string
-  name?: string
-  image?: string
-  collection?: {
-    id?: string
-    name?: string
-  }
-  endTime?: string
-  price?: number
-  isAuction?: boolean
-  activeBtn?: boolean
-  hidePrice?: boolean
-  owner?: boolean
+  info: any
 }
 
-export const NftItem = (props: IProps) => {
-  const {
-    id,
-    name,
-    image,
-    collection,
-    endTime,
-    price,
-    isAuction,
-    activeBtn,
-    hidePrice,
-    owner,
-  } = props
+export const NftItem = observer((props: IProps) => {
+  const WalletController = useStore("WalletController")
+  const { address } = WalletController
 
-  const { days, hours, seconds, minutes } = useCountdown("2022-03-20T00:00:00")
-
-  const NftStore = useStore("NftStore")
-
-  const _renderAction = () => {
-    if (!activeBtn) {
-      if (isAuction != undefined && isAuction) {
-        return <Button size="sm">AUC</Button>
-      } else {
-        return <Button size="sm">BUY</Button>
-      }
-      return <Button size="sm">BUY</Button>
-    }
-  }
+  const { info } = props
 
   const handleRedirect = () => {
-    Router.push("/nft/" + id)
-    NftStore.setNft({
-      name,
-      image,
-      collection,
-      endTime,
-      price,
-      isAuction,
-      activeBtn,
-      hidePrice,
-      owner,
-    })
+    Router.push("/nft/" + info.id)
   }
 
   return (
     <div className="nft-item" onClick={handleRedirect}>
       <div className="nft-image">
-        <img src={image} />
+        <img src={info.image} />
       </div>
       <div className="nft-body">
         <div className="provider">
           <div className="algin-center">
-            <span>{collection?.name}</span>
+            <span>{info.collection?.name}</span>
             <Verified />
           </div>
           <div>
-            {isAuction != undefined && isAuction ? (
+            {info.aucPrice ? (
               <img src="/icons/auction.png" alt="" />
             ) : (
               <img src="/icons/dollar.png" alt="" />
             )}
           </div>
         </div>
-        <span className="name">{name}</span>
+        <span className="name">{info.name}</span>
         <div className="end-in">
-          {isAuction ? (
+          {info.aucPrice ? (
             <div>
-              <span>END IN</span> {moment(endTime).format("HH:mm:ss")}
+              <span>END IN</span> {moment(info.endTime).format("HH:mm:ss")}
             </div>
           ) : null}
         </div>
-        <div className={`price ${hidePrice && "hidden"}`}>
+        <div className={`price ${info.hidePrice && "hidden"}`}>
           <span>
-            <BNBSymbol /> {currency(price)} BNB
+            <BNBSymbol /> {currency(info.aucPrice ?? info.price ?? null)} BNB
           </span>
-          {_renderAction()}
+          {info.owner === address ? null : info.aucPrice ? (
+            <Button>AUC</Button>
+          ) : info.price ? (
+            <Button>BUY</Button>
+          ) : null}
         </div>
       </div>
     </div>
   )
-}
+})

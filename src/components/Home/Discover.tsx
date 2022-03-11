@@ -1,5 +1,3 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
 import { NftItem } from "../NftItem"
 import { HomeSection } from "./HomeSection"
 
@@ -15,16 +13,7 @@ export const Discover = (props) => {
         onViewAll="/discover"
       >
         {data?.map((auction) => (
-          <NftItem
-            id={auction.id}
-            key={auction.id}
-            name={auction.name}
-            image={auction.image}
-            collection={auction.collection}
-            endTime={auction.endTime}
-            price={auction.price}
-            isAuction={auction.isAuction}
-          />
+          <NftItem key={auction.id} info={auction} />
         ))}
       </HomeSection>
     </div>

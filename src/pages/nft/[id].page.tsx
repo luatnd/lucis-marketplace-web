@@ -1,6 +1,7 @@
 import {
   Button,
   Icon,
+  Input,
   InputGroup,
   InputRightAddon,
   Modal,
@@ -16,13 +17,25 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react"
+import Verified from "@static/icons/verified.svg"
+import Success from "@static/icons/success.svg"
 import { observer } from "mobx-react-lite"
 import { GetServerSidePropsContext } from "next"
 import { useRouter } from "next/router"
-import React, { useState } from "react"
+import React, { ReactNode, useRef, useState } from "react"
 import { ExternalLink, Eye, Heart } from "react-feather"
 import { useStore } from "src/hooks/useStore"
-import { aucNft, buyNft, getNft, likeNft, unLikeNft } from "src/services/nft"
+import {
+  aucNft,
+  auctionNft,
+  buyNft,
+  cancelPrice,
+  fixPrice,
+  getNft,
+  likeNft,
+  sendNft,
+  unLikeNft,
+} from "src/services/nft"
 import { currency } from "src/utils/Number"
 import Activities from "./Activities"
 import ReceivedOffer from "./ReceivedOffer"
@@ -33,6 +46,13 @@ const DetailsPage = observer((props: any) => {
   const { address } = WalletController
 
   const [info, setInfo] = useState(data)
+  const [modalVisible, setModalVisible] = useState(false)
+  const [modalContent, setModalContent] = useState<ReactNode>()
+  const priceToAuc = useRef<any>()
+  const priceToFix = useRef<any>()
+  const priceToAuction = useRef<any>()
+  const addressToSend = useRef<any>()
+
   const router = useRouter()
   const fetchData = async () => {
     const { id } = router.query
@@ -50,15 +70,94 @@ const DetailsPage = observer((props: any) => {
     }
   }
 
+  const handleBuy = async () => {
+    setModalContent(buyModalContent)
+    setModalVisible(true)
+  }
+
+  const handleAuc = async () => {
+    setModalContent(aucModalContent)
+    setModalVisible(true)
+  }
+
+  const handleFixedPrice = async () => {
+    setModalContent(fixedPriceModalContent)
+    setModalVisible(true)
+  }
+
+  const handleAuction = async () => {
+    setModalContent(auctionModalContent)
+    setModalVisible(true)
+  }
+
+  const handleSend = async () => {
+    setModalContent(sendModalContent)
+    setModalVisible(true)
+  }
+
+  const handleCancelPrice = async () => {
+    await cancelPrice(info.id)
+    fetchData()
+  }
+
+  const handleChangePrice = async () => {
+    setModalContent(fixedPriceModalContent)
+    setModalVisible(true)
+  }
+
+  const _renderOwnerTray = () => {
+    const normalTray = (
+      <div className="actions">
+        <Button onClick={handleFixedPrice}>Fixed Price</Button>
+        <Button onClick={handleAuction}>Auction</Button>
+        <Button onClick={handleSend}>Send</Button>
+      </div>
+    )
+
+    const aucAction = (
+      <div className="auc-action">
+        <div className="auc-action-body">
+          <div className="price">
+            <span>Top auc</span>
+            <span>{currency(info.topAuc)} BNB</span>
+            <span>(${currency(info.topAuc * 376)})</span>
+          </div>
+          <div className="price-nav">
+            <div className="cancel">
+              <Button onClick={handleCancelPrice}>Cancel</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+    const fixedPriceAction = (
+      <div className="change-price">
+        <div className="change-price-body">
+          <div className="price">
+            <span>Price</span>
+            <span>{currency(info.price)} BNB</span>
+            <span>(${currency(info.price * 376)})</span>
+          </div>
+          <div className="price-nav">
+            <Button className="change-price-btn" onClick={handleChangePrice}>
+              Change Price
+            </Button>
+            <div className="cancel">
+              <Button onClick={handleCancelPrice}>Cancel</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+
+    return (
+      <div className="owner-tray">
+        {info.aucPrice ? aucAction : info.price ? fixedPriceAction : normalTray}
+      </div>
+    )
+  }
+
   const _renderBuyTray = () => {
-    const [buyVisible, setBuyVisible] = useState(false)
-    const [resultVisible, setResultVisible] = useState(false)
-    const handleBuy = async () => {
-      setBuyVisible(false)
-      await buyNft(address, +info.id)
-      fetchData()
-      setResultVisible(true)
-    }
     return (
       <div className="buy-tray">
         <div className="buy-tray-body">
@@ -68,57 +167,15 @@ const DetailsPage = observer((props: any) => {
             <span>(${currency(info.price * 376)})</span>
           </div>
           <div className="buy-nav">
-            <Button onClick={() => setBuyVisible(true)}>BUY</Button>
+            <Button onClick={handleBuy}>BUY</Button>
             <span>Or make offer other price</span>
           </div>
         </div>
-        <Modal
-          isOpen={buyVisible}
-          onClose={() => setBuyVisible(false)}
-          isCentered
-        >
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Buy</ModalHeader>
-            <ModalBody className="buy-modal">
-              <div className="price">
-                <span>Price:</span>
-                <div className="price-col">
-                  <h1>{currency(info.price)}</h1>
-                  <span>(${currency(info.price * 376)})</span>
-                </div>
-              </div>
-              <Button onClick={() => handleBuy()}>Apply</Button>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-        <Modal
-          isOpen={resultVisible}
-          onClose={() => setResultVisible(false)}
-          isCentered
-        >
-          <ModalContent>
-            <ModalBody className="result-modal">
-              <h1>Successful !</h1>
-              <p>You have successful transaction</p>
-              <Button onClick={() => setResultVisible(false)}>OK</Button>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
       </div>
     )
   }
 
   const _renderAucTray = () => {
-    const [aucVisible, setAucVisible] = useState(false)
-    const [resultVisible, setResultVisible] = useState(false)
-    const [priceToAuc, setPriceToAuc] = useState<number>()
-    const handleAuc = async () => {
-      setAucVisible(false)
-      await aucNft(priceToAuc, info.id)
-      fetchData()
-      setResultVisible(true)
-    }
     return (
       <div className="auc-tray">
         <div className="auc-tray-body">
@@ -128,46 +185,9 @@ const DetailsPage = observer((props: any) => {
             <span>(${currency(info.topAuc * 376)})</span>
           </div>
           <div className="auc-nav">
-            <Button onClick={() => setAucVisible(true)}>AUC</Button>
+            <Button onClick={handleAuc}>AUCTION</Button>
           </div>
         </div>
-        <Modal
-          isOpen={aucVisible}
-          onClose={() => setAucVisible(false)}
-          isCentered
-        >
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader>Auction</ModalHeader>
-            <ModalBody className="auc-modal">
-              <label>Price</label>
-              <InputGroup>
-                <NumberInput>
-                  <NumberInputField
-                    placeholder="Price"
-                    onChange={(e) => setPriceToAuc(+e.target.value)}
-                  />
-                </NumberInput>
-                <InputRightAddon>BNB</InputRightAddon>
-              </InputGroup>
-              <p>The minium auc price is {info.aucPrice} BNB</p>
-              <Button onClick={() => handleAuc()}>Apply</Button>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-        <Modal
-          isOpen={resultVisible}
-          onClose={() => setResultVisible(false)}
-          isCentered
-        >
-          <ModalContent>
-            <ModalBody className="result-modal">
-              <h1>Successful !</h1>
-              <p>You have successful transaction</p>
-              <Button onClick={() => setResultVisible(false)}>OK</Button>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
       </div>
     )
   }
@@ -194,9 +214,9 @@ const DetailsPage = observer((props: any) => {
             <img src="/nft-details/provider.png" />
             <span>{data?.collection?.name}</span>
           </div>
-          <span className="name">
+          <h1 className="name">
             {data?.name} #{data?.id}
-          </span>
+          </h1>
           <div className="owner">
             {address === info.owner ? (
               <span>Preserved by Me</span>
@@ -213,7 +233,13 @@ const DetailsPage = observer((props: any) => {
               <span>{info.views}</span> <Icon as={Eye} />
             </div>
           </div>
-          {info.isAuction ? _renderAucTray() : _renderBuyTray()}
+          {info.owner === address
+            ? _renderOwnerTray()
+            : info.aucPrice
+            ? _renderAucTray()
+            : info.price
+            ? _renderBuyTray()
+            : null}
           <div className="details-stats">
             <h1>Detail</h1>
             {detailsStats.map((stat) => (
@@ -248,10 +274,251 @@ const DetailsPage = observer((props: any) => {
     </div>
   )
 
+  const buyModalContent = () => {
+    const buy = async () => {
+      await buyNft(address, +info.id)
+      await fetchData()
+      setModalContent(resultModalContent)
+    }
+    return (
+      <ModalContent>
+        <ModalHeader>Buy</ModalHeader>
+        <ModalBody className="buy-modal">
+          <div className="price">
+            <span>Price:</span>
+            <div className="price-col">
+              <h1>{currency(info.price)}</h1>
+              <span>(${currency(info.price * 376)})</span>
+            </div>
+          </div>
+          <Button onClick={() => buy()}>Apply</Button>
+        </ModalBody>
+      </ModalContent>
+    )
+  }
+
+  const aucModalContent = () => {
+    const auc = async () => {
+      await aucNft(priceToAuc.current.value, info.id)
+      await fetchData()
+      setModalContent(resultModalContent)
+    }
+    return (
+      <ModalContent>
+        <ModalHeader>Auction</ModalHeader>
+        <ModalBody className="auc-modal">
+          <label>Price</label>
+          <InputGroup>
+            <NumberInput>
+              <NumberInputField
+                placeholder="Price"
+                ref={priceToAuc}
+                name="price"
+              />
+            </NumberInput>
+            <InputRightAddon>BNB</InputRightAddon>
+          </InputGroup>
+          <p>The minium auc price is {info.aucPrice} BNB</p>
+          <Button onClick={auc}>Apply</Button>
+        </ModalBody>
+      </ModalContent>
+    )
+  }
+
+  const resultModalContent = () => {
+    return (
+      <ModalContent>
+        <ModalBody className="result-modal">
+          <Icon as={Success} className="success-icon" />
+          <h1>Successful !</h1>
+          <p>You have successful transaction</p>
+          <Button onClick={() => setModalVisible(false)}>OK</Button>
+        </ModalBody>
+      </ModalContent>
+    )
+  }
+
+  const fixedPriceModalContent = () => {
+    const fix = async () => {
+      await fixPrice(priceToFix.current.value, info.id)
+      await fetchData()
+      setModalContent(resultModalContent)
+    }
+    return (
+      <div>
+        <ModalContent>
+          <ModalHeader>Fixed Price</ModalHeader>
+          <ModalBody className="fixed-price-modal">
+            <div className="modal-head">
+              <div className="info-img">
+                <img src={info.image} />
+              </div>
+              <div className="info-text">
+                <p>
+                  {info.collection.name} <Icon as={Verified} />
+                </p>
+                <h1>{info.name}</h1>
+              </div>
+            </div>
+            <label>Price</label>
+            <InputGroup>
+              <NumberInput>
+                <NumberInputField
+                  placeholder="Price"
+                  ref={priceToFix}
+                  name="price"
+                />
+              </NumberInput>
+              <InputRightAddon>BNB</InputRightAddon>
+            </InputGroup>
+            <p>0 BNB = $0</p>
+            <p>
+              The floor price is 0.0055 BNB. The item will be on sale until you
+              cancelled.
+            </p>
+            <h1>FEES</h1>
+            <p>
+              Listing is FREE! When the sale succeeds, the following fees will
+              occour.
+            </p>
+            <div className="fee-box">
+              <span>
+                <p>To Lucis</p>
+                <p>2.5%</p>
+              </span>
+              <span>
+                <p>To {info.collection.name}</p>
+                <p>2.5%</p>
+              </span>
+            </div>
+            <Button onClick={fix}>Apply</Button>
+          </ModalBody>
+        </ModalContent>
+      </div>
+    )
+  }
+
+  const auctionModalContent = () => {
+    let duration = 1
+    const fix = async () => {
+      await auctionNft(info.id, +priceToAuction.current.value, duration)
+      await fetchData()
+      setModalContent(resultModalContent)
+    }
+    return (
+      <div>
+        <ModalContent>
+          <ModalHeader>Auction</ModalHeader>
+          <ModalBody className="auction-modal">
+            <div className="modal-head">
+              <div className="info-img">
+                <img src={info.image} />
+              </div>
+              <div className="info-text">
+                <p>
+                  {info.collection.name} <Icon as={Verified} />
+                </p>
+                <h1>{info.name}</h1>
+              </div>
+            </div>
+            <label>Price</label>
+            <InputGroup>
+              <NumberInput>
+                <NumberInputField
+                  placeholder="Price"
+                  ref={priceToAuction}
+                  name="price"
+                />
+              </NumberInput>
+              <InputRightAddon>BNB</InputRightAddon>
+            </InputGroup>
+            <p>0 BNB = $0</p>
+            <p>
+              The floor price is 0.0055 BNB. The item will be on sale until you
+              cancelled.
+            </p>
+            <h1>FEES</h1>
+            <p>
+              Listing is FREE! When the sale succeeds, the following fees will
+              occour.
+            </p>
+            <label>Duration</label>
+            <div className="duration">
+              <Button autoFocus onClick={() => (duration = 1)}>
+                1 Day
+              </Button>
+              <Button onClick={() => (duration = 3)}>3 Days</Button>
+              <Button onClick={() => (duration = 5)}>5 Days</Button>
+            </div>
+            <div className="fee-box">
+              <span>
+                <p>To Lucis</p>
+                <p>2.5%</p>
+              </span>
+              <span>
+                <p>To {info.collection.name}</p>
+                <p>2.5%</p>
+              </span>
+              <span>
+                <p>Bidder to bidder</p>
+                <p>5%</p>
+              </span>
+            </div>
+            <Button onClick={fix}>Apply</Button>
+          </ModalBody>
+        </ModalContent>
+      </div>
+    )
+  }
+
+  const sendModalContent = () => {
+    const send = async () => {
+      await sendNft(info.id, addressToSend.current.value)
+      await fetchData()
+      setModalContent(resultModalContent)
+    }
+
+    return (
+      <ModalContent>
+        <ModalHeader>Send</ModalHeader>
+        <ModalBody className="send-modal">
+          <div className="modal-head">
+            <div className="info-img">
+              <img src={info.image} />
+            </div>
+            <div className="info-text">
+              <p>
+                {info.collection.name} <Icon as={Verified} />
+              </p>
+              <h1>{info.name}</h1>
+            </div>
+          </div>
+          <label>Target wallet address</label>
+          <InputGroup>
+            <Input ref={addressToSend} placeholder="0xadabc..." />
+            <InputRightAddon>BNB</InputRightAddon>
+          </InputGroup>
+          <label>
+            {"You won't be able to take back the NFT after the transaction."}
+          </label>
+          <Button onClick={send}>Apply</Button>
+        </ModalBody>
+      </ModalContent>
+    )
+  }
+
   return (
     <div className="nft-details">
       {_renderDetails()}
       {_renderTables()}
+      <Modal
+        isOpen={modalVisible}
+        onClose={() => setModalVisible(false)}
+        isCentered
+      >
+        <ModalOverlay />
+        {modalContent}
+      </Modal>
     </div>
   )
 })

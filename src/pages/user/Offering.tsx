@@ -103,7 +103,7 @@ const Offering = observer(() => {
   const getdata = async () => {
     const res = await getNfts({
       owner: address,
-      isAuction: true,
+      aucPrice_gte: 0,
       _sort: "price",
       _order: made,
       _limit: pageSize,
@@ -156,17 +156,7 @@ const Offering = observer(() => {
             <div className="offering-auction">
               <div className="list">
                 {auctions.map((auction) => (
-                  <NftItem
-                    id={auction.id}
-                    key={auction.id}
-                    name={auction.name}
-                    image={auction.image}
-                    collection={auction.collection}
-                    endTime={auction.endTime}
-                    price={auction.price}
-                    isAuction={auction.isAuction}
-                    activeBtn={true}
-                  />
+                  <NftItem key={auction.id} info={auction} />
                 ))}
               </div>
               <Pagination

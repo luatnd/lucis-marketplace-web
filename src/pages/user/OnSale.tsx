@@ -62,7 +62,7 @@ const OnSale = () => {
   const getdata = async () => {
     const res = await getNfts({
       owner: address,
-      isAuction: isAuction,
+      aucPrice_gte: 0,
       _limit: isAuction ? pageSize1 : pageSize,
       _page: isAuction ? currentPage1 : currentPage2,
     })
@@ -120,17 +120,7 @@ const OnSale = () => {
               <div className="grid-custom">
                 {data.map((auction) => (
                   <div className="grid-item" key={auction.id}>
-                    <NftItem
-                      id={auction.id}
-                      key={auction.id}
-                      name={auction.name}
-                      image={auction.image}
-                      collection={auction.collection}
-                      endTime={auction.endTime}
-                      price={auction.price}
-                      isAuction={auction.isAuction}
-                      activeBtn={true}
-                    />
+                    <NftItem info={auction} />
                   </div>
                 ))}
               </div>
@@ -153,17 +143,7 @@ const OnSale = () => {
               <div className="grid-custom">
                 {data.map((auction) => (
                   <div className="grid-item" key={auction.id}>
-                    <NftItem
-                      id={auction.id}
-                      key={auction.id}
-                      name={auction.name}
-                      image={auction.image}
-                      collection={auction.collection}
-                      endTime={auction.endTime}
-                      price={auction.price}
-                      isAuction={auction.isAuction}
-                      activeBtn={true}
-                    />
+                    <NftItem info={auction} />
                   </div>
                 ))}
               </div>
