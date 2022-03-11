@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useStore } from "src/hooks/useStore"
-import { getNft, getNfts } from "src/services/nft"
+import { getNfts } from "src/services/nft"
 import { NftItem } from "../../components/NftItem"
 import Pagination from "../../components/Pagination"
 import Sort from "../../components/Sort"
@@ -29,25 +29,6 @@ const Favorite = () => {
   useEffect(() => {
     getdata()
   }, [pageSize, currentPage])
-
-  const typeSort = [
-    {
-      img: "",
-      name: "All",
-    },
-    {
-      img: "",
-      name: "Selling",
-    },
-    {
-      img: "",
-      name: "Auction",
-    },
-    {
-      img: "",
-      name: "Not sold",
-    },
-  ]
 
   return (
     <div className="tab-favorite">

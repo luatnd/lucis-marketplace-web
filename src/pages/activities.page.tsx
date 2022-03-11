@@ -14,14 +14,6 @@ const ActivitiesPage = () => {
   const [totalData, setTotalData] = useState(Number(activities.length))
 
   useEffect(() => {
-    dataOfPage(activities)
-  }, [currentPage, pageSize])
-
-  useEffect(() => {
-    handleSort()
-  }, [sort])
-
-  const handleSort = async () => {
     const data = activities.filter((el) => {
       if (el.type == sort && sort != "All") {
         return el
@@ -29,15 +21,11 @@ const ActivitiesPage = () => {
         return el
       } else return ""
     })
-    dataOfPage(data)
-    setTotalData(Number(data.length))
-  }
-
-  const dataOfPage = (activities) => {
     const firstPageIndex = (currentPage - 1) * pageSize
     const lastPageIndex = firstPageIndex + pageSize
-    setData(activities.slice(firstPageIndex, lastPageIndex))
-  }
+    setData(data.slice(firstPageIndex, lastPageIndex))
+    setTotalData(Number(data.length))
+  }, [sort, currentPage, pageSize])
 
   const priceSort = [
     {

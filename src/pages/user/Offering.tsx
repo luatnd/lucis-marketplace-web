@@ -11,7 +11,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -27,11 +26,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import Link from "next/link"
-import { getNft, getNfts } from "src/services/nft"
+import { getNfts } from "src/services/nft"
 import { useStore } from "src/hooks/useStore"
 import network from "../data/network.json"
 import { observer } from "mobx-react-lite"
-import { set } from "mobx"
 const Offering = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController

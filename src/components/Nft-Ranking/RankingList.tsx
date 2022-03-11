@@ -18,8 +18,6 @@ export const RankingList = (props) => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
-  const [time, setTime] = useState("All")
-  const [price, setPrice] = useState("All")
   const [data, setData] = useState([])
 
   useEffect(() => {
@@ -42,108 +40,7 @@ export const RankingList = (props) => {
     { img: "", name: "7 days" },
     { img: "", name: "30 days" },
   ]
-  const dataSource = [
-    {
-      key: 1,
-      collection: "Animverse",
-      vol: "100.00 BNB ",
-      day: "10%",
-      week: "10%",
-      price: "100.00 BNB",
-      player: "100",
-      item: "100",
-    },
-    {
-      key: 2,
-      collection: "Soul Reborn",
-      vol: "100.00 BNB ",
-      day: "10%",
-      week: "10%",
-      price: "100.00 BNB",
-      player: "100",
-      item: "100",
-    },
-    {
-      key: 3,
-      collection: "AstarDegens",
-      vol: "100.00 BNB ",
-      day: "10%",
-      week: "10%",
-      price: "100.00 BNB",
-      player: "100",
-      item: "100",
-    },
-    {
-      key: 4,
-      collection: "Tales of Ragnarok",
-      vol: "100.00 BNB ",
-      day: "10%",
-      week: "10%",
-      price: "100.00 BNB",
-      player: "100",
-      item: "100",
-    },
-    {
-      key: 5,
-      collection: "Metaverse PFP NFT",
-      vol: "100.00 BNB ",
-      day: "10%",
-      week: "10%",
-      price: "100.00 BNB",
-      player: "100",
-      item: "100",
-    },
-    {
-      key: 6,
-      collection: "Wolf Town - Animal",
-      vol: "100.00 BNB ",
-      day: "10%",
-      week: "10%",
-      price: "100.00 BNB",
-      player: "100",
-      item: "100",
-    },
-    {
-      key: 7,
-      collection: "Polychain Monsters",
-      vol: "100.00 BNB ",
-      day: "10%",
-      week: "10%",
-      price: "100.00 BNB",
-      player: "100",
-      item: "100",
-    },
-    {
-      key: 8,
-      collection: "ELEMON",
-      vol: "100.00 BNB ",
-      day: "10%",
-      week: "10%",
-      price: "100.00 BNB",
-      player: "100",
-      item: "100",
-    },
-    {
-      key: 9,
-      collection: "Dracoo",
-      vol: "100.00 BNB ",
-      day: "10%",
-      week: "10%",
-      price: "100.00 BNB",
-      player: "100",
-      item: "100",
-    },
-    {
-      key: 10,
-      collection: "Axes Metaverse",
-      vol: "100.00 BNB ",
-      day: "10%",
-      week: "10%",
-      price: "100.00 BNB",
-      player: "100",
-      item: "100",
-    },
-  ]
+
   return (
     <div className="ranking-list">
       <h1>nft ranking</h1>
@@ -151,12 +48,10 @@ export const RankingList = (props) => {
         <Sort
           customClassName="price-sort"
           options={priceSort}
-          onSelectOption={(price) => setPrice(price)}
         />
         <Sort
           customClassName="type-sort"
           options={timeSort}
-          onSelectOption={(time) => setTime(time)}
         />
       </div>
       <div className="table-activity">

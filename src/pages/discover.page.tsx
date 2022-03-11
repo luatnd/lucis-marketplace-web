@@ -5,7 +5,6 @@ import { ListingBar } from "../components/Home/ListingBar"
 import { NftItem } from "../components/NftItem"
 import Pagination from "../components/Pagination"
 import Sort from "../components/Sort"
-import auctions from "./data/auctions.json"
 
 const DiscoverPage = (props) => {
   const {

@@ -279,7 +279,7 @@ export const AppLayout = observer(({ children }) => {
                 </MenuButton>
                 <MenuList>
                   {networks.map((el, key) => (
-                    <Link key={key} href="">
+                    <Link key={key} href="javascript:;">
                       <MenuItem onClick={() => setSelectNetwork(el.img)} className="menu-item">
                         <img src={el.img} alt=""/>
                         {el.name}

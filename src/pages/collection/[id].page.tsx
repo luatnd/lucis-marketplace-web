@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react"
 import BoxIcon from "@static/icons/item-box.svg"
 import VerifiedIcon from "@static/icons/verified.svg"
-import axios from "axios"
 import { GetServerSidePropsContext } from "next"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -129,7 +128,7 @@ const CollectionDetails = (props) => {
                 value: null,
               },
               {
-                label: "Fix price",
+                label: "Fixed price",
                 value: false,
               },
               {
