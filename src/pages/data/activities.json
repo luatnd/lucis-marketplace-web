@@ -6,7 +6,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 1
+    "key": 1,
+    "action": null
   },
   {
     "type": "Listing",
@@ -15,7 +16,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 2
+    "key": 2,
+    "action": null
   },
   {
     "type": "Offer",
@@ -24,7 +26,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 3
+    "key": 3,
+    "action": null
   },
   {
     "type": "Auction",
@@ -33,7 +36,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 4
+    "key": 4,
+    "action": null
   },
   {
     "type": "Sale",
@@ -42,7 +46,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 5
+    "key": 5,
+    "action": null
   },
   {
     "type": "Listing",
@@ -51,7 +56,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 6
+    "key": 6,
+    "action": null
   },
   {
     "type": "Offer",
@@ -60,7 +66,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 7
+    "key": 7,
+    "action": null
   },
   {
     "type": "Auction",
@@ -69,7 +76,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 8
+    "key": 8,
+    "action": null
   },
   {
     "type": "Sale",
@@ -78,7 +86,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 9
+    "key": 9,
+    "action": null
   },
   {
     "type": "Listing",
@@ -87,7 +96,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 10
+    "key": 10,
+    "action": null
   },
   {
     "type": "Offer",
@@ -96,7 +106,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 11
+    "key": 11,
+    "action": null
   },
   {
     "type": "Auction",
@@ -105,7 +116,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 12
+    "key": 12,
+    "action": null
   },
   {
     "type": "Sale",
@@ -114,7 +126,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 13
+    "key": 13,
+    "action": null
   },
   {
     "type": "Listing",
@@ -123,7 +136,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 14
+    "key": 14,
+    "action": null
   },
   {
     "type": "Offer",
@@ -132,7 +146,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 15
+    "key": 15,
+    "action": null
   },
   {
     "type": "Auction",
@@ -141,7 +156,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 16
+    "key": 16,
+    "action": null
   },
   {
     "type": "Sale",
@@ -150,7 +166,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 17
+    "key": 17,
+    "action": null
   },
   {
     "type": "Listing",
@@ -159,7 +176,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 18
+    "key": 18,
+    "action": null
   },
   {
     "type": "Offer",
@@ -168,7 +186,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 19
+    "key": 19,
+    "action": null
   },
   {
     "type": "Auction",
@@ -177,7 +196,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 20
+    "key": 20,
+    "action": null
   },
   {
     "type": "Sale",
@@ -186,7 +206,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 21
+    "key": 21,
+    "action": null
   },
   {
     "type": "Listing",
@@ -195,7 +216,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 22
+    "key": 22,
+    "action": null
   },
   {
     "type": "Offer",
@@ -204,7 +226,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 23
+    "key": 23,
+    "action": null
   },
   {
     "type": "Auction",
@@ -213,7 +236,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 24
+    "key": 24,
+    "action": null
   },
   {
     "type": "Sale",
@@ -222,7 +246,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 25
+    "key": 25,
+    "action": null
   },
   {
     "type": "Listing",
@@ -231,7 +256,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 26
+    "key": 26,
+    "action": null
   },
   {
     "type": "Offer",
@@ -240,7 +266,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 27
+    "key": 27,
+    "action": null
   },
   {
     "type": "Auction",
@@ -249,7 +276,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 28
+    "key": 28,
+    "action": null
   },
   {
     "type": "Sale",
@@ -258,7 +286,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 29
+    "key": 29,
+    "action": null
   },
   {
     "type": "Listing",
@@ -267,7 +296,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 30
+    "key": 30,
+    "action": null
   },
   {
     "type": "Offer",
@@ -276,7 +306,8 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 31
+    "key": 31,
+    "action": null
   },
   {
     "type": "Auction",
@@ -285,6 +316,7 @@
     "from": "Dong Van Cuong",
     "to": "0x531b…fFf8",
     "date": "1 days ago",
-    "key": 32
+    "key": 32,
+    "action": null
   }
 ]

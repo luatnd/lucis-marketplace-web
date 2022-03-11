@@ -178,7 +178,11 @@ const Activities = () => {
                         </Link>
                       </Td>
                       <Td isNumeric>{data.price}</Td>
-                      <Td>{data.from}</Td>
+                      <Td>
+                        <Link href={"/user/" + data.from}>
+                          <a>{data.from}</a>
+                        </Link>
+                      </Td>
                       <Td className="to">
                         <Link href={"/user/1"}>
                           <a>{data.to}</a>
@@ -239,7 +243,11 @@ const Activities = () => {
                         </Link>
                       </Td>
                       <Td isNumeric>{data.price}</Td>
-                      <Td>{data.from}</Td>
+                      <Td>
+                        <Link href={"/user/" + data.from}>
+                          <a>{data.from}</a>
+                        </Link>
+                      </Td>
                       <Td className="to">
                         <Link href={"/user/1"}>
                           <a>{data.to}</a>

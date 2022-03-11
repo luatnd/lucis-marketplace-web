@@ -47,7 +47,7 @@ const DiscoverPage = (props) => {
     },
     {
       img: "",
-      name: "Fixed",
+      name: "Fixed Price",
     },
     {
       img: "",
