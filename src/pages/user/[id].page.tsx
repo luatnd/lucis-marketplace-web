@@ -31,7 +31,7 @@ const MyNft = () => {
               <div
                 className="bottom"
                 onClick={() => {
-                  navigator.clipboard.writeText("0X123466...X452")
+                  navigator.clipboard.writeText("0X123466132X452")
                   toast({
                     description: "User address has been copied to clipboard",
                     status: "success",
@@ -57,7 +57,7 @@ const MyNft = () => {
                   <div
                     className="bottom"
                     onClick={() => {
-                      navigator.clipboard.writeText("0X123466...X452")
+                      navigator.clipboard.writeText("0X123466132X452")
                       toast({
                         description:
                           "User address has been copied to clipboard",
