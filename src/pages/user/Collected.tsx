@@ -2,7 +2,7 @@ import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
 import { useStore } from "src/hooks/useStore"
-import { getNft, getNfts } from "src/services/nft"
+import { getNfts } from "src/services/nft"
 import { NftItem } from "../../components/NftItem"
 import Pagination from "../../components/Pagination"
 import Sort from "../../components/Sort"
@@ -15,6 +15,7 @@ const Collected = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(20)
   const [totalData, setTotalData] = useState(0)
+  const [offset, setOffset] = useState(1)
   const getdata = async () => {
     const res = await getNfts({
       owner: address,
@@ -29,7 +30,14 @@ const Collected = () => {
   }, [])
   useEffect(() => {
     getdata()
-  }, [pageSize, currentPage])
+  }, [currentPage])
+  useEffect(() => {
+    setOffset(Number(pageSize * currentPage - pageSize + 1))
+  }, [currentPage])
+
+  useEffect(() => {
+    setCurrentPage(Math.ceil(offset / pageSize))
+  }, [pageSize])
   const typeSort = [
     {
       img: "",

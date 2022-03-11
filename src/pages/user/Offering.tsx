@@ -11,7 +11,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -27,11 +26,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import Link from "next/link"
-import { getNft, getNfts } from "src/services/nft"
+import { getNfts } from "src/services/nft"
 import { useStore } from "src/hooks/useStore"
 import network from "../data/network.json"
 import { observer } from "mobx-react-lite"
-import { set } from "mobx"
 const Offering = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
@@ -44,6 +42,9 @@ const Offering = observer(() => {
   const [pageSize1, setPageSize1] = useState(10)
   const [auctions, setAuctions] = useState([])
   const [totalAuc, setTotalAuc] = useState(0)
+  const [offset, setOffset] = useState(1)
+  const [actionID, setActionID] = useState(null)
+  const [makeOffer, setMakeOffer] = useState([])
   const madeSort = [
     {
       img: "",
@@ -62,41 +63,51 @@ const Offering = observer(() => {
     {
       key: 1,
       type: "Sale",
+      action: true,
     },
     {
       key: 2,
       type: "Listing",
+      action: true,
     },
     {
       key: 3,
       type: "Offer",
+      action: true,
     },
     {
       key: 4,
       type: "Auction",
+      action: true,
     },
     {
       key: 5,
       type: "Sale",
+      action: true,
     },
     {
       key: 6,
       type: "Auction",
+      action: true,
     },
     {
       key: 7,
       type: "Offer",
+      action: true,
     },
     {
       key: 8,
       type: "Listing",
+      action: true,
     },
     {
       key: 9,
       type: "Sale",
+      action: true,
     },
     {
       key: 10,
+      action: true,
       type: "Sale",
     },
   ]
@@ -113,11 +124,22 @@ const Offering = observer(() => {
     setTotalAuc(res.total)
   }
   useEffect(() => {
+    setMakeOffer(dataSoure)
     getdata()
   }, [])
+
   useEffect(() => {
     getdata()
-  }, [made, pageSize, currentPage])
+  }, [made, currentPage])
+
+  useEffect(() => {
+    setOffset(Number(pageSize * currentPage - pageSize + 1))
+  }, [currentPage])
+
+  useEffect(() => {
+    setCurrentPage(Math.ceil(offset / pageSize))
+  }, [pageSize])
+
   return (
     <div className="tab">
       <Tabs>
@@ -182,7 +204,7 @@ const Offering = observer(() => {
                 </Tr>
               </Thead>
               <Tbody>
-                {dataSoure.map((data) => (
+                {makeOffer.map((data) => (
                   <Tr key={data.key}>
                     <Td>
                       <div className="item">
@@ -196,7 +218,7 @@ const Offering = observer(() => {
                               </p>
                             </a>
                           </Link>
-                          <Link href={"/user/1"}>
+                          <Link href={"/nft/" + data.key}>
                             <a>
                               <p>CUONG DOLLA NFT</p>
                             </a>
@@ -213,7 +235,18 @@ const Offering = observer(() => {
                     <Td>in 2 days</Td>
                     <Td>1 days ago</Td>
                     <Td className="button">
-                      <button onClick={onOpen}>Cancel</button>
+                      {data.action ? (
+                        <button
+                          onClick={() => {
+                            setActionID(data.key)
+                            onOpen()
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      ) : (
+                        "Canceled"
+                      )}
                     </Td>
                   </Tr>
                 ))}
@@ -233,7 +266,7 @@ const Offering = observer(() => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent className="dialog-confirm">
-          <ModalHeader>Confirm terms</ModalHeader>
+          <ModalHeader>Confirm</ModalHeader>
           <ModalCloseButton>
             <img src="/icons/close.png" />
           </ModalCloseButton>
@@ -241,7 +274,18 @@ const Offering = observer(() => {
             <Text mb="1rem">Are you sure you want to cancel the offer ?</Text>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={() => {
+                onClose()
+                setMakeOffer(
+                  makeOffer.map((data) =>
+                    data.key == actionID ? { ...data, action: false } : data
+                  )
+                )
+              }}
+            >
               Approve
             </Button>
           </ModalFooter>

@@ -27,6 +27,7 @@ export const AppLayout = observer(({ children }) => {
   const { token } = WalletController
 
   const [canScroll, setCanScroll] = useState(false)
+  const [selectNetwork, setSelectNetwork] = useState("/common/all-network.png")
   useEffect(() => {
     window.onscroll = () => {
       setCanScroll(window.pageYOffset > 100)
@@ -148,6 +149,41 @@ export const AppLayout = observer(({ children }) => {
     },
   ]
 
+  const networks = [
+    {
+      img: "/common/all-network.png",
+      name: "All",
+    },
+    {
+      img: "/common/bnb-logo.png",
+      name: "BNB Chain",
+    },
+    {
+      img: "/common/walletConnect.png",
+      name: "WalletConnect",
+    },
+    {
+      img: "/common/ethereum.png",
+      name: "Ethereum",
+    },
+    {
+      img: "/common/celo.png",
+      name: "Celo",
+    },
+    {
+      img: "/common/aurora.png",
+      name: "Aurora",
+    },
+    {
+      img: "/common/arbitrum.png",
+      name: "Arbitrum",
+    },
+    {
+      img: "/common/fantom.png",
+      name: "Fantom",
+    },
+  ]
+
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false)
 
   const _renderMobileMenu = () => (
@@ -230,6 +266,32 @@ export const AppLayout = observer(({ children }) => {
         <div className="nav-right">
           <div className="search-bar">
             <Input placeholder="Collection/ User/ address" />
+          </div>
+          <div className="network">
+            <div className="nav-bar">
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rightIcon={<Icon as={Icons.ChevronDown} />}
+                  className="nav-item"
+                >
+                  <img src={selectNetwork} alt="" className="img-network" />
+                </MenuButton>
+                <MenuList>
+                  {networks.map((el, key) => (
+                    <Link key={key} href="javascript:;">
+                      <MenuItem
+                        onClick={() => setSelectNetwork(el.img)}
+                        className="menu-item"
+                      >
+                        <img src={el.img} alt="" />
+                        {el.name}
+                      </MenuItem>
+                    </Link>
+                  ))}
+                </MenuList>
+              </Menu>
+            </div>
           </div>
           {token ? <Icon as={BellIcon} className="noti-button" /> : null}
           <UserTray />

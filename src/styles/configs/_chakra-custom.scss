@@ -96,3 +96,14 @@
     border-color: white !important;
   }
 }
+.chakra-toast__inner {
+  .chakra-alert {
+    background-color: #32b632;
+  }
+  .chakra-alert__icon {
+    color: #fff;
+  }
+  .chakra-alert__desc {
+    color: #fff;
+  }
+}

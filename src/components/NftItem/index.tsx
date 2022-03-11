@@ -21,6 +21,18 @@ export const NftItem = observer((props: IProps) => {
     Router.push("/nft/" + info.id)
   }
 
+  const networks = [
+    "bnb.png",
+    "walletConnect.png",
+    "ethereum.png",
+    "celo.png",
+    "aurora.png",
+    "arbitrum.png",
+    "fantom.png",
+  ]
+
+  const networkRandom = networks[Math.floor(Math.random() * networks.length)]
+
   return (
     <div className="nft-item" onClick={handleRedirect}>
       <div className="nft-image">

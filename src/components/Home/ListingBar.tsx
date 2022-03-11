@@ -13,8 +13,15 @@ export const ListingBar = () => {
                 <span className="cyan-text">Animverse </span>
               </a>
             </Link>
-            sold to<span className="cyan-text"> Nhinty </span>from{" "}
-            <span className="cyan-text">Animverse123456789</span> for0,12BNB
+            sold to
+            <span className="cyan-text">
+              <Link href="/user/1"> Nhinty </Link>
+            </span>
+            from{" "}
+            <span className="cyan-text">
+              <Link href="/user/1"> Animverse123456789 </Link>
+            </span>{" "}
+            for0,12BNB
           </span>
         </div>
         <div className="time cyan-text">1 minutes ago</div>

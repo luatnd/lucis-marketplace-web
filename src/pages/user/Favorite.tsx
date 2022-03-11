@@ -30,25 +30,6 @@ const Favorite = () => {
     getdata()
   }, [pageSize, currentPage])
 
-  const typeSort = [
-    {
-      img: "",
-      name: "All",
-    },
-    {
-      img: "",
-      name: "Selling",
-    },
-    {
-      img: "",
-      name: "Auction",
-    },
-    {
-      img: "",
-      name: "Not sold",
-    },
-  ]
-
   return (
     <div className="tab-favorite">
       <div className="sort">

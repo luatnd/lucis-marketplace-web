@@ -1,14 +1,21 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react"
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  useToast,
+} from "@chakra-ui/react"
 import Offering from "./Offering"
 import Collected from "./Collected"
 import Favorite from "./Favorite"
 import OnSale from "./OnSale"
 import Activities from "./Activities"
-import { Divide } from "react-feather"
 import { useRouter } from "next/router"
 
 const MyNft = () => {
   const router = useRouter()
+  const toast = useToast()
   const { id } = router.query
   return (
     <div className="my-nft">
@@ -20,14 +27,22 @@ const MyNft = () => {
               <h2>DONG CUONG</h2>
               <img src="/common/my-nft/account-rank.png" alt="" />
             </div>
-            <div
-              className="bottom"
-              onClick={() => {
-                navigator.clipboard.writeText("0X123466...X452")
-              }}
-            >
-              <span>0X123466...X452</span>
-              <img src="/common/my-nft/copy.png" alt="" />
+            <div className="border">
+              <div
+                className="bottom"
+                onClick={() => {
+                  navigator.clipboard.writeText("0X123466132X452")
+                  toast({
+                    description: "User address has been copied to clipboard",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: false,
+                  })
+                }}
+              >
+                <span>0X123466...X452</span>
+                <img src="/common/my-nft/copy.png" alt="" />
+              </div>
             </div>
           </div>
         </div>
@@ -38,13 +53,23 @@ const MyNft = () => {
             <div className="right">
               <div className="name-id">
                 <h2>DONG CUONG</h2>
-                <div
-                  onClick={() => {
-                    navigator.clipboard.writeText("0X123466...X452")
-                  }}
-                >
-                  <span>0X123466...X452</span>
-                  <img src="/common/my-nft/copy.png" alt="" />
+                <div className="border">
+                  <div
+                    className="bottom"
+                    onClick={() => {
+                      navigator.clipboard.writeText("0X123466132X452")
+                      toast({
+                        description:
+                          "User address has been copied to clipboard",
+                        status: "success",
+                        duration: 3000,
+                        isClosable: false,
+                      })
+                    }}
+                  >
+                    <span>0X123466...X452</span>
+                    <img src="/common/my-nft/copy.png" alt="" />
+                  </div>
                 </div>
               </div>
               <div className="social">
