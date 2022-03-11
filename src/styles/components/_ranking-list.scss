@@ -21,9 +21,11 @@
           display: flex;
           align-items: center;
           color: #0bebd6;
+          cursor: pointer;
           img {
             width: 56px;
             height: 56px;
+            border-radius: 50%;
           }
           span {
             margin-left: 10px;

@@ -186,8 +186,6 @@ const CollectionDetails = (props) => {
         <AppSelect
           placeholder="All"
           isSearchable={false}
-          onChange={({ value }) => console.log(value)
-          }
           options={[
             {
               label: "All",

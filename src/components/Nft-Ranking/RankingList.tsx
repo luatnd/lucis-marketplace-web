@@ -4,14 +4,18 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-export const RankingList = () => {
+import Link from "next/link"
+
+export const RankingList = (props) => {
+  const {
+    collections,
+  } = props
+
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [time, setTime] = useState("All")
@@ -21,8 +25,8 @@ export const RankingList = () => {
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * pageSize
     const lastPageIndex = firstPageIndex + pageSize
-    setData(dataSource.slice(firstPageIndex, lastPageIndex))
-  }, [currentPage, pageSize])
+    setData(collections.slice(firstPageIndex, lastPageIndex))
+  }, [currentPage, pageSize, collections])
 
 
   const priceSort = [
@@ -37,55 +41,6 @@ export const RankingList = () => {
   const timeSort = [
     { img: "", name: "7 days" },
     { img: "", name: "30 days" },
-  ]
-  const columns = [
-    {
-      title: "STT",
-      dataIndex: "key",
-      className: "left",
-      width: "5%",
-    },
-    {
-      title: "Collection",
-      dataIndex: "collection",
-      className: "collection",
-      width: "30%",
-      render: (text, record, index) => (
-        <>
-          <img src={"/common/nft/item" + index + ".png"} alt="" /> <p>{text}</p>
-        </>
-      ),
-    },
-    {
-      title: "Vol",
-      dataIndex: "vol",
-      className: "left",
-    },
-    {
-      title: "24h",
-      dataIndex: "day",
-      className: "left",
-    },
-    {
-      title: "7day",
-      dataIndex: "week",
-      className: "left",
-    },
-    {
-      title: "Floor Price",
-      dataIndex: "price",
-      className: "left",
-    },
-    {
-      title: "Player",
-      dataIndex: "player",
-      className: "left",
-    },
-    {
-      title: "Item",
-      dataIndex: "item",
-      className: "left",
-    },
   ]
   const dataSource = [
     {
@@ -219,26 +174,28 @@ export const RankingList = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {data.map((data) => (
-              <Tr key={data.key}>
-                <Td>{data.key}</Td>
+            {data.map((el) => (
+              <Tr key={el.id}>
+                <Td>{el.id}</Td>
                 <Td>
-                  <div className="collection">
-                    <div className="border-rgba">
-                      <img
-                        src={"/common/nft/item" + (data.key - 1) + ".png"}
-                        alt=""
-                      />{" "}
+                  <Link href={"collection/"+el.id}>
+                    <div className="collection">
+                      <div className="border-rgba">
+                        <img
+                          src={el.logo}
+                          alt=""
+                        />{" "}
+                      </div>
+                      <span>{el.name}</span>
                     </div>
-                    <span>{data.collection}</span>
-                  </div>
+                  </Link>
                 </Td>
-                <Td isNumeric>{data.vol}</Td>
-                <Td>{data.day}</Td>
-                <Td>{data.week}</Td>
-                <Td isNumeric>{data.price}</Td>
-                <Td isNumeric>{data.player}</Td>
-                <Td>{data.item}</Td>
+                <Td isNumeric>{el.stats.volume} BNB</Td>
+                <Td>{Math.floor(Math.random() * 100)}%</Td>
+                <Td>{Math.floor(Math.random() * 100)}%</Td>
+                <Td isNumeric>{el.stats.floorPrice}</Td>
+                <Td isNumeric>{el.stats.player}</Td>
+                <Td>{el.stats.traded}</Td>
               </Tr>
             ))}
           </Tbody>
@@ -247,7 +204,7 @@ export const RankingList = () => {
       <Pagination
         className="pagination-bar"
         currentPage={currentPage}
-        totalCount={dataSource.length}
+        totalCount={collections.length}
         pageSize={pageSize}
         onPageChange={(page) => setCurrentPage(page)}
         onPageSizeChange={(pageSize) => setPageSize(pageSize)}

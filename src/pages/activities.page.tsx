@@ -1,4 +1,5 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import { ListingBar } from "../components/Home/ListingBar"
 import Pagination from "../components/Pagination"
@@ -123,7 +124,9 @@ const ActivitiesPage = () => {
                   <Td>
                     <div className="align-center type">
                       <img src="/icons/item.png" alt="" />
-                      <span>{el.item}</span>
+                      <Link href="/nft/53">
+                        <span>{el.item}</span>
+                      </Link>
                     </div>
                   </Td>
                   <Td>{el.price}</Td>
