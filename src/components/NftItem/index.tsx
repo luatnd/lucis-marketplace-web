@@ -17,25 +17,19 @@ export const NftItem = observer((props: IProps) => {
 
   const { info } = props
 
-  const handleRedirect = () => {
-    Router.push("/nft/" + info.id)
+  const handleRedirect = (collection = false) => {
+    if(!collection) {
+      Router.push("/nft/" + info.id)
+    }else {
+      Router.push("/collection/" + info.collection.id)
+    }
   }
-
-  const networks = [
-    "bnb.png",
-    "walletConnect.png",
-    "ethereum.png",
-    "celo.png",
-    "aurora.png",
-    "arbitrum.png",
-    "fantom.png",
-  ]
-
-  const networkRandom = networks[Math.floor(Math.random() * networks.length)]
+  console.log(info);
+  
 
   return (
-    <div className="nft-item" onClick={handleRedirect}>
-      <div className="nft-image">
+    <div className="nft-item" >
+      <div className="nft-image" onClick={() => handleRedirect()}>
         <img src={info.image} />
       </div>
       <div className="network">
@@ -43,7 +37,7 @@ export const NftItem = observer((props: IProps) => {
       </div>
       <div className="nft-body">
         <div className="provider">
-          <div className="algin-center">
+          <div className="algin-center" onClick={() => handleRedirect(true)}>
             <span>{info.collection?.name}</span>
             <Verified />
           </div>
@@ -55,7 +49,7 @@ export const NftItem = observer((props: IProps) => {
             )}
           </div>
         </div>
-        <span className="name">{info.name}</span>
+        <span className="name" onClick={() => handleRedirect()}>{info.name}</span>
         <div className="end-in">
           {info.aucPrice ? (
             <div>
@@ -63,7 +57,7 @@ export const NftItem = observer((props: IProps) => {
             </div>
           ) : null}
         </div>
-        <div className={`price ${info.hidePrice && "hidden"}`}>
+        <div className={`price ${info.hidePrice && "hidden"}`} onClick={() => handleRedirect()}>
           <span>
             <BNBSymbol /> {currency(info.aucPrice ?? info.price ?? null)} BNB
           </span>
