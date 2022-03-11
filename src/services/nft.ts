@@ -44,11 +44,13 @@ export const getCollectionItems = async (
   type: boolean,
   sort: string
 ) => {
+  const isAuction = type == null ? '' : '&&isAuction='+type
+  
   const { data, headers } = await axios.get(
     BASE_URL +
       `/nft/?collection.id=${id}&&_page=${Math.ceil(
         offset / pageSize
-      )}&&_limit=${pageSize}&&isAuction=${type}&&_sort=price&&_order=${sort}`
+      )}&&_limit=${pageSize}${isAuction}&&_sort=price&&_order=${sort}`
   )
   return {
     data,

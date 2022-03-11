@@ -31,7 +31,7 @@ const CollectionDetails = (props) => {
   const [items, setItems] = useState<any[]>()
   const [itemTotal, setItemTotal] = useState(0)
   const [offset, setOffset] = useState(0)
-  const [itemType, setItemType] = useState(false)
+  const [itemType, setItemType] = useState(null)
   const [itemSort, setItemSort] = useState("asc")
   const [pageSize, setPageSize] = useState(10)
 
@@ -89,23 +89,23 @@ const CollectionDetails = (props) => {
   const stats = [
     {
       key: "Traded",
-      value: data?.stats?.traded + "+",
+      value: data?.stats?.traded,
     },
     {
       key: "Player",
-      value: data?.stats?.player + "+",
+      value: data?.stats?.player,
     },
     {
       key: "Listed",
-      value: data?.stats?.listed + "+",
+      value: data?.stats?.listed,
     },
     {
       key: "Volume",
-      value: data?.stats?.volume + "+",
+      value: data?.stats?.volume,
     },
     {
       key: "Floor Price",
-      value: data?.stats?.floorPrice + "+",
+      value: data?.stats?.floorPrice,
     },
     {
       key: "Max Price",
@@ -119,17 +119,21 @@ const CollectionDetails = (props) => {
         <div className="total">{itemTotal} items listed</div>
         <div className="filter">
           <AppSelect
-            value={itemType}
+            // value={itemType}
             placeholder="Type"
             isSearchable={false}
             onChange={({ value }) => setItemType(value as boolean)}
             options={[
               {
+                label: "Type",
+                value: null,
+              },
+              {
                 label: "Fix price",
                 value: false,
               },
               {
-                label: "Auc",
+                label: "Auction",
                 value: true,
               },
             ]}
@@ -137,7 +141,7 @@ const CollectionDetails = (props) => {
           <AppSelect
             placeholder="Price: Min to Max"
             isSearchable={false}
-            value={itemSort}
+            // value={itemSort}
             onChange={({ value }) => setItemSort(value)}
             options={[
               {
@@ -182,6 +186,8 @@ const CollectionDetails = (props) => {
         <AppSelect
           placeholder="All"
           isSearchable={false}
+          onChange={({ value }) => console.log(value)
+          }
           options={[
             {
               label: "All",

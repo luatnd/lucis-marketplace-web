@@ -10,12 +10,21 @@ import {
   Td,
   TableCaption,
 } from "@chakra-ui/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 export const RankingList = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [time, setTime] = useState("All")
   const [price, setPrice] = useState("All")
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const firstPageIndex = (currentPage - 1) * pageSize
+    const lastPageIndex = firstPageIndex + pageSize
+    setData(dataSource.slice(firstPageIndex, lastPageIndex))
+  }, [currentPage, pageSize])
+
+
   const priceSort = [
     { img: "/common/bnb.png", name: "BNB chain" },
     { img: "/common/walletConnect.png", name: "WalletConnect" },
@@ -210,15 +219,17 @@ export const RankingList = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {dataSource.map((data) => (
+            {data.map((data) => (
               <Tr key={data.key}>
                 <Td>{data.key}</Td>
                 <Td>
                   <div className="collection">
-                    <img
-                      src={"/common/nft/item" + (data.key - 1) + ".png"}
-                      alt=""
-                    />{" "}
+                    <div className="border-rgba">
+                      <img
+                        src={"/common/nft/item" + (data.key - 1) + ".png"}
+                        alt=""
+                      />{" "}
+                    </div>
                     <span>{data.collection}</span>
                   </div>
                 </Td>
@@ -236,8 +247,8 @@ export const RankingList = () => {
       <Pagination
         className="pagination-bar"
         currentPage={currentPage}
-        totalCount={500}
-        pageSize={10}
+        totalCount={dataSource.length}
+        pageSize={pageSize}
         onPageChange={(page) => setCurrentPage(page)}
         onPageSizeChange={(pageSize) => setPageSize(pageSize)}
       />

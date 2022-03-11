@@ -20,6 +20,7 @@
         .collection {
           display: flex;
           align-items: center;
+          color: #0bebd6;
           img {
             width: 56px;
             height: 56px;
@@ -27,6 +28,11 @@
           span {
             margin-left: 10px;
             white-space: nowrap;
+          }
+          .border-rgba {
+            padding: 2px;
+            border-radius: 50%;
+            background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
           }
         }
       }
