@@ -6,6 +6,7 @@ import {
   InputRightAddon,
   Modal,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
@@ -72,6 +73,11 @@ const DetailsPage = observer((props: any) => {
 
   const handleBuy = async () => {
     setModalContent(buyModalContent)
+    setModalVisible(true)
+  }
+
+  const handleOffer = async () => {
+    setModalContent(offerModalContent)
     setModalVisible(true)
   }
 
@@ -163,12 +169,18 @@ const DetailsPage = observer((props: any) => {
         <div className="buy-tray-body">
           <div className="price">
             <span>Price</span>
-            <span>{currency(info.price)} BNB</span>
-            <span>(${currency(info.price * 376)})</span>
+            <span>{info.price ? currency(info.price) + " BNB" : "-"} </span>
+            <span>
+              {info.price
+                ? `(${currency(info.price * 376)})`
+                : "Waiting first offer"}
+            </span>
           </div>
           <div className="buy-nav">
-            <Button onClick={handleBuy}>BUY</Button>
-            <span>Or make offer other price</span>
+            <Button onClick={handleBuy} isDisabled={!info.price}>
+              BUY
+            </Button>
+            <span onClick={handleOffer}>Or make offer other price</span>
           </div>
         </div>
       </div>
@@ -237,9 +249,7 @@ const DetailsPage = observer((props: any) => {
             ? _renderOwnerTray()
             : info.aucPrice
             ? _renderAucTray()
-            : info.price
-            ? _renderBuyTray()
-            : null}
+            : _renderBuyTray()}
           <div className="details-stats">
             <h1>Detail</h1>
             {detailsStats.map((stat) => (
@@ -283,6 +293,7 @@ const DetailsPage = observer((props: any) => {
     return (
       <ModalContent>
         <ModalHeader>Buy</ModalHeader>
+        <ModalCloseButton />
         <ModalBody className="buy-modal">
           <div className="price">
             <span>Price:</span>
@@ -306,6 +317,7 @@ const DetailsPage = observer((props: any) => {
     return (
       <ModalContent>
         <ModalHeader>Auction</ModalHeader>
+        <ModalCloseButton />
         <ModalBody className="auc-modal">
           <label>Price</label>
           <InputGroup>
@@ -328,6 +340,7 @@ const DetailsPage = observer((props: any) => {
   const resultModalContent = () => {
     return (
       <ModalContent>
+        <ModalCloseButton />
         <ModalBody className="result-modal">
           <Icon as={Success} className="success-icon" />
           <h1>Successful !</h1>
@@ -348,6 +361,7 @@ const DetailsPage = observer((props: any) => {
       <div>
         <ModalContent>
           <ModalHeader>Fixed Price</ModalHeader>
+          <ModalCloseButton />
           <ModalBody className="fixed-price-modal">
             <div className="modal-head">
               <div className="info-img">
@@ -409,6 +423,7 @@ const DetailsPage = observer((props: any) => {
       <div>
         <ModalContent>
           <ModalHeader>Auction</ModalHeader>
+          <ModalCloseButton />
           <ModalBody className="auction-modal">
             <div className="modal-head">
               <div className="info-img">
@@ -481,6 +496,7 @@ const DetailsPage = observer((props: any) => {
     return (
       <ModalContent>
         <ModalHeader>Send</ModalHeader>
+        <ModalCloseButton />
         <ModalBody className="send-modal">
           <div className="modal-head">
             <div className="info-img">
@@ -502,6 +518,28 @@ const DetailsPage = observer((props: any) => {
             {"You won't be able to take back the NFT after the transaction."}
           </label>
           <Button onClick={send}>Apply</Button>
+        </ModalBody>
+      </ModalContent>
+    )
+  }
+
+  const offerModalContent = () => {
+    const offer = async () => {
+      setModalContent(resultModalContent)
+    }
+    return (
+      <ModalContent>
+        <ModalHeader>Offer</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody className="offer-modal">
+          <label>Price</label>
+          <InputGroup>
+            <NumberInput>
+              <NumberInputField />
+            </NumberInput>
+            <InputRightAddon>BNB</InputRightAddon>
+          </InputGroup>
+          <Button onClick={offer}>Apply</Button>
         </ModalBody>
       </ModalContent>
     )
