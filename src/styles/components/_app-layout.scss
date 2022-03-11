@@ -134,6 +134,27 @@
             display: none;
           }
         }
+        .network {
+          .nav-bar {
+            .nav-item {
+              background: transparent;
+              padding-right: 0;
+              width: 60px;
+              .img-network {
+                width: 100%;
+              }
+              .chakra-button__icon {
+                margin-left: 0;
+              }
+            }
+          }
+          .menu-item {
+            img {
+              width: 25px;
+              margin-right: 10px;
+            }
+          }
+        }
       }
     }
   }

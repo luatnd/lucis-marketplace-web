@@ -11,7 +11,6 @@ import Collected from "./Collected"
 import Favorite from "./Favorite"
 import OnSale from "./OnSale"
 import Activities from "./Activities"
-import { Divide } from "react-feather"
 import { useRouter } from "next/router"
 
 const MyNft = () => {

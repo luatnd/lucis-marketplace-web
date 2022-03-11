@@ -6,10 +6,7 @@ import {
   TabPanel,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
   Input,
-  Button,
   Switch,
 } from "@chakra-ui/react"
 const Setting = () => {

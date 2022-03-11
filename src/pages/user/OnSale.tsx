@@ -1,9 +1,5 @@
 import {
   Button,
-  Icon,
-  Input,
-  InputGroup,
-  InputRightElement,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -27,14 +23,13 @@ import {
 } from "@chakra-ui/react"
 import Sort from "../../components/Sort"
 import network from "../data/network.json"
-import * as Icons from "react-feather"
 import { NftItem } from "../../components/NftItem"
 import { useEffect, useState } from "react"
 import Pagination from "../../components/Pagination"
 import receivedList from "../data/activities.json"
 import Verified from "@static/icons/verified.svg"
 import Link from "next/link"
-import { getNft, getNfts } from "src/services/nft"
+import { getNfts } from "src/services/nft"
 import { useStore } from "src/hooks/useStore"
 
 const OnSale = () => {

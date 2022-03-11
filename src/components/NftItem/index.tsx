@@ -3,7 +3,7 @@ import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import Verified from "@static/icons/verified.svg"
 import moment from "moment"
 import Router from "next/router"
-import { useCountdown } from "src/hooks/useCountdown"
+// import { useCountdown } from "src/hooks/useCountdown"
 import { useStore } from "src/hooks/useStore"
 import { currency } from "src/utils/Number"
 
@@ -37,7 +37,7 @@ export const NftItem = (props: IProps) => {
     owner,
   } = props
 
-  const { days, hours, seconds, minutes } = useCountdown("2022-03-20T00:00:00")
+  // const { days, hours, seconds, minutes } = useCountdown("2022-03-20T00:00:00")
 
   const NftStore = useStore("NftStore")
 
@@ -67,10 +67,25 @@ export const NftItem = (props: IProps) => {
     })
   }
 
+  const networks = [
+    'bnb.png',
+    'walletConnect.png',
+    'ethereum.png',
+    'celo.png',
+    'aurora.png',
+    'arbitrum.png',
+    'fantom.png'
+  ]
+
+  const networkRandom = networks[Math.floor((Math.random() * networks.length))]
+  
   return (
     <div className="nft-item" onClick={handleRedirect}>
       <div className="nft-image">
         <img src={image} />
+        <div className="nft-network">
+          <img src={`/common/${networkRandom}`} alt="" />
+        </div>
       </div>
       <div className="nft-body">
         <div className="provider">

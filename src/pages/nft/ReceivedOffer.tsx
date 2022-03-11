@@ -11,7 +11,7 @@ const ReceivedOffer = () => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(20)
-  const [totalData, setTotalData] = useState(Number(receivedList.length))
+  const totalData = Number(receivedList.length)
 
   const typeSort = [
     {

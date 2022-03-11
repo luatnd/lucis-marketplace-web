@@ -1,4 +1,4 @@
-import { Table, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
+import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
 import { ReactNode } from "react"
 
 type TColumn = {

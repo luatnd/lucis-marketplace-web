@@ -3,7 +3,7 @@ import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import Verified from "@static/icons/verified.svg"
 import moment from "moment"
 import Router from "next/router"
-import { useCountdown } from "src/hooks/useCountdown"
+// import { useCountdown } from "src/hooks/useCountdown"
 import { useStore } from "src/hooks/useStore"
 
 interface IProps {
@@ -31,7 +31,7 @@ export const AuctionItem = (props: IProps) => {
     owner,
   } = props
 
-  const { days, hours, seconds, minutes } = useCountdown("2022-03-20T00:00:00")
+  // const { days, hours, seconds, minutes } = useCountdown("2022-03-20T00:00:00")
 
   const NftStore = useStore("NftStore")
 

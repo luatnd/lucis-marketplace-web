@@ -8,7 +8,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -17,10 +16,8 @@ import Sort from "src/components/Sort"
 import { useState } from "react"
 import Link from "next/link"
 const Activities = () => {
-  const [price, setPrice] = useState("All")
-  const [made, setMade] = useState("All")
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(20)
+  const [pageSize, setPageSize] = useState(10)
   const priceSort = [
     { img: "/common/bnb.png", name: "BNB chain" },
     { img: "/common/walletConnect.png", name: "WalletConnect" },
@@ -148,12 +145,10 @@ const Activities = () => {
             <Sort
               customClassName="price-sort"
               options={priceSort}
-              onSelectOption={(price) => setPrice(price)}
             />
             <Sort
               customClassName="type-sort"
               options={madeSort}
-              onSelectOption={(made) => setMade(price)}
             />
           </div>
         </div>
@@ -217,7 +212,7 @@ const Activities = () => {
                 className="pagination-bar"
                 currentPage={currentPage}
                 totalCount={10}
-                pageSize={10}
+                pageSize={pageSize}
                 onPageChange={(page) => setCurrentPage(page)}
                 onPageSizeChange={(pageSize) => setPageSize(pageSize)}
               />
@@ -282,7 +277,7 @@ const Activities = () => {
                 className="pagination-bar"
                 currentPage={currentPage}
                 totalCount={10}
-                pageSize={10}
+                pageSize={pageSize}
                 onPageChange={(page) => setCurrentPage(page)}
                 onPageSizeChange={(pageSize) => setPageSize(pageSize)}
               />
