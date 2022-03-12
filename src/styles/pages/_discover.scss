@@ -10,6 +10,7 @@
       font-family: SVN-Transformer;
       transition: 0.5s;
       text-transform: uppercase;
+      margin-top: 30px;
 
       @include to(sm) {
         font-size: 50px;
@@ -19,7 +20,7 @@
   .discover-sort {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     @include to(sm) {
       display: block;
     }

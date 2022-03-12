@@ -1,6 +1,26 @@
 .chakra-modal__overlay {
   @include blurBack(20px);
 }
+.chakra-modal__header {
+  padding-top: 30px !important;
+  font-size: 24px !important;
+  &::after {
+    content: "";
+    position: absolute;
+    width: calc(100% - 40px);
+    height: 70px;
+    top: 0;
+    left: 20px;
+    border-bottom: 1px solid rgba(147, 147, 147, 0.5);
+  }
+}
+.chakra-modal__close-btn {
+  margin-top: 20px;
+  margin-right: 8px;
+  border-radius: 100% !important;
+  background: rgba(white, 0.8);
+  color: $purple3;
+}
 .chakra-modal__content {
   background: linear-gradient(
     126.08deg,
@@ -96,6 +116,7 @@
     border-color: white !important;
   }
 }
+
 .chakra-toast__inner {
   .chakra-alert {
     background-color: #32b632;

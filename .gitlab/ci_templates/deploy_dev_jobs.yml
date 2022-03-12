@@ -1,0 +1,66 @@
+.deployBranch: &deployBranch
+  - develop
+
+.Tags: &tags
+  - lucis-runner
+
+.Variables: &variables
+  ENV: dev
+
+build-develop:
+  stage: build
+  image:
+    name: ductn4/ci-node-gitops
+  services:
+    - docker:stable-dind
+  variables:
+    <<: *variables
+  script:
+    # - if [ "$CI_COMMIT_BRANCH" == "testing" ]; then ENV="testing"; fi
+    # - if [ "$CI_COMMIT_BRANCH" == "staging" ]; then ENV="staging"; fi
+    - if [ "$ENV" == "dev" ]; then cp $VAR_FILE_DEV .env; fi
+    # docker
+    - docker build -t $IMAGE_FIX -f .docker/$ENV.dockerfile .
+    - docker tag $IMAGE_FIX $IMAGE_BACKUP
+    # Set AWS key
+    - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+    - aws configure set region $AWS_DEFAULT_REGION
+    # login aws ecr
+    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $DOCKER_REGISTRY_HOST/$APPLICATION
+    # - docker login -u $DOCKER_REGISTRY_HOST -p f9906d0f-add8-4048-9662-250e9747f2cb
+    - docker push $IMAGE_BACKUP
+  environment:
+    name: $CI_COMMIT_REF_NAME
+  tags: *tags
+  only: *deployBranch
+  allow_failure: false
+
+# Deployment
+deploy-develop:
+  stage: deploy
+  image:
+    # name: $DOCKER_REGISTRY_HOST/ci-node-gitops
+    name: alpine/helm:latest
+    entrypoint: [""]
+  variables:
+    <<: *variables
+  before_script:
+    - apk add curl
+    - curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/aws-iam-authenticator
+    - chmod +x ./aws-iam-authenticator
+    - mkdir -p $HOME/bin && cp ./aws-iam-authenticator $HOME/bin/aws-iam-authenticator && export PATH=$PATH:$HOME/bin
+    - echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
+  script:
+    - helm version
+    - mkdir -p ~/.kube
+    - echo -n $CONFIG | base64 -d > ~/.kube/config
+    - chmod 400 ~/.kube/config
+    - cd helm/$NAMEAPP
+    # Deploy to K8s dev
+    - helm upgrade -i $NAMEAPP ./ --set image.tag=$NAMEAPP-$ENV-$CI_COMMIT_SHORT_SHA -f values.yaml -n default
+
+  environment:
+    name: $CI_COMMIT_REF_NAME
+  tags: *tags
+  only: *deployBranch
