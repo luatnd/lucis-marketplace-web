@@ -31,8 +31,8 @@ import Verified from "@static/icons/verified.svg"
 import Link from "next/link"
 import { getNfts } from "src/services/nft"
 import { useStore } from "src/hooks/useStore"
-
-const OnSale = () => {
+import { observer } from "mobx-react-lite"
+const OnSale = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
   const [isAuction, setisAuction] = useState(false)
@@ -78,33 +78,37 @@ const OnSale = () => {
     setReceived(receivedList.slice(offset2 - 1, offset2 - 1 + pageSize2))
   }
   const getdata = async () => {
-    const res = await getNfts({
-      owner: address,
-      aucPrice_gte: 0,
-      _sort: "price",
-      _order: order,
-      _limit: pageSize,
-      _page: currentPage,
-    })
-    setData(res.data)
-    setTotalData(res.total)
+    if (address) {
+      const res = await getNfts({
+        owner: address,
+        price_gte: 0,
+        _sort: "price",
+        _order: order,
+        _limit: pageSize,
+        _page: currentPage,
+      })
+      setData(res.data)
+      setTotalData(res.total)
+    }
   }
   const getdata1 = async () => {
-    const res = await getNfts({
-      owner: address,
-      isAuction: true,
-      _sort: "price",
-      _order: order1,
-      _limit: pageSize1,
-      _page: currentPage1,
-    })
-    setData1(res.data)
-    setTotalData1(res.total)
+    if (address) {
+      const res = await getNfts({
+        owner: address,
+        aucPrice_gte: 0,
+        _sort: "price",
+        _order: order1,
+        _limit: pageSize1,
+        _page: currentPage1,
+      })
+      setData1(res.data)
+      setTotalData1(res.total)
+    }
   }
   useEffect(() => {
     getdata()
     getdata1()
-  }, [])
+  }, [address])
 
   useEffect(() => {
     getdata()
@@ -295,7 +299,7 @@ const OnSale = () => {
                           </div>
                         </Td>
                         <Td>{el.price}</Td>
-                        <Td>
+                        <Td className="to">
                           <Link href={"/user/1"}>
                             <a>{el.to}</a>
                           </Link>
@@ -377,6 +381,6 @@ const OnSale = () => {
       </Tabs>
     </div>
   )
-}
+})
 
 export default OnSale
