@@ -23,6 +23,7 @@ import Verified from "@static/icons/verified.svg"
 import { observer } from "mobx-react-lite"
 import moment from "moment"
 import { GetServerSidePropsContext } from "next"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import React, { ReactNode, useRef, useState } from "react"
 import { ExternalLink, Eye, Heart } from "react-feather"
@@ -228,15 +229,22 @@ const DetailsPage = observer((props: any) => {
         </div>
         <div className="details-content">
           <div className="collection">
-            <img src="/nft-details/provider.png" />
-            <span>{data?.collection?.name}</span>
+            <img src={data?.collection?.logo} />
+            <Link href={"/collection/" + data?.collection?.id}>
+              <a>{data?.collection?.name}</a>
+            </Link>
           </div>
           <h1 className="name">
             {data?.name} #{data?.id}
           </h1>
           <div className="owner">
             {address === info.owner ? (
-              <span>Preserved by Me</span>
+              <span>
+                Preserved by{" "}
+                <a href="/user/1" target={"_blank"} rel="noreferrer">
+                  Me
+                </a>
+              </span>
             ) : (
               <span>
                 Preserved by{" "}
@@ -305,7 +313,7 @@ const DetailsPage = observer((props: any) => {
           <div className="price">
             <span>Price:</span>
             <div className="price-col">
-              <h1>{currency(info.price)}</h1>
+              <h1>{currency(info.price)} BNB</h1>
               <span>(${currency(info.price * 376)})</span>
             </div>
           </div>
