@@ -2,7 +2,8 @@ apiVersion: getambassador.io/v2
 kind: Mapping
 metadata:
   name: {{ include "lucis-nft-web.fullname" . }}
-  labels: {{ - include "lucis-nft-web.labels" . | nindent 4 }}
+  labels:
+    {{- include "lucis-nft-web.labels" . | nindent 4 }}
 spec:
   prefix: {{ .Values.mapping.prefix }}
   host: {{ .Values.mapping.host }}
