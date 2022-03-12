@@ -325,7 +325,7 @@ const DetailsPage = observer((props: any) => {
 
   const aucModalContent = () => {
     const auc = async () => {
-      await aucNft(priceToAuc.current.value, info.id)
+      await aucNft(+priceToAuc.current.value, info.id)
       await fetchData()
       setModalContent(resultModalContent)
     }
@@ -368,7 +368,7 @@ const DetailsPage = observer((props: any) => {
 
   const fixedPriceModalContent = () => {
     const fix = async () => {
-      await fixPrice(priceToFix.current.value, info.id)
+      await fixPrice(+priceToFix.current.value, info.id)
       await fetchData()
       setModalContent(resultModalContent)
     }
