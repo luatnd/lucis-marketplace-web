@@ -18,9 +18,10 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react"
-import Verified from "@static/icons/verified.svg"
 import Success from "@static/icons/success.svg"
+import Verified from "@static/icons/verified.svg"
 import { observer } from "mobx-react-lite"
+import moment from "moment"
 import { GetServerSidePropsContext } from "next"
 import { useRouter } from "next/router"
 import React, { ReactNode, useRef, useState } from "react"
@@ -39,6 +40,7 @@ import {
 } from "src/services/nft"
 import { currency } from "src/utils/Number"
 import Activities from "./Activities"
+import Auction from "./Auction"
 import ReceivedOffer from "./ReceivedOffer"
 
 const DetailsPage = observer((props: any) => {
@@ -200,6 +202,9 @@ const DetailsPage = observer((props: any) => {
             <Button onClick={handleAuc}>AUCTION</Button>
           </div>
         </div>
+        <div className="auction-end">
+          <span>Auction end in</span> {moment(info.endTime).format("HH:mm:ss")}
+        </div>
       </div>
     )
   }
@@ -272,13 +277,15 @@ const DetailsPage = observer((props: any) => {
       <Tabs>
         <TabList>
           <Tab className="tab-item">ACTIVITIES</Tab>
-          <Tab className="tab-item">{"RECEIVED OFFER"}</Tab>
+          <Tab className="tab-item">
+            {info.aucPrice ? "AUCTION" : "RECEIVED OFFER"}
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <Activities />
           </TabPanel>
-          <TabPanel>{<ReceivedOffer />}</TabPanel>
+          <TabPanel>{info.aucPrice ? <Auction /> : <ReceivedOffer />}</TabPanel>
         </TabPanels>
       </Tabs>
     </div>

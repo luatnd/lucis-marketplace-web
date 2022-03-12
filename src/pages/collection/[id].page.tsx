@@ -282,9 +282,9 @@ const columns = [
         <Button>
           <BoxIcon />
         </Button>
-          <a href="/nft/53" rel="noreferrer" target={"_blank"}>
-            <span>{item}</span>
-          </a>
+        <a href="/nft/53" rel="noreferrer" target={"_blank"}>
+          <span>{item}</span>
+        </a>
       </span>
     ),
   },
@@ -294,28 +294,29 @@ const columns = [
   },
   {
     title: "From",
-    render: ({from}) => (
+    render: ({ from }) => (
       <a href="/user/1" rel="noreferrer" target={"_blank"}>
         <span>{from}</span>
       </a>
-    )
+    ),
   },
   {
     title: "To",
     dataIndex: "to",
-    render: ({ to, type }) => type != "Listing" ? (
-      <a
-        href="/user/1"
-        target={"_blank"}
-        rel="noreferrer"
-        className="date-column"
-        style={{ color: "#0BEBD6" }}
-      >
-        {to?.slice(0, 5)}...${to?.slice(- 4)}
-      </a>
-    ) : (
-      ""
-    ),
+    render: ({ to, type }) =>
+      type != "Listing" ? (
+        <a
+          href="/user/1"
+          target={"_blank"}
+          rel="noreferrer"
+          className="date-column"
+          style={{ color: "#0BEBD6" }}
+        >
+          {to?.slice(0, 5)}...${to?.slice(-4)}
+        </a>
+      ) : (
+        ""
+      ),
   },
   {
     title: "Date",
@@ -332,7 +333,7 @@ const columns = [
         </a>
       ) : (
         <span className="date-column">{date}</span>
-      )
+      ),
   },
 ]
 

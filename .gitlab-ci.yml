@@ -37,4 +37,4 @@ installation:
   only: *deployBranch
 
 include:
-  - local: '/.gitlab/ci_templates/deploy_dev_jobs.yml'
+  - local: "/.gitlab/ci_templates/deploy_dev_jobs.yml"

@@ -18,17 +18,16 @@ export const NftItem = observer((props: IProps) => {
   const { info } = props
 
   const handleRedirect = (collection = false) => {
-    if(!collection) {
+    if (!collection) {
       Router.push("/nft/" + info.id)
-    }else {
+    } else {
       Router.push("/collection/" + info.collection.id)
     }
   }
-  console.log(info);
-  
+  console.log(info)
 
   return (
-    <div className="nft-item" >
+    <div className="nft-item">
       <div className="nft-image" onClick={() => handleRedirect()}>
         <img src={info.image} />
       </div>
@@ -49,7 +48,9 @@ export const NftItem = observer((props: IProps) => {
             )}
           </div>
         </div>
-        <span className="name" onClick={() => handleRedirect()}>{info.name}</span>
+        <span className="name" onClick={() => handleRedirect()}>
+          {info.name}
+        </span>
         <div className="end-in">
           {info.aucPrice ? (
             <div>
@@ -57,7 +58,10 @@ export const NftItem = observer((props: IProps) => {
             </div>
           ) : null}
         </div>
-        <div className={`price ${info.hidePrice && "hidden"}`} onClick={() => handleRedirect()}>
+        <div
+          className={`price ${info.hidePrice && "hidden"}`}
+          onClick={() => handleRedirect()}
+        >
           <span>
             <BNBSymbol /> {currency(info.aucPrice ?? info.price ?? null)} BNB
           </span>
