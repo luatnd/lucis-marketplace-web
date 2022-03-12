@@ -5,8 +5,9 @@ import { NftItem } from "../../components/NftItem"
 import Pagination from "../../components/Pagination"
 import Sort from "../../components/Sort"
 import network from "../data/network.json"
+import { observer } from "mobx-react-lite"
 
-const Favorite = () => {
+const Favorite = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
   const [data, setData] = useState([])
@@ -15,17 +16,19 @@ const Favorite = () => {
   const [totalData, setTotalData] = useState(0)
 
   const getdata = async () => {
-    const res = await getNfts({
-      liked_like: address,
-      _limit: pageSize,
-      _page: currentPage,
-    })
-    setData(res.data)
-    setTotalData(res.total)
+    if (address) {
+      const res = await getNfts({
+        liked_like: address,
+        _limit: pageSize,
+        _page: currentPage,
+      })
+      setData(res.data)
+      setTotalData(res.total)
+    }
   }
   useEffect(() => {
     getdata()
-  }, [])
+  }, [address])
   useEffect(() => {
     getdata()
   }, [pageSize, currentPage])
@@ -54,6 +57,6 @@ const Favorite = () => {
       />
     </div>
   )
-}
+})
 
 export default Favorite

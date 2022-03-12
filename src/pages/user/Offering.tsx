@@ -112,21 +112,23 @@ const Offering = observer(() => {
     },
   ]
   const getdata = async () => {
-    const res = await getNfts({
-      owner: address,
-      aucPrice_gte: 0,
-      _sort: "price",
-      _order: made,
-      _limit: pageSize,
-      _page: currentPage,
-    })
-    setAuctions(res.data)
-    setTotalAuc(res.total)
+    if (address) {
+      const res = await getNfts({
+        owner: null,
+        aucPrice_gte: 0,
+        _sort: "price",
+        _order: made,
+        _limit: pageSize,
+        _page: currentPage,
+      })
+      setAuctions(res.data)
+      setTotalAuc(res.total)
+    }
   }
   useEffect(() => {
     setMakeOffer(dataSoure)
     getdata()
-  }, [])
+  }, [address])
 
   useEffect(() => {
     getdata()

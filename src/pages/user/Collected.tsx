@@ -7,8 +7,9 @@ import { NftItem } from "../../components/NftItem"
 import Pagination from "../../components/Pagination"
 import Sort from "../../components/Sort"
 import network from "../data/network.json"
+import { observer } from "mobx-react-lite"
 
-const Collected = () => {
+const Collected = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
   const [data, setData] = useState([])
@@ -17,17 +18,19 @@ const Collected = () => {
   const [totalData, setTotalData] = useState(0)
   const [offset, setOffset] = useState(1)
   const getdata = async () => {
-    const res = await getNfts({
-      owner: address,
-      _limit: pageSize,
-      _page: currentPage,
-    })
-    setData(res.data)
-    setTotalData(res.total)
+    if (address) {
+      const res = await getNfts({
+        owner: address,
+        _limit: pageSize,
+        _page: currentPage,
+      })
+      setData(res.data)
+      setTotalData(res.total)
+    }
   }
   useEffect(() => {
     getdata()
-  }, [])
+  }, [address])
   useEffect(() => {
     getdata()
   }, [currentPage])
@@ -88,6 +91,6 @@ const Collected = () => {
       />
     </div>
   )
-}
+})
 
 export default Collected

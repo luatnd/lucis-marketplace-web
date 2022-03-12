@@ -322,6 +322,22 @@
     }
     .tab-collected,
     .tab-favorite {
+      .grid-custom {
+        margin-top: 35px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 20px;
+        grid-column-gap: 24px;
+        @include to(lg) {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        @include to(md) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        @include to(sm) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
       .hidden {
         visibility: hidden;
       }
@@ -366,6 +382,25 @@
       }
     }
     .tab-on-sale {
+      .to {
+        color: #0bebd6;
+      }
+      .grid-custom {
+        margin-top: 35px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 20px;
+        grid-column-gap: 24px;
+        @include to(lg) {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        @include to(md) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        @include to(sm) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
       .tab-os {
         position: relative;
         .header-tab {
