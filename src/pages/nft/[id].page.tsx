@@ -353,6 +353,10 @@ const DetailsPage = observer((props: any) => {
   }
 
   const resultModalContent = () => {
+    const handleOk = () => {
+      setModalVisible(false)
+      router.back()
+    }
     return (
       <ModalContent>
         <ModalCloseButton />
@@ -360,7 +364,7 @@ const DetailsPage = observer((props: any) => {
           <Icon as={Success} className="success-icon" />
           <h1>Successful !</h1>
           <p>You have successful transaction</p>
-          <Button onClick={() => setModalVisible(false)}>OK</Button>
+          <Button onClick={handleOk}>OK</Button>
         </ModalBody>
       </ModalContent>
     )
