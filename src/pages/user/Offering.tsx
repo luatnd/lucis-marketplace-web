@@ -1,6 +1,4 @@
-// import Pagination from "src/components/Pagination"
 import { NftItem } from "src/components/NftItem"
-import Sort from "src/components/Sort"
 import { AppPagination } from "src/components/AppPagination"
 import { useEffect, useState } from "react"
 import {
@@ -29,17 +27,16 @@ import {
 import Link from "next/link"
 import { getNfts } from "src/services/nft"
 import { useStore } from "src/hooks/useStore"
-import network from "../data/network.json"
+import { networkType } from "../data/networkType"
 import { observer } from "mobx-react-lite"
+import { AppSelect } from "src/components/AppSelect"
 const Offering = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [price, setPrice] = useState("All")
   const [made, setMade] = useState("null")
-  const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(20)
-  const [currentPage1, setCurrentPage1] = useState(1)
   const [pageSize1, setPageSize1] = useState(10)
   const [auctions, setAuctions] = useState([])
   const [totalAuc, setTotalAuc] = useState(0)
@@ -49,16 +46,16 @@ const Offering = observer(() => {
   const [makeOffer, setMakeOffer] = useState([])
   const madeSort = [
     {
-      img: "",
-      name: "Newest",
+      value: "",
+      label: "Newest",
     },
     {
-      img: "",
-      name: "Price: Min to Max",
+      value: "asc",
+      label: "Price: Min to Max",
     },
     {
-      img: "",
-      name: "Price: Max to Min",
+      value: "desc",
+      label: "Price: Max to Min",
     },
   ]
   const dataSoure = [
@@ -113,12 +110,15 @@ const Offering = observer(() => {
       type: "Sale",
     },
   ]
+  const handleChange = (el) => {
+    setMade(el.value)
+  }
   const getdata = async () => {
     if (address) {
       const res = await getNfts({
-        owner: null,
+        owner_ne: address,
         aucPrice_gte: 0,
-        _sort: "price",
+        _sort: "topAuc",
         _order: made,
         _limit: pageSize,
         _page: Math.ceil(offset / pageSize),
@@ -136,12 +136,7 @@ const Offering = observer(() => {
     getdata()
   }, [made])
 
-  // useEffect(() => {
-  //   setOffset(Number(pageSize * currentPage - pageSize + 1))
-  // }, [currentPage])
-
   useEffect(() => {
-    setCurrentPage(Math.ceil(offset / pageSize))
     getdata()
   }, [pageSize, offset])
 
@@ -154,27 +149,22 @@ const Offering = observer(() => {
             <Tab>Make Offer</Tab>
           </TabList>
           <div className="right">
-            <Sort
-              customClassName="price-sort"
-              options={network}
-              onSelectOption={(price) => setPrice(price)}
+            <AppSelect
+              options={networkType}
+              isSearchable={false}
+              className="network"
+              placeholder={
+                <div className="placeholder">
+                  <img src="/common/all-network.png" alt="" />
+                  All network
+                </div>
+              }
             />
-            <Sort
-              customClassName="type-sort"
+            <AppSelect
+              isSearchable={false}
               options={madeSort}
-              onSelectOption={(made) => {
-                switch (made) {
-                  case "Price: Max to Min":
-                    setMade("desc")
-                    break
-                  case "Price: Min to Max":
-                    setMade("asc")
-                    break
-                  default:
-                    setMade("null")
-                    break
-                }
-              }}
+              placeholder="Newest"
+              onChange={(el) => handleChange(el)}
             />
           </div>
         </div>
@@ -202,14 +192,6 @@ const Offering = observer(() => {
                     onChangeOffset={(offset) => setOffset(offset)}
                     onChangPageSize={(pageSize) => setPageSize(pageSize)}
                   />
-                  {/* <Pagination
-                    className="pagination-bar"
-                    currentPage={currentPage}
-                    totalCount={totalAuc}
-                    pageSize={pageSize}
-                    onPageChange={(page) => setCurrentPage(page)}
-                    onPageSizeChange={(pageSize) => setPageSize(pageSize)}
-                  /> */}
                 </>
               )}
             </div>
@@ -258,16 +240,18 @@ const Offering = observer(() => {
                       </Td>
                       <Td>in 2 days</Td>
                       <Td>1 days ago</Td>
-                      <Td className="button">
+                      <Td>
                         {data.action ? (
-                          <button
-                            onClick={() => {
-                              setActionID(data.key)
-                              onOpen()
-                            }}
-                          >
-                            Cancel
-                          </button>
+                          <div className="button">
+                            <button
+                              onClick={() => {
+                                setActionID(data.key)
+                                onOpen()
+                              }}
+                            >
+                              Cancel
+                            </button>
+                          </div>
                         ) : (
                           "Canceled"
                         )}
@@ -279,19 +263,11 @@ const Offering = observer(() => {
             </div>
             <AppPagination
               total={10}
-              offset={offset}
+              offset={offset1}
               pageSize={pageSize1}
               onChangPageSize={(pageSize) => setPageSize1(pageSize)}
               onChangeOffset={(offset) => setOffset1(offset)}
             />
-            {/* <Pagination
-              className="pagination-bar"
-              currentPage={currentPage1}
-              totalCount={10}
-              pageSize={pageSize1}
-              onPageChange={(page) => setCurrentPage1(page)}
-              onPageSizeChange={(pageSize) => setPageSize1(pageSize)}
-            /> */}
           </TabPanel>
         </TabPanels>
       </Tabs>

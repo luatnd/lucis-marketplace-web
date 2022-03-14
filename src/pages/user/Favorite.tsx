@@ -6,12 +6,15 @@ import Pagination from "../../components/Pagination"
 import Sort from "../../components/Sort"
 import network from "../data/network.json"
 import { observer } from "mobx-react-lite"
+import { AppPagination } from "src/components/AppPagination"
+import { AppSelect } from "src/components/AppSelect"
+import { networkType } from "../data/networkType"
 
 const Favorite = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
   const [data, setData] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const [offset, setOffset] = useState(0)
   const [pageSize, setPageSize] = useState(20)
   const [totalData, setTotalData] = useState(0)
 
@@ -20,7 +23,7 @@ const Favorite = observer(() => {
       const res = await getNfts({
         liked_like: address,
         _limit: pageSize,
-        _page: currentPage,
+        _page: Math.ceil(offset / pageSize),
       })
       setData(res.data)
       setTotalData(res.total)
@@ -31,12 +34,22 @@ const Favorite = observer(() => {
   }, [address])
   useEffect(() => {
     getdata()
-  }, [pageSize, currentPage])
+  }, [pageSize, offset])
 
   return (
     <div className="tab-favorite">
       <div className="sort">
-        <Sort customClassName="price-sort" options={network} />
+        <AppSelect
+          options={networkType}
+          isSearchable={false}
+          className="network"
+          placeholder={
+            <div className="placeholder">
+              <img src="/common/all-network.png" alt="" />
+              All network
+            </div>
+          }
+        />
       </div>
       {data.length == 0 ? (
         <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
@@ -51,13 +64,12 @@ const Favorite = observer(() => {
               ))}
             </div>
           </div>
-          <Pagination
-            className="pagination-bar"
-            currentPage={currentPage}
-            totalCount={totalData}
+          <AppPagination
+            total={totalData}
             pageSize={pageSize}
-            onPageChange={(page) => setCurrentPage(page)}
-            onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+            offset={offset}
+            onChangPageSize={(pageSize) => setPageSize(pageSize)}
+            onChangeOffset={(offset) => setOffset(offset)}
           />
         </>
       )}

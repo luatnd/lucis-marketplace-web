@@ -195,6 +195,26 @@
       }
     }
   }
+  .app-select.network {
+    .placeholder {
+      flex-wrap: nowrap;
+      display: flex;
+      align-items: center;
+      img {
+        width: 20px;
+        margin-right: 12px;
+      }
+    }
+    .network {
+      display: flex;
+      align-items: center;
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 20px;
+      }
+    }
+  }
   .container {
     .nodata {
       margin: auto;
@@ -290,6 +310,7 @@
         .right {
           display: flex;
           justify-items: flex-end;
+          gap: 8px;
         }
       }
     }
@@ -340,11 +361,14 @@
         }
       }
       .button {
+        border-radius: 8px;
+        width: fit-content;
+        background-image: linear-gradient(300deg, #78e4ff, #ff48fa);
+        height: fit-content;
+        padding: 1px;
         button {
           width: 100px;
           height: 32px;
-          border: solid 1px transparent !important;
-          background-image: linear-gradient(300deg, #78e4ff, #ff48fa);
           box-shadow: 2px 1000px 1px #353571 inset !important;
           border-radius: 8px;
         }
@@ -375,14 +399,16 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        gap: 8px;
         @include to(sm) {
           display: block;
         }
         .group-search {
+          height: 38px;
           border: 1px solid #d7d7d7;
           box-sizing: border-box;
           border-radius: 8px;
-          margin-right: 22px;
+          margin-right: 14px;
           width: 300px;
           @include to(sm) {
             width: 100%;
@@ -452,6 +478,7 @@
           position: absolute;
           top: 20px;
           right: 0;
+          gap: 8px;
         }
       }
     }

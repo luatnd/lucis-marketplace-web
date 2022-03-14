@@ -15,8 +15,11 @@ import {
 import Sort from "src/components/Sort"
 import { useState } from "react"
 import Link from "next/link"
+import { AppPagination } from "src/components/AppPagination"
+import { AppSelect } from "src/components/AppSelect"
+import { networkType } from "../data/networkType"
 const Activities = () => {
-  const [currentPage, setCurrentPage] = useState(1)
+  const [offset, setOffset] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const priceSort = [
     { img: "/common/bnb.png", name: "BNB chain" },
@@ -133,6 +136,20 @@ const Activities = () => {
       date: "16 minutes ago",
     },
   ]
+  const typeSort = [
+    {
+      value: "",
+      label: "Recently listed",
+    },
+    {
+      value: "asc",
+      label: "Price: Min to Max",
+    },
+    {
+      value: "desc",
+      label: "Price: Max to Min",
+    },
+  ]
   return (
     <div className="tab">
       <Tabs>
@@ -142,8 +159,22 @@ const Activities = () => {
             <Tab>mine</Tab>
           </TabList>
           <div className="right">
-            <Sort customClassName="price-sort" options={priceSort} />
-            <Sort customClassName="type-sort" options={madeSort} />
+            <AppSelect
+              options={networkType}
+              isSearchable={false}
+              className="network"
+              placeholder={
+                <div className="placeholder">
+                  <img src="/common/all-network.png" alt="" />
+                  All network
+                </div>
+              }
+            />
+            <AppSelect
+              isSearchable={false}
+              options={typeSort}
+              placeholder="Recently listed"
+            />
           </div>
         </div>
         <TabPanels>
@@ -204,13 +235,12 @@ const Activities = () => {
               <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
             )}
             {dataSoure.length > 0 ? (
-              <Pagination
-                className="pagination-bar"
-                currentPage={currentPage}
-                totalCount={10}
-                pageSize={pageSize}
-                onPageChange={(page) => setCurrentPage(page)}
-                onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+              <AppPagination
+                total={10}
+                offset={1}
+                pageSize={10}
+                onChangPageSize={(pageSize) => setPageSize(pageSize)}
+                onChangeOffset={(offset) => setOffset(offset)}
               />
             ) : null}
           </TabPanel>
@@ -271,13 +301,12 @@ const Activities = () => {
               <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
             )}
             {dataSoure.length > 0 ? (
-              <Pagination
-                className="pagination-bar"
-                currentPage={currentPage}
-                totalCount={10}
-                pageSize={pageSize}
-                onPageChange={(page) => setCurrentPage(page)}
-                onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+              <AppPagination
+                total={10}
+                offset={1}
+                pageSize={10}
+                onChangPageSize={(pageSize) => setPageSize(pageSize)}
+                onChangeOffset={(offset) => setOffset(offset)}
               />
             ) : null}
           </TabPanel>
