@@ -285,7 +285,8 @@
   @include blurBack(40px);
   .mobile-menu-header {
     .logo {
-      height: 30px;
+      height: 50px;
+      margin-top: -20px;
       cursor: pointer;
     }
   }
