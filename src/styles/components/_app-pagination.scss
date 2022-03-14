@@ -3,20 +3,22 @@
   justify-content: center;
   flex-wrap: nowrap;
   width: 100%;
+  gap: 5px;
   .page-list {
     display: flex;
-    margin: 0 10px;
-    button:not(:last-child) {
-      margin-right: 10px;
-    }
+    gap: 5px;
   }
   .page-button {
     font-size: 16px;
-    min-width: unset;
+    font-weight: 400;
+    min-width: 40px;
+    height: 40px;
+    background: none;
     @include to(md) {
       width: 30px;
       height: 30px;
       font-size: 15px;
+      font-weight: 400;
     }
     @include to(sm) {
       width: 30px;
@@ -29,10 +31,13 @@
     }
   }
   .active {
-    background: rgba(white, 0.2);
+    background: rgba(white, 0.1);
   }
   .page-size-button {
-    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    background: none;
+    height: 40px;
     @include to(md) {
       height: 30px;
       font-size: 12px;
