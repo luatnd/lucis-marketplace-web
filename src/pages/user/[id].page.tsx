@@ -17,6 +17,7 @@ const MyNft = () => {
   const router = useRouter()
   const toast = useToast()
   const { id } = router.query
+  const myNft = id == "my-nft" ? true : false
   const { tab } = router.query
   const handleChangeTab = (value) => {
     router.query.tab = value
@@ -24,7 +25,7 @@ const MyNft = () => {
   }
   return (
     <div className="my-nft">
-      {id == "my-nft" ? (
+      {myNft ? (
         <div className="account">
           <div className="left-border">
             <img className="left" src="/common/my-nft/account.png" alt="" />

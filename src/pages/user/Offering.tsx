@@ -275,9 +275,7 @@ const Offering = observer(() => {
         <ModalOverlay />
         <ModalContent className="dialog-confirm">
           <ModalHeader>Confirm</ModalHeader>
-          <ModalCloseButton>
-            <img src="/icons/close.png" />
-          </ModalCloseButton>
+          <ModalCloseButton />
           <ModalBody>
             <Text mb="1rem">Are you sure you want to cancel the offer ?</Text>
           </ModalBody>

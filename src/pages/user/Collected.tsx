@@ -73,11 +73,7 @@ const Collected = observer(() => {
             </div>
           }
         />
-        <AppSelect
-          isSearchable={false}
-          options={typeSort}
-          placeholder="All"
-        />
+        <AppSelect isSearchable={false} options={typeSort} placeholder="All" />
       </div>
       {data.length == 0 ? (
         <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
