@@ -4,6 +4,8 @@
 .chakra-modal__header {
   padding-top: 30px !important;
   font-size: 24px !important;
+  line-height: 10px;
+  padding-bottom: 30px !important;
   &::after {
     content: "";
     position: absolute;
@@ -15,11 +17,9 @@
   }
 }
 .chakra-modal__close-btn {
-  margin-top: 20px;
+  margin-top: 10px;
   margin-right: 8px;
-  border-radius: 100% !important;
-  background: rgba(white, 0.8);
-  color: $purple3;
+  background: rgba(white, 0.1);
 }
 .chakra-modal__content {
   border: 3px solid rgba(white, 0.2);
