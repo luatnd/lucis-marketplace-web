@@ -482,13 +482,6 @@
     font-size: 24px;
     line-height: 38px;
     color: #ffffff;
-    &::after {
-      border-bottom: 1px solid rgba(147, 147, 147, 0.5);
-      content: "";
-      width: 100%;
-      background: #808080;
-      display: block;
-    }
   }
   .form-auction {
     p {
