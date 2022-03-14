@@ -290,7 +290,7 @@ export const AppLayout = observer(({ children }) => {
             </div>
           </div>
           {token ? (
-            <Link href="/user/my-nft/?tab=activities">
+            <Link href="/user/my-nft/?tab=4">
               <Icon as={BellIcon} className="noti-button" />
             </Link>
           ) : null}

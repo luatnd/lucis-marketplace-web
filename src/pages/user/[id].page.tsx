@@ -18,9 +18,9 @@ const MyNft = () => {
   const toast = useToast()
   const { id } = router.query
   const { tab } = router.query
-  const handleChangeTab=(value)=>{
-    router.query.tab=value;
-    router.push(router);
+  const handleChangeTab = (value) => {
+    router.query.tab = value
+    router.push(router)
   }
   return (
     <div className="my-nft">
@@ -100,10 +100,7 @@ const MyNft = () => {
       )}
 
       <div className="container">
-        <Tabs
-          index={+(tab??0)}
-          onChange={handleChangeTab}
-        >
+        <Tabs index={+(tab ?? 0)} onChange={handleChangeTab}>
           <TabList>
             <Tab>Offering</Tab>
             <Tab>On sale</Tab>
