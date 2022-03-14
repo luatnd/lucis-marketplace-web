@@ -231,7 +231,9 @@ const DetailsPage = observer((props: any) => {
         </div>
         <div className="details-content">
           <div className="collection">
-            <img src={data?.collection?.logo} />
+            <div className="collection-logo">
+              <img src={data?.collection?.logo} />
+            </div>
             <Link href={"/collection/" + data?.collection?.id}>
               <a>{data?.collection?.name}</a>
             </Link>
