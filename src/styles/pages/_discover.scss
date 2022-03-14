@@ -31,6 +31,9 @@
     }
     .sorts {
       display: flex;
+      .network, .type-sort {
+        margin-right: 8px;
+      }
       @include to(xs) {
         display: block;
       }
@@ -53,4 +56,13 @@
   width: 100%;
   flex-direction: column;
   margin-top: 35px;
+  margin-bottom: 35px;
+}
+.display-flex {
+  display: flex;
+  align-items: center;
+  img {
+    width: 20px;
+    margin-right: 8px;
+  }
 }
