@@ -295,9 +295,15 @@ const DetailsPage = observer((props: any) => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Activities />
+            <Activities info={info} />
           </TabPanel>
-          <TabPanel>{info.aucPrice ? <Auction /> : <ReceivedOffer />}</TabPanel>
+          <TabPanel>
+            {info.aucPrice ? (
+              <Auction info={info} />
+            ) : (
+              <ReceivedOffer info={info} />
+            )}
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </div>

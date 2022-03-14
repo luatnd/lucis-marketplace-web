@@ -6,7 +6,9 @@ import { AppTable } from "src/components/AppTable"
 import BoxIcon from "@static/icons/item-box.svg"
 import { ExternalLink } from "react-feather"
 
-const Activities = () => {
+const Activities = (props) => {
+  const { info } = props
+
   const [offset, setOffset] = useState(0)
   const [pageSize, setPageSize] = useState(5)
   const [total, setTotal] = useState(21)
@@ -94,81 +96,81 @@ const Activities = () => {
   const data = [
     {
       type: "Sale",
-      item: "Animverse",
+      item: info?.name,
       price: "26.94 BNB",
-      from: "Dong Van Cuong",
+      from: "Hlyman",
       to: "0x531b…fFf8",
       date: "1 days ago",
     },
     {
       type: "Listing",
-      item: "Animverse",
+      item: info?.name,
       price: "26.94 BNB",
-      from: "Dong Van Cuong",
+      from: "Hlyman",
       to: "0x531b…fFf8",
       date: "1 days ago",
     },
     {
       type: "Offer",
-      item: "Animverse",
+      item: info?.name,
       price: "26.94 BNB",
-      from: "Dong Van Cuong",
+      from: "Hlyman",
       to: "0x531b…fFf8",
       date: "1 days ago",
     },
     {
       type: "Auction",
-      item: "Animverse",
+      item: info?.name,
       price: "26.94 BNB",
-      from: "Dong Van Cuong",
+      from: "Hlyman",
       to: "0x531b…fFf8",
       date: "1 days ago",
     },
     {
       type: "Sale",
-      item: "Animverse",
+      item: info?.name,
       price: "26.94 BNB",
-      from: "Dong Van Cuong",
+      from: "Hlyman",
       to: "0x531b…fFf8",
       date: "1 days ago",
     },
     {
       type: "Auction",
-      item: "Animverse",
+      item: info?.name,
       price: "26.94 BNB",
-      from: "Dong Van Cuong",
+      from: "Hlyman",
       to: "0x531b…fFf8",
       date: "1 days ago",
     },
     {
       type: "Offer",
-      item: "Animverse",
+      item: info?.name,
       price: "26.94 BNB",
-      from: "Dong Van Cuong",
+      from: "Hlyman",
       to: "0x531b…fFf8",
       date: "1 days ago",
     },
     {
       type: "Listing",
-      item: "Animverse",
+      item: info?.name,
       price: "26.94 BNB",
-      from: "Dong Van Cuong",
+      from: "Hlyman",
       to: "0x531b…fFf8",
       date: "1 days ago",
     },
     {
       type: "Sale",
-      item: "Animverse",
+      item: info?.name,
       price: "26.94 BNB",
-      from: "Dong Van Cuong",
+      from: "Hlyman",
       to: "0x531b…fFf8",
       date: "1 days ago",
     },
     {
       type: "Sale",
-      item: "Animverse",
+      item: info?.name,
       price: "26.94 BNB",
-      from: "Dong Van Cuong",
+      from: "Hlyman",
       to: "0x531b…fFf8",
       date: "1 days ago",
     },

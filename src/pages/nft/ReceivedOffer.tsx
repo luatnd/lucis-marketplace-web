@@ -6,12 +6,14 @@ import { useStore } from "src/hooks/useStore"
 import Pagination from "src/components/Pagination"
 import { useState } from "react"
 
-const ReceivedOffer = () => {
+const ReceivedOffer = (props) => {
   const NftStore = useStore("NftStore")
 
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(20)
   const totalData = Number(receivedList.length)
+
+  const { info } = props
 
   const typeSort = [
     {
@@ -55,10 +57,10 @@ const ReceivedOffer = () => {
                     </div>
                     <div className="name-item">
                       <p className="animverse">
-                        Animverse
+                        {info?.collection?.name}
                         <Verified />
                       </p>
-                      <p>CUONG DOLLA NFT</p>
+                      <p>Hlyman</p>
                     </div>
                   </div>
                 </Td>
