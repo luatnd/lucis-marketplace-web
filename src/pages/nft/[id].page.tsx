@@ -175,7 +175,7 @@ const DetailsPage = observer((props: any) => {
             <span>{info.price ? currency(info.price) + " BNB" : "-"} </span>
             <span>
               {info.price
-                ? `(${currency(info.price * 376)})`
+                ? `($${currency(info.price * 376)})`
                 : "Waiting first offer"}
             </span>
           </div>
