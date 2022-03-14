@@ -283,10 +283,11 @@
     rgba(255, 255, 255, 0.2) 73.85%
   ) !important;
   @include blurBack(40px);
-  .logo {
-    width: 100px;
-    margin: auto;
-    cursor: pointer;
+  .mobile-menu-header {
+    .logo {
+      height: 30px;
+      cursor: pointer;
+    }
   }
   .mobile-menu-body {
     width: 100%;

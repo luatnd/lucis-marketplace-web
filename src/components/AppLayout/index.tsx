@@ -193,7 +193,7 @@ export const AppLayout = observer(({ children }) => {
     >
       <DrawerOverlay />
       <DrawerContent className="mobile-menu">
-        <DrawerHeader>
+        <DrawerHeader className="mobile-menu-header">
           <Link href="/">
             <img
               src="/favicon.svg"
