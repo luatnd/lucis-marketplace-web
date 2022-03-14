@@ -1,8 +1,8 @@
 .app-layout {
   background: url(/common/background.png);
   background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position: center;
+  background-size: 100% auto;
+  background-attachment: fixed;
   .header {
     background: #180f5c;
     display: flex;
