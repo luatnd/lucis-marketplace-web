@@ -32,6 +32,7 @@ import Link from "next/link"
 import { getNfts } from "src/services/nft"
 import { useStore } from "src/hooks/useStore"
 import { observer } from "mobx-react-lite"
+import { AppPagination } from "src/components/AppPagination"
 const OnSale = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
@@ -124,7 +125,7 @@ const OnSale = observer(() => {
 
   useEffect(() => {
     setCurrentPage(Math.ceil(offset / pageSize))
-  }, [pageSize])
+  }, [pageSize, offset])
 
   useEffect(() => {
     setOffset1(Number(pageSize1 * currentPage1 - pageSize1 + 1))
@@ -132,7 +133,7 @@ const OnSale = observer(() => {
 
   useEffect(() => {
     setCurrentPage1(Math.ceil(offset1 / pageSize1))
-  }, [pageSize1])
+  }, [pageSize1, offset1])
 
   useEffect(() => {
     setOffset2(Number(pageSize2 * currentPage2 - pageSize2 + 1))
@@ -198,23 +199,36 @@ const OnSale = observer(() => {
                 }}
               />
             </div>
-            <div className="">
-              <div className="grid-custom">
-                {data.map((auction) => (
-                  <div className="grid-item" key={auction.id}>
-                    <NftItem info={auction} />
+            {data.length == 0 ? (
+              <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
+            ) : (
+              <>
+                <div className="">
+                  <div className="grid-custom">
+                    {data.map((auction) => (
+                      <div className="grid-item" key={auction.id}>
+                        <NftItem info={auction} />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-            <Pagination
-              className="pagination-bar"
-              currentPage={currentPage}
-              totalCount={totalData}
-              pageSize={pageSize}
-              onPageChange={(page) => setCurrentPage(page)}
-              onPageSizeChange={(pageSize) => setPageSize(pageSize)}
-            />
+                </div>
+                <AppPagination
+                  total={totalData}
+                  offset={offset}
+                  pageSize={pageSize}
+                  onChangPageSize={(pageSize) => setPageSize(pageSize)}
+                  onChangeOffset={(offset) => setOffset(offset)}
+                />
+                {/* <Pagination
+                  className="pagination-bar"
+                  currentPage={currentPage}
+                  totalCount={totalData}
+                  pageSize={pageSize}
+                  onPageChange={(page) => setCurrentPage(page)}
+                  onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+                /> */}
+              </>
+            )}
           </TabPanel>
           <TabPanel>
             <div className="sort">
@@ -237,23 +251,36 @@ const OnSale = observer(() => {
                 }}
               />
             </div>
-            <div className="">
-              <div className="grid-custom">
-                {data1.map((auction) => (
-                  <div className="grid-item" key={auction.id}>
-                    <NftItem info={auction} />
+            {data1.length == 0 ? (
+              <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
+            ) : (
+              <>
+                <div className="">
+                  <div className="grid-custom">
+                    {data1.map((auction) => (
+                      <div className="grid-item" key={auction.id}>
+                        <NftItem info={auction} />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-            <Pagination
-              className="pagination-bar"
-              currentPage={currentPage1}
-              totalCount={totalData1}
-              pageSize={pageSize1}
-              onPageChange={(page) => setCurrentPage1(page)}
-              onPageSizeChange={(pageSize) => setPageSize1(pageSize)}
-            />
+                </div>
+                <AppPagination
+                  total={totalData1}
+                  pageSize={pageSize1}
+                  offset={offset1}
+                  onChangPageSize={(pageSize) => setPageSize1(pageSize)}
+                  onChangeOffset={(offset) => setOffset1(offset)}
+                />
+                {/* <Pagination
+                  className="pagination-bar"
+                  currentPage={currentPage1}
+                  totalCount={totalData1}
+                  pageSize={pageSize1}
+                  onPageChange={(page) => setCurrentPage1(page)}
+                  onPageSizeChange={(pageSize) => setPageSize1(pageSize)}
+                /> */}
+              </>
+            )}
           </TabPanel>
           <TabPanel>
             <div className="sort">

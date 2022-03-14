@@ -17,11 +17,18 @@ const MyNft = () => {
   const router = useRouter()
   const toast = useToast()
   const { id } = router.query
+  const { tab } = router.query
+  const handleChangeTab=(value)=>{
+    router.query.tab=value;
+    router.push(router);
+  }
   return (
     <div className="my-nft">
       {id == "my-nft" ? (
         <div className="account">
-          <img className="left" src="/common/my-nft/account.png" alt="" />
+          <div className="left-border">
+            <img className="left" src="/common/my-nft/account.png" alt="" />
+          </div>
           <div className="right">
             <div className="top">
               <h2>DONG CUONG</h2>
@@ -49,7 +56,9 @@ const MyNft = () => {
       ) : (
         <div className="account-other">
           <div className="info">
-            <img className="left" src="/common/my-nft/account.png" alt="" />
+            <div className="left-border">
+              <img className="left" src="/common/my-nft/account.png" alt="" />
+            </div>
             <div className="right">
               <div className="name-id">
                 <h2>DONG CUONG</h2>
@@ -91,7 +100,10 @@ const MyNft = () => {
       )}
 
       <div className="container">
-        <Tabs>
+        <Tabs
+          index={+(tab??0)}
+          onChange={handleChangeTab}
+        >
           <TabList>
             <Tab>Offering</Tab>
             <Tab>On sale</Tab>

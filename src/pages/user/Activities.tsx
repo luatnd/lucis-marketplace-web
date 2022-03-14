@@ -149,55 +149,57 @@ const Activities = () => {
         <TabPanels>
           <TabPanel className="tab-activities">
             {dataSoure.length > 0 ? (
-              <Table variant="simple">
-                <Thead>
-                  <Tr>
-                    <Th>Type</Th>
-                    <Th>Item</Th>
-                    <Th isNumeric>Price</Th>
-                    <Th>From</Th>
-                    <Th>To</Th>
-                    <Th>Date</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {dataSoure.map((data) => (
-                    <Tr key={data.key}>
-                      <Td>{data.type}</Td>
-                      <Td className="item">
-                        <Link href={"/nft/" + data.key}>
-                          <a>
-                            <img src="/icons/item.png" alt="" /> {data.item}
-                          </a>
-                        </Link>
-                      </Td>
-                      <Td isNumeric>{data.price}</Td>
-                      <Td>
-                        <Link href={"/user/" + data.from}>
-                          <a>{data.from}</a>
-                        </Link>
-                      </Td>
-                      <Td className="to">
-                        <Link href={"/user/1"}>
-                          <a>{data.to}</a>
-                        </Link>
-                      </Td>
-                      <Td className="date">
-                        {data.date}{" "}
-                        {data.to.length ? (
-                          <a
-                            href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
-                            target={"_blank"}
-                            rel="noreferrer"
-                          >
-                            <img src="/icons/open-new.png" alt="" />
-                          </a>
-                        ) : null}
-                      </Td>
+              <div className="border">
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Type</Th>
+                      <Th>Item</Th>
+                      <Th isNumeric>Price</Th>
+                      <Th>From</Th>
+                      <Th>To</Th>
+                      <Th>Date</Th>
                     </Tr>
-                  ))}
-                </Tbody>
-              </Table>
+                  </Thead>
+                  <Tbody>
+                    {dataSoure.map((data) => (
+                      <Tr key={data.key}>
+                        <Td>{data.type}</Td>
+                        <Td className="item">
+                          <Link href={"/nft/" + data.key}>
+                            <a>
+                              <img src="/icons/item.png" alt="" /> {data.item}
+                            </a>
+                          </Link>
+                        </Td>
+                        <Td isNumeric>{data.price}</Td>
+                        <Td>
+                          <Link href={"/user/" + data.from}>
+                            <a>{data.from}</a>
+                          </Link>
+                        </Td>
+                        <Td className="to">
+                          <Link href={"/user/1"}>
+                            <a>{data.to}</a>
+                          </Link>
+                        </Td>
+                        <Td className="date">
+                          {data.date}{" "}
+                          {data.to.length ? (
+                            <a
+                              href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
+                              target={"_blank"}
+                              rel="noreferrer"
+                            >
+                              <img src="/icons/open-new.png" alt="" />
+                            </a>
+                          ) : null}
+                        </Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </div>
             ) : (
               <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
             )}
@@ -214,55 +216,57 @@ const Activities = () => {
           </TabPanel>
           <TabPanel className="tab-activities">
             {dataSoure.length > 0 ? (
-              <Table variant="simple">
-                <Thead>
-                  <Tr>
-                    <Th>Type</Th>
-                    <Th>Item</Th>
-                    <Th isNumeric>Price</Th>
-                    <Th>From</Th>
-                    <Th>To</Th>
-                    <Th>Date</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {dataSoure.map((data) => (
-                    <Tr key={data.key}>
-                      <Td>{data.type}</Td>
-                      <Td className="item">
-                        <Link href={"/nft/" + data.key}>
-                          <a>
-                            <img src="/icons/item.png" alt="" /> {data.item}
-                          </a>
-                        </Link>
-                      </Td>
-                      <Td isNumeric>{data.price}</Td>
-                      <Td>
-                        <Link href={"/user/" + data.from}>
-                          <a>{data.from}</a>
-                        </Link>
-                      </Td>
-                      <Td className="to">
-                        <Link href={"/user/1"}>
-                          <a>{data.to}</a>
-                        </Link>
-                      </Td>
-                      <Td className="date">
-                        {data.date}{" "}
-                        {data.to.length ? (
-                          <a
-                            href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
-                            target={"_blank"}
-                            rel="noreferrer"
-                          >
-                            <img src="/icons/open-new.png" alt="" />
-                          </a>
-                        ) : null}
-                      </Td>
+              <div className="border">
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Type</Th>
+                      <Th>Item</Th>
+                      <Th isNumeric>Price</Th>
+                      <Th>From</Th>
+                      <Th>To</Th>
+                      <Th>Date</Th>
                     </Tr>
-                  ))}
-                </Tbody>
-              </Table>
+                  </Thead>
+                  <Tbody>
+                    {dataSoure.map((data) => (
+                      <Tr key={data.key}>
+                        <Td>{data.type}</Td>
+                        <Td className="item">
+                          <Link href={"/nft/" + data.key}>
+                            <a>
+                              <img src="/icons/item.png" alt="" /> {data.item}
+                            </a>
+                          </Link>
+                        </Td>
+                        <Td isNumeric>{data.price}</Td>
+                        <Td>
+                          <Link href={"/user/" + data.from}>
+                            <a>{data.from}</a>
+                          </Link>
+                        </Td>
+                        <Td className="to">
+                          <Link href={"/user/1"}>
+                            <a>{data.to}</a>
+                          </Link>
+                        </Td>
+                        <Td className="date">
+                          {data.date}{" "}
+                          {data.to.length ? (
+                            <a
+                              href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
+                              target={"_blank"}
+                              rel="noreferrer"
+                            >
+                              <img src="/icons/open-new.png" alt="" />
+                            </a>
+                          ) : null}
+                        </Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </div>
             ) : (
               <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
             )}

@@ -38,23 +38,29 @@ const Favorite = observer(() => {
       <div className="sort">
         <Sort customClassName="price-sort" options={network} />
       </div>
-      <div className="">
-        <div className="grid-custom">
-          {data.map((auction) => (
-            <div className="grid-item" key={auction.id}>
-              <NftItem info={auction} />
+      {data.length == 0 ? (
+        <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
+      ) : (
+        <>
+          <div className="">
+            <div className="grid-custom">
+              {data.map((auction) => (
+                <div className="grid-item" key={auction.id}>
+                  <NftItem info={auction} />
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-      <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={totalData}
-        pageSize={pageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-        onPageSizeChange={(pageSize) => setPageSize(pageSize)}
-      />
+          </div>
+          <Pagination
+            className="pagination-bar"
+            currentPage={currentPage}
+            totalCount={totalData}
+            pageSize={pageSize}
+            onPageChange={(page) => setCurrentPage(page)}
+            onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+          />
+        </>
+      )}
     </div>
   )
 })
