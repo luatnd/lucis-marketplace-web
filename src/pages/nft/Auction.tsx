@@ -288,7 +288,7 @@ const Auction = (props) => {
             <Tr>
               <Th>Address</Th>
               <Th>Auc</Th>
-              <Th isNumeric>Lead</Th>
+              <Th>Lead</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -310,11 +310,11 @@ const Auction = (props) => {
                   <p>{el.auc}</p>
                   <p>{el.usd}</p>
                 </Td>
-                <Td isNumeric>
+                <Td w="30%">
                   <a
                     href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
                     target={"_blank"}
-                    className="date-column"
+                    className="center"
                     rel="noreferrer"
                     style={{ justifyContent: "flex-end" }}
                   >
