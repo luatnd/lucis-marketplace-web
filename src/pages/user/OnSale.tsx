@@ -266,7 +266,7 @@ const OnSale = observer(() => {
                   <Thead>
                     <Tr>
                       <Th>Item</Th>
-                      <Th>Price</Th>
+                      <Th isNumeric>Price</Th>
                       <Th>To</Th>
                       <Th>Expiration</Th>
                       <Th>Offered at</Th>
@@ -298,7 +298,7 @@ const OnSale = observer(() => {
                             </div>
                           </div>
                         </Td>
-                        <Td>{el.price}</Td>
+                        <Td isNumeric>{el.price}</Td>
                         <Td className="to">
                           <Link href={"/user/1"}>
                             <a>{el.to}</a>

@@ -41,20 +41,20 @@ export const RankingList = (props) => {
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th>STT</Th>
+              <Th className="center">STT</Th>
               <Th>Collection</Th>
               <Th isNumeric>Vol</Th>
-              <Th>24h</Th>
-              <Th>7day</Th>
+              <Th className="center">24h</Th>
+              <Th className="center">7day</Th>
               <Th isNumeric>Floor Price</Th>
-              <Th isNumeric>Player</Th>
-              <Th>Item</Th>
+              <Th className="center">Player</Th>
+              <Th className="center">Item</Th>
             </Tr>
           </Thead>
           <Tbody>
             {data.map((el) => (
               <Tr key={el.id}>
-                <Td>{el.id}</Td>
+                <Td className="center">{el.id}</Td>
                 <Td>
                   <Link href={"collection/" + el.id}>
                     <div className="collection">
@@ -66,11 +66,11 @@ export const RankingList = (props) => {
                   </Link>
                 </Td>
                 <Td isNumeric>{el.stats.volume} BNB</Td>
-                <Td>{Math.floor(Math.random() * 100)}%</Td>
-                <Td>{Math.floor(Math.random() * 100)}%</Td>
-                <Td isNumeric>{el.stats.floorPrice}</Td>
-                <Td isNumeric>{el.stats.player}</Td>
-                <Td>{el.stats.traded}</Td>
+                <Td className="center">{Math.floor(Math.random() * 100)}%</Td>
+                <Td className="center">{Math.floor(Math.random() * 100)}%</Td>
+                <Td isNumeric>{el.stats.floorPrice} BNB</Td>
+                <Td className="center">{el.stats.player}</Td>
+                <Td className="center">{el.stats.traded}</Td>
               </Tr>
             ))}
           </Tbody>

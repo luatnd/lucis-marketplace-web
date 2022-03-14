@@ -40,7 +40,7 @@ const ReceivedOffer = (props) => {
           <Thead>
             <Tr>
               <Th>Item</Th>
-              <Th>Price</Th>
+              <Th isNumeric>Price</Th>
               <Th>To</Th>
               <Th>Expiration</Th>
               <Th>Date</Th>
@@ -64,7 +64,7 @@ const ReceivedOffer = (props) => {
                     </div>
                   </div>
                 </Td>
-                <Td>{el.price}</Td>
+                <Td isNumeric>{el.price}</Td>
                 <Td>{el.to}</Td>
                 <Td>in 2 days</Td>
                 <Td>

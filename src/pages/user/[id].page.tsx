@@ -17,9 +17,11 @@ const MyNft = () => {
   const router = useRouter()
   const toast = useToast()
   const { id } = router.query
+  const myNft = id == "my-nft" ? true : false
+
   return (
     <div className="my-nft">
-      {id == "my-nft" ? (
+      {myNft ? (
         <div className="account">
           <img className="left" src="/common/my-nft/account.png" alt="" />
           <div className="right">
@@ -99,7 +101,11 @@ const MyNft = () => {
             <Tab>Favorite</Tab>
             <Tab>Activities</Tab>
           </TabList>
-          <h3>My NFT</h3>
+          {
+            myNft && (
+              <h3>My NFT</h3>
+            )
+          }
           <TabPanels>
             <TabPanel>
               <Offering />
