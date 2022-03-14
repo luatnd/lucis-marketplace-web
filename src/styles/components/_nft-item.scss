@@ -57,7 +57,7 @@
     flex-direction: column;
     .provider {
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 400;
       display: flex;
       color: $cyan;
       align-items: center;
@@ -69,7 +69,7 @@
     }
     .name {
       font-size: 20px;
-      font-weight: 700;
+      font-weight: 500;
       @include to(xs) {
         font-size: 16px;
         align-self: center;
@@ -83,15 +83,18 @@
       height: 16px;
       span {
         font-weight: 700;
-        margin-right: 1em;
+        margin-right: 1px;
       }
     }
     .price {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 10px;
       font-size: 16px;
-      font-weight: 600;
+      line-height: 16px;
+      white-space: nowrap;
+      font-weight: 400;
       margin: 5px 0;
       height: 50px;
       span {
@@ -103,6 +106,9 @@
         }
       }
       button {
+        height: 32px;
+        width: 100%;
+        max-width: 80px;
         background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
       }
     }

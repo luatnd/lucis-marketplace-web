@@ -18,6 +18,7 @@ export const HotCollections = (props) => {
             key={collection.id}
             name={collection.name}
             image={collection.logo}
+            network={collection.network}
           />
         ))}
       </HomeSection>

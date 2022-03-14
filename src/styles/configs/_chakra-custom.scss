@@ -129,3 +129,12 @@
     color: #fff;
   }
 }
+
+.chakra-switch {
+  .chakra-switch__track {
+    background: rgba(200, 200, 200, 0.5) !important;
+  }
+  .chakra-switch__track[data-checked] {
+    background: #00c39f !important;
+  }
+}

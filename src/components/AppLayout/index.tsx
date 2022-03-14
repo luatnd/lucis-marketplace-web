@@ -159,10 +159,6 @@ export const AppLayout = observer(({ children }) => {
       name: "BNB Chain",
     },
     {
-      img: "/common/walletConnect.png",
-      name: "WalletConnect",
-    },
-    {
       img: "/common/ethereum.png",
       name: "Ethereum",
     },
@@ -293,7 +289,11 @@ export const AppLayout = observer(({ children }) => {
               </Menu>
             </div>
           </div>
-          {token ? <Icon as={BellIcon} className="noti-button" /> : null}
+          {token ? (
+            <Link href="/user/my-nft/?tab=activities">
+              <Icon as={BellIcon} className="noti-button" />
+            </Link>
+          ) : null}
           <UserTray />
           <Icon
             as={Icons.Menu}

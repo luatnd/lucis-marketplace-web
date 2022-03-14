@@ -63,7 +63,8 @@ export const NftItem = observer((props: IProps) => {
           onClick={() => handleRedirect()}
         >
           <span>
-            <BNBSymbol /> {currency(info.aucPrice ?? info.price ?? null)} BNB
+            <BNBSymbol />{" "}
+            {currency(info.topAuc ?? info.aucPrice ?? info.price ?? null)} BNB
           </span>
           {info.owner === address ? null : info.aucPrice ? (
             <Button>AUC</Button>

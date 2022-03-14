@@ -19,6 +19,9 @@ export const Banners = (props) => {
                 <div key={item.id} className="banner">
                   <img src={item.banner} className="banner-image" />
                 </div>
+                <div className="network">
+                  <img src={item.network} />
+                </div>
               </div>
             </Link>
           ))}
