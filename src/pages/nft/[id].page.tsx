@@ -180,7 +180,7 @@ const DetailsPage = observer((props: any) => {
             </span>
           </div>
           <div className="buy-nav">
-            <Button onClick={handleBuy} isDisabled={!info.price}>
+            <Button onClick={handleBuy} isDisabled={!info.price || !address}>
               BUY
             </Button>
             <span onClick={handleOffer}>Or make offer other price</span>
@@ -200,7 +200,9 @@ const DetailsPage = observer((props: any) => {
             <span>(${currency(info.topAuc * 376)})</span>
           </div>
           <div className="auc-nav">
-            <Button onClick={handleAuc}>AUCTION</Button>
+            <Button onClick={handleAuc} isDisabled={!address}>
+              AUCTION
+            </Button>
           </div>
         </div>
         <div className="auction-end">
