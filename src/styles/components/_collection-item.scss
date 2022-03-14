@@ -1,9 +1,5 @@
 .collection-item {
-  background: linear-gradient(
-    152.97deg,
-    rgba(255, 255, 255, 0.2) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: rgba(255, 255, 255, 0.2);
   border: 1px solid $purple2;
   border-radius: 16px;
   display: flex;
@@ -41,7 +37,7 @@
   }
   span {
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
