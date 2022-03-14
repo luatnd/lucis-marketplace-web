@@ -8,6 +8,8 @@ import {
   DrawerOverlay,
   Icon,
   Input,
+  InputGroup,
+  InputRightAddon,
   Menu,
   MenuButton,
   MenuItem,
@@ -21,6 +23,7 @@ import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
 import { useStore } from "src/hooks/useStore"
 import { UserTray } from "../UserTray"
+import SearchIcon from "@static/icons/search.svg"
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
@@ -261,7 +264,12 @@ export const AppLayout = observer(({ children }) => {
         </div>
         <div className="nav-right">
           <div className="search-bar">
-            <Input placeholder="Collection/ User/ address" />
+            <InputGroup>
+              <Input placeholder="Collection/ User/ address" />
+              <InputRightAddon>
+                <Icon as={SearchIcon} />
+              </InputRightAddon>
+            </InputGroup>
           </div>
           <div className="network">
             <div className="nav-bar">

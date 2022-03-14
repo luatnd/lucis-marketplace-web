@@ -64,10 +64,19 @@
           border-radius: 16px;
           padding: 1px;
           width: 100%;
-          input {
+          .chakra-input__group {
+            input {
+              border-radius: 16px 0 0 16px;
+              border: none !important;
+            }
+            .chakra-input__right-addon {
+              border-radius: 0 16px 16px 0;
+              background: none;
+              font-size: 25px;
+              margin-right: -10px;
+            }
             border-radius: 16px;
             background: #180f5c;
-            border: none !important;
             &:focus {
               box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4) !important;
             }
