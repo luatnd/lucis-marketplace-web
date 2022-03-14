@@ -6,7 +6,6 @@ import { ListingBar } from "../components/Home/ListingBar"
 import { NftItem } from "../components/NftItem"
 
 const DiscoverPage = () => {
-
   const [itemTotal, setItemTotal] = useState(0)
   const [itemOffset, setItemOffset] = useState(0)
   const [itemPageSize, setItemPageSize] = useState(20)
@@ -15,13 +14,13 @@ const DiscoverPage = () => {
   const [itemSort, setItemSort] = useState("asc")
 
   const fetchItems = async () => {
-    const {data, total} = await getNfts({
+    const { data, total } = await getNfts({
       _limit: itemPageSize,
       _page: Math.ceil(itemOffset / itemPageSize),
       _sort: itemType,
-      _order: itemSort
+      _order: itemSort,
     })
-        
+
     setItems(data)
     setItemTotal(total)
   }
@@ -54,55 +53,70 @@ const DiscoverPage = () => {
             onChange={({ value }) => setItemType(value as boolean)}
             options={[
               {
-                label: <div className="display-flex">
-                  <img src="/common/bnb.png" alt="" />
-                  <span>BNB chain</span>
-                </div>,
+                label: (
+                  <div className="display-flex">
+                    <img src="/common/bnb.png" alt="" />
+                    <span>BNB chain</span>
+                  </div>
+                ),
                 value: "bnb",
               },
               {
-                label: <div className="display-flex">
-                  <img src="/common/walletConnect.png" alt="" />
-                  <span>WalletConnect</span>
-                </div>,
+                label: (
+                  <div className="display-flex">
+                    <img src="/common/walletConnect.png" alt="" />
+                    <span>WalletConnect</span>
+                  </div>
+                ),
                 value: "WalletConnect",
               },
               {
-                label: <div className="display-flex">
-                  <img src="/common/ethereum.png" alt="" />
-                  <span>Ethereum</span>
-                </div>,
+                label: (
+                  <div className="display-flex">
+                    <img src="/common/ethereum.png" alt="" />
+                    <span>Ethereum</span>
+                  </div>
+                ),
                 value: "ethereum",
               },
               {
-                label: <div className="display-flex">
-                  <img src="/common/celo.png" alt="" />
-                  <span>Celo</span>
-                </div>,
+                label: (
+                  <div className="display-flex">
+                    <img src="/common/celo.png" alt="" />
+                    <span>Celo</span>
+                  </div>
+                ),
                 value: "celo",
               },
               {
-                label: <div className="display-flex">
-                  <img src="/common/aurora.png" alt="" />
-                  <span>Aurora</span>
-                </div>,
+                label: (
+                  <div className="display-flex">
+                    <img src="/common/aurora.png" alt="" />
+                    <span>Aurora</span>
+                  </div>
+                ),
                 value: "aurora",
               },
               {
-                label: <div className="display-flex">
-                  <img src="/common/arbitrum.png" alt="" />
-                  <span>Arbitrum</span>
-                </div>,
+                label: (
+                  <div className="display-flex">
+                    <img src="/common/arbitrum.png" alt="" />
+                    <span>Arbitrum</span>
+                  </div>
+                ),
                 value: "arbitrum",
               },
               {
-                label: <div className="display-flex">
-                  <img src="/common/fantom.png" alt="" />
-                  <span>Fantom</span>
-                </div>,
+                label: (
+                  <div className="display-flex">
+                    <img src="/common/fantom.png" alt="" />
+                    <span>Fantom</span>
+                  </div>
+                ),
                 value: "fantom",
               },
-            ]} />
+            ]}
+          />
           <AppSelect
             placeholder="Type"
             className="type-sort"
@@ -122,7 +136,8 @@ const DiscoverPage = () => {
                 label: "Auction",
                 value: "topAuc",
               },
-            ]}/>
+            ]}
+          />
           <AppSelect
             className="price-to-sort"
             placeholder="Price: Min to Max"

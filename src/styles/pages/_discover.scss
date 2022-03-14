@@ -31,7 +31,8 @@
     }
     .sorts {
       display: flex;
-      .network, .type-sort {
+      .network,
+      .type-sort {
         margin-right: 8px;
       }
       @include to(xs) {
@@ -67,5 +68,5 @@
   }
 }
 .center {
-  text-align: center!important;
+  text-align: center !important;
 }

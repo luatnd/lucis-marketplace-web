@@ -83,17 +83,17 @@
           }
         }
         .noti-button {
-          font-size: 25px;
+          font-size: 30px;
           cursor: pointer;
           animation: fadein 0.1s;
         }
         .user {
-          font-size: 30px;
+          font-size: 40px;
           cursor: pointer;
         }
         .spinner {
-          width: 32px;
-          height: 32px;
+          width: 40px;
+          height: 40px;
           position: relative;
           .cancel-btn {
             position: absolute;
@@ -108,9 +108,9 @@
         .signed-user {
           background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
           padding: 2px;
-          width: 32px;
-          height: 32px;
-          min-width: 32px;
+          width: 40px;
+          height: 40px;
+          min-width: 40px;
           border-radius: 100%;
           cursor: pointer;
           border-radius: 100%;
