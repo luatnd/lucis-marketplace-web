@@ -65,8 +65,15 @@ export const AppLayout = observer(({ children }) => {
       key: "apply",
       children: [
         {
-          name: "Apply for NFT Verification",
-          key: "/nft-verification",
+          name: (
+            <a
+              href="https://forms.gle/s7sD5tCVwdtqR51W6"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Apply for NFT Verification
+            </a>
+          ),
         },
         {
           name: "Apply for Launchpad",
@@ -252,11 +259,15 @@ export const AppLayout = observer(({ children }) => {
                   {nav.name}
                 </MenuButton>
                 <MenuList>
-                  {nav.children.map((child) => (
-                    <Link key={child.key} href={child.key}>
+                  {nav.children.map((child) =>
+                    child.key ? (
+                      <Link key={child.key} href={child.key}>
+                        <MenuItem>{child.name}</MenuItem>
+                      </Link>
+                    ) : (
                       <MenuItem>{child.name}</MenuItem>
-                    </Link>
-                  ))}
+                    )
+                  )}
                 </MenuList>
               </Menu>
             ))}
