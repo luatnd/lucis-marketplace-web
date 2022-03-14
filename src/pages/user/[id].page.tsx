@@ -101,11 +101,7 @@ const MyNft = () => {
             <Tab>Favorite</Tab>
             <Tab>Activities</Tab>
           </TabList>
-          {
-            myNft && (
-              <h3>My NFT</h3>
-            )
-          }
+          {myNft && <h3>My NFT</h3>}
           <TabPanels>
             <TabPanel>
               <Offering />

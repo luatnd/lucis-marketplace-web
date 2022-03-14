@@ -23,7 +23,12 @@ export const AppTable = (props: IProps) => {
         <Thead>
           <Tr>
             {columns.map((column, index) => (
-              <Th isNumeric={column?.title == 'Price' ? true : false} key={index}>{column?.title}</Th>
+              <Th
+                isNumeric={column?.title == "Price" ? true : false}
+                key={index}
+              >
+                {column?.title}
+              </Th>
             ))}
           </Tr>
         </Thead>
@@ -31,7 +36,10 @@ export const AppTable = (props: IProps) => {
           {data?.map((item, index) => (
             <Tr key={index}>
               {columns?.map((column, index) => (
-                <Td key={index} isNumeric={column?.title == 'Price' ? true : false}>
+                <Td
+                  key={index}
+                  isNumeric={column?.title == "Price" ? true : false}
+                >
                   {column?.render
                     ? column.render(item ?? null)
                     : item[`${column?.dataIndex}`] ?? null}
