@@ -33,10 +33,6 @@ const ActivitiesPage = () => {
       name: "BNB Chain",
     },
     {
-      img: "/common/walletConnect.png",
-      name: "WalletConnect",
-    },
-    {
       img: "/common/ethereum.png",
       name: "Ethereum",
     },
