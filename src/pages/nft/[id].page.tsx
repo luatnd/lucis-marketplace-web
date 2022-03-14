@@ -196,7 +196,7 @@ const DetailsPage = observer((props: any) => {
         <div className="auc-tray-body">
           <div className="price">
             <span>Top auc</span>
-            <span>{currency(info.topAuc)} BNB</span>
+            <span>{currency(info.topAuc ?? info.aucPrice)} BNB</span>
             <span>(${currency(info.topAuc * 376)})</span>
           </div>
           <div className="auc-nav">
