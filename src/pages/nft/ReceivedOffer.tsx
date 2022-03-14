@@ -13,6 +13,9 @@ const ReceivedOffer = (props) => {
   const [pageSize, setPageSize] = useState(20)
   const totalData = Number(receivedList.length)
 
+  const WalletController = useStore("WalletController")
+  const { address } = WalletController
+
   const { info } = props
 
   const typeSort = [
@@ -44,7 +47,7 @@ const ReceivedOffer = (props) => {
               <Th>To</Th>
               <Th>Expiration</Th>
               <Th>Date</Th>
-              {NftStore?.nft?.owner && <Th>Action</Th>}
+              {info?.owner === address ? <Th>Action</Th> : null}
             </Tr>
           </Thead>
           <Tbody>
@@ -70,14 +73,14 @@ const ReceivedOffer = (props) => {
                 <Td>
                   <span>{el.date}</span>
                 </Td>
-                {NftStore?.nft?.owner && (
+                {info?.owner === address ? (
                   <Td>
                     <Button className="accept">Accept</Button>
                     <Button className="cancel">
                       <span>Cancel</span>
                     </Button>
                   </Td>
-                )}
+                ) : null}
               </Tr>
             ))}
           </Tbody>
