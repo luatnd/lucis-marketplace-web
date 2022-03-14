@@ -4,63 +4,8 @@ import { AppSelect } from "src/components/AppSelect"
 import { getNfts } from "src/services/nft"
 import { ListingBar } from "../components/Home/ListingBar"
 import { NftItem } from "../components/NftItem"
-import Sort from "../components/Sort"
 
 const DiscoverPage = () => {
-  const priceSort = [
-    {
-      img: "/common/bnb-logo.png",
-      name: "BNB Chain",
-    },
-    {
-      img: "/common/ethereum.png",
-      name: "Ethereum",
-    },
-    {
-      img: "/common/celo.png",
-      name: "Celo",
-    },
-    {
-      img: "/common/aurora.png",
-      name: "Aurora",
-    },
-    {
-      img: "/common/arbitrum.png",
-      name: "Arbitrum",
-    },
-    {
-      img: "/common/fantom.png",
-      name: "Fantom",
-    },
-  ]
-  const typeSort = [
-    {
-      img: "",
-      name: "Type",
-    },
-    {
-      img: "",
-      name: "Fixed Price",
-    },
-    {
-      img: "",
-      name: "Auction",
-    },
-  ]
-  const priceTo = [
-    {
-      img: "",
-      name: "Price",
-    },
-    {
-      img: "",
-      name: "Price: Min to Max",
-    },
-    {
-      img: "",
-      name: "Price: Max to Min",
-    },
-  ]
 
   const [itemTotal, setItemTotal] = useState(0)
   const [itemOffset, setItemOffset] = useState(0)

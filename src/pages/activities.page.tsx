@@ -95,7 +95,7 @@ const ActivitiesPage = () => {
               <Tr>
                 <Th>Type</Th>
                 <Th>Item</Th>
-                <Th>Price</Th>
+                <Th isNumeric>Price</Th>
                 <Th>From</Th>
                 <Th>To</Th>
                 <Th>Date</Th>
@@ -113,7 +113,7 @@ const ActivitiesPage = () => {
                       </Link>
                     </div>
                   </Td>
-                  <Td>{el.price}</Td>
+                  <Td isNumeric>{el.price}</Td>
                   <Td>
                     <a
                       target="_blank"
