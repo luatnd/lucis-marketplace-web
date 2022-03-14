@@ -54,9 +54,9 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
+        gap: 20px;
         animation: slideInRight 0.5s;
         .search-bar {
-          margin-left: 20px;
           @include to(md) {
             display: none;
           }
@@ -64,34 +64,37 @@
           border-radius: 16px;
           padding: 1px;
           width: 100%;
-          input {
+          .chakra-input__group {
+            input {
+              border-radius: 16px 0 0 16px;
+              border: none !important;
+            }
+            .chakra-input__right-addon {
+              border-radius: 0 16px 16px 0;
+              background: none;
+              font-size: 25px;
+              margin-right: -10px;
+            }
             border-radius: 16px;
             background: #180f5c;
-            border: none !important;
             &:focus {
               box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4) !important;
             }
           }
         }
         .noti-button {
-          margin-left: 20px;
-          font-size: 40px;
+          font-size: 25px;
           cursor: pointer;
           animation: fadein 0.1s;
         }
         .user {
-          font-size: 50px;
-          margin-left: 20px;
+          font-size: 30px;
           cursor: pointer;
         }
         .spinner {
-          width: 50px;
-          height: 50px;
+          width: 32px;
+          height: 32px;
           position: relative;
-          margin-left: 20px;
-          .user {
-            margin-left: 0;
-          }
           .cancel-btn {
             position: absolute;
             left: 0;
@@ -105,10 +108,9 @@
         .signed-user {
           background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
           padding: 2px;
-          width: 50px;
-          height: 50px;
-          min-width: 50px;
-          margin-left: 20px;
+          width: 32px;
+          height: 32px;
+          min-width: 32px;
           border-radius: 100%;
           cursor: pointer;
           border-radius: 100%;
@@ -127,7 +129,6 @@
           }
         }
         .menu-button {
-          margin-left: 20px;
           font-size: 30px;
           cursor: pointer;
           @include from(md) {
