@@ -157,6 +157,8 @@
       }
       .chakra-input[type="submit"] {
         cursor: pointer;
+        outline: 0;
+        border: none;
         margin-top: 24px;
         width: 167px;
         height: 56px;
@@ -299,6 +301,8 @@
           }
           .chakra-input[type="submit"] {
             cursor: pointer;
+            outline: 0;
+            border: none;
             background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
             border-radius: 8px;
             width: 167px;

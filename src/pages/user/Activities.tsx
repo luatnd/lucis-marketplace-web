@@ -15,8 +15,11 @@ import {
 import Sort from "src/components/Sort"
 import { useState } from "react"
 import Link from "next/link"
+import { AppPagination } from "src/components/AppPagination"
+import { AppSelect } from "src/components/AppSelect"
+import { networkType } from "../data/networkType"
 const Activities = () => {
-  const [currentPage, setCurrentPage] = useState(1)
+  const [offset, setOffset] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const priceSort = [
     { img: "/common/bnb.png", name: "BNB chain" },
@@ -132,6 +135,20 @@ const Activities = () => {
       date: "16 minutes ago",
     },
   ]
+  const typeSort = [
+    {
+      value: "",
+      label: "Recently listed",
+    },
+    {
+      value: "asc",
+      label: "Price: Min to Max",
+    },
+    {
+      value: "desc",
+      label: "Price: Max to Min",
+    },
+  ]
   return (
     <div className="tab">
       <Tabs>
@@ -141,138 +158,154 @@ const Activities = () => {
             <Tab>mine</Tab>
           </TabList>
           <div className="right">
-            <Sort customClassName="price-sort" options={priceSort} />
-            <Sort customClassName="type-sort" options={madeSort} />
+            <AppSelect
+              options={networkType}
+              isSearchable={false}
+              className="network"
+              placeholder={
+                <div className="placeholder">
+                  <img src="/common/all-network.png" alt="" />
+                  All network
+                </div>
+              }
+            />
+            <AppSelect
+              isSearchable={false}
+              options={typeSort}
+              placeholder="Recently listed"
+            />
           </div>
         </div>
         <TabPanels>
           <TabPanel className="tab-activities">
             {dataSoure.length > 0 ? (
-              <Table variant="simple">
-                <Thead>
-                  <Tr>
-                    <Th>Type</Th>
-                    <Th>Item</Th>
-                    <Th isNumeric>Price</Th>
-                    <Th>From</Th>
-                    <Th>To</Th>
-                    <Th>Date</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {dataSoure.map((data) => (
-                    <Tr key={data.key}>
-                      <Td>{data.type}</Td>
-                      <Td className="item">
-                        <Link href={"/nft/" + data.key}>
-                          <a>
-                            <img src="/icons/item.png" alt="" /> {data.item}
-                          </a>
-                        </Link>
-                      </Td>
-                      <Td isNumeric>{data.price}</Td>
-                      <Td>
-                        <Link href={"/user/" + data.from}>
-                          <a>{data.from}</a>
-                        </Link>
-                      </Td>
-                      <Td className="to">
-                        <Link href={"/user/1"}>
-                          <a>{data.to}</a>
-                        </Link>
-                      </Td>
-                      <Td className="date">
-                        {data.date}{" "}
-                        {data.to.length ? (
-                          <a
-                            href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
-                            target={"_blank"}
-                            rel="noreferrer"
-                          >
-                            <img src="/icons/open-new.png" alt="" />
-                          </a>
-                        ) : null}
-                      </Td>
+              <div className="border">
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Type</Th>
+                      <Th>Item</Th>
+                      <Th isNumeric>Price</Th>
+                      <Th>From</Th>
+                      <Th>To</Th>
+                      <Th>Date</Th>
                     </Tr>
-                  ))}
-                </Tbody>
-              </Table>
+                  </Thead>
+                  <Tbody>
+                    {dataSoure.map((data) => (
+                      <Tr key={data.key}>
+                        <Td>{data.type}</Td>
+                        <Td className="item">
+                          <Link href={"/nft/" + data.key}>
+                            <a>
+                              <img src="/icons/item.png" alt="" /> {data.item}
+                            </a>
+                          </Link>
+                        </Td>
+                        <Td isNumeric>{data.price}</Td>
+                        <Td>
+                          <Link href={"/user/" + data.from}>
+                            <a>{data.from}</a>
+                          </Link>
+                        </Td>
+                        <Td className="to">
+                          <Link href={"/user/1"}>
+                            <a>{data.to}</a>
+                          </Link>
+                        </Td>
+                        <Td className="date">
+                          {data.date}{" "}
+                          {data.to.length ? (
+                            <a
+                              href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
+                              target={"_blank"}
+                              rel="noreferrer"
+                            >
+                              <img src="/icons/open-new.png" alt="" />
+                            </a>
+                          ) : null}
+                        </Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </div>
             ) : (
               <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
             )}
             {dataSoure.length > 0 ? (
-              <Pagination
-                className="pagination-bar"
-                currentPage={currentPage}
-                totalCount={10}
-                pageSize={pageSize}
-                onPageChange={(page) => setCurrentPage(page)}
-                onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+              <AppPagination
+                total={10}
+                offset={1}
+                pageSize={10}
+                onChangPageSize={(pageSize) => setPageSize(pageSize)}
+                onChangeOffset={(offset) => setOffset(offset)}
               />
             ) : null}
           </TabPanel>
           <TabPanel className="tab-activities">
             {dataSoure.length > 0 ? (
-              <Table variant="simple">
-                <Thead>
-                  <Tr>
-                    <Th>Type</Th>
-                    <Th>Item</Th>
-                    <Th isNumeric>Price</Th>
-                    <Th>From</Th>
-                    <Th>To</Th>
-                    <Th>Date</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {dataSoure.map((data) => (
-                    <Tr key={data.key}>
-                      <Td>{data.type}</Td>
-                      <Td className="item">
-                        <Link href={"/nft/" + data.key}>
-                          <a>
-                            <img src="/icons/item.png" alt="" /> {data.item}
-                          </a>
-                        </Link>
-                      </Td>
-                      <Td isNumeric>{data.price}</Td>
-                      <Td>
-                        <Link href={"/user/" + data.from}>
-                          <a>{data.from}</a>
-                        </Link>
-                      </Td>
-                      <Td className="to">
-                        <Link href={"/user/1"}>
-                          <a>{data.to}</a>
-                        </Link>
-                      </Td>
-                      <Td className="date">
-                        {data.date}{" "}
-                        {data.to.length ? (
-                          <a
-                            href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
-                            target={"_blank"}
-                            rel="noreferrer"
-                          >
-                            <img src="/icons/open-new.png" alt="" />
-                          </a>
-                        ) : null}
-                      </Td>
+              <div className="border">
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th>Type</Th>
+                      <Th>Item</Th>
+                      <Th isNumeric>Price</Th>
+                      <Th>From</Th>
+                      <Th>To</Th>
+                      <Th>Date</Th>
                     </Tr>
-                  ))}
-                </Tbody>
-              </Table>
+                  </Thead>
+                  <Tbody>
+                    {dataSoure.map((data) => (
+                      <Tr key={data.key}>
+                        <Td>{data.type}</Td>
+                        <Td className="item">
+                          <Link href={"/nft/" + data.key}>
+                            <a>
+                              <img src="/icons/item.png" alt="" /> {data.item}
+                            </a>
+                          </Link>
+                        </Td>
+                        <Td isNumeric>{data.price}</Td>
+                        <Td>
+                          <Link href={"/user/" + data.from}>
+                            <a>{data.from}</a>
+                          </Link>
+                        </Td>
+                        <Td className="to">
+                          <Link href={"/user/1"}>
+                            <a>{data.to}</a>
+                          </Link>
+                        </Td>
+                        <Td className="date">
+                          {data.date}{" "}
+                          {data.to.length ? (
+                            <a
+                              href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
+                              target={"_blank"}
+                              rel="noreferrer"
+                            >
+                              <img src="/icons/open-new.png" alt="" />
+                            </a>
+                          ) : null}
+                        </Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </div>
             ) : (
               <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
             )}
             {dataSoure.length > 0 ? (
-              <Pagination
-                className="pagination-bar"
-                currentPage={currentPage}
-                totalCount={10}
-                pageSize={pageSize}
-                onPageChange={(page) => setCurrentPage(page)}
-                onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+              <AppPagination
+                total={10}
+                offset={1}
+                pageSize={10}
+                onChangPageSize={(pageSize) => setPageSize(pageSize)}
+                onChangeOffset={(offset) => setOffset(offset)}
               />
             ) : null}
           </TabPanel>

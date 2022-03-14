@@ -24,16 +24,25 @@
         flex-flow: column;
         margin-bottom: 20px;
       }
-      .left {
-        width: 153px;
+      .left-border {
         margin-right: 37px;
+        padding: 2px;
+        border-radius: 50%;
+        width: fit-content;
+        height: fit-content;
+        background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
         @include to(md) {
-          width: 130px;
           margin-right: 28px;
         }
         @include to(sm) {
           margin: 0;
           margin-bottom: 16px;
+        }
+        .left {
+          width: 153px;
+          @include to(md) {
+            width: 130px;
+          }
         }
       }
       .right {
@@ -135,9 +144,16 @@
     display: flex;
     align-items: center;
     margin-bottom: 56px;
-    .left {
-      width: 153px;
+    .left-border {
       margin-right: 37px;
+      padding: 2px;
+      border-radius: 50%;
+      width: fit-content;
+      height: fit-content;
+      background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
+      .left {
+        width: 153px;
+      }
     }
     .right {
       .top {
@@ -179,7 +195,34 @@
       }
     }
   }
+  .app-select.network {
+    .placeholder {
+      flex-wrap: nowrap;
+      display: flex;
+      align-items: center;
+      img {
+        width: 20px;
+        margin-right: 12px;
+      }
+    }
+    .network {
+      display: flex;
+      align-items: center;
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 20px;
+      }
+    }
+  }
   .container {
+    .nodata {
+      margin: auto;
+      margin-top: 70px;
+      width: 50%;
+      max-width: 600px;
+      margin-bottom: 100px;
+    }
     .chakra-tabs__tab-panel {
       padding: 0;
     }
@@ -267,6 +310,7 @@
         .right {
           display: flex;
           justify-items: flex-end;
+          gap: 8px;
         }
       }
     }
@@ -289,9 +333,16 @@
       }
     }
     .offering-make {
+      .border {
+        border-radius: 10px;
+        border: 1px solid #d7d7d7;
+      }
       margin-top: 40px;
       min-width: 1000px;
       overflow-x: auto;
+      .to {
+        color: #0bebd6;
+      }
       .item {
         display: flex;
         align-items: center;
@@ -310,11 +361,14 @@
         }
       }
       .button {
+        border-radius: 8px;
+        width: fit-content;
+        background-image: linear-gradient(300deg, #78e4ff, #ff48fa);
+        height: fit-content;
+        padding: 1px;
         button {
           width: 100px;
           height: 32px;
-          border: solid 1px transparent !important;
-          background-image: linear-gradient(300deg, #78e4ff, #ff48fa);
           box-shadow: 2px 1000px 1px #353571 inset !important;
           border-radius: 8px;
         }
@@ -345,14 +399,16 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        gap: 8px;
         @include to(sm) {
           display: block;
         }
         .group-search {
+          height: 38px;
           border: 1px solid #d7d7d7;
           box-sizing: border-box;
           border-radius: 8px;
-          margin-right: 22px;
+          margin-right: 14px;
           width: 300px;
           @include to(sm) {
             width: 100%;
@@ -422,11 +478,17 @@
           position: absolute;
           top: 20px;
           right: 0;
+          gap: 8px;
         }
       }
     }
     .tab-activities {
       margin-top: 40px;
+      .border {
+        border-radius: 10px;
+        border: 1px solid #d7d7d7;
+        overflow: hidden;
+      }
       tbody {
         tr {
           .date {
@@ -460,6 +522,9 @@
         margin-bottom: 100px;
       }
     }
+  }
+  .app-pagination {
+    margin-top: 35px;
   }
 }
 .algin-center {
@@ -575,11 +640,7 @@
 }
 .table-activity {
   margin-top: 35px;
-
   table {
-    thead {
-    }
-
     tbody {
       tr {
         td {
@@ -618,9 +679,6 @@
               background-image: linear-gradient(300deg, #78e4ff, #ff48fa);
               background-origin: border-box;
               box-shadow: 2px 1000px 1px #353571 inset !important;
-
-              &:focus {
-              }
             }
           }
         }

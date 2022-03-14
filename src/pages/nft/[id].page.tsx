@@ -47,7 +47,7 @@ import ReceivedOffer from "./ReceivedOffer"
 const DetailsPage = observer((props: any) => {
   const { data } = props
   const WalletController = useStore("WalletController")
-  const { address } = WalletController
+  const { address, connect: connectWallet } = WalletController
 
   const [info, setInfo] = useState(data)
   const [modalVisible, setModalVisible] = useState(false)
@@ -180,10 +180,17 @@ const DetailsPage = observer((props: any) => {
             </span>
           </div>
           <div className="buy-nav">
-            <Button onClick={handleBuy} isDisabled={!info.price || !address}>
+            <Button
+              onClick={address ? handleBuy : () => WalletController.connect()}
+              isDisabled={!info?.price}
+            >
               BUY
             </Button>
-            <span onClick={handleOffer}>Or make offer other price</span>
+            <span
+              onClick={address ? handleOffer : () => WalletController.connect()}
+            >
+              Or make offer other price
+            </span>
           </div>
         </div>
       </div>
@@ -200,7 +207,9 @@ const DetailsPage = observer((props: any) => {
             <span>(${currency(info.topAuc * 376)})</span>
           </div>
           <div className="auc-nav">
-            <Button onClick={handleAuc} isDisabled={!address}>
+            <Button
+              onClick={address ? handleAuc : () => WalletController.connect()}
+            >
               AUCTION
             </Button>
           </div>

@@ -1,6 +1,5 @@
-import Pagination from "src/components/Pagination"
 import { NftItem } from "src/components/NftItem"
-import Sort from "src/components/Sort"
+import { AppPagination } from "src/components/AppPagination"
 import { useEffect, useState } from "react"
 import {
   Tabs,
@@ -28,35 +27,35 @@ import {
 import Link from "next/link"
 import { getNfts } from "src/services/nft"
 import { useStore } from "src/hooks/useStore"
-import network from "../data/network.json"
+import { networkType } from "../data/networkType"
 import { observer } from "mobx-react-lite"
+import { AppSelect } from "src/components/AppSelect"
 const Offering = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [price, setPrice] = useState("All")
   const [made, setMade] = useState("null")
-  const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(20)
-  const [currentPage1, setCurrentPage1] = useState(1)
   const [pageSize1, setPageSize1] = useState(10)
   const [auctions, setAuctions] = useState([])
   const [totalAuc, setTotalAuc] = useState(0)
-  const [offset, setOffset] = useState(1)
+  const [offset, setOffset] = useState(0)
+  const [offset1, setOffset1] = useState(1)
   const [actionID, setActionID] = useState(null)
   const [makeOffer, setMakeOffer] = useState([])
   const madeSort = [
     {
-      img: "",
-      name: "Newest",
+      value: "",
+      label: "Newest",
     },
     {
-      img: "",
-      name: "Price: Min to Max",
+      value: "asc",
+      label: "Price: Min to Max",
     },
     {
-      img: "",
-      name: "Price: Max to Min",
+      value: "desc",
+      label: "Price: Max to Min",
     },
   ]
   const dataSoure = [
@@ -111,15 +110,18 @@ const Offering = observer(() => {
       type: "Sale",
     },
   ]
+  const handleChange = (el) => {
+    setMade(el.value)
+  }
   const getdata = async () => {
     if (address) {
       const res = await getNfts({
-        owner: null,
+        owner_ne: address,
         aucPrice_gte: 0,
-        _sort: "price",
+        _sort: "topAuc",
         _order: made,
         _limit: pageSize,
-        _page: currentPage,
+        _page: Math.ceil(offset / pageSize),
       })
       setAuctions(res.data)
       setTotalAuc(res.total)
@@ -132,15 +134,11 @@ const Offering = observer(() => {
 
   useEffect(() => {
     getdata()
-  }, [made, currentPage])
+  }, [made])
 
   useEffect(() => {
-    setOffset(Number(pageSize * currentPage - pageSize + 1))
-  }, [currentPage])
-
-  useEffect(() => {
-    setCurrentPage(Math.ceil(offset / pageSize))
-  }, [pageSize])
+    getdata()
+  }, [pageSize, offset])
 
   return (
     <div className="tab">
@@ -151,116 +149,124 @@ const Offering = observer(() => {
             <Tab>Make Offer</Tab>
           </TabList>
           <div className="right">
-            <Sort
-              customClassName="price-sort"
-              options={network}
-              onSelectOption={(price) => setPrice(price)}
+            <AppSelect
+              options={networkType}
+              isSearchable={false}
+              className="network"
+              placeholder={
+                <div className="placeholder">
+                  <img src="/common/all-network.png" alt="" />
+                  All network
+                </div>
+              }
             />
-            <Sort
-              customClassName="type-sort"
+            <AppSelect
+              isSearchable={false}
               options={madeSort}
-              onSelectOption={(made) => {
-                switch (made) {
-                  case "Price: Max to Min":
-                    setMade("desc")
-                    break
-                  case "Price: Min to Max":
-                    setMade("asc")
-                    break
-                  default:
-                    setMade("null")
-                    break
-                }
-              }}
+              placeholder="Newest"
+              onChange={(el) => handleChange(el)}
             />
           </div>
         </div>
         <TabPanels>
           <TabPanel>
             <div className="offering-auction">
-              <div className="list">
-                {auctions.map((auction) => (
-                  <NftItem key={auction.id} info={auction} />
-                ))}
-              </div>
-              <Pagination
-                className="pagination-bar"
-                currentPage={currentPage}
-                totalCount={totalAuc}
-                pageSize={pageSize}
-                onPageChange={(page) => setCurrentPage(page)}
-                onPageSizeChange={(pageSize) => setPageSize(pageSize)}
-              />
+              {auctions.length == 0 ? (
+                <img
+                  className="nodata"
+                  src="/common/my-nft/nodata.png"
+                  alt=""
+                />
+              ) : (
+                <>
+                  {" "}
+                  <div className="list">
+                    {auctions.map((auction) => (
+                      <NftItem key={auction.id} info={auction} />
+                    ))}
+                  </div>
+                  <AppPagination
+                    total={totalAuc}
+                    pageSize={pageSize}
+                    offset={offset}
+                    onChangeOffset={(offset) => setOffset(offset)}
+                    onChangPageSize={(pageSize) => setPageSize(pageSize)}
+                  />
+                </>
+              )}
             </div>
           </TabPanel>
           <TabPanel className="offering-make">
-            <Table variant="simple">
-              <Thead>
-                <Tr>
-                  <Th>Item</Th>
-                  <Th isNumeric>Price</Th>
-                  <Th>To</Th>
-                  <Th>Expiration</Th>
-                  <Th>Offered</Th>
-                  <Th>Action</Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {makeOffer.map((data) => (
-                  <Tr key={data.key}>
-                    <Td>
-                      <div className="item">
-                        <img src="/icons/item.png" alt="" />
-                        <div>
-                          <Link href={"/collection/1"}>
-                            <a>
-                              <p>
-                                Animverse{" "}
-                                <img src="/common/my-nft/check.png" alt="" />
-                              </p>
-                            </a>
-                          </Link>
-                          <Link href={"/nft/" + data.key}>
-                            <a>
-                              <p>CUONG DOLLA NFT</p>
-                            </a>
-                          </Link>
-                        </div>
-                      </div>
-                    </Td>
-                    <Td isNumeric>26.94 BNB</Td>
-                    <Td>
-                      <Link href={"/user/nhi"}>
-                        <a>Nhi</a>
-                      </Link>
-                    </Td>
-                    <Td>in 2 days</Td>
-                    <Td>1 days ago</Td>
-                    <Td className="button">
-                      {data.action ? (
-                        <button
-                          onClick={() => {
-                            setActionID(data.key)
-                            onOpen()
-                          }}
-                        >
-                          Cancel
-                        </button>
-                      ) : (
-                        "Canceled"
-                      )}
-                    </Td>
+            <div className="border">
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th>Item</Th>
+                    <Th isNumeric>Price</Th>
+                    <Th>To</Th>
+                    <Th>Expiration</Th>
+                    <Th>Offered</Th>
+                    <Th>Action</Th>
                   </Tr>
-                ))}
-              </Tbody>
-            </Table>
-            <Pagination
-              className="pagination-bar"
-              currentPage={currentPage1}
-              totalCount={10}
+                </Thead>
+                <Tbody>
+                  {makeOffer.map((data) => (
+                    <Tr key={data.key}>
+                      <Td>
+                        <div className="item">
+                          <img src="/icons/item.png" alt="" />
+                          <div>
+                            <Link href={"/collection/1"}>
+                              <a>
+                                <p className="to">
+                                  Animverse{" "}
+                                  <img src="/common/my-nft/check.png" alt="" />
+                                </p>
+                              </a>
+                            </Link>
+                            <Link href={"/nft/" + data.key}>
+                              <a>
+                                <p>CUONG DOLLA NFT</p>
+                              </a>
+                            </Link>
+                          </div>
+                        </div>
+                      </Td>
+                      <Td isNumeric>26.94 BNB</Td>
+                      <Td>
+                        <Link href={"/user/nhi"}>
+                          <a>Nhi</a>
+                        </Link>
+                      </Td>
+                      <Td>in 2 days</Td>
+                      <Td>1 days ago</Td>
+                      <Td>
+                        {data.action ? (
+                          <div className="button">
+                            <button
+                              onClick={() => {
+                                setActionID(data.key)
+                                onOpen()
+                              }}
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        ) : (
+                          "Canceled"
+                        )}
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </div>
+            <AppPagination
+              total={10}
+              offset={offset1}
               pageSize={pageSize1}
-              onPageChange={(page) => setCurrentPage1(page)}
-              onPageSizeChange={(pageSize) => setPageSize1(pageSize)}
+              onChangPageSize={(pageSize) => setPageSize1(pageSize)}
+              onChangeOffset={(offset) => setOffset1(offset)}
             />
           </TabPanel>
         </TabPanels>

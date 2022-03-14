@@ -21,17 +21,17 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react"
-import Sort from "../../components/Sort"
-import network from "../data/network.json"
+import { AppSelect } from "src/components/AppSelect"
+import { networkType } from "../data/networkType"
 import { NftItem } from "../../components/NftItem"
 import { useEffect, useState } from "react"
-import Pagination from "../../components/Pagination"
 import receivedList from "../data/activities.json"
 import Verified from "@static/icons/verified.svg"
 import Link from "next/link"
 import { getNfts } from "src/services/nft"
 import { useStore } from "src/hooks/useStore"
 import { observer } from "mobx-react-lite"
+import { AppPagination } from "src/components/AppPagination"
 const OnSale = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
@@ -42,8 +42,6 @@ const OnSale = observer(() => {
   const [data1, setData1] = useState([])
   const [receivedData, setReceivedData] = useState(receivedList)
   const [received, setReceived] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const [currentPage1, setCurrentPage1] = useState(1)
   const [currentPage2, setCurrentPage2] = useState(1)
   const [pageSize, setPageSize] = useState(20)
   const [pageSize1, setPageSize1] = useState(20)
@@ -56,6 +54,21 @@ const OnSale = observer(() => {
   const [actionID, setActionID] = useState(null)
 
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const madeSort = [
+    {
+      value: "",
+      label: "Newest",
+    },
+    {
+      value: "asc",
+      label: "Price: Min to Max",
+    },
+    {
+      value: "desc",
+      label: "Price: Max to Min",
+    },
+  ]
 
   useEffect(() => {
     setReceived(receivedData.slice(offset2 - 1, offset2 - 1 + pageSize2))
@@ -85,7 +98,7 @@ const OnSale = observer(() => {
         _sort: "price",
         _order: order,
         _limit: pageSize,
-        _page: currentPage,
+        _page: Math.ceil(offset / pageSize),
       })
       setData(res.data)
       setTotalData(res.total)
@@ -96,10 +109,10 @@ const OnSale = observer(() => {
       const res = await getNfts({
         owner: address,
         aucPrice_gte: 0,
-        _sort: "price",
+        _sort: "topAuc",
         _order: order1,
         _limit: pageSize1,
-        _page: currentPage1,
+        _page: Math.ceil(offset1 / pageSize1),
       })
       setData1(res.data)
       setTotalData1(res.total)
@@ -112,50 +125,32 @@ const OnSale = observer(() => {
 
   useEffect(() => {
     getdata()
-  }, [currentPage, order])
+  }, [order])
 
   useEffect(() => {
     getdata1()
-  }, [currentPage1, order1])
+  }, [order1])
 
   useEffect(() => {
-    setOffset(Number(pageSize * currentPage - pageSize + 1))
-  }, [currentPage])
+    getdata()
+  }, [pageSize, offset])
 
   useEffect(() => {
-    setCurrentPage(Math.ceil(offset / pageSize))
-  }, [pageSize])
+    getdata1()
+  }, [pageSize1, offset1])
 
-  useEffect(() => {
-    setOffset1(Number(pageSize1 * currentPage1 - pageSize1 + 1))
-  }, [currentPage1])
-
-  useEffect(() => {
-    setCurrentPage1(Math.ceil(offset1 / pageSize1))
-  }, [pageSize1])
-
-  useEffect(() => {
-    setOffset2(Number(pageSize2 * currentPage2 - pageSize2 + 1))
-  }, [currentPage2])
-
-  useEffect(() => {
-    setCurrentPage2(Math.ceil(offset2 / pageSize2))
-  }, [pageSize2])
-  const typeSort = [
-    {
-      img: "",
-      name: "Newest",
-    },
-    {
-      img: "",
-      name: "Price: Min to Max",
-    },
-    {
-      img: "",
-      name: "Price: Max to Min",
-    },
-  ]
-
+  const handleChange = (el, i) => {
+    switch (i) {
+      case 1:
+        setOrder(el.value)
+        break
+      case 2:
+        setOrder1(el.value)
+        break
+      default:
+        break
+    }
+  }
   return (
     <div className="tab-on-sale">
       <Tabs className="tab-os">
@@ -179,86 +174,109 @@ const OnSale = observer(() => {
         <TabPanels>
           <TabPanel>
             <div className="sort">
-              <Sort customClassName="price-sort" options={network} />
-              <Sort
-                customClassName="type-sort"
-                options={typeSort}
-                onSelectOption={(made) => {
-                  switch (made) {
-                    case "Price: Max to Min":
-                      setOrder("desc")
-                      break
-                    case "Price: Min to Max":
-                      setOrder("asc")
-                      break
-                    default:
-                      setOrder("null")
-                      break
-                  }
-                }}
+              <AppSelect
+                options={networkType}
+                isSearchable={false}
+                className="network"
+                placeholder={
+                  <div className="placeholder">
+                    <img src="/common/all-network.png" alt="" />
+                    All network
+                  </div>
+                }
+              />
+              <AppSelect
+                isSearchable={false}
+                options={madeSort}
+                placeholder="Newest"
+                onChange={(el) => handleChange(el, 1)}
               />
             </div>
-            <div className="">
-              <div className="grid-custom">
-                {data.map((auction) => (
-                  <div className="grid-item" key={auction.id}>
-                    <NftItem info={auction} />
+            {data.length == 0 ? (
+              <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
+            ) : (
+              <>
+                <div className="">
+                  <div className="grid-custom">
+                    {data.map((auction) => (
+                      <div className="grid-item" key={auction.id}>
+                        <NftItem info={auction} />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-            <Pagination
-              className="pagination-bar"
-              currentPage={currentPage}
-              totalCount={totalData}
-              pageSize={pageSize}
-              onPageChange={(page) => setCurrentPage(page)}
-              onPageSizeChange={(pageSize) => setPageSize(pageSize)}
-            />
+                </div>
+                <AppPagination
+                  total={totalData}
+                  offset={offset}
+                  pageSize={pageSize}
+                  onChangPageSize={(pageSize) => setPageSize(pageSize)}
+                  onChangeOffset={(offset) => setOffset(offset)}
+                />
+              </>
+            )}
           </TabPanel>
           <TabPanel>
             <div className="sort">
-              <Sort customClassName="price-sort" options={network} />
-              <Sort
-                customClassName="type-sort"
-                options={typeSort}
-                onSelectOption={(made) => {
-                  switch (made) {
-                    case "Price: Max to Min":
-                      setOrder1("desc")
-                      break
-                    case "Price: Min to Max":
-                      setOrder1("asc")
-                      break
-                    default:
-                      setOrder1("null")
-                      break
-                  }
-                }}
+              <AppSelect
+                options={networkType}
+                isSearchable={false}
+                className="network"
+                placeholder={
+                  <div className="placeholder">
+                    <img src="/common/all-network.png" alt="" />
+                    All network
+                  </div>
+                }
+              />
+              <AppSelect
+                isSearchable={false}
+                options={madeSort}
+                placeholder="Newest"
+                onChange={(el) => handleChange(el, 2)}
               />
             </div>
-            <div className="">
-              <div className="grid-custom">
-                {data1.map((auction) => (
-                  <div className="grid-item" key={auction.id}>
-                    <NftItem info={auction} />
+            {data1.length == 0 ? (
+              <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
+            ) : (
+              <>
+                <div className="">
+                  <div className="grid-custom">
+                    {data1.map((auction) => (
+                      <div className="grid-item" key={auction.id}>
+                        <NftItem info={auction} />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-            <Pagination
-              className="pagination-bar"
-              currentPage={currentPage1}
-              totalCount={totalData1}
-              pageSize={pageSize1}
-              onPageChange={(page) => setCurrentPage1(page)}
-              onPageSizeChange={(pageSize) => setPageSize1(pageSize)}
-            />
+                </div>
+                <AppPagination
+                  total={totalData1}
+                  pageSize={pageSize1}
+                  offset={offset1}
+                  onChangPageSize={(pageSize) => setPageSize1(pageSize)}
+                  onChangeOffset={(offset) => setOffset1(offset)}
+                />
+              </>
+            )}
           </TabPanel>
           <TabPanel>
             <div className="sort">
-              <Sort customClassName="price-sort" options={network} />
-              <Sort customClassName="type-sort" options={typeSort} />
+              <AppSelect
+                options={networkType}
+                isSearchable={false}
+                className="network"
+                placeholder={
+                  <div className="placeholder">
+                    <img src="/common/all-network.png" alt="" />
+                    All network
+                  </div>
+                }
+              />
+              <AppSelect
+                isSearchable={false}
+                options={madeSort}
+                placeholder="Newest"
+                onChange={(el) => handleChange(el, 3)}
+              />
             </div>
             <div className="">
               <div className="table-activity">
@@ -341,13 +359,12 @@ const OnSale = observer(() => {
                 </Table>
               </div>
             </div>
-            <Pagination
-              className="pagination-bar"
-              currentPage={currentPage2}
-              totalCount={receivedList.length}
+            <AppPagination
+              total={receivedList.length}
+              offset={offset2}
               pageSize={pageSize2}
-              onPageChange={(page) => setCurrentPage2(page)}
-              onPageSizeChange={(pageSize) => setPageSize2(pageSize)}
+              onChangPageSize={(pageSize) => setPageSize2(pageSize)}
+              onChangeOffset={(offset) => setOffset2(offset)}
             />
             <Modal isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />

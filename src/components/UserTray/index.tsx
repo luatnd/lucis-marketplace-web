@@ -83,6 +83,7 @@ export const UserTray = observer(() => {
       <Icon
         as={loading ? Spinner : UserIcon}
         className="user"
+        id="connect-wallet"
         onClick={connect}
       />
       {cancelVisible ? (
