@@ -118,7 +118,7 @@ export const AppLayout = observer(({ children }) => {
     {
       key: "4",
       image: "/common/footer/nav4.png",
-      href: "",
+      href: null,
     },
     {
       key: "5",
@@ -136,22 +136,27 @@ export const AppLayout = observer(({ children }) => {
     {
       key: "1",
       name: "Term of service",
+      href: null,
     },
     {
       key: "2",
       name: "Privacy",
+      href: "/",
     },
     {
       key: "3",
       name: "Copyright",
+      href: "/",
     },
     {
       key: "4",
       name: "Help center",
+      href: "/",
     },
     {
       key: "5",
       name: "Blog",
+      href: "/",
     },
   ]
 
@@ -331,7 +336,9 @@ export const AppLayout = observer(({ children }) => {
           <div className="footer-socials">
             {footerSocials.map((nav) => (
               <div key={nav.key} className="footer-socials-item-wrapper">
-                <div className="footer-social-item">
+                <div
+                  className={"footer-social-item" + (nav.href ? "" : " none")}
+                >
                   <a href={nav.href} target="_blank" rel="noopener noreferrer">
                     <img src={nav.image} />
                   </a>
@@ -341,7 +348,10 @@ export const AppLayout = observer(({ children }) => {
           </div>
           <div className="footer-navs">
             {footerNavs.map((nav) => (
-              <div key={nav.key} className="footer-nav-item">
+              <div
+                key={nav.key}
+                className={"footer-nav-item" + (nav.href ? " " : " none")}
+              >
                 {nav.name}
               </div>
             ))}

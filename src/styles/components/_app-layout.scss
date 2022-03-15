@@ -225,6 +225,13 @@
                 width: 50%;
               }
             }
+            .footer-social-item.none{
+              opacity: 0.6;
+              cursor: auto;
+              &:hover{
+                transform: scale(1);
+              }
+            }
           }
         }
         .footer-navs {
@@ -251,6 +258,10 @@
             @include to(xs) {
               font-size: 10px;
             }
+          }
+          .footer-nav-item.none{
+            cursor: auto;
+            color: $purple2;
           }
         }
       }
