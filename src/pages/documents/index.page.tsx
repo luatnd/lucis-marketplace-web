@@ -7,19 +7,19 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react"
-import { getAllDocs } from "src/lib/docs"
-import Markdown from "react-markdown"
+import { GetServerSidePropsContext } from "next"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { ArrowLeft, BookOpen, Menu } from "react-feather"
+import { ArrowLeft, BookOpen } from "react-feather"
+import Markdown from "react-markdown"
+import { getAllDocs } from "src/lib/docs"
 
 const Documents = (props) => {
-  const { docs } = props
+  const { docs, index } = props
 
   const [menuVisible, setMenuVisible] = useState(true)
 
   const router = useRouter()
-  const { index } = router.query
 
   const handleChangePost = (value) => {
     router.query.index = value
@@ -65,11 +65,13 @@ const Documents = (props) => {
 
 export default Documents
 
-export const getStaticProps = async (ctx) => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const docs = getAllDocs()
+  const { index } = ctx.query
   return {
     props: {
       docs,
+      index,
     },
   }
 }

@@ -1,3 +1,5 @@
+# Fixed Price
+
 Fixed Price sale is a standard sale, where you set a price at which your NFT is listed and others can pay to purchase it. The payment deducting market fees and royalties is the total revenue you get.
 
 ## Rules
