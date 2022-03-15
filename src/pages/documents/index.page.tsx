@@ -28,7 +28,7 @@ const Documents = (props) => {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [router.query.index])
+  }, [index])
 
   return (
     <div className="document-page">
@@ -39,7 +39,7 @@ const Documents = (props) => {
         <Icon as={menuVisible ? ArrowLeft : BookOpen} />
       </Button>
       <Tabs
-        index={+(index ?? 0)}
+        index={+index}
         orientation="vertical"
         align="start"
         onChange={handleChangePost}
@@ -53,8 +53,8 @@ const Documents = (props) => {
         </TabList>
         <TabPanels className="doc-content-wrapper">
           {docs.map((doc) => (
-            <TabPanel className="doc-content">
-              <Markdown children={doc.content} />
+            <TabPanel key={doc.slug} className="doc-content">
+              <Markdown>{doc.content}</Markdown>
             </TabPanel>
           ))}
         </TabPanels>
@@ -67,7 +67,7 @@ export default Documents
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const docs = getAllDocs()
-  const { index } = ctx.query
+  const index = ctx.query.index ?? 0
   return {
     props: {
       docs,
