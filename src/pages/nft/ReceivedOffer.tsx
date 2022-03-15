@@ -1,37 +1,80 @@
-import { Button, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  useDisclosure,
+} from "@chakra-ui/react"
 import receivedList from "../data/activities.json"
 import Verified from "@static/icons/verified.svg"
-import Sort from "src/components/Sort"
 import { useStore } from "src/hooks/useStore"
-import Pagination from "src/components/Pagination"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { AppPagination } from "src/components/AppPagination"
+import { AppSelect } from "src/components/AppSelect"
 
-const ReceivedOffer = () => {
-  const NftStore = useStore("NftStore")
-
-  const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(20)
-  const totalData = Number(receivedList.length)
-
-  const typeSort = [
+const ReceivedOffer = (props) => {
+  const [receivedData, setReceivedData] = useState(receivedList)
+  const [received, setReceived] = useState([])
+  const [offset, setOffset] = useState(1)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [pageSize, setPageSize] = useState(10)
+  const [actionID, setActionID] = useState(null)
+  const WalletController = useStore("WalletController")
+  const { address } = WalletController
+  const { info } = props
+  const madeSort = [
     {
-      img: "",
-      name: "Newest",
+      value: "",
+      label: "Newest",
     },
     {
-      img: "",
-      name: "Price: Min to Max",
+      value: "asc",
+      label: "Price: Min to Max",
     },
     {
-      img: "",
-      name: "Price: Max to Min",
+      value: "desc",
+      label: "Price: Max to Min",
     },
   ]
+  useEffect(() => {
+    setReceived(receivedData.slice(offset - 1, offset - 1 + pageSize))
+  }, [offset, pageSize, receivedData])
 
+  const accpet = (id) => {
+    setReceivedData(
+      receivedData.map((data) =>
+        data.key == id ? { ...data, action: true } : data
+      )
+    )
+    setReceived(receivedData.slice(offset - 1, offset - 1 + pageSize))
+  }
+  const cancel = (id) => {
+    setReceivedData(
+      receivedData.map((data) =>
+        data.key == id ? { ...data, action: false } : data
+      )
+    )
+    setReceived(receivedList.slice(offset - 1, offset - 1 + pageSize))
+  }
   return (
     <>
       <div className="sort">
-        <Sort customClassName="type-sort" options={typeSort} />
+        <AppSelect
+          isSearchable={false}
+          options={madeSort}
+          placeholder="Newest"
+        />
       </div>
       <div className="table-activity">
         <Table variant="simple">
@@ -42,11 +85,11 @@ const ReceivedOffer = () => {
               <Th>To</Th>
               <Th>Expiration</Th>
               <Th>Date</Th>
-              {NftStore?.nft?.owner && <Th>Action</Th>}
+              {info?.owner === address ? <Th>Action</Th> : null}
             </Tr>
           </Thead>
           <Tbody>
-            {receivedList.map((el, index) => (
+            {received.map((el, index) => (
               <Tr key={index}>
                 <Td>
                   <div className="align-center item">
@@ -68,27 +111,70 @@ const ReceivedOffer = () => {
                 <Td>
                   <span>{el.date}</span>
                 </Td>
-                {NftStore?.nft?.owner && (
+                {info?.owner === address ? (
                   <Td>
-                    <Button className="accept">Accept</Button>
-                    <Button className="cancel">
-                      <span>Cancel</span>
-                    </Button>
+                    {el.action == null ? (
+                      <>
+                        <Button
+                          className="accept"
+                          onClick={() => {
+                            accpet(el.key)
+                          }}
+                        >
+                          Accept
+                        </Button>
+                        <Button
+                          className="cancel"
+                          onClick={() => {
+                            onOpen()
+                            setActionID(el.key)
+                          }}
+                        >
+                          <span>Cancel</span>
+                        </Button>
+                      </>
+                    ) : el.action == true ? (
+                      "Accepted"
+                    ) : (
+                      "Canceled"
+                    )}
                   </Td>
-                )}
+                ) : null}
               </Tr>
             ))}
           </Tbody>
         </Table>
       </div>
-      <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={totalData}
+      <AppPagination
+        total={receivedList.length}
+        offset={offset}
         pageSize={pageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-        onPageSizeChange={(pageSize) => setPageSize(pageSize)}
+        onChangPageSize={(pageSize) => setPageSize(pageSize)}
+        onChangeOffset={(offset) => setOffset(offset)}
       />
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent className="dialog-confirm">
+          <ModalHeader>Confirm</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text mb="1rem">Are you sure you want to cancel the offer ?</Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={() => {
+                onClose()
+                cancel(actionID)
+              }}
+            >
+              Approve
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   )
 }

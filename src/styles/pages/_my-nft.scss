@@ -548,6 +548,11 @@
     line-height: 38px;
     color: #ffffff;
   }
+  button {
+    &.chakra-modal__close-btn {
+      background: none !important;
+    }
+  }
   .form-auction {
     p {
       .price {
