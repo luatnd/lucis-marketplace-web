@@ -37,7 +37,7 @@ ___
 
 A complete flow to sell in Auction is like below:
 
-![Flow of auction
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc11.png)
 
 ### Step 1 - Set Start Price & End Date
 
@@ -45,7 +45,7 @@ A start price is the price from which bidders start bidding, and the first bid i
 
 An end date specifies when the auction ends. You can select from 1 day, 3 days, and 5 days later.
 
-![Set Price and End Date for Auction
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc12.png)
 
 ### Step 2 - Approval for NFT
 
@@ -74,7 +74,6 @@ There are two ways to end an auction:
 
 Once an auction ends, the last bid wins.The auction item (your NFT) and the bid payment will be transferred to each other automatically.
 
-![Collect Button
 
 Ended auctions are listed in the **Collected** section of your Profile, under the Ended tab.
 
@@ -88,29 +87,29 @@ ___
 
 You can use Filter feature on market and collection page to filter out all auctions.
 
-![an image of the auction cell
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc13.png)
 
-Each grid in the list is an auctioning NFT. On the right side of NFT’s name is the current bid price. The hammer mark means it’s an auction.
+Each grid in the list is an auctioning NFT. On the right side of NFT’s name is the current auction price. The hammer mark means it’s an auction.
 
-Below the bid price, there is an ending time which means the remaining time of the auction.
+Below the auction price, there is an ending time which means the remaining time of the auction.
 
-### Place a Bid
+### Place an auction
 
-To join an auction, you can place a bid on any on-going auction. On the detail page of an auction, you can see the current bid price, and a  **AUC** button.
+To join an auction, you can place an auction on any on-going auction. On the detail page of an auction, you can see the current auction price, and a  **AUC** button.
 
-![bid on an NFT
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc14.png)
 
-You can also see the history bids in the Bids tab below the description of the NFT. Bid with the **Lead** mark is the currently highest bid.
+You can also see the history auctions in the auctions tab below the description of the NFT. auction with the **Lead** mark is the currently highest auction.
 
-![list of bids
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc15.png)
 
-Click the **AUC** button and you will see a popup, where you can fill in a bid price that you would like to offer. And you can check the current minimum bid price below the price input.
+Click the **AUC** button and you will see a popup, where you can fill in an auction price that you would like to offer. And you can check the current minimum auction price below the price input.
 
-![make bid
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc16.png)
 
-Click the "Approve" button in the popup, then your wallet should prompt to ask you to confirm the transfer/bid.
+Click the "Approve" button in the popup, then your wallet should prompt to ask you to confirm the transfer/auction.
 
-Once the payment is confirmed, a confirmation dialog should shows on the page indicating the bidding is finished. You can visit your Profile page to see the bid you just placed.
+Once the payment is confirmed, a confirmation dialog should shows on the page indicating the auctionding is finished. You can visit your Profile page to see the auction you just placed.
 
 ### Finish an Auction
 

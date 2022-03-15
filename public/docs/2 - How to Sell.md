@@ -12,7 +12,7 @@ To sell your NFTs, you need to visit Profile page where lists all NFTs in your w
 
 After open the detail page of the NFT, you can find the Fixed price button as well as Auction button. You can also click the **…** button to reveal more commands like Send token, etc.
 
-!Sell NFT Options
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc1.png)
 
 ___
 

@@ -23,7 +23,7 @@ Fixed Price Listing can be cancelled anytime before purchased.
 
 A complete flow to sell one NFT in Fixed Price is like below:
 
-![Flow of fixed price listing
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc2.png)
 
 ### Step 1 - Set Price 
 
@@ -32,7 +32,7 @@ Setting a Price for your NFT could be very straightforward. It’s recommended t
 If you are not sure how much your NFT worth, you can search for similar NFTs selling on LucisNFT and decide based on others’ prices.
 
 
-![Prompt to set price
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc3.png)
 
 ### Step 2 - Approval
 
@@ -41,8 +41,6 @@ After the **Start Listing** button is clicked, you will be guide to finish an ap
 For newbies to blockchain or NFTs, **Approval** is like giving the LucisNFT the permission to transfer your NFT to someone else. Don’t worry, no real transfer would happen at this moment. When someone payed money for your NFT, the contract of LucisNFT would then transfer your NFT to the buyer immediately so the trade could be finished.
 
 Approval is a one-time only operation for each NFT collection.
-
-![Prompt for approval
 
 ### Step 3 - Start Listing
 
@@ -54,7 +52,7 @@ You can always find all your listings in the **On Sale/selling** section of your
 
 _It’s possible to cancel your fixed price listing anytime before sold_
 
-![Listing on Profile Page
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc4.png)
 
 ### Step 4 - Receive Payment
 
@@ -64,7 +62,7 @@ History of sales can be found in the **Activities** section of your Profile.
 
 It’s recommended to enable the Telegram Notification in Settings page to receive notifications when your items get sold.
 
-![Activities on Profile Page
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc5.png)
 
 ___
 
@@ -73,8 +71,6 @@ ___
 ### Browse
 
 You can use Filter feature on market and collection page to filter out all Fixed Price listings.
-
-![A Fixed Price Listing Item
 
 Each grid in the list is a fixed price listing NFT. On the right side of NFT’s name is the sale price. The $ mark means it’s a fixed price sale.
 
@@ -87,10 +83,10 @@ Below the sale price, there could be a number indicating either one of these:
 
 On the detail page of a fixed price listed NFT, you can see the fixed price for sale, and a  **Buy** button.
 
-![Prompt for Purchasing Fixed Price
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc8.png)
 
 To purchase an NFT, click the **Buy** button and you will see a confirm popup. Click the Buy button in the popup, then your wallet should prompt to ask you to confirm the transfer/payment.
 
 Once the payment is confirmed, a confirmation dialog should shows on the page indicating the purchase is finished and NFT is transferred to you already. You can visit your Profile page to see the NFT you just obtained.
 
-![Success Prompt for Purchasing Fixed Price
+![image](https://lucis-image.s3.ap-southeast-1.amazonaws.com/doc9.png)
