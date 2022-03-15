@@ -339,13 +339,13 @@ export const AppLayout = observer(({ children }) => {
               </div>
             ))}
           </div>
-          <div className="footer-navs">
+          {/* <div className="footer-navs">
             {footerNavs.map((nav) => (
               <div key={nav.key} className="footer-nav-item">
                 {nav.name}
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
