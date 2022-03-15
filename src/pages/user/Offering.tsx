@@ -142,7 +142,7 @@ const Offering = observer(() => {
 
   return (
     <div className="tab">
-      <Tabs>
+      <Tabs align="center">
         <div className="tab-sort">
           <TabList>
             <Tab>auction</Tab>

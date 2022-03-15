@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react"
 const Setting = () => {
   return (
-    <Tabs className="setting">
+    <Tabs className="setting" align="center">
       <TabList>
         <Tab>
           <img src="/icons/user.png" alt="" /> Profile

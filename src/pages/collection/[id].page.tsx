@@ -240,7 +240,7 @@ const CollectionDetails = (props) => {
       <img className="collection-banner" src={data?.banner} />
       <ListingBar />
       <div className="collection-content">
-        <Tabs>
+        <Tabs align="center">
           <TabList>
             <Tab className="tab-item">ITEMS</Tab>
             <Tab className="tab-item">ACTIVITIES</Tab>

@@ -286,7 +286,7 @@ const DetailsPage = observer((props: any) => {
 
   const _renderTables = () => (
     <div className="tables">
-      <Tabs>
+      <Tabs align="center">
         <TabList>
           <Tab className="tab-item">ACTIVITIES</Tab>
           <Tab className="tab-item">
