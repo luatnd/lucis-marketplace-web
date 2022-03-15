@@ -219,8 +219,18 @@ export const AppLayout = observer(({ children }) => {
               >
                 {nav.name}
               </Button>
-              {nav.children.map((child) => (
-                <Link key={child.key} href={child.key}>
+              {nav.children.map((child) =>
+                child.key ? (
+                  <Link key={child.key} href={child.key}>
+                    <Button
+                      variant="ghost"
+                      className="mobile-menu-nav-item"
+                      onClick={() => setMobileMenuVisible(false)}
+                    >
+                      {child.name}
+                    </Button>
+                  </Link>
+                ) : (
                   <Button
                     variant="ghost"
                     className="mobile-menu-nav-item"
@@ -228,8 +238,8 @@ export const AppLayout = observer(({ children }) => {
                   >
                     {child.name}
                   </Button>
-                </Link>
-              ))}
+                )
+              )}
             </Stack>
           ))}
         </DrawerBody>
