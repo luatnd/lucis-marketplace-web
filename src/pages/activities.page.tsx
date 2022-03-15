@@ -33,6 +33,10 @@ const ActivitiesPage = () => {
       name: "BNB Chain",
     },
     {
+      img: "/common/walletConnect.png",
+      name: "WalletConnect",
+    },
+    {
       img: "/common/ethereum.png",
       name: "Ethereum",
     },
@@ -95,7 +99,7 @@ const ActivitiesPage = () => {
               <Tr>
                 <Th>Type</Th>
                 <Th>Item</Th>
-                <Th isNumeric>Price</Th>
+                <Th>Price</Th>
                 <Th>From</Th>
                 <Th>To</Th>
                 <Th>Date</Th>
@@ -113,7 +117,7 @@ const ActivitiesPage = () => {
                       </Link>
                     </div>
                   </Td>
-                  <Td isNumeric>{el.price}</Td>
+                  <Td>{el.price}</Td>
                   <Td>
                     <a
                       target="_blank"

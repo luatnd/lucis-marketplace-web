@@ -47,7 +47,7 @@ import ReceivedOffer from "./ReceivedOffer"
 const DetailsPage = observer((props: any) => {
   const { data } = props
   const WalletController = useStore("WalletController")
-  const { address, connect: connectWallet } = WalletController
+  const { address } = WalletController
 
   const [info, setInfo] = useState(data)
   const [modalVisible, setModalVisible] = useState(false)
@@ -175,22 +175,15 @@ const DetailsPage = observer((props: any) => {
             <span>{info.price ? currency(info.price) + " BNB" : "-"} </span>
             <span>
               {info.price
-                ? `($${currency(info.price * 376)})`
+                ? `(${currency(info.price * 376)})`
                 : "Waiting first offer"}
             </span>
           </div>
           <div className="buy-nav">
-            <Button
-              onClick={address ? handleBuy : () => WalletController.connect()}
-              isDisabled={!info?.price}
-            >
+            <Button onClick={handleBuy} isDisabled={!info.price || !address}>
               BUY
             </Button>
-            <span
-              onClick={address ? handleOffer : () => WalletController.connect()}
-            >
-              Or make offer other price
-            </span>
+            <span onClick={handleOffer}>Or make offer other price</span>
           </div>
         </div>
       </div>
@@ -207,9 +200,7 @@ const DetailsPage = observer((props: any) => {
             <span>(${currency(info.topAuc * 376)})</span>
           </div>
           <div className="auc-nav">
-            <Button
-              onClick={address ? handleAuc : () => WalletController.connect()}
-            >
+            <Button onClick={handleAuc} isDisabled={!address}>
               AUCTION
             </Button>
           </div>
@@ -304,15 +295,9 @@ const DetailsPage = observer((props: any) => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Activities info={info} />
+            <Activities />
           </TabPanel>
-          <TabPanel>
-            {info.aucPrice ? (
-              <Auction info={info} />
-            ) : (
-              <ReceivedOffer info={info} />
-            )}
-          </TabPanel>
+          <TabPanel>{info.aucPrice ? <Auction /> : <ReceivedOffer info={info} />}</TabPanel>
         </TabPanels>
       </Tabs>
     </div>

@@ -284,7 +284,7 @@ const OnSale = observer(() => {
                   <Thead>
                     <Tr>
                       <Th>Item</Th>
-                      <Th isNumeric>Price</Th>
+                      <Th>Price</Th>
                       <Th>To</Th>
                       <Th>Expiration</Th>
                       <Th>Offered at</Th>
@@ -316,7 +316,7 @@ const OnSale = observer(() => {
                             </div>
                           </div>
                         </Td>
-                        <Td isNumeric>{el.price}</Td>
+                        <Td>{el.price}</Td>
                         <Td className="to">
                           <Link href={"/user/1"}>
                             <a>{el.to}</a>
@@ -370,9 +370,7 @@ const OnSale = observer(() => {
               <ModalOverlay />
               <ModalContent className="dialog-confirm">
                 <ModalHeader>Confirm</ModalHeader>
-                <ModalCloseButton>
-                  <img src="/icons/close.png" />
-                </ModalCloseButton>
+                <ModalCloseButton />
                 <ModalBody>
                   <Text mb="1rem">
                     Are you sure you want to cancel the offer ?

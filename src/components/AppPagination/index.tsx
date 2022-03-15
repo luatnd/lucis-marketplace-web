@@ -45,7 +45,7 @@ export const AppPagination = (props: IProps) => {
   }
 
   const handlePrev = () => {
-    handleChangePage(page - 1)
+    onChangeOffset(page - 1)
   }
 
   const handlePrevDot = () => {
@@ -57,7 +57,7 @@ export const AppPagination = (props: IProps) => {
   }
 
   const handleNext = () => {
-    handleChangePage(page + 1)
+    onChangeOffset(page + 1)
   }
 
   const _renderNormal = () => {

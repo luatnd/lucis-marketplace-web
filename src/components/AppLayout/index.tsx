@@ -8,8 +8,6 @@ import {
   DrawerOverlay,
   Icon,
   Input,
-  InputGroup,
-  InputRightAddon,
   Menu,
   MenuButton,
   MenuItem,
@@ -23,7 +21,6 @@ import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
 import { useStore } from "src/hooks/useStore"
 import { UserTray } from "../UserTray"
-import SearchIcon from "@static/icons/search.svg"
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
@@ -65,15 +62,8 @@ export const AppLayout = observer(({ children }) => {
       key: "apply",
       children: [
         {
-          name: (
-            <a
-              href="https://forms.gle/s7sD5tCVwdtqR51W6"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Apply for NFT Verification
-            </a>
-          ),
+          name: "Apply for NFT Verification",
+          key: "/nft-verification",
         },
         {
           name: "Apply for Launchpad",
@@ -113,26 +103,32 @@ export const AppLayout = observer(({ children }) => {
     {
       key: "1",
       image: "/common/footer/nav1.png",
+      href: "https://www.tiktok.com/@lucistvv",
     },
     {
       key: "2",
       image: "/common/footer/nav2.png",
+      href: "https://www.facebook.com/lucistv.news",
     },
     {
       key: "3",
       image: "/common/footer/nav3.png",
+      href: "https://www.youtube.com/c/LucisTVGaming",
     },
     {
       key: "4",
       image: "/common/footer/nav4.png",
+      href: "",
     },
     {
       key: "5",
       image: "/common/footer/nav5.png",
+      href: "https://twitter.com/Lucis_TV",
     },
     {
       key: "6",
       image: "/common/footer/nav6.png",
+      href: "https://discord.com/channels/911921072830574603/926398655093702666",
     },
   ]
 
@@ -269,15 +265,11 @@ export const AppLayout = observer(({ children }) => {
                   {nav.name}
                 </MenuButton>
                 <MenuList>
-                  {nav.children.map((child) =>
-                    child.key ? (
-                      <Link key={child.key} href={child.key}>
-                        <MenuItem>{child.name}</MenuItem>
-                      </Link>
-                    ) : (
+                  {nav.children.map((child) => (
+                    <Link key={child.key} href={child.key}>
                       <MenuItem>{child.name}</MenuItem>
-                    )
-                  )}
+                    </Link>
+                  ))}
                 </MenuList>
               </Menu>
             ))}
@@ -285,12 +277,7 @@ export const AppLayout = observer(({ children }) => {
         </div>
         <div className="nav-right">
           <div className="search-bar">
-            <InputGroup>
-              <Input placeholder="Collection/ User/ address" />
-              <InputRightAddon>
-                <Icon as={SearchIcon} />
-              </InputRightAddon>
-            </InputGroup>
+            <Input placeholder="Collection/ User/ address" />
           </div>
           <div className="network">
             <div className="nav-bar">
@@ -345,7 +332,9 @@ export const AppLayout = observer(({ children }) => {
             {footerSocials.map((nav) => (
               <div key={nav.key} className="footer-socials-item-wrapper">
                 <div className="footer-social-item">
-                  <img src={nav.image} />
+                  <a href={nav.href} target="_blank" rel="noopener noreferrer">
+                    <img src={nav.image} />
+                  </a>
                 </div>
               </div>
             ))}

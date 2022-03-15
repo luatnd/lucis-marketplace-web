@@ -10,7 +10,7 @@ export const ListingBar = () => {
           <span className="marquee-content">
             <Link href="/nft/1">
               <a>
-                <span className="cyan-text">Hlyman </span>
+                <span className="cyan-text">Animverse </span>
               </a>
             </Link>
             sold to
@@ -21,7 +21,7 @@ export const ListingBar = () => {
             <span className="cyan-text">
               <Link href="/user/1"> Animverse123456789 </Link>
             </span>{" "}
-            for 0,12 BNB
+            for0,12BNB
           </span>
         </div>
         <div className="time cyan-text">1 minutes ago</div>

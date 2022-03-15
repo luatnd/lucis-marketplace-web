@@ -18,7 +18,6 @@ const MyNft = () => {
   const toast = useToast()
   const { id } = router.query
   const myNft = id == "my-nft" ? true : false
-
   const { tab } = router.query
   const handleChangeTab = (value) => {
     router.query.tab = value
@@ -110,7 +109,7 @@ const MyNft = () => {
             <Tab>Favorite</Tab>
             <Tab>Activities</Tab>
           </TabList>
-          {myNft && <h3>My NFT</h3>}
+          <h3>My NFT</h3>
           <TabPanels>
             <TabPanel>
               <Offering />

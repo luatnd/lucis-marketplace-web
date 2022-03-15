@@ -24,6 +24,7 @@ export const NftItem = observer((props: IProps) => {
       Router.push("/collection/" + info.collection.id)
     }
   }
+  console.log(info)
 
   return (
     <div className="nft-item">

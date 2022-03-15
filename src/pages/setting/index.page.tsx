@@ -70,7 +70,7 @@ const Setting = () => {
               <Switch />
             </div>
           </div>
-          <div className="methods bell">
+          <div className="methods">
             <h3>Notification Methods</h3>
             <p>How do you would like to receive the notifications</p>
             <div className="row">

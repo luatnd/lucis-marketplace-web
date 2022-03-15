@@ -24,7 +24,7 @@ const MyApp = (props: AppProps) => {
       <Head>
         <title>Lucis NFT - Redefine Play to Earn ecosystem</title>
         <meta property="og:title" content="Lucis NFT" />
-        <meta property="og:image" content="/meta-banner.jpg" />
+        <meta property="og:image" content="/meta-banner.png" />
         <meta
           name="description"
           content={`One of the most effective investment platforms for investors. We create a hybrid platform to connect investors and skilled scholars in the world of "Play to Earn" gaming and metaverse.`}

@@ -4,7 +4,7 @@
   .details {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 50px;
+    grid-gap: 20px;
     width: 100%;
     margin-bottom: 50px;
     @include to(lg) {
@@ -411,6 +411,12 @@
     }
   }
   .tables {
+    .app-pagination{
+      margin-top: 25px;
+    }
+    .to{
+      color: #0bebd6;
+    }
     .filter-row {
       display: flex;
       justify-content: flex-end;

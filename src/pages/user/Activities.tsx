@@ -23,6 +23,7 @@ const Activities = () => {
   const [pageSize, setPageSize] = useState(10)
   const priceSort = [
     { img: "/common/bnb.png", name: "BNB chain" },
+    { img: "/common/walletConnect.png", name: "WalletConnect" },
     { img: "/common/ethereum.png", name: "Ethereum" },
     { img: "/common/celo.png", name: "Celo" },
     { img: "/common/aurora.png", name: "Aurora" },

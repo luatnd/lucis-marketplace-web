@@ -19,7 +19,6 @@
     }
   }
   .provider-socials {
-    margin-top: 20px;
     display: flex;
     gap: 25px;
     img {
@@ -58,7 +57,7 @@
       align-items: center;
       justify-content: center;
       .stat-key {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: 500;
         color: $light-cyan;
       }
@@ -112,7 +111,6 @@
   .collection-content {
     width: 100%;
     .collection-item-list {
-      margin-top: 40px;
       .filter-row {
         display: flex;
         align-items: center;
