@@ -22,6 +22,7 @@ import { useStore } from "src/hooks/useStore"
 import { useEffect, useState } from "react"
 import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
+import Link from "next/link"
 
 const ReceivedOffer = (props) => {
   const [receivedData, setReceivedData] = useState(receivedList)
@@ -97,16 +98,28 @@ const ReceivedOffer = (props) => {
                       <img src="/icons/item.png" alt="" />
                     </div>
                     <div className="name-item">
-                      <p className="animverse">
-                        Animverse
-                        <Verified />
-                      </p>
-                      <p>CUONG DOLLA NFT</p>
+                      <Link href={"/collection/1"}>
+                        <a>
+                          <p className="animverse">
+                            Animverse
+                            <Verified />
+                          </p>
+                        </a>
+                      </Link>
+                      <Link href={"/user/1"}>
+                        <a>
+                          <p>CUONG DOLLA NFT</p>
+                        </a>
+                      </Link>
                     </div>
                   </div>
                 </Td>
                 <Td>{el.price}</Td>
-                <Td>{el.to}</Td>
+                <Td className="to">
+                  <Link href={"/user/1"}>
+                    <a>{el.to}</a>
+                  </Link>
+                </Td>
                 <Td>in 2 days</Td>
                 <Td>
                   <span>{el.date}</span>
