@@ -1,0 +1,74 @@
+.document-page {
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  .collapse-btn {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 10px;
+    left: 350px;
+    transition: 0.3s;
+    margin-left: -20px;
+    border-radius: 100%;
+    z-index: 20;
+  }
+  .collapsed-btn {
+    left: 20px;
+  }
+  .doc-menu {
+    min-width: 320px;
+    height: 100vh;
+    border-right: 1px solid rgba($purple2, 0.5);
+    border-left: none;
+    transition: 0.3s;
+  }
+  .hide {
+    transform: translateX(-120%);
+    width: 0;
+    min-width: 0;
+    opacity: 0;
+    * {
+      opacity: 0;
+    }
+  }
+  .doc-content-wrapper {
+    padding-top: 50px;
+    width: 100%;
+    .doc-content {
+      width: 100%;
+      max-width: 1200px;
+      min-width: 400px;
+      margin: auto;
+      h1 {
+        font-size: 50px;
+        font-weight: 800;
+        line-height: 100px;
+        text-align: center;
+      }
+      h2 {
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 80px;
+      }
+      h3 {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 60px;
+      }
+      p {
+        font-size: 16px;
+      }
+      ul {
+        margin-left: 30px;
+      }
+      hr {
+        margin: 20px 0;
+      }
+      p > img {
+        margin: 20px 0;
+        width: 100%;
+      }
+    }
+  }
+}

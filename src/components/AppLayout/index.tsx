@@ -86,25 +86,25 @@ export const AppLayout = observer(({ children }) => {
       key: "resources",
       children: [
         {
-          name: "Help Center",
-          key: "/help-center",
+          name: "Documents",
+          key: "/documents",
         },
-        {
-          name: "Trader's Guide",
-          key: "/trader-guide",
-        },
-        {
-          name: "Feature",
-          key: "/feature",
-        },
-        {
-          name: "FAQ",
-          key: "Press Kit",
-        },
-        {
-          name: "NFT Validator",
-          key: "nft-validator",
-        },
+        // {
+        //   name: "Trader's Guide",
+        //   key: "/trader-guide",
+        // },
+        // {
+        //   name: "Feature",
+        //   key: "/feature",
+        // },
+        // {
+        //   name: "FAQ",
+        //   key: "Press Kit",
+        // },
+        // {
+        //   name: "NFT Validator",
+        //   key: "nft-validator",
+        // },
       ],
     },
   ]
