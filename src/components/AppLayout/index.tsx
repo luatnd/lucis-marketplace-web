@@ -103,26 +103,32 @@ export const AppLayout = observer(({ children }) => {
     {
       key: "1",
       image: "/common/footer/nav1.png",
+      href: "https://www.tiktok.com/@lucistvv",
     },
     {
       key: "2",
       image: "/common/footer/nav2.png",
+      href: "https://www.facebook.com/lucistv.news",
     },
     {
       key: "3",
       image: "/common/footer/nav3.png",
+      href: "https://www.youtube.com/c/LucisTVGaming",
     },
     {
       key: "4",
       image: "/common/footer/nav4.png",
+      href: "",
     },
     {
       key: "5",
       image: "/common/footer/nav5.png",
+      href: "https://twitter.com/Lucis_TV",
     },
     {
       key: "6",
       image: "/common/footer/nav6.png",
+      href: "https://discord.com/channels/911921072830574603/926398655093702666",
     },
   ]
 
@@ -316,7 +322,9 @@ export const AppLayout = observer(({ children }) => {
             {footerSocials.map((nav) => (
               <div key={nav.key} className="footer-socials-item-wrapper">
                 <div className="footer-social-item">
-                  <img src={nav.image} />
+                  <a href={nav.href} target="_blank" rel="noopener noreferrer">
+                    <img src={nav.image} />
+                  </a>
                 </div>
               </div>
             ))}
