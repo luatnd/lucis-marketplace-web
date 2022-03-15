@@ -41,18 +41,22 @@ export const AppLayout = observer(({ children }) => {
       children: [
         {
           name: "Home",
+          isNav: true,
           key: "/",
         },
         {
           name: "Discover",
+          isNav: true,
           key: "/discover",
         },
         {
           name: "Activities",
+          isNav: true,
           key: "/activities",
         },
         {
           name: "NFT Ranking",
+          isNav: true,
           key: "/nft-ranking",
         },
       ],
@@ -63,11 +67,13 @@ export const AppLayout = observer(({ children }) => {
       children: [
         {
           name: "Apply for NFT Verification",
-          key: "/nft-verification",
+          isNav: false,
+          key: "https://forms.gle/s7sD5tCVwdtqR51W6",
         },
         {
           name: "Apply for Launchpad",
-          key: "/apply-for-launchpad",
+          isNav: true,
+          key: "/",
         },
       ],
     },
@@ -77,6 +83,7 @@ export const AppLayout = observer(({ children }) => {
       children: [
         {
           name: "Documents",
+          isNav: true,
           key: "/documents",
         },
         // {
@@ -220,7 +227,7 @@ export const AppLayout = observer(({ children }) => {
                 {nav.name}
               </Button>
               {nav.children.map((child) =>
-                child.key ? (
+                child.isNav ? (
                   <Link key={child.key} href={child.key}>
                     <Button
                       variant="ghost"
@@ -231,13 +238,20 @@ export const AppLayout = observer(({ children }) => {
                     </Button>
                   </Link>
                 ) : (
-                  <Button
-                    variant="ghost"
-                    className="mobile-menu-nav-item"
-                    onClick={() => setMobileMenuVisible(false)}
+                  <a
+                    key={child.key}
+                    href={child.key}
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    {child.name}
-                  </Button>
+                    <Button
+                      variant="ghost"
+                      className="mobile-menu-nav-item"
+                      onClick={() => setMobileMenuVisible(false)}
+                    >
+                      {child.name}
+                    </Button>
+                  </a>
                 )
               )}
             </Stack>
@@ -265,11 +279,22 @@ export const AppLayout = observer(({ children }) => {
                   {nav.name}
                 </MenuButton>
                 <MenuList>
-                  {nav.children.map((child) => (
-                    <Link key={child.key} href={child.key}>
-                      <MenuItem>{child.name}</MenuItem>
-                    </Link>
-                  ))}
+                  {nav.children.map((child) =>
+                    child.isNav ? (
+                      <Link key={child.key} href={child.key}>
+                        <MenuItem>{child.name}</MenuItem>
+                      </Link>
+                    ) : (
+                      <a
+                        key={child.key}
+                        href={child.key}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <MenuItem>{child.name}</MenuItem>
+                      </a>
+                    )
+                  )}
                 </MenuList>
               </Menu>
             ))}
