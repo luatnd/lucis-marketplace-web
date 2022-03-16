@@ -6,6 +6,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  useBreakpointValue,
 } from "@chakra-ui/react"
 import { GetServerSidePropsContext } from "next"
 import { useRouter } from "next/router"
@@ -20,11 +21,22 @@ const Documents = (props) => {
   const [menuVisible, setMenuVisible] = useState(true)
 
   const router = useRouter()
+  const breakPoint = useBreakpointValue({
+    base: false,
+    sm: false,
+    md: true,
+    xl: true,
+    "2xl": true,
+  })
 
   const handleChangePost = (value) => {
     router.query.index = value
     router.push(router)
   }
+
+  useEffect(() => {
+    setMenuVisible(breakPoint)
+  }, [breakPoint])
 
   useEffect(() => {
     window.scrollTo(0, 0)

@@ -1,0 +1,21 @@
+.app-spinner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+  .spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    .logo {
+      font-size: 100px;
+      animation: bounceIn 2s infinite;
+    }
+    .spinner-icon {
+      font-size: 30px;
+      color: $cyan;
+    }
+  }
+}
