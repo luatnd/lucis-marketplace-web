@@ -1,9 +1,12 @@
-import moment from "moment"
+import dayjs from "dayjs"
+import duration from "dayjs/plugin/duration"
 import { useEffect, useState } from "react"
+dayjs.extend(duration)
+
 export const useCountdown = (timestamp: string) => {
-  const current = moment()
-  const end = moment(timestamp)
-  const duration = moment.duration(end.diff(current)).asMilliseconds()
+  const current = dayjs()
+  const end = dayjs(timestamp)
+  const duration = dayjs.duration(end.diff(current)).asMilliseconds()
 
   const [secs, decrement] = useState(duration / 1000)
   useEffect(() => {

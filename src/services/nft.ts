@@ -1,5 +1,5 @@
-import moment from "moment"
 import axios from "axios"
+import dayjs from "dayjs"
 import { TEST_API_URL } from "src/configs"
 
 const BASE_URL = TEST_API_URL
@@ -131,7 +131,7 @@ export const auctionNft = async (
 ) => {
   await axios.patch(BASE_URL + "/nft/" + id, {
     aucPrice,
-    endTime: moment().add(time, "days").format("YYYY-MM-DDTHH:mm:ss"),
+    endTime: dayjs().add(time, "days").format("YYYY-MM-DDTHH:mm:ss"),
   })
 }
 

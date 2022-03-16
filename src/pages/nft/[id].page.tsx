@@ -20,8 +20,8 @@ import {
 } from "@chakra-ui/react"
 import Success from "@static/icons/success.svg"
 import Verified from "@static/icons/verified.svg"
+import dayjs from "dayjs"
 import { observer } from "mobx-react-lite"
-import moment from "moment"
 import { GetServerSidePropsContext } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -65,7 +65,9 @@ const DetailsPage = observer((props: any) => {
     setInfo(res)
   }
 
-  const handleLike = async () => {}
+  const handleLike = () => {
+    console.log("like")
+  }
 
   const handleBuy = async () => {
     setModalContent(buyModalContent)
@@ -204,7 +206,7 @@ const DetailsPage = observer((props: any) => {
           </div>
         </div>
         <div className="auction-end">
-          <span>Auction end in</span> {moment(info.endTime).format("HH:mm:ss")}
+          <span>Auction end in</span> {dayjs(info.endTime).format("HH:mm:ss")}
         </div>
       </div>
     )

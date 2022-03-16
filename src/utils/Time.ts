@@ -1,5 +1,6 @@
-import moment from "moment"
-
+import dayjs from "dayjs"
+import utc from "dayjs/plugin/utc"
+dayjs.extend(utc)
 /**
  * convert seconds count to time string in mm:ss
  * @param secs
@@ -19,11 +20,11 @@ export function secondsToTimeStr(secs: number): string {
  * @returns string
  */
 export function compareDate(startTime: string, endTime: string) {
-  const currUTC = moment.utc()
-  const startUTC = moment.utc(startTime)
-  const endUTC = moment.utc(endTime)
-  const isBefore = moment.duration(currUTC.diff(startUTC)).asMilliseconds() < 0
-  const isAfter = moment.duration(endUTC.diff(currUTC)).asMilliseconds() < 0
+  const currUTC = dayjs.utc()
+  const startUTC = dayjs.utc(startTime)
+  const endUTC = dayjs.utc(endTime)
+  const isBefore = dayjs.duration(currUTC.diff(startUTC)).asMilliseconds() < 0
+  const isAfter = dayjs.duration(endUTC.diff(currUTC)).asMilliseconds() < 0
 
   let status = ""
 
