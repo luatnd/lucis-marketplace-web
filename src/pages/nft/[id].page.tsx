@@ -180,7 +180,10 @@ const DetailsPage = observer((props: any) => {
             </span>
           </div>
           <div className="buy-nav">
-            <Button onClick={handleBuy} isDisabled={!info.price || !address}>
+            <Button
+              onClick={address ? handleBuy : () => WalletController.connect()}
+              isDisabled={!info.price}
+            >
               BUY
             </Button>
             <span onClick={handleOffer}>Or make offer other price</span>
@@ -200,7 +203,9 @@ const DetailsPage = observer((props: any) => {
             <span>(${currency(info.topAuc * 376)})</span>
           </div>
           <div className="auc-nav">
-            <Button onClick={handleAuc} isDisabled={!address}>
+            <Button
+              onClick={address ? handleAuc : () => WalletController.connect()}
+            >
               AUCTION
             </Button>
           </div>
@@ -286,7 +291,7 @@ const DetailsPage = observer((props: any) => {
 
   const _renderTables = () => (
     <div className="tables">
-      <Tabs>
+      <Tabs align="center">
         <TabList>
           <Tab className="tab-item">ACTIVITIES</Tab>
           <Tab className="tab-item">
@@ -297,7 +302,9 @@ const DetailsPage = observer((props: any) => {
           <TabPanel>
             <Activities />
           </TabPanel>
-          <TabPanel>{info.aucPrice ? <Auction /> : <ReceivedOffer info={info} />}</TabPanel>
+          <TabPanel>
+            {info.aucPrice ? <Auction /> : <ReceivedOffer info={info} />}
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </div>
