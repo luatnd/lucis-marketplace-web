@@ -1,70 +1,19 @@
-import { IClientMeta } from "@walletconnect/types"
-import WalletConnectProvider from "@walletconnect/web3-provider"
 import { ethers, providers } from "ethers"
 import { makeAutoObservable } from "mobx"
 import { strToHex } from "src/utils/Number"
 import Swal from "sweetalert2"
 import Web3Modal from "web3modal"
 import { apiClient } from "../services/ApiClient"
-import AnimTokenAbi from "./AnimTokenABI.json"
-import { supportedChainsIndexed } from "./chains"
-import { convertIChainData2ChainParameter } from "./types"
-
-const web3modalChainId2Network = (chainId: number): string => {
-  switch (chainId) {
-    case 1:
-      return "mainnet"
-    case 56:
-      return "binance"
-    case 97:
-      return "binance_testnet"
-    default:
-      throw new Error(
-        "web3modal__chainId2network: Not supported chain id: " + chainId
-      )
-  }
-}
-export const requiredChainId = +process.env.NEXT_PUBLIC_REQUIRED_CHAIN_ID
-
-export const providerOptions = {
-  binancechainwallet: {
-    package: true,
-  },
-  // Auto recognize your injected wallet: Metamask
-  // injected: {},
-  walletconnect: {
-    package: WalletConnectProvider,
-    options: {
-      rpc: {
-        56: "https://bsc-dataseed.binance.org/",
-        97: "https://data-seed-prebsc-1-s1.binance.org:8545/",
-      },
-      // Select BSC work on Trust wallet but dont work on metamask
-      // https://github.com/Web3Modal/web3modal/blob/72596699b97d231dfaa5ef04110b61b8dc77d57d/src/providers/connectors/walletconnect.ts#L30
-      // https://github.com/Web3Modal/web3modal/blob/72596699b97d231dfaa5ef04110b61b8dc77d57d/src/helpers/utils.ts#L198
-      // web3modal has not support BSC testnet yet (because Trust wallet not support it). To support chain 97: // directly add network to this file to tmp test: node_modules/web3modal/dist/index.js
-      network: web3modalChainId2Network(requiredChainId),
-      // This will turn on only some wallet for mobile
-      qrcodeModalOptions: {
-        mobileLinks: [
-          "trust",
-          "rainbow",
-          "argent",
-          "imtoken",
-          "pillar",
-          "bitpay",
-          "coin98",
-          "houbi",
-          "safepal",
-          // "metamask",
-          // "kyberswap",
-          // "orange",
-          // "krystal",
-        ],
-      },
-    },
-  },
-}
+import { authService } from "../services/AuthService"
+import AnimTokenAbi from "../lib/AnimTokenABI.json"
+import {
+  getWalletMeta,
+  isJwtValid,
+  providerOptions,
+  requiredChainId,
+  switchNetwork,
+} from "../lib/auth"
+import { supportedChainsIndexed } from "../lib/chains"
 
 export type TNetwork = {
   name: string
@@ -105,65 +54,6 @@ export class WalletController {
     this.balance = null
     this.token = null
     this.loading = false
-  }
-
-  async switchNetwork(chain_id: number, provider: any): Promise<boolean> {
-    const chainIdHex = "0x" + chain_id.toString(16)
-
-    // Metamask chainId is heximal
-    if (provider.chainId === chainIdHex) {
-      return true
-    }
-    // Trust wallet chainId is decimal
-    if (provider.chainId === chain_id) {
-      return true
-    }
-
-    if (provider.isMetaMask) {
-      try {
-        await provider.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: chainIdHex }],
-        })
-      } catch (switchError) {
-        if (switchError.code === 4902) {
-          const network = supportedChainsIndexed[chain_id]
-          const networkConfig = convertIChainData2ChainParameter(network)
-          try {
-            await provider.request({
-              method: "wallet_addEthereumChain",
-              params: [networkConfig],
-            })
-            return true
-          } catch (addError) {
-            console.log(
-              "{ensureTargetChainActive} wallet_addEthereumChain ERROR: ",
-              addError
-            )
-            return false
-          }
-        } else {
-          return false
-        }
-      }
-    } else {
-      // TODO: support other web3 wallet that's compatible with wallet_switchEthereumChain: Okex, blockto, ...
-      // on the Ethereum/BSC/Polygon/Avalanche injected at window.ethereum, follows eip-3326.
-    }
-    return false
-  }
-
-  getWalletMeta(provider): IClientMeta {
-    let walletMeta: IClientMeta = null
-    if (provider.isMetaMask) {
-      walletMeta = provider.walletMeta
-    } else if (provider.isWalletConnect) {
-      walletMeta = provider.walletMeta
-    } else {
-      console.log("{ensureTargetChainActive} Wallet is not supported => SKIP")
-      return null
-    }
-    return walletMeta
   }
 
   setListeners(disconnect?: () => void) {
@@ -213,28 +103,19 @@ export class WalletController {
 
   async login() {
     const token = this.getAuth()
-    if (token) {
+    if (token && isJwtValid(token)) {
       this.token = token
       apiClient.applyAuth(token)
       return true
     } else {
       const message = "Animverse sign"
       const account = this.address
-      const nonceData = await apiClient.req({
-        method: "GET",
-        url: "/auth/get_nonce?address=" + account,
-      })
-      const nonce = nonceData?.data?.data?.nonce
+      const nonce = await authService.getNonce(account)
       const msg = `0x${strToHex([message, nonce].join(" "))}`
       const params = [msg, account, nonce]
       const signed_hash = await this.web3Provider.send("personal_sign", params)
-      const res = await apiClient.req({
-        method: "POST",
-        url: "/auth/login",
-        data: { address: account, sign: signed_hash },
-      })
-      if (res?.data?.error_code === "") {
-        const token = res?.data?.data?.token
+      const token = await authService.login(account, signed_hash)
+      if (token) {
         this.token = token
         this.setAuth(token)
         apiClient.applyAuth(token)
@@ -255,13 +136,10 @@ export class WalletController {
     try {
       this.provider = await this.web3Modal.connect()
       this.web3Provider = new providers.Web3Provider(this.provider, "any")
-      const isRightNetwork = await this.switchNetwork(
-        requiredChainId,
-        this.provider
-      )
+      const isRightNetwork = await switchNetwork(requiredChainId, this.provider)
       if (!isRightNetwork) {
         const network = supportedChainsIndexed[requiredChainId]
-        const walletMeta = this.getWalletMeta(this.provider)
+        const walletMeta = getWalletMeta(this.provider)
         const walletName = walletMeta?.name
         Swal.fire({
           icon: "error",
