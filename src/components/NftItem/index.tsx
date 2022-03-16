@@ -28,7 +28,7 @@ export const NftItem = observer((props: IProps) => {
   return (
     <div className="nft-item">
       <div className="nft-image" onClick={() => handleRedirect()}>
-        <img src={info.image} />
+        <img src={info.photo} />
       </div>
       <div className="network">
         <img src={info.network} />
@@ -37,7 +37,7 @@ export const NftItem = observer((props: IProps) => {
         <div className="provider">
           <div className="algin-center" onClick={() => handleRedirect(true)}>
             <span>{info.collection?.name}</span>
-            <Verified />
+            {info.is_verified ? <Verified /> : null}
           </div>
           <div>
             {info.aucPrice ? (

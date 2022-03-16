@@ -13,13 +13,7 @@ export const HotCollections = (props) => {
         onViewAll="/nft-ranking"
       >
         {data?.map((collection) => (
-          <CollectionItem
-            id={collection.id}
-            key={collection.id}
-            name={collection.name}
-            image={collection.logo}
-            network={collection.network}
-          />
+          <CollectionItem key={collection.id} info={collection} />
         ))}
       </HomeSection>
     </div>

@@ -133,7 +133,7 @@ class Contract {
       const contract = new ethers.Contract(tokenAddress, boxNFTABI, this.signer)
       return await contract.isApprovedForAll(
         walletAddress,
-        process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT_ADDRESS
+        process.env.NEXT_PUBLIC_LUCIS_CONTRACT_ADDRESS
       )
     } catch (err) {
       console.log("{check is approved for all} error: ", err)
@@ -145,7 +145,7 @@ class Contract {
     try {
       const contract = new ethers.Contract(tokenAddress, boxNFTABI, this.signer)
       await contract.setApprovalForAll(
-        process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT_ADDRESS,
+        process.env.NEXT_PUBLIC_LUCIS_CONTRACT_ADDRESS,
         true
       )
     } catch (err) {
@@ -157,7 +157,7 @@ class Contract {
   async createTrade(tokenAddress: string, tokenId: string, amount: number) {
     try {
       const contract = new ethers.Contract(
-        process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT_ADDRESS,
+        process.env.NEXT_PUBLIC_LUCIS_CONTRACT_ADDRESS,
         marketPlaceABI,
         this.signer
       )
@@ -177,7 +177,7 @@ class Contract {
   async cancelTrade(tokenAddress: string, tokenId: string) {
     try {
       const contract = new ethers.Contract(
-        process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT_ADDRESS,
+        process.env.NEXT_PUBLIC_LUCIS_CONTRACT_ADDRESS,
         marketPlaceABI,
         this.signer
       )
@@ -190,7 +190,7 @@ class Contract {
   async buyNft(tokenAddress: string, tokenId: string, amount: number) {
     try {
       const contract = new ethers.Contract(
-        process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT_ADDRESS,
+        process.env.NEXT_PUBLIC_LUCIS_CONTRACT_ADDRESS,
         marketPlaceABI,
         this.signer
       )

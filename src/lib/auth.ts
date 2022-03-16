@@ -1,3 +1,4 @@
+import { REQUIRED_CHAINID } from "./../configs"
 import { IClientMeta } from "@walletconnect/types"
 import jwtDecode from "jwt-decode"
 import WalletConnectProvider from "@walletconnect/web3-provider"
@@ -18,9 +19,8 @@ export const isJwtValid = (token: string): boolean => {
   return new Date(res * 1000) > new Date()
 }
 
-export const requiredChainId = +process.env.NEXT_PUBLIC_REQUIRED_CHAIN_ID
 export const web3modalChainId2Network = (): string => {
-  switch (requiredChainId) {
+  switch (REQUIRED_CHAINID) {
     case 1:
       return "mainnet"
     case 56:
@@ -29,7 +29,8 @@ export const web3modalChainId2Network = (): string => {
       return "binance_testnet"
     default:
       throw new Error(
-        "web3modal__chainId2network: Not supported chain id: " + requiredChainId
+        "web3modal__chainId2network: Not supported chain id: " +
+          REQUIRED_CHAINID
       )
   }
 }

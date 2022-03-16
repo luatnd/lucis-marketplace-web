@@ -1,3 +1,4 @@
+import { REQUIRED_CHAINID } from "./../configs"
 import { ethers, providers } from "ethers"
 import { makeAutoObservable } from "mobx"
 import { strToHex } from "src/utils/Number"
@@ -5,15 +6,15 @@ import Swal from "sweetalert2"
 import Web3Modal from "web3modal"
 import { apiClient } from "../services/ApiClient"
 import { authService } from "../services/AuthService"
-import AnimTokenAbi from "../lib/AnimTokenABI.json"
+import erc20ABI from "../lib/erc20ABI.json"
 import {
   getWalletMeta,
   isJwtValid,
   providerOptions,
-  requiredChainId,
   switchNetwork,
 } from "../lib/auth"
 import { supportedChainsIndexed } from "../lib/chains"
+import { DEFAULT_TOKEN_ADDRESS } from "src/configs"
 
 export type TNetwork = {
   name: string
@@ -65,11 +66,9 @@ export class WalletController {
         console.log("{handleAccountsChanged} account: ", accounts[0])
         this.address = accounts[0]
         this.network = await this.web3Provider.getNetwork()
-        const animTokenContractAddress =
-          process.env.NEXT_PUBLIC_FT_CONTRACT_ADDR
         const balance = await this.balanceOf(
           this.address,
-          animTokenContractAddress
+          DEFAULT_TOKEN_ADDRESS
         )
         this.balance = ethers.utils.formatEther(balance)
         await this.login()
@@ -136,9 +135,12 @@ export class WalletController {
     try {
       this.provider = await this.web3Modal.connect()
       this.web3Provider = new providers.Web3Provider(this.provider, "any")
-      const isRightNetwork = await switchNetwork(requiredChainId, this.provider)
+      const isRightNetwork = await switchNetwork(
+        REQUIRED_CHAINID,
+        this.provider
+      )
       if (!isRightNetwork) {
-        const network = supportedChainsIndexed[requiredChainId]
+        const network = supportedChainsIndexed[REQUIRED_CHAINID]
         const walletMeta = getWalletMeta(this.provider)
         const walletName = walletMeta?.name
         Swal.fire({
@@ -162,11 +164,7 @@ export class WalletController {
       this.signer = this.web3Provider.getSigner()
       this.address = await this.signer.getAddress()
       this.network = await this.web3Provider.getNetwork()
-      const animTokenContractAddress = process.env.NEXT_PUBLIC_FT_CONTRACT_ADDR
-      const balance = await this.balanceOf(
-        this.address,
-        animTokenContractAddress
-      )
+      const balance = await this.balanceOf(this.address, DEFAULT_TOKEN_ADDRESS)
       this.balance = ethers.utils.formatEther(balance)
       const res = await this.login()
       if (res) {
@@ -207,7 +205,7 @@ export class WalletController {
   async balanceOf(address: string, tokenAdress: string): Promise<number> {
     const contract = await new ethers.Contract(
       tokenAdress,
-      AnimTokenAbi.abi,
+      erc20ABI,
       this.signer
     )
     return contract.balanceOf(address)
