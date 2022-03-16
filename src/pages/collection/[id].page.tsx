@@ -20,6 +20,7 @@ import { AppTable } from "src/components/AppTable"
 import { ListingBar } from "src/components/Home/ListingBar"
 import { NftItem } from "src/components/NftItem"
 import { BSC_SCAN_TRANSACTION } from "src/configs"
+import { collectionService } from "src/services/CollectionService"
 import { getCollection, getCollectionItems } from "src/services/nft"
 
 const CollectionDetails = (props) => {
@@ -261,7 +262,9 @@ export default CollectionDetails
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { id } = ctx.query
 
-  const [data] = await Promise.all([getCollection(+id)])
+  const data = await collectionService.getCollection({
+    id: +id,
+  })
 
   return {
     props: {

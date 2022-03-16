@@ -20,8 +20,6 @@ const Home = (props) => {
   const { launchpads, hotCollections, hotAuctions, discovers, gettingStarted } =
     props
 
-  console.log(discovers)
-
   useEffect(() => {
     addAnimationOnScroll()
   }, [])

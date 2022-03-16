@@ -196,7 +196,6 @@ class Contract {
       )
 
       const nAmount = ((amount / 1e18) * 1000).toString() + "000000000000000"
-      console.log(nAmount)
 
       const tx2 = await contract.buyNFT(tokenAddress, tokenId, {
         value: nAmount,
