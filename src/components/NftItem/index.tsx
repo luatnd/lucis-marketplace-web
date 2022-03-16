@@ -1,8 +1,8 @@
 import { Button } from "@chakra-ui/react"
 import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import Verified from "@static/icons/verified.svg"
+import dayjs from "dayjs"
 import { observer } from "mobx-react-lite"
-import moment from "moment"
 import Router from "next/router"
 import { useStore } from "src/hooks/useStore"
 import { currency } from "src/utils/Number"
@@ -24,12 +24,11 @@ export const NftItem = observer((props: IProps) => {
       Router.push("/collection/" + info.collection.id)
     }
   }
-  console.log(info)
 
   return (
     <div className="nft-item">
       <div className="nft-image" onClick={() => handleRedirect()}>
-        <img src={info.image} />
+        <img src={info.photo} />
       </div>
       <div className="network">
         <img src={info.network} />
@@ -38,7 +37,7 @@ export const NftItem = observer((props: IProps) => {
         <div className="provider">
           <div className="algin-center" onClick={() => handleRedirect(true)}>
             <span>{info.collection?.name}</span>
-            <Verified />
+            {info.is_verified ? <Verified /> : null}
           </div>
           <div>
             {info.aucPrice ? (
@@ -54,7 +53,7 @@ export const NftItem = observer((props: IProps) => {
         <div className="end-in">
           {info.aucPrice ? (
             <div>
-              <span>END IN</span> {moment(info.endTime).format("HH:mm:ss")}
+              <span>END IN</span> {dayjs(info.endTime).format("HH:mm:ss")}
             </div>
           ) : null}
         </div>

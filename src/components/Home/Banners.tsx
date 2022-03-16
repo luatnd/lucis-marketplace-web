@@ -17,7 +17,7 @@ export const Banners = (props) => {
             <Link key={item.id} href={"/collection/" + item.id}>
               <div className="banner-border">
                 <div key={item.id} className="banner">
-                  <img src={item.banner} className="banner-image" />
+                  <img src={item.cover_photo} className="banner-image" />
                 </div>
                 <div className="network">
                   <img src={item.network} />

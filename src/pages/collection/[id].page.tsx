@@ -19,6 +19,7 @@ import { AppSelect } from "src/components/AppSelect"
 import { AppTable } from "src/components/AppTable"
 import { ListingBar } from "src/components/Home/ListingBar"
 import { NftItem } from "src/components/NftItem"
+import { BSC_SCAN_TRANSACTION } from "src/configs"
 import { getCollection, getCollectionItems } from "src/services/nft"
 
 const CollectionDetails = (props) => {
@@ -324,7 +325,7 @@ const columns = [
     render: ({ date, type, to }) =>
       type != "Listing" ? (
         <a
-          href={process.env.NEXT_PUBLIC_BSC_SCAN_TX + to}
+          href={BSC_SCAN_TRANSACTION + to}
           target={"_blank"}
           rel="noreferrer"
           className="date-column"

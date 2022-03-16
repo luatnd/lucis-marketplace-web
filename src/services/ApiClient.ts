@@ -1,10 +1,11 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios"
+import { API_URL } from "src/configs"
 import { appLogger } from "./../utils/Logger"
 
 const isClient = typeof window !== "undefined"
 class ApiClient {
   private instance: AxiosInstance
-  private baseUrl: string = process.env.NEXT_PUBLIC_API_URL as string
+  private baseUrl: string = API_URL
   constructor() {
     this.instance = axios.create({
       baseURL: this.baseUrl,

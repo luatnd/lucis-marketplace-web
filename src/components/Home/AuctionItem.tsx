@@ -1,8 +1,8 @@
 import { Button } from "@chakra-ui/react"
 import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import Verified from "@static/icons/verified.svg"
-import moment from "moment"
 import Router from "next/router"
+import dayjs from "dayjs"
 // import { useCountdown } from "src/hooks/useCountdown"
 import { useStore } from "src/hooks/useStore"
 
@@ -84,7 +84,7 @@ export const AuctionItem = (props: IProps) => {
         <div className="end-in">
           {auction ? (
             <div>
-              <span>END IN</span> {moment(endTime).format("HH:mm:ss")}
+              <span>END IN</span> {dayjs(endTime).format("HH:mm:ss")}
             </div>
           ) : null}
         </div>

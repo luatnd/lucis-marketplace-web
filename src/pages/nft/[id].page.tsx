@@ -20,8 +20,8 @@ import {
 } from "@chakra-ui/react"
 import Success from "@static/icons/success.svg"
 import Verified from "@static/icons/verified.svg"
+import dayjs from "dayjs"
 import { observer } from "mobx-react-lite"
-import moment from "moment"
 import { GetServerSidePropsContext } from "next"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -39,6 +39,7 @@ import {
   sendNft,
   unLikeNft,
 } from "src/services/nft"
+import { nftService } from "src/services/NftService"
 import { currency } from "src/utils/Number"
 import Activities from "./Activities"
 import Auction from "./Auction"
@@ -64,14 +65,8 @@ const DetailsPage = observer((props: any) => {
     setInfo(res)
   }
 
-  const handleLike = async () => {
-    if (info.liked.includes(address)) {
-      await unLikeNft(info.id, address, info.liked)
-      fetchData()
-    } else {
-      await likeNft(info.id, address, info.liked)
-      fetchData()
-    }
+  const handleLike = () => {
+    console.log("like")
   }
 
   const handleBuy = async () => {
@@ -211,7 +206,7 @@ const DetailsPage = observer((props: any) => {
           </div>
         </div>
         <div className="auction-end">
-          <span>Auction end in</span> {moment(info.endTime).format("HH:mm:ss")}
+          <span>Auction end in</span> {dayjs(info.endTime).format("HH:mm:ss")}
         </div>
       </div>
     )
@@ -222,12 +217,10 @@ const DetailsPage = observer((props: any) => {
       <div className="details">
         <div className="details-card">
           <div className="details-image">
-            <img src={data?.image} />
+            <img src={data?.photo} />
             <Icon
               as={Heart}
-              className={`heart ${
-                info.liked.includes(address) ? "heart-liked" : ""
-              }`}
+              className={`heart ${info.liked ? "heart-liked" : ""}`}
               onClick={handleLike}
             />
           </div>
@@ -243,9 +236,7 @@ const DetailsPage = observer((props: any) => {
               <a>{data?.collection?.name}</a>
             </Link>
           </div>
-          <h1 className="name">
-            {data?.name} #{data?.id}
-          </h1>
+          <h1 className="name">{data?.name}</h1>
           <div className="owner">
             {address === info.owner ? (
               <span>
@@ -263,7 +254,7 @@ const DetailsPage = observer((props: any) => {
               </span>
             )}
             <div className="owner-stat">
-              <span>{info.liked.length}</span> <Icon as={Heart} />
+              <span>{info.liked}</span> <Icon as={Heart} />
               <span>{info.views}</span> <Icon as={Eye} />
             </div>
           </div>
@@ -595,7 +586,10 @@ export default DetailsPage
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { id } = ctx.query
-  const data = await getNft(+id)
+  const data = await nftService.getNft({
+    nft_item_id: +id,
+  })
+  console.log(data)
   return {
     props: {
       data,

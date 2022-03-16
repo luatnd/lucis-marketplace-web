@@ -12,8 +12,8 @@ export const Discover = (props) => {
         rows={2}
         onViewAll="/discover"
       >
-        {data?.map((auction) => (
-          <NftItem key={auction.id} info={auction} />
+        {data?.map((item) => (
+          <NftItem key={item.id} info={item} />
         ))}
       </HomeSection>
     </div>

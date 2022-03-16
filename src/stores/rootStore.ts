@@ -1,5 +1,5 @@
 import { createContext } from "react"
-import { WalletController } from "./../lib/WalletController"
+import { WalletController } from "../controllers/WalletController"
 import { NftStore } from "./NftStore"
 
 export const stores = {

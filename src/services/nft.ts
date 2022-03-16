@@ -1,7 +1,8 @@
-import moment from "moment"
 import axios from "axios"
+import dayjs from "dayjs"
+import { TEST_API_URL } from "src/configs"
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_TEST
+const BASE_URL = TEST_API_URL
 
 export const getBanners = async () => {
   const { data } = await axios.get(BASE_URL + "/collections")
@@ -145,7 +146,7 @@ export const auctionNft = async (
 ) => {
   await axios.patch(BASE_URL + "/nft/" + id, {
     aucPrice,
-    endTime: moment().add(time, "days").format("YYYY-MM-DDTHH:mm:ss"),
+    endTime: dayjs().add(time, "days").format("YYYY-MM-DDTHH:mm:ss"),
   })
 }
 

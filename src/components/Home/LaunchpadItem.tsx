@@ -1,4 +1,4 @@
-import moment from "moment"
+import dayjs from "dayjs"
 import { useEffect } from "react"
 import { useCountdown } from "src/hooks/useCountdown"
 import BoxsIcon from "../../../public/home/boxs.svg"
@@ -48,7 +48,7 @@ export const LaunchpadItem = (props: IProps) => {
         ) : (
           <div className="start-in">
             <span>START IN</span>
-            <span>{moment(startTime).format("HH:mm:ss")}</span>
+            <span>{dayjs(startTime).format("HH:mm:ss")}</span>
           </div>
         )}
       </div>
