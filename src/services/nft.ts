@@ -73,6 +73,21 @@ export const getNfts = async (params) => {
   return { data, total: +headers["x-total-count"] }
 }
 
+export const favoriteUser = async (userAddress) => {
+  const { data } = await axios({
+    method: "POST",
+    url: "https://lucis-api-testnet.lucis.pro" + "/nft-item/favorite/get",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: {
+      address: "0x10a6dc9fb8f8794d1dc7d16b035c40923b148aa4",
+      blockchain_id: 2,
+    },
+  })
+  return data
+}
+
 export const getNft = async (id: number, params?: any) => {
   const { data } = await axios.get(BASE_URL + "/nft/" + id, {
     params,
