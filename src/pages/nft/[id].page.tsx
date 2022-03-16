@@ -224,7 +224,7 @@ const DetailsPage = observer((props: any) => {
             />
           </div>
 
-          <div className="nft-description">{info.description}</div>
+          <div className="nft-description">{info.metadata?.description}</div>
         </div>
         <div className="details-content">
           <div className="collection">
