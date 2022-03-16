@@ -35,9 +35,7 @@ import {
   cancelPrice,
   fixPrice,
   getNft,
-  likeNft,
   sendNft,
-  unLikeNft,
 } from "src/services/nft"
 import { nftService } from "src/services/NftService"
 import { currency } from "src/utils/Number"
@@ -47,6 +45,7 @@ import ReceivedOffer from "./ReceivedOffer"
 
 const DetailsPage = observer((props: any) => {
   const { data } = props
+  console.log(data?.metadata?.attributes)
   const WalletController = useStore("WalletController")
   const { address } = WalletController
 
@@ -225,7 +224,7 @@ const DetailsPage = observer((props: any) => {
             />
           </div>
 
-          <div className="nft-description">{info.description}</div>
+          <div className="nft-description">{info.metadata?.description}</div>
         </div>
         <div className="details-content">
           <div className="collection">
@@ -233,7 +232,7 @@ const DetailsPage = observer((props: any) => {
               <img src={data?.collection?.logo} />
             </div>
             <Link href={"/collection/" + data?.collection?.id}>
-              <a>{data?.collection?.name}</a>
+              <a>{data?.contract_name}</a>
             </Link>
           </div>
           <h1 className="name">{data?.name}</h1>
@@ -265,9 +264,9 @@ const DetailsPage = observer((props: any) => {
             : _renderBuyTray()}
           <div className="details-stats">
             <h1>Detail</h1>
-            {detailsStats.map((stat) => (
+            {info?.metadata?.attributes?.map((stat) => (
               <div className="stat" key={stat.key}>
-                <span>{stat.key}</span>
+                <span>{stat.trait_type}</span>
                 <span>
                   {stat.value}
                   <Icon as={ExternalLink} />
@@ -390,7 +389,7 @@ const DetailsPage = observer((props: any) => {
               </div>
               <div className="info-text">
                 <p>
-                  {info.collection.name} <Icon as={Verified} />
+                  {info.contract_name} <Icon as={Verified} />
                 </p>
                 <h1>{info.name}</h1>
               </div>
@@ -422,7 +421,7 @@ const DetailsPage = observer((props: any) => {
                 <p>2.5%</p>
               </span>
               <span>
-                <p>To {info.collection.name}</p>
+                <p>To {info.contract_name}</p>
                 <p>2.5%</p>
               </span>
             </div>
@@ -452,7 +451,7 @@ const DetailsPage = observer((props: any) => {
               </div>
               <div className="info-text">
                 <p>
-                  {info.collection.name} <Icon as={Verified} />
+                  {info.contract_name} <Icon as={Verified} />
                 </p>
                 <h1>{info.name}</h1>
               </div>
@@ -492,7 +491,7 @@ const DetailsPage = observer((props: any) => {
                 <p>2.5%</p>
               </span>
               <span>
-                <p>To {info.collection.name}</p>
+                <p>To {info.contract_name}</p>
                 <p>2.5%</p>
               </span>
               <span>
@@ -525,7 +524,7 @@ const DetailsPage = observer((props: any) => {
             </div>
             <div className="info-text">
               <p>
-                {info.collection.name} <Icon as={Verified} />
+                {info.contract_name} <Icon as={Verified} />
               </p>
               <h1>{info.name}</h1>
             </div>
@@ -589,7 +588,6 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const data = await nftService.getNft({
     nft_item_id: +id,
   })
-  console.log(data)
   return {
     props: {
       data,
