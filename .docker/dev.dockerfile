@@ -36,6 +36,7 @@ COPY --from=BUILD /anim/package.json /anim/yarn.lock ./
 COPY --from=BUILD /anim/node_modules ./node_modules
 COPY --from=BUILD /anim/.next ./.next
 COPY --from=BUILD /anim/public ./public
+COPY --from=BUILD /anim/next.config.js ./
 
 EXPOSE 3000
 
