@@ -66,9 +66,9 @@ const Favorite = observer(() => {
           </div>
           <AppPagination
             total={totalData}
-            pageSize={pageSize}
+            limit={pageSize}
             offset={offset}
-            onChangPageSize={(pageSize) => setPageSize(pageSize)}
+            onChangeLimit={(pageSize) => setPageSize(pageSize)}
             onChangeOffset={(offset) => setOffset(offset)}
           />
         </>

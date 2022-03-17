@@ -187,10 +187,10 @@ const Offering = observer(() => {
                   </div>
                   <AppPagination
                     total={totalAuc}
-                    pageSize={pageSize}
+                    limit={pageSize}
                     offset={offset}
                     onChangeOffset={(offset) => setOffset(offset)}
-                    onChangPageSize={(pageSize) => setPageSize(pageSize)}
+                    onChangeLimit={(pageSize) => setPageSize(pageSize)}
                   />
                 </>
               )}
@@ -264,8 +264,8 @@ const Offering = observer(() => {
             <AppPagination
               total={10}
               offset={offset1}
-              pageSize={pageSize1}
-              onChangPageSize={(pageSize) => setPageSize1(pageSize)}
+              limit={pageSize1}
+              onChangeLimit={(pageSize) => setPageSize1(pageSize)}
               onChangeOffset={(offset) => setOffset1(offset)}
             />
           </TabPanel>

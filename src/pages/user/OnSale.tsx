@@ -208,8 +208,8 @@ const OnSale = observer(() => {
                 <AppPagination
                   total={totalData}
                   offset={offset}
-                  pageSize={pageSize}
-                  onChangPageSize={(pageSize) => setPageSize(pageSize)}
+                  limit={pageSize}
+                  onChangeLimit={(pageSize) => setPageSize(pageSize)}
                   onChangeOffset={(offset) => setOffset(offset)}
                 />
               </>
@@ -250,9 +250,9 @@ const OnSale = observer(() => {
                 </div>
                 <AppPagination
                   total={totalData1}
-                  pageSize={pageSize1}
+                  limit={pageSize1}
                   offset={offset1}
-                  onChangPageSize={(pageSize) => setPageSize1(pageSize)}
+                  onChangeLimit={(pageSize) => setPageSize1(pageSize)}
                   onChangeOffset={(offset) => setOffset1(offset)}
                 />
               </>
@@ -362,8 +362,8 @@ const OnSale = observer(() => {
             <AppPagination
               total={receivedList.length}
               offset={offset2}
-              pageSize={pageSize2}
-              onChangPageSize={(pageSize) => setPageSize2(pageSize)}
+              limit={pageSize2}
+              onChangeLimit={(pageSize) => setPageSize2(pageSize)}
               onChangeOffset={(offset) => setOffset2(offset)}
             />
             <Modal isOpen={isOpen} onClose={onClose}>

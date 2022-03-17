@@ -238,8 +238,8 @@ const Activities = () => {
               <AppPagination
                 total={10}
                 offset={1}
-                pageSize={10}
-                onChangPageSize={(pageSize) => setPageSize(pageSize)}
+                limit={10}
+                onChangeLimit={(pageSize) => setPageSize(pageSize)}
                 onChangeOffset={(offset) => setOffset(offset)}
               />
             ) : null}
@@ -304,8 +304,8 @@ const Activities = () => {
               <AppPagination
                 total={10}
                 offset={1}
-                pageSize={10}
-                onChangPageSize={(pageSize) => setPageSize(pageSize)}
+                limit={10}
+                onChangeLimit={(pageSize) => setPageSize(pageSize)}
                 onChangeOffset={(offset) => setOffset(offset)}
               />
             ) : null}
