@@ -16,12 +16,6 @@ interface IProps {
 export const LaunchpadItem = (props: IProps) => {
   const { name, image, isOnGoing, boxs, items, startTime } = props
 
-  const { hours, minutes, seconds } = useCountdown("2022-10-20T00:00:00")
-
-  useEffect(() => {
-    // console.log(hours, minutes, seconds)
-  }, [minutes, seconds, hours])
-
   return (
     <div className="launchpad-item">
       <div className="launchpad-image">

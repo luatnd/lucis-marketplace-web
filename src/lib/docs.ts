@@ -24,7 +24,6 @@ export const getAllDocs = () => {
 
 export const markdownToHtml = async (markdown) => {
   const result = await remark()
-    // https://github.com/sergioramos/remark-prism/issues/265
     .use(html, { sanitize: false })
     .use(prism)
     .process(markdown)
