@@ -17,16 +17,16 @@ import {
 interface IProps {
   total: number
   offset: number
-  pageSize: number
+  limit: number
   onChangeOffset?: (value: number) => void
-  onChangPageSize?: (value: number) => void
+  onChangeLimit?: (value: number) => void
 }
 
 export const AppPagination = (props: IProps) => {
-  const { total, pageSize, offset, onChangeOffset, onChangPageSize } = props
+  const { total, limit, offset, onChangeOffset, onChangeLimit } = props
 
-  const totalPage = Math.ceil(total / pageSize)
-  const page = Math.round(offset / pageSize + 1)
+  const totalPage = Math.ceil(total / limit)
+  const page = Math.round(offset / limit + 1)
   const pageRange = 5
 
   const pages = []
@@ -34,14 +34,14 @@ export const AppPagination = (props: IProps) => {
     pages.push(i)
   }
 
-  const pageSizeOption = [5, 10, 15, 20, 50, 100]
+  const LimitOption = [5, 10, 15, 20, 50, 100]
 
   const handleChangePage = (value: number) => {
-    onChangeOffset((value - 1) * pageSize + 1)
+    onChangeOffset((value - 1) * limit + 1)
   }
 
-  const handleChangePageSize = (value: number) => {
-    onChangPageSize(value)
+  const handleChangeLimit = (value: number) => {
+    onChangeLimit(value)
   }
 
   const handlePrev = () => {
@@ -133,7 +133,7 @@ export const AppPagination = (props: IProps) => {
     )
   }
 
-  return (
+  return total ? (
     <div className="app-pagination">
       <Button onClick={handlePrev} disabled={page <= 1} className="page-button">
         <Icon as={ChevronLeft} />
@@ -152,16 +152,16 @@ export const AppPagination = (props: IProps) => {
           rightIcon={<ChevronDown />}
           className="page-size-button"
         >
-          {pageSize}/page
+          {limit}/page
         </MenuButton>
         <MenuList>
-          {pageSizeOption.map((option) => (
-            <MenuItem key={option} onClick={() => handleChangePageSize(option)}>
+          {LimitOption.map((option) => (
+            <MenuItem key={option} onClick={() => handleChangeLimit(option)}>
               {option}/page
             </MenuItem>
           ))}
         </MenuList>
       </Menu>
     </div>
-  )
+  ) : null
 }
