@@ -10,7 +10,6 @@ import {
 import BoxIcon from "@static/icons/item-box.svg"
 import VerifiedIcon from "@static/icons/verified.svg"
 import { GetServerSidePropsContext } from "next"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { ChevronDown, ChevronUp, ExternalLink } from "react-feather"
@@ -21,11 +20,11 @@ import { ListingBar } from "src/components/Home/ListingBar"
 import { NftItem } from "src/components/NftItem"
 import { BSC_SCAN_TRANSACTION } from "src/configs"
 import { collectionService } from "src/services/CollectionService"
-import { getCollection, getCollectionItems } from "src/services/nft"
+import { getCollectionItems } from "src/services/nft"
 
 const CollectionDetails = (props) => {
   const { data } = props
-
+  console.log(data)
   const [isExpanded, setIsExpanded] = useState(false)
 
   const router = useRouter()
@@ -239,7 +238,7 @@ const CollectionDetails = (props) => {
       <Button className="expand-button" onClick={handleExpand}>
         <Icon as={isExpanded ? ChevronUp : ChevronDown} />
       </Button>
-      <img className="collection-banner" src={data?.banner} />
+      <img className="collection-banner" src={data?.cover_photo} />
       <ListingBar />
       <div className="collection-content">
         <Tabs align="center">
