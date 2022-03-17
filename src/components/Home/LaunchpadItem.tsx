@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useCountdown } from "src/hooks/useCountdown"
 import BoxsIcon from "../../../public/home/boxs.svg"
 import ItemsIcon from "../../../public/home/items.svg"
+import { Img } from "../Img"
 
 interface IProps {
   name?: string
@@ -19,9 +20,7 @@ export const LaunchpadItem = (props: IProps) => {
   return (
     <div className="launchpad-item">
       <div className="launchpad-image">
-        <div className="image-wrapper">
-          <img src={image} />
-        </div>
+        <Img src={image} objectFit="cover" />
       </div>
       <span className={isOnGoing ? "on-going" : "up-coming"}>
         {isOnGoing ? "Ongoing" : "Upcoming"}
