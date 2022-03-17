@@ -1,9 +1,11 @@
 import {
   Button,
   Icon,
+  Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalOverlay,
   Tab,
   TabList,
   TabPanel,
@@ -29,8 +31,9 @@ const DetailsPage = observer((props: any) => {
   const { data } = props
   const WalletController = useStore("WalletController")
   const { address } = WalletController
-
   const [info, setInfo] = useState(data)
+
+  const [resultVisible, setResultVisible] = useState(false)
 
   const _renderDetails = () => {
     return (
@@ -124,15 +127,22 @@ const DetailsPage = observer((props: any) => {
 
   const _renderResultModal = () => {
     return (
-      <ModalContent>
-        <ModalCloseButton />
-        <ModalBody className="result-modal">
-          <Icon as={Success} className="success-icon" />
-          <h1>Successful !</h1>
-          <p>You have successful transaction</p>
-          <Button>OK</Button>
-        </ModalBody>
-      </ModalContent>
+      <Modal
+        isCentered
+        isOpen={resultVisible}
+        onClose={() => setResultVisible(false)}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody className="result-modal">
+            <Icon as={Success} className="success-icon" />
+            <h1>Successful !</h1>
+            <p>You have successful transaction</p>
+            <Button>OK</Button>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     )
   }
 

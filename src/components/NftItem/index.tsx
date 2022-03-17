@@ -3,7 +3,7 @@ import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import Verified from "@static/icons/verified.svg"
 import dayjs from "dayjs"
 import { observer } from "mobx-react-lite"
-import Router from "next/router"
+import Router, { useRouter } from "next/router"
 import { useStore } from "src/hooks/useStore"
 import { currency } from "src/utils/Number"
 
@@ -12,22 +12,15 @@ interface IProps {
 }
 
 export const NftItem = observer((props: IProps) => {
+  const { info } = props
   const WalletController = useStore("WalletController")
   const { address } = WalletController
 
-  const { info } = props
-
-  const handleRedirect = (collection = false) => {
-    if (!collection) {
-      Router.push("/nft/" + info.id)
-    } else {
-      Router.push("/collection/" + info.collection.id)
-    }
-  }
+  const router = useRouter()
 
   return (
     <div className="nft-item">
-      <div className="nft-image" onClick={() => handleRedirect()}>
+      <div className="nft-image" onClick={() => router.push("/nft/" + info.id)}>
         <img src={info.photo} />
       </div>
       <div className="network">
@@ -35,7 +28,10 @@ export const NftItem = observer((props: IProps) => {
       </div>
       <div className="nft-body">
         <div className="provider">
-          <div className="algin-center" onClick={() => handleRedirect(true)}>
+          <div
+            className="algin-center"
+            onClick={() => router.push("/collection/" + info.id)}
+          >
             <span>{info.collection?.name}</span>
             {info.is_verified ? <Verified /> : null}
           </div>
@@ -47,7 +43,7 @@ export const NftItem = observer((props: IProps) => {
             )}
           </div>
         </div>
-        <span className="name" onClick={() => handleRedirect()}>
+        <span className="name" onClick={() => router.push("/nft/" + info.id)}>
           {info.name}
         </span>
         <div className="end-in">
@@ -59,7 +55,7 @@ export const NftItem = observer((props: IProps) => {
         </div>
         <div
           className={`price ${info.hidePrice && "hidden"}`}
-          onClick={() => handleRedirect()}
+          onClick={() => router.push("/nft/" + info.id)}
         >
           <span>
             <BNBSymbol />{" "}
