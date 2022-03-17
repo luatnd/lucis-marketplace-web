@@ -8,12 +8,7 @@ export const Banners = (props) => {
   return (
     <div className="banner-wrapper">
       <div className="banners">
-        <Marquee
-          speed={25}
-          gradientWidth={70}
-          gradientColor={[1, 1, 62]}
-          pauseOnHover={true}
-        >
+        <Marquee speed={25} gradientWidth={70} gradientColor={[1, 1, 62]}>
           {data?.map((item) => (
             <Link key={item.id} href={"/collection/" + item.id}>
               <div className="banner-border">

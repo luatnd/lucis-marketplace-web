@@ -20,6 +20,7 @@ import React, { useState } from "react"
 import { ExternalLink, Eye, Heart } from "react-feather"
 import { useStore } from "src/hooks/useStore"
 import { nftService } from "src/services/NftService"
+import { isVideo } from "src/utils/format"
 import Activities from "./Activities"
 import Auction from "./Auction"
 import { AucTray } from "./AucTray"
@@ -33,6 +34,8 @@ const DetailsPage = observer((props: any) => {
   const { address } = WalletController
   const [info, setInfo] = useState(data)
 
+  console.log(info)
+
   const [resultVisible, setResultVisible] = useState(false)
 
   const _renderDetails = () => {
@@ -40,7 +43,13 @@ const DetailsPage = observer((props: any) => {
       <div className="details">
         <div className="details-card">
           <div className="details-image">
-            <img src={data?.photo} />
+            {info?.metadata?.extendInfo?.videoUrl ? (
+              <video autoPlay loop>
+                <source src={info.metadata.extendInfo.videoUrl} />
+              </video>
+            ) : (
+              <img src={data?.photo} />
+            )}
             <Icon
               as={Heart}
               className={`heart ${info.liked ? "heart-liked" : ""}`}

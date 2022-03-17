@@ -5,7 +5,9 @@ import dayjs from "dayjs"
 import { observer } from "mobx-react-lite"
 import Router, { useRouter } from "next/router"
 import { useStore } from "src/hooks/useStore"
+import { isImg, isVideo } from "src/utils/format"
 import { currency } from "src/utils/Number"
+import Link from "next/link"
 
 interface IProps {
   info: any
@@ -21,7 +23,13 @@ export const NftItem = observer((props: IProps) => {
   return (
     <div className="nft-item">
       <div className="nft-image" onClick={() => router.push("/nft/" + info.id)}>
-        <img src={info.photo} />
+        {isVideo(info.photo) ? (
+          <video autoPlay muted loop>
+            <source src={info.photo} />
+          </video>
+        ) : (
+          <img src={info.photo} />
+        )}
       </div>
       <div className="network">
         <img src={info.network} />
@@ -32,7 +40,9 @@ export const NftItem = observer((props: IProps) => {
             className="algin-center"
             onClick={() => router.push("/collection/" + info.id)}
           >
-            <span>{info.collection?.name}</span>
+            <Link href={"/collection/" + info.collection_id}>
+              <a>{info.contract_name}</a>
+            </Link>
             {info.is_verified ? <Verified /> : null}
           </div>
           <div>
