@@ -8,9 +8,10 @@ import { useStore } from "src/hooks/useStore"
 import { isImg, isVideo } from "src/utils/format"
 import { currency } from "src/utils/Number"
 import Link from "next/link"
+import { TNftItem } from "src/@types/nft"
 
 interface IProps {
-  info: any
+  info: TNftItem
 }
 
 export const NftItem = observer((props: IProps) => {

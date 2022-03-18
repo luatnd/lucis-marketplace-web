@@ -11,12 +11,17 @@ import VerifiedIcon from "@static/icons/verified.svg"
 import { GetServerSidePropsContext } from "next"
 import { useState } from "react"
 import { ChevronDown, ChevronUp } from "react-feather"
+import { TCollection } from "src/@types/collection"
 import { ListingBar } from "src/components/Home/ListingBar"
 import { collectionService } from "src/services/CollectionService"
 import { CollectionActivities } from "./CollectionActivities"
 import { CollectionItems } from "./CollectionItems"
 
-const CollectionDetails = (props) => {
+interface IProps {
+  data: TCollection
+}
+
+const CollectionDetails = (props: IProps) => {
   const { data } = props
   const [isExpanded, setIsExpanded] = useState(false)
 
