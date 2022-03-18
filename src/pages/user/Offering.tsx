@@ -252,7 +252,6 @@ const Offering = observer(() => {
                             <Link href={"/user/" + data.transaction_id}>
                               <a>Nhi</a>
                             </Link>
-<<<<<<< HEAD
                           </Td>
                           <Td>{formatTime(data.deadline, true)}</Td>
                           <Td>{formatTime(data.created_time, false)}</Td>
@@ -280,58 +279,12 @@ const Offering = observer(() => {
                 <AppPagination
                   total={totalMake}
                   offset={offset1}
-                  pageSize={pageSize1}
-                  onChangPageSize={(pageSize) => setPageSize1(pageSize)}
+                  limit={pageSize1}
+                  onChangeLimit={(pageSize) => setPageSize1(pageSize)}
                   onChangeOffset={(offset) => setOffset1(offset)}
                 />
               </>
             )}
-=======
-                            <Link href={"/nft/" + data.key}>
-                              <a>
-                                <p>CUONG DOLLA NFT</p>
-                              </a>
-                            </Link>
-                          </div>
-                        </div>
-                      </Td>
-                      <Td isNumeric>26.94 BNB</Td>
-                      <Td>
-                        <Link href={"/user/nhi"}>
-                          <a>Nhi</a>
-                        </Link>
-                      </Td>
-                      <Td>in 2 days</Td>
-                      <Td>1 days ago</Td>
-                      <Td>
-                        {data.action ? (
-                          <div className="button">
-                            <button
-                              onClick={() => {
-                                setActionID(data.key)
-                                onOpen()
-                              }}
-                            >
-                              Cancel
-                            </button>
-                          </div>
-                        ) : (
-                          "Canceled"
-                        )}
-                      </Td>
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </div>
-            <AppPagination
-              total={10}
-              offset={offset1}
-              limit={pageSize1}
-              onChangeLimit={(pageSize) => setPageSize1(pageSize)}
-              onChangeOffset={(offset) => setOffset1(offset)}
-            />
->>>>>>> 566fe63eb21a09db8d6891d07efa39b7e7b1b54c
           </TabPanel>
         </TabPanels>
       </Tabs>
