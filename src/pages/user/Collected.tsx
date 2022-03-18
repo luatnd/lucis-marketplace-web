@@ -2,38 +2,37 @@ import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
 import { useStore } from "src/hooks/useStore"
-import { getNfts } from "src/services/nft"
+import { collectedUser, getNfts } from "src/services/nft"
 import { NftItem } from "../../components/NftItem"
 import { AppSelect } from "src/components/AppSelect"
 import { networkType } from "../data/networkType"
 import { observer } from "mobx-react-lite"
 import { AppPagination } from "src/components/AppPagination"
+import { useRouter } from "next/router"
 
 const Collected = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
+
   const [data, setData] = useState([])
   const [pageSize, setPageSize] = useState(20)
   const [totalData, setTotalData] = useState(0)
-  const [offset, setOffset] = useState(1)
+  const [offset, setOffset] = useState(0)
+
+  const router = useRouter()
+  const { id } = router.query
+
   const getdata = async () => {
-    if (address) {
-      const res = await getNfts({
-        owner: address,
-        _limit: pageSize,
-        _page: Math.ceil(offset / pageSize),
-      })
+    if (id) {
+      const res = await collectedUser(id, pageSize, offset,null)
       setData(res.data)
       setTotalData(res.total)
     }
   }
   useEffect(() => {
     getdata()
-  }, [address])
+  }, [pageSize, offset,id])
 
-  useEffect(() => {
-    getdata()
-  }, [pageSize, offset])
   const typeSort = [
     {
       value: "",

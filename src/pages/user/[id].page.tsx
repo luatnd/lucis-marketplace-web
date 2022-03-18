@@ -12,12 +12,17 @@ import Favorite from "./Favorite"
 import OnSale from "./OnSale"
 import Activities from "./Activities"
 import { useRouter } from "next/router"
+import { observer } from "mobx-react-lite"
+import { useStore } from "src/hooks/useStore"
+import { formatAddress } from "./FormatAddress"
 
-const MyNft = () => {
+const MyNft = observer(() => {
   const router = useRouter()
   const toast = useToast()
+  const WalletController = useStore("WalletController")
+  const { address } = WalletController
   const { id } = router.query
-  const myNft = id == "my-nft" ? true : false
+  const myNft = id == address ? true : false
   const { tab } = router.query
   const handleChangeTab = (value) => {
     router.query.tab = value
@@ -39,7 +44,7 @@ const MyNft = () => {
               <div
                 className="bottom"
                 onClick={() => {
-                  navigator.clipboard.writeText("0X123466132X452")
+                  navigator.clipboard.writeText(String(id))
                   toast({
                     description: "User address has been copied to clipboard",
                     status: "success",
@@ -48,7 +53,13 @@ const MyNft = () => {
                   })
                 }}
               >
-                <span>0X123466...X452</span>
+                <span>
+                  {String(id).slice(0, 8) +
+                    "..." +
+                    String(
+                      String(id).slice(String(id).length - 4, String(id).length)
+                    )}
+                </span>
                 <img src="/common/my-nft/copy.png" alt="" />
               </div>
             </div>
@@ -67,7 +78,7 @@ const MyNft = () => {
                   <div
                     className="bottom"
                     onClick={() => {
-                      navigator.clipboard.writeText("0X123466132X452")
+                      navigator.clipboard.writeText(String(id))
                       toast({
                         description:
                           "User address has been copied to clipboard",
@@ -77,7 +88,9 @@ const MyNft = () => {
                       })
                     }}
                   >
-                    <span>0X123466...X452</span>
+                    <span>
+                      {formatAddress(id,8,4)}
+                    </span>
                     <img src="/common/my-nft/copy.png" alt="" />
                   </div>
                 </div>
@@ -121,7 +134,7 @@ const MyNft = () => {
               <Collected />
             </TabPanel>
             <TabPanel>
-              <Favorite />
+              <Favorite/>
             </TabPanel>
             <TabPanel>
               <Activities />
@@ -131,5 +144,5 @@ const MyNft = () => {
       </div>
     </div>
   )
-}
+})
 export default MyNft

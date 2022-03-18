@@ -1,4 +1,3 @@
-import Pagination from "src/components/Pagination"
 import {
   Tabs,
   TabList,
@@ -12,24 +11,29 @@ import {
   Th,
   Td,
 } from "@chakra-ui/react"
-import Sort from "src/components/Sort"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
 import { networkType } from "../data/networkType"
+import { favoriteActivitiUser, mineActivitiUser } from "src/services/nft"
+import { formatAddress } from "./FormatAddress"
+import { formatTime } from "src/hooks/useCountdown"
+import { useRouter } from "next/router"
 const Activities = () => {
-  const [offset, setOffset] = useState(1)
+  const router = useRouter()
+  const { id } = router.query
+
+  const [data, setData] = useState([])
+  const [total, setTotal] = useState(0)
+  const [offset, setOffset] = useState(0)
   const [pageSize, setPageSize] = useState(10)
-  const priceSort = [
-    { img: "/common/bnb.png", name: "BNB chain" },
-    { img: "/common/walletConnect.png", name: "WalletConnect" },
-    { img: "/common/ethereum.png", name: "Ethereum" },
-    { img: "/common/celo.png", name: "Celo" },
-    { img: "/common/aurora.png", name: "Aurora" },
-    { img: "/common/arbitrum.png", name: "Arbitrum" },
-    { img: "/common/fantom.png", name: "Fantom" },
-  ]
+
+  const [data1, setData1] = useState([])
+  const [total1, setTotal1] = useState(0)
+  const [offset1, setOffset1] = useState(0)
+  const [pagesize1, setPageSize1] = useState(10)
+
   const madeSort = [
     {
       img: "",
@@ -42,98 +46,6 @@ const Activities = () => {
     {
       img: "",
       name: "Price: Max to Min",
-    },
-  ]
-  const dataSoure = [
-    {
-      key: 1,
-      type: "Sale",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "41 seconds ago",
-    },
-    {
-      key: 2,
-      type: "Listing",
-      item: "ExtensionPunks #5715",
-      price: "0.05 BNB",
-      from: "Nguyen Yen Nhi",
-      to: "",
-      date: "3 minutes ago",
-    },
-    {
-      key: 3,
-      type: "Offer",
-      item: "GoatApes Club #1367",
-      price: "0.4 BNB",
-      from: "Dong Van Cuong",
-      to: "0x567b…fFf8",
-      date: "12 minutes ago",
-    },
-    {
-      key: 4,
-      type: "Auction",
-      item: "ExtensionPunks #547",
-      price: "0.0289 BNB",
-      from: "Phan Van Vu",
-      to: "0x6c1b…fFf8",
-      date: "11 minutes ago",
-    },
-    {
-      key: 5,
-      type: "Sale",
-      item: "SamuraiRising - Samurai",
-      price: "0.28 BNB",
-      from: "Mai Anh Tai",
-      to: "0x321c…fFf8",
-      date: "12 minutes ago",
-    },
-    {
-      key: 6,
-      type: "Auction",
-      item: "Alpha Cat",
-      price: "0.13 BNB",
-      from: "Nguyen Duc Trung",
-      to: "0x905d…fFf8",
-      date: "14 minutes ago",
-    },
-    {
-      key: 7,
-      type: "Offer",
-      item: "Meme Lordz Limited",
-      price: "0.5 BNB",
-      from: "Dong Van Cuong",
-      to: "0x869y…fFf8",
-      date: "14 minutes ago",
-    },
-    {
-      key: 8,
-      type: "Listing",
-      item: "Freeport Metaverse Assets",
-      price: "0.8 BNB",
-      from: "Tran Duc Thang",
-      to: "",
-      date: "15 minutes ago",
-    },
-    {
-      key: 9,
-      type: "Sale",
-      item: "XWorld - DC Equipment",
-      price: "0.035 BNB",
-      from: "Nguyen Van Anh",
-      to: "0x999e…fFf8",
-      date: "16 minutes ago",
-    },
-    {
-      key: 10,
-      type: "Sale",
-      item: "Helium-3 - MASK BABY",
-      price: "0.03 BNB",
-      from: "Dong Van Cuong",
-      to: "0x814q…fFf8",
-      date: "16 minutes ago",
     },
   ]
   const typeSort = [
@@ -150,6 +62,29 @@ const Activities = () => {
       label: "Price: Max to Min",
     },
   ]
+  // ====load data favotite tab
+  const getdata = async () => {
+    if (id) {
+      const res = await favoriteActivitiUser(id,1)
+      setData(res.data)
+      setTotal(res.total)
+    }
+  }
+  useEffect(() => {
+    getdata()
+  }, [id, pageSize, offset])
+  // ==== load data mine tab
+  const getdata1 = async () => {
+    if (id) {
+      const res = await mineActivitiUser(id,1)
+      setData1(res.data)
+      setTotal1(res.total)
+    }
+  }
+  useEffect(() => {
+    getdata1()
+  }, [id, pagesize1, offset1])
+
   return (
     <div className="tab">
       <Tabs align="center">
@@ -179,7 +114,7 @@ const Activities = () => {
         </div>
         <TabPanels>
           <TabPanel className="tab-activities">
-            {dataSoure.length > 0 ? (
+            {total > 0 ? (
               <div className="border">
                 <Table variant="simple">
                   <Thead>
@@ -193,32 +128,43 @@ const Activities = () => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {dataSoure.map((data) => (
+                    {data.map((data) => (
                       <Tr key={data.key}>
-                        <Td>{data.type}</Td>
+                        <Td>
+                          {data.kind == 1
+                            ? "Sale"
+                            : data.kind == 2
+                            ? "Offer"
+                            : data.kind == 3
+                            ? "Auction"
+                            : "Listing"}
+                        </Td>
                         <Td className="item">
                           <Link href={"/nft/" + data.key}>
                             <a>
-                              <img src="/icons/item.png" alt="" /> {data.item}
+                              <img src={data.photo} alt="" /> {data.name}
                             </a>
                           </Link>
                         </Td>
                         <Td isNumeric>{data.price}</Td>
                         <Td>
                           <Link href={"/user/" + data.from}>
-                            <a>{data.from}</a>
+                            <a>{data.seller_name}</a>
                           </Link>
                         </Td>
                         <Td className="to">
-                          <Link href={"/user/1"}>
-                            <a>{data.to}</a>
+                          <Link href={"/user/" + data.transaction_id}>
+                            <a>{formatAddress(data.transaction_id, 6, 4)}</a>
                           </Link>
                         </Td>
                         <Td className="date">
-                          {data.date}{" "}
-                          {data.to.length ? (
+                          {formatTime(data.created_time, false)}{" "}
+                          {data.kind != 4 ? (
                             <a
-                              href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
+                              href={
+                                "https://testnet.bscscan.com/tx/" +
+                                data.transaction_id
+                              }
                               target={"_blank"}
                               rel="noreferrer"
                             >
@@ -234,18 +180,18 @@ const Activities = () => {
             ) : (
               <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
             )}
-            {dataSoure.length > 0 ? (
+            {total ? (
               <AppPagination
-                total={10}
-                offset={1}
-                pageSize={10}
+                total={total}
+                offset={offset}
+                pageSize={pageSize}
                 onChangPageSize={(pageSize) => setPageSize(pageSize)}
                 onChangeOffset={(offset) => setOffset(offset)}
               />
             ) : null}
           </TabPanel>
           <TabPanel className="tab-activities">
-            {dataSoure.length > 0 ? (
+            {total1 ? (
               <div className="border">
                 <Table variant="simple">
                   <Thead>
@@ -259,32 +205,43 @@ const Activities = () => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {dataSoure.map((data) => (
+                    {data1.map((data) => (
                       <Tr key={data.key}>
-                        <Td>{data.type}</Td>
+                        <Td>
+                          {data.kind == 1
+                            ? "Sale"
+                            : data.kind == 2
+                            ? "Offer"
+                            : data.kind == 3
+                            ? "Auction"
+                            : "Listing"}
+                        </Td>
                         <Td className="item">
                           <Link href={"/nft/" + data.key}>
                             <a>
-                              <img src="/icons/item.png" alt="" /> {data.item}
+                              <img src={data.photo} alt="" /> {data.name}
                             </a>
                           </Link>
                         </Td>
                         <Td isNumeric>{data.price}</Td>
                         <Td>
                           <Link href={"/user/" + data.from}>
-                            <a>{data.from}</a>
+                            <a>{data.seller_name}</a>
                           </Link>
                         </Td>
                         <Td className="to">
-                          <Link href={"/user/1"}>
-                            <a>{data.to}</a>
+                          <Link href={"/user/" + data.transaction_id}>
+                            <a>{formatAddress(data.transaction_id, 6, 4)}</a>
                           </Link>
                         </Td>
                         <Td className="date">
-                          {data.date}{" "}
-                          {data.to.length ? (
+                          {formatTime(data.created_time, false)}{" "}
+                          {data.kind != 4 ? (
                             <a
-                              href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
+                              href={
+                                "https://testnet.bscscan.com/tx/" +
+                                data.transaction_id
+                              }
                               target={"_blank"}
                               rel="noreferrer"
                             >
@@ -300,13 +257,13 @@ const Activities = () => {
             ) : (
               <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
             )}
-            {dataSoure.length > 0 ? (
+            {total1 ? (
               <AppPagination
-                total={10}
-                offset={1}
-                pageSize={10}
-                onChangPageSize={(pageSize) => setPageSize(pageSize)}
-                onChangeOffset={(offset) => setOffset(offset)}
+                total={total1}
+                offset={offset1}
+                pageSize={pagesize1}
+                onChangPageSize={(pageSize) => setPageSize1(pageSize)}
+                onChangeOffset={(offset) => setOffset1(offset)}
               />
             ) : null}
           </TabPanel>

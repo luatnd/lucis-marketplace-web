@@ -74,19 +74,125 @@ export const getNfts = async (params) => {
   return { data, total: +headers["x-total-count"] }
 }
 
-export const favoriteUser = async (userAddress) => {
-  const { data } = await axios({
-    method: "POST",
-    url: "https://lucis-api-testnet.lucis.pro" + "/nft-item/favorite/get",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: {
-      address: "0x10a6dc9fb8f8794d1dc7d16b035c40923b148aa4",
-      blockchain_id: 2,
-    },
-  })
-  return data
+export const mineActivitiUser = async (userAddress, blockchain_id) => {
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: "https://lucis-api-testnet.lucis.pro" + "/nft-event/mine",
+      data: {
+        address: String(userAddress),
+        blockchain_id: blockchain_id,
+      },
+    })
+    return data.data
+  } catch (error) {
+    return { data: [], total: 0 }
+  }
+}
+
+export const favoriteActivitiUser = async (userAddress, blockchain_id) => {
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: "https://lucis-api-testnet.lucis.pro" + "/nft-event/my-favorite",
+      data: {
+        address: String(userAddress),
+        blockchain_id: blockchain_id,
+      },
+    })
+    return data.data
+  } catch (error) {
+    return { data: [], total: 0 }
+  }
+}
+
+export const favoriteUser = async (userAddress, blockchain_id) => {
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: "https://lucis-api-testnet.lucis.pro" + "/nft-item/favorite/get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        address: String(userAddress),
+        blockchain_id: blockchain_id,
+      },
+    })
+    return data.data
+  } catch (error) {
+    return { data: [], total: 0 }
+  }
+}
+
+export const collectedUser = async (
+  userAddress,
+  limit,
+  offset,
+  blockchain_id
+) => {
+  try {
+    const { data } = await axios({
+      method: "GET",
+      url: "https://lucis-api-testnet.lucis.pro" + "/nft-item/list",
+      params: {
+        owner_address: String(userAddress),
+        limit: limit,
+        offset: offset,
+        blockchain_id: blockchain_id,
+      },
+    })
+    return data.data
+  } catch (error) {
+    return { data: [], total: 0 }
+  }
+}
+
+export const onsaleUser = async (
+  limit,
+  offset,
+  reverse,
+  order_by,
+  userAddress,
+  kind
+) => {
+  try {
+    const { data } = await axios({
+      method: "GET",
+      url: "https://lucis-api-testnet.lucis.pro" + "/nft-item/onsale",
+      params: {
+        limit: limit,
+        offset: offset,
+        reverse: reverse,
+        order_by: order_by,
+        seller: userAddress,
+        kind: kind,
+      },
+    })
+    return data.data
+  } catch (error) {
+    return { data: [], total: 0 }
+  }
+}
+
+export const offeringUser = async (kind, limit, offset,userAddress,reverse,order_by) => {
+  try {
+    const { data } = await axios({
+      method: "GET",
+      url: "https://lucis-api-testnet.lucis.pro" + "/nft-item/offering",
+      params: {
+        limit: limit,
+        offset: offset,
+        reverse: reverse,
+        order_by: order_by,
+        buyer: String(userAddress),
+        kind: kind,
+      },
+    })
+    return data.data
+  } catch (error) {
+    return { data: [], total: 0 }
+  }
 }
 
 export const getNft = async (id: number, params?: any) => {

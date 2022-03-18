@@ -81,7 +81,6 @@
             padding: 0 15px;
             cursor: pointer;
             @include to(md) {
-              margin-top: 13px;
               height: 44px;
               min-width: 200px;
             }
@@ -504,6 +503,8 @@
           }
           .item {
             img {
+              width: 50px;
+              height: 40px;
               display: inline-block;
               padding: 6x 13px;
               background: rgba(125, 117, 208, 0.5);
