@@ -2,12 +2,11 @@ import { Button } from "@chakra-ui/react"
 import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import Verified from "@static/icons/verified.svg"
 import dayjs from "dayjs"
-import { BigNumber, ethers } from "ethers"
 import { observer } from "mobx-react-lite"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { TNftItem } from "src/@types/nft"
-import { useNetwork } from "src/hooks/useNetwork"
+import { getNetwork } from "src/utils/getNetwork"
 import { useStore } from "src/hooks/useStore"
 import { isVideo } from "src/utils/format"
 import { formatNftPrice } from "src/utils/Number"
@@ -22,7 +21,7 @@ export const NftItem = observer((props: IProps) => {
   const { address } = WalletController
   const router = useRouter()
 
-  const { icon: Network } = useNetwork(info.blockchain_id)
+  const { icon: Network } = getNetwork(info.blockchain_id)
 
   return (
     <div className="nft-item">

@@ -19,7 +19,7 @@ import { observer } from "mobx-react-lite"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
-import { networks, useNetwork } from "src/hooks/useNetwork"
+import { getNetwork, networks } from "src/utils/getNetwork"
 import { useStore } from "src/hooks/useStore"
 import { UserTray } from "../UserTray"
 import { SearchBar } from "./SearchBar"
@@ -282,7 +282,7 @@ export const AppLayout = observer(({ children }) => {
                 rightIcon={<Icon as={Icons.ChevronDown} />}
                 className="network-nav"
               >
-                {useNetwork(blockchain_id).icon}
+                {getNetwork(blockchain_id).icon}
               </MenuButton>
               <MenuList className="network-list">
                 {networks.map((el, key) => (
@@ -291,7 +291,7 @@ export const AppLayout = observer(({ children }) => {
                     className="network-item"
                     onClick={() => BlockchainStore.setBlockchainId(el.id)}
                   >
-                    {useNetwork(el.id).icon}
+                    {getNetwork(el.id).icon}
                     {el.name}
                   </MenuItem>
                 ))}

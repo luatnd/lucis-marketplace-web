@@ -27,6 +27,6 @@ export const networks: TNetwork[] = [
   },
 ]
 
-export const useNetwork = (id: number | string) => {
+export const getNetwork = (id: number | string) => {
   return id ? networks.find((network) => network.id === +id) : networks[0]
 }

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { useNetwork } from "src/hooks/useNetwork"
+import { getNetwork } from "src/utils/getNetwork"
 import { Img } from "../Img"
 
 interface IProps {
@@ -16,7 +16,7 @@ export const CollectionItem = (props: IProps) => {
           <Img src={info.photo} />
         </div>
         <span>{info.name}</span>
-        <div className="network">{useNetwork(info.blockchain_id)?.icon}</div>
+        <div className="network">{getNetwork(info.blockchain_id)?.icon}</div>
       </div>
     </Link>
   )
