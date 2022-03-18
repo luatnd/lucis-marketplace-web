@@ -1,20 +1,12 @@
-import { REQUIRED_CHAINID } from "./../configs"
 import { ethers, providers } from "ethers"
 import { makeAutoObservable } from "mobx"
 import { strToHex } from "src/utils/Number"
 import Swal from "sweetalert2"
 import Web3Modal from "web3modal"
+import { isJwtValid, providerOptions } from "../lib/auth"
+import erc20ABI from "../lib/erc20ABI.json"
 import { apiClient } from "../services/ApiClient"
 import { authService } from "../services/AuthService"
-import erc20ABI from "../lib/erc20ABI.json"
-import {
-  getWalletMeta,
-  isJwtValid,
-  providerOptions,
-  switchNetwork,
-} from "../lib/auth"
-import { supportedChainsIndexed } from "../lib/chains"
-import { DEFAULT_TOKEN_ADDRESS } from "src/configs"
 
 export type TNetwork = {
   name: string
@@ -41,19 +33,15 @@ export class WalletController {
   public web3Provider = null
   public signer: any = null
   public address: string = null
-  public network: any = null
-  public balance: string = null
-  public token: string = null
   public loading = false
+  public isReady: boolean = false
 
   resetStates() {
     this.provider = null
     this.web3Provider = null
     this.signer = null
     this.address = null
-    this.network = null
-    this.balance = null
-    this.token = null
+    this.isReady = false
     this.loading = false
   }
 
@@ -63,16 +51,18 @@ export class WalletController {
         window.location.reload()
       }
       const handleAccountsChanged = async (accounts: string[]) => {
-        console.log("{handleAccountsChanged} account: ", accounts[0])
-        this.address = accounts[0]
-        this.network = await this.web3Provider.getNetwork()
-        const balance = await this.balanceOf(
-          this.address,
-          DEFAULT_TOKEN_ADDRESS
-        )
-        this.balance = ethers.utils.formatEther(balance)
-        await this.login()
-        disconnect()
+        const result = await Swal.fire({
+          title: "PLease sign Metamask to re-login",
+          icon: "question",
+          showCancelButton: true,
+        })
+        if (result.isConfirmed) {
+          this.address = accounts[0]
+          console.log("{handleAccountsChanged} account: ", accounts[0])
+          apiClient.applyAuth(null)
+          localStorage.removeItem("token")
+          await this.login()
+        } else window.location.reload()
       }
       const handleDisconnect = (error: { code: number; message: string }) => {
         console.log("{handleDisconnect} error: ", error)
@@ -103,7 +93,6 @@ export class WalletController {
   async login() {
     const token = this.getAuth()
     if (token && isJwtValid(token)) {
-      this.token = token
       apiClient.applyAuth(token)
       return true
     } else {
@@ -115,7 +104,6 @@ export class WalletController {
       const signed_hash = await this.web3Provider.send("personal_sign", params)
       const token = await authService.login(account, signed_hash)
       if (token) {
-        this.token = token
         this.setAuth(token)
         apiClient.applyAuth(token)
         return true
@@ -135,40 +123,12 @@ export class WalletController {
     try {
       this.provider = await this.web3Modal.connect()
       this.web3Provider = new providers.Web3Provider(this.provider, "any")
-      const isRightNetwork = await switchNetwork(
-        REQUIRED_CHAINID,
-        this.provider
-      )
-      if (!isRightNetwork) {
-        const network = supportedChainsIndexed[REQUIRED_CHAINID]
-        const walletMeta = getWalletMeta(this.provider)
-        const walletName = walletMeta?.name
-        Swal.fire({
-          icon: "error",
-          title: "Blockchain Network required",
-          text: `Animverse support ${network.name} network only
-          Please open ${
-            walletName ?? "your wallet"
-          } and check if Animverse is using ${
-            network.name
-          } network then press OK to reload`,
-        }).then(async () => {
-          await this.disconnect()
-          window && window.location.reload()
-          return true
-        })
-        this.loading = false
-        return false
-      }
-
       this.signer = this.web3Provider.getSigner()
       this.address = await this.signer.getAddress()
-      this.network = await this.web3Provider.getNetwork()
-      const balance = await this.balanceOf(this.address, DEFAULT_TOKEN_ADDRESS)
-      this.balance = ethers.utils.formatEther(balance)
       const res = await this.login()
       if (res) {
         this.loading = false
+        this.isReady = true
         return true
       }
       return false

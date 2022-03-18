@@ -17,7 +17,7 @@ let connectCountdownInterval
 export const UserTray = observer(() => {
   const [cancelVisible, setCancelVisible] = useState(false)
   const WalletController = useStore("WalletController")
-  const { provider, web3Modal, loading, token } = WalletController
+  const { provider, web3Modal, loading, isReady } = WalletController
 
   const connect = useCallback(async () => {
     let timeLeft = 60
@@ -61,7 +61,7 @@ export const UserTray = observer(() => {
     WalletController.setListeners(disconnect)
   }, [provider, disconnect])
 
-  return token ? (
+  return isReady ? (
     <div className="signed-user">
       <Menu>
         <MenuButton className="user-container">

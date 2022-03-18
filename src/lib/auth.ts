@@ -1,7 +1,5 @@
-import { REQUIRED_CHAINID } from "./../configs"
-import { IClientMeta } from "@walletconnect/types"
-import jwtDecode from "jwt-decode"
 import WalletConnectProvider from "@walletconnect/web3-provider"
+import jwtDecode from "jwt-decode"
 import { supportedChainsIndexed } from "./chains"
 import { convertIChainData2ChainParameter } from "./types"
 
@@ -17,22 +15,6 @@ export const isJwtValid = (token: string): boolean => {
   const jwt = jwtDecode(token) as TJwt
   const res = jwt.exp
   return new Date(res * 1000) > new Date()
-}
-
-export const web3modalChainId2Network = (): string => {
-  switch (REQUIRED_CHAINID) {
-    case 1:
-      return "mainnet"
-    case 56:
-      return "binance"
-    case 97:
-      return "binance_testnet"
-    default:
-      throw new Error(
-        "web3modal__chainId2network: Not supported chain id: " +
-          REQUIRED_CHAINID
-      )
-  }
 }
 
 export const providerOptions = {
@@ -52,7 +34,6 @@ export const providerOptions = {
       // https://github.com/Web3Modal/web3modal/blob/72596699b97d231dfaa5ef04110b61b8dc77d57d/src/providers/connectors/walletconnect.ts#L30
       // https://github.com/Web3Modal/web3modal/blob/72596699b97d231dfaa5ef04110b61b8dc77d57d/src/helpers/utils.ts#L198
       // web3modal has not support BSC testnet yet (because Trust wallet not support it). To support chain 97: // directly add network to this file to tmp test: node_modules/web3modal/dist/index.js
-      network: web3modalChainId2Network(),
       // This will turn on only some wallet for mobile
       qrcodeModalOptions: {
         mobileLinks: [
@@ -73,19 +54,6 @@ export const providerOptions = {
       },
     },
   },
-}
-
-export const getWalletMeta = (provider): IClientMeta => {
-  let walletMeta: IClientMeta = null
-  if (provider.isMetaMask) {
-    walletMeta = provider.walletMeta
-  } else if (provider.isWalletConnect) {
-    walletMeta = provider.walletMeta
-  } else {
-    console.log("{ensureTargetChainActive} Wallet is not supported => SKIP")
-    return null
-  }
-  return walletMeta
 }
 
 export const switchNetwork = async (
