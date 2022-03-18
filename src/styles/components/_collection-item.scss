@@ -19,10 +19,12 @@
     padding: 2px;
     border-radius: 100%;
     margin-right: 25px;
+    position: relative;
     @include to(xs) {
       margin-right: 10px;
     }
-    .image-content {
+    span {
+      margin: 2px !important;
       height: 100%;
       width: 100%;
       border-radius: 100%;

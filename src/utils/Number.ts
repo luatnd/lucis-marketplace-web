@@ -1,3 +1,5 @@
+import { BigNumber, ethers } from "ethers"
+
 type FormatOptions = {
   sign?: boolean // true if you wanna show +/- sign before the value
   decimalPadding?: boolean // true if you wanna padding zero value to end of string. Eg: 11.20 instead of 11.2
@@ -152,4 +154,8 @@ export const strToHex = (str) => {
     result += str.charCodeAt(i).toString(16)
   }
   return result
+}
+
+export const formatNftPrice = (price: any) => {
+  return price ? ethers.utils.formatUnits(+price + "") : null
 }

@@ -3,11 +3,7 @@ import { useEffect } from "react"
 import { Discover } from "src/components/Home/Discover"
 import { GettingStarted } from "src/components/Home/GettingStarted"
 import { collectionService } from "src/services/CollectionService"
-import {
-  getGettingStarted,
-  getHotAuctions,
-  getLaunchpads,
-} from "src/services/nft"
+import { getGettingStarted, getLaunchpads } from "src/services/nft"
 import { nftService } from "src/services/NftService"
 import { addAnimationOnScroll } from "src/utils/AnimationOnScroll"
 import { Banners } from "../components/Home/Banners"
@@ -19,8 +15,6 @@ import { ListingBar } from "../components/Home/ListingBar"
 const Home = (props) => {
   const { launchpads, hotCollections, hotAuctions, discovers, gettingStarted } =
     props
-
-  console.log(discovers)
 
   useEffect(() => {
     addAnimationOnScroll()
@@ -46,7 +40,9 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     await Promise.all([
       getLaunchpads(),
       collectionService.getHotCollections(),
-      getHotAuctions(),
+      nftService.getHotAuctions({
+        limit: 20,
+      }),
       nftService.getNfts(),
       getGettingStarted(),
     ])

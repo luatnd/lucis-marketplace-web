@@ -2,41 +2,49 @@ import { Button } from "@chakra-ui/react"
 import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import Verified from "@static/icons/verified.svg"
 import dayjs from "dayjs"
+import { BigNumber, ethers } from "ethers"
 import { observer } from "mobx-react-lite"
-import Router from "next/router"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { TNftItem } from "src/@types/nft"
 import { useStore } from "src/hooks/useStore"
-import { currency } from "src/utils/Number"
+import { isVideo } from "src/utils/format"
+import { formatNftPrice } from "src/utils/Number"
 
 interface IProps {
-  info: any
+  info: TNftItem
 }
 
 export const NftItem = observer((props: IProps) => {
+  const { info } = props
   const WalletController = useStore("WalletController")
   const { address } = WalletController
 
-  const { info } = props
-
-  const handleRedirect = (collection = false) => {
-    if (!collection) {
-      Router.push("/nft/" + info.id)
-    } else {
-      Router.push("/collection/" + info.collection.id)
-    }
-  }
+  const router = useRouter()
 
   return (
     <div className="nft-item">
-      <div className="nft-image" onClick={() => handleRedirect()}>
-        <img src={info.photo} />
+      <div className="nft-image" onClick={() => router.push("/nft/" + info.id)}>
+        {isVideo(info.photo) ? (
+          <video autoPlay muted loop>
+            <source src={info.photo} />
+          </video>
+        ) : (
+          <img src={info.photo} />
+        )}
       </div>
       <div className="network">
         <img src={info.network} />
       </div>
       <div className="nft-body">
         <div className="provider">
-          <div className="algin-center" onClick={() => handleRedirect(true)}>
-            <span>{info.collection?.name}</span>
+          <div
+            className="algin-center"
+            onClick={() => router.push("/collection/" + info.id)}
+          >
+            <Link href={"/collection/" + info.collection_id}>
+              <a>{info.contract_name}</a>
+            </Link>
             {info.is_verified ? <Verified /> : null}
           </div>
           <div>
@@ -47,7 +55,7 @@ export const NftItem = observer((props: IProps) => {
             )}
           </div>
         </div>
-        <span className="name" onClick={() => handleRedirect()}>
+        <span className="name" onClick={() => router.push("/nft/" + info.id)}>
           {info.name}
         </span>
         <div className="end-in">
@@ -59,11 +67,12 @@ export const NftItem = observer((props: IProps) => {
         </div>
         <div
           className={`price ${info.hidePrice && "hidden"}`}
-          onClick={() => handleRedirect()}
+          onClick={() => router.push("/nft/" + info.id)}
         >
           <span>
             <BNBSymbol />{" "}
-            {currency(info.topAuc ?? info.aucPrice ?? info.price ?? null)} BNB
+            {formatNftPrice(info.topAuc ?? info.aucPrice ?? info.price ?? null)}{" "}
+            BNB
           </span>
           {info.owner === address ? null : info.aucPrice ? (
             <Button>AUC</Button>

@@ -161,8 +161,8 @@ const ReceivedOffer = (props) => {
       <AppPagination
         total={receivedList.length}
         offset={offset}
-        pageSize={pageSize}
-        onChangPageSize={(pageSize) => setPageSize(pageSize)}
+        limit={pageSize}
+        onChangeLimit={(pageSize) => setPageSize(pageSize)}
         onChangeOffset={(offset) => setOffset(offset)}
       />
       <Modal isOpen={isOpen} onClose={onClose}>

@@ -62,6 +62,7 @@ export const HomeSection = (props: IProps) => {
     rows: rows ?? 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    lazyLoad: true,
     responsive: [
       {
         breakpoint: 1200,

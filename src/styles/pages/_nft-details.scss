@@ -26,10 +26,12 @@
         margin-bottom: 30px;
         overflow: hidden;
         position: relative;
-        img {
+        img,
+        video {
+          background: $dark-purple;
           height: 100%;
           width: 100%;
-          object-fit: cover;
+          object-fit: contain;
           border-radius: 16px;
         }
         .heart {

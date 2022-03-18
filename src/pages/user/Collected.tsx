@@ -91,8 +91,8 @@ const Collected = observer(() => {
           <AppPagination
             total={totalData}
             offset={offset}
-            pageSize={pageSize}
-            onChangPageSize={(pageSize) => setPageSize(pageSize)}
+            limit={pageSize}
+            onChangeLimit={(pageSize) => setPageSize(pageSize)}
             onChangeOffset={(offset) => setOffset(offset)}
           />
         </>

@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Img } from "../Img"
 
 interface IProps {
   info?: any
@@ -11,9 +12,7 @@ export const CollectionItem = (props: IProps) => {
     <Link href={"/collection/" + info.id}>
       <div className="collection-item">
         <div className="collection-image">
-          <div className="image-content">
-            <img src={info.photo} />
-          </div>
+          <Img src={info.photo} />
         </div>
         <span>{info.name}</span>
         <div className="network">

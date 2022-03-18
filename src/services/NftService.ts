@@ -1,16 +1,15 @@
+import { TPaginateParams } from "src/@types/services"
 import { apiClient } from "./ApiClient"
 
-type TGetNftsParams = {
+type TGetNftsParams = TPaginateParams & {
   owner_address?: string
-  limit?: number
-  offset?: number
-  reverse?: boolean
-  order_by?: string
 }
 
 type TGetNftParams = {
   nft_item_id: number
 }
+
+type TGetHotAuctions = TPaginateParams
 
 class NftService {
   async getNfts(params?: TGetNftsParams) {
@@ -33,6 +32,18 @@ class NftService {
     })
     if (res?.data?.error_code === "") {
       return res?.data?.data
+    }
+    return null
+  }
+
+  async getHotAuctions(params?: TGetHotAuctions) {
+    const res = await apiClient.req({
+      method: "GET",
+      url: "/nft-item/hot-auction",
+      params,
+    })
+    if (res?.data?.error_code === "") {
+      return res?.data?.data?.data
     }
     return null
   }

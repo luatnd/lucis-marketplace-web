@@ -7,62 +7,23 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react"
-import BoxIcon from "@static/icons/item-box.svg"
 import VerifiedIcon from "@static/icons/verified.svg"
 import { GetServerSidePropsContext } from "next"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import { ChevronDown, ChevronUp, ExternalLink } from "react-feather"
-import { AppPagination } from "src/components/AppPagination"
-import { AppSelect } from "src/components/AppSelect"
-import { AppTable } from "src/components/AppTable"
+import { useState } from "react"
+import { ChevronDown, ChevronUp } from "react-feather"
+import { TCollection } from "src/@types/collection"
 import { ListingBar } from "src/components/Home/ListingBar"
-import { NftItem } from "src/components/NftItem"
-import { BSC_SCAN_TRANSACTION } from "src/configs"
-import { getCollection, getCollectionItems } from "src/services/nft"
+import { collectionService } from "src/services/CollectionService"
+import { CollectionActivities } from "./CollectionActivities"
+import { CollectionItems } from "./CollectionItems"
 
-const CollectionDetails = (props) => {
+interface IProps {
+  data: TCollection
+}
+
+const CollectionDetails = (props: IProps) => {
   const { data } = props
-
   const [isExpanded, setIsExpanded] = useState(false)
-
-  const router = useRouter()
-
-  const [items, setItems] = useState<any[]>()
-  const [itemTotal, setItemTotal] = useState(0)
-  const [offset, setOffset] = useState(0)
-  const [itemType, setItemType] = useState(null)
-  const [itemSort, setItemSort] = useState("asc")
-  const [pageSize, setPageSize] = useState(10)
-
-  const [total, setTotal] = useState(2000)
-
-  const [itemOffset, setItemOffset] = useState(0)
-  const [itemPageSize, setItemPageSize] = useState(20)
-
-  const fetchItems = async () => {
-    const id = await router.query.id
-    if (id) {
-      const { data, total } = await getCollectionItems(
-        +id,
-        itemOffset,
-        itemPageSize,
-        itemType,
-        itemSort
-      )
-      setItems(data)
-      setItemTotal(total)
-    }
-  }
-
-  useEffect(() => {
-    fetchItems()
-  }, [router.query.id])
-
-  useEffect(() => {
-    fetchItems()
-  }, [router.query.id, itemOffset, itemPageSize, itemType, itemSort])
 
   const handleExpand = () => {
     setIsExpanded(!isExpanded)
@@ -114,105 +75,6 @@ const CollectionDetails = (props) => {
     },
   ]
 
-  const _renderItemList = () => (
-    <div className="collection-item-list">
-      <div className="filter-row">
-        <div className="total">{itemTotal} items listed</div>
-        <div className="filter">
-          <AppSelect
-            // value={itemType}
-            placeholder="Type"
-            isSearchable={false}
-            onChange={({ value }) => setItemType(value as boolean)}
-            options={[
-              {
-                label: "Type",
-                value: null,
-              },
-              {
-                label: "Fixed price",
-                value: false,
-              },
-              {
-                label: "Auction",
-                value: true,
-              },
-            ]}
-          />
-          <AppSelect
-            placeholder="Price: Min to Max"
-            isSearchable={false}
-            // value={itemSort}
-            onChange={({ value }) => setItemSort(value)}
-            options={[
-              {
-                label: "Price: Min to Max",
-                value: "asc",
-              },
-              {
-                label: "Price: Max to Min",
-                value: "desc",
-              },
-            ]}
-          />
-        </div>
-      </div>
-      <div className="item-list">
-        {items?.map((item) => (
-          <NftItem info={item} key={item.id} />
-        ))}
-      </div>
-      <AppPagination
-        total={itemTotal}
-        offset={itemOffset}
-        pageSize={itemPageSize}
-        onChangeOffset={(value) => setItemOffset(value)}
-        onChangPageSize={(value) => setItemPageSize(value)}
-      />
-    </div>
-  )
-
-  const _renderActivities = () => (
-    <div className="collection-activities">
-      <div className="filter-row">
-        <AppSelect
-          placeholder="All"
-          isSearchable={false}
-          options={[
-            {
-              label: "All",
-              value: "1",
-            },
-            {
-              label: "Listing",
-              value: "2",
-            },
-            {
-              label: "Sale",
-              value: "3",
-            },
-            {
-              label: "Auction",
-              value: "4",
-            },
-            {
-              label: "Offer",
-              value: "5",
-            },
-          ]}
-        />
-      </div>
-      <AppTable className="data-table" data={tableData} columns={columns} />
-      <AppPagination
-        total={total}
-        offset={offset}
-        pageSize={pageSize}
-        onChangeOffset={(value) => setOffset(value)}
-        onChangPageSize={(value) => setPageSize(value)}
-      />
-    </div>
-  )
-
   return (
     <div className="collection-details-page">
       <div className="provider-name">
@@ -238,7 +100,7 @@ const CollectionDetails = (props) => {
       <Button className="expand-button" onClick={handleExpand}>
         <Icon as={isExpanded ? ChevronUp : ChevronDown} />
       </Button>
-      <img className="collection-banner" src={data?.banner} />
+      <img className="collection-banner" src={data?.cover_photo} />
       <ListingBar />
       <div className="collection-content">
         <Tabs align="center">
@@ -247,8 +109,8 @@ const CollectionDetails = (props) => {
             <Tab className="tab-item">ACTIVITIES</Tab>
           </TabList>
           <TabPanels>
-            <TabPanel>{_renderItemList()}</TabPanel>
-            <TabPanel>{_renderActivities()}</TabPanel>
+            <TabPanel>{<CollectionItems />}</TabPanel>
+            <TabPanel>{<CollectionActivities />}</TabPanel>
           </TabPanels>
         </Tabs>
       </div>
@@ -261,7 +123,9 @@ export default CollectionDetails
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { id } = ctx.query
 
-  const [data] = await Promise.all([getCollection(+id)])
+  const data = await collectionService.getCollection({
+    id: +id,
+  })
 
   return {
     props: {
@@ -269,154 +133,3 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     },
   }
 }
-
-const columns = [
-  {
-    title: "Type",
-    dataIndex: "type",
-  },
-  {
-    title: "Item",
-    dataIndex: "item",
-    render: ({ item }) => (
-      <span className="item-column">
-        <Button>
-          <BoxIcon />
-        </Button>
-        <a href="/nft/53" rel="noreferrer" target={"_blank"}>
-          <span>{item}</span>
-        </a>
-      </span>
-    ),
-  },
-  {
-    title: "Price",
-    dataIndex: "price",
-  },
-  {
-    title: "From",
-    render: ({ from }) => (
-      <a href="/user/1" rel="noreferrer" target={"_blank"}>
-        <span>{from}</span>
-      </a>
-    ),
-  },
-  {
-    title: "To",
-    dataIndex: "to",
-    render: ({ to, type }) =>
-      type != "Listing" ? (
-        <a
-          href="/user/1"
-          target={"_blank"}
-          rel="noreferrer"
-          className="date-column"
-          style={{ color: "#0BEBD6" }}
-        >
-          {to?.slice(0, 5)}...${to?.slice(-4)}
-        </a>
-      ) : (
-        ""
-      ),
-  },
-  {
-    title: "Date",
-    dataIndex: "date",
-    render: ({ date, type, to }) =>
-      type != "Listing" ? (
-        <a
-          href={BSC_SCAN_TRANSACTION + to}
-          target={"_blank"}
-          rel="noreferrer"
-          className="date-column"
-        >
-          {date} <Icon as={ExternalLink} />
-        </a>
-      ) : (
-        <span className="date-column">{date}</span>
-      ),
-  },
-]
-
-const tableData = [
-  {
-    type: "Sale",
-    item: "Animverse",
-    price: "26.94 BNB",
-    from: "Dong Van Cuong",
-    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
-    date: "1 days ago",
-  },
-  {
-    type: "Listing",
-    item: "Animverse",
-    price: "26.94 BNB",
-    from: "Dong Van Cuong",
-    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
-    date: "1 days ago",
-  },
-  {
-    type: "Offer",
-    item: "Animverse",
-    price: "26.94 BNB",
-    from: "Dong Van Cuong",
-    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
-    date: "1 days ago",
-  },
-  {
-    type: "Auction",
-    item: "Animverse",
-    price: "26.94 BNB",
-    from: "Dong Van Cuong",
-    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
-    date: "1 days ago",
-  },
-  {
-    type: "Sale",
-    item: "Animverse",
-    price: "26.94 BNB",
-    from: "Dong Van Cuong",
-    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
-    date: "1 days ago",
-  },
-  {
-    type: "Auction",
-    item: "Animverse",
-    price: "26.94 BNB",
-    from: "Dong Van Cuong",
-    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
-    date: "1 days ago",
-  },
-  {
-    type: "Offer",
-    item: "Animverse",
-    price: "26.94 BNB",
-    from: "Dong Van Cuong",
-    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
-    date: "1 days ago",
-  },
-  {
-    type: "Listing",
-    item: "Animverse",
-    price: "26.94 BNB",
-    from: "Dong Van Cuong",
-    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
-    date: "1 days ago",
-  },
-  {
-    type: "Sale",
-    item: "Animverse",
-    price: "26.94 BNB",
-    from: "Dong Van Cuong",
-    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
-    date: "1 days ago",
-  },
-  {
-    type: "Sale",
-    item: "Animverse",
-    price: "26.94 BNB",
-    from: "Dong Van Cuong",
-    to: "0x6fc283166afa80509c9434291c49bcdc4ede4d53d7c049a2306f43ed7121224d",
-    date: "1 days ago",
-  },
-]

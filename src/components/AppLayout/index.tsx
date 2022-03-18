@@ -24,7 +24,11 @@ import { UserTray } from "../UserTray"
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
+<<<<<<< HEAD
   const { token, address } = WalletController
+=======
+  const { isReady } = WalletController
+>>>>>>> 566fe63eb21a09db8d6891d07efa39b7e7b1b54c
 
   const [canScroll, setCanScroll] = useState(false)
   const [selectNetwork, setSelectNetwork] = useState("/common/all-network.png")
@@ -335,8 +339,13 @@ export const AppLayout = observer(({ children }) => {
               </Menu>
             </div>
           </div>
+<<<<<<< HEAD
           {token ? (
             <Link href={"/user/" + address + "/?tab=4"}>
+=======
+          {isReady ? (
+            <Link href="/user/my-nft/?tab=4">
+>>>>>>> 566fe63eb21a09db8d6891d07efa39b7e7b1b54c
               <Icon as={BellIcon} className="noti-button" />
             </Link>
           ) : null}
