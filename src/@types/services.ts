@@ -4,3 +4,7 @@ export type TPaginateParams = {
   reverse?: boolean
   order_by?: string
 }
+
+export type TNetworkParams = {
+  blockchain_id?: number
+}
