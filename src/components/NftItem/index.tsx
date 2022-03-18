@@ -7,6 +7,7 @@ import { observer } from "mobx-react-lite"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { TNftItem } from "src/@types/nft"
+import { useNetwork } from "src/hooks/useNetwork"
 import { useStore } from "src/hooks/useStore"
 import { isVideo } from "src/utils/format"
 import { formatNftPrice } from "src/utils/Number"
@@ -19,8 +20,9 @@ export const NftItem = observer((props: IProps) => {
   const { info } = props
   const WalletController = useStore("WalletController")
   const { address } = WalletController
-
   const router = useRouter()
+
+  const { icon: Network } = useNetwork(info.blockchain_id)
 
   return (
     <div className="nft-item">
@@ -33,9 +35,7 @@ export const NftItem = observer((props: IProps) => {
           <img src={info.photo} />
         )}
       </div>
-      <div className="network">
-        <img src={info.network} />
-      </div>
+      <div className="network">{Network}</div>
       <div className="nft-body">
         <div className="provider">
           <div

@@ -19,15 +19,18 @@ import { observer } from "mobx-react-lite"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
+import { networks, useNetwork } from "src/hooks/useNetwork"
 import { useStore } from "src/hooks/useStore"
 import { UserTray } from "../UserTray"
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
   const { isReady } = WalletController
+  const BlockchainStore = useStore("BlockchainStore")
+  const { blockchain_id } = BlockchainStore
 
   const [canScroll, setCanScroll] = useState(false)
-  const [selectNetwork, setSelectNetwork] = useState("/common/all-network.png")
+
   useEffect(() => {
     window.onscroll = () => {
       setCanScroll(window.pageYOffset > 100)
@@ -162,37 +165,6 @@ export const AppLayout = observer(({ children }) => {
     },
   ]
 
-  const networks = [
-    {
-      img: "/common/all-network.png",
-      name: "All",
-    },
-    {
-      img: "/common/bnb-logo.png",
-      name: "BNB Chain",
-    },
-    {
-      img: "/common/ethereum.png",
-      name: "Ethereum",
-    },
-    {
-      img: "/common/celo.png",
-      name: "Celo",
-    },
-    {
-      img: "/common/aurora.png",
-      name: "Aurora",
-    },
-    {
-      img: "/common/arbitrum.png",
-      name: "Arbitrum",
-    },
-    {
-      img: "/common/fantom.png",
-      name: "Fantom",
-    },
-  ]
-
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false)
 
   const _renderMobileMenu = () => (
@@ -305,30 +277,27 @@ export const AppLayout = observer(({ children }) => {
             <Input placeholder="Collection/ User/ address" />
           </div>
           <div className="network">
-            <div className="nav-bar">
-              <Menu>
-                <MenuButton
-                  as={Button}
-                  rightIcon={<Icon as={Icons.ChevronDown} />}
-                  className="nav-item"
-                >
-                  <img src={selectNetwork} alt="" className="img-network" />
-                </MenuButton>
-                <MenuList>
-                  {networks.map((el, key) => (
-                    <Link key={key} href="javascript:;">
-                      <MenuItem
-                        onClick={() => setSelectNetwork(el.img)}
-                        className="menu-item"
-                      >
-                        <img src={el.img} alt="" />
-                        {el.name}
-                      </MenuItem>
-                    </Link>
-                  ))}
-                </MenuList>
-              </Menu>
-            </div>
+            <Menu>
+              <MenuButton
+                as={Button}
+                rightIcon={<Icon as={Icons.ChevronDown} />}
+                className="network-nav"
+              >
+                {useNetwork(blockchain_id).icon}
+              </MenuButton>
+              <MenuList className="network-list">
+                {networks.map((el, key) => (
+                  <MenuItem
+                    key={key}
+                    className="network-item"
+                    onClick={() => BlockchainStore.setBlockchainId(el.id)}
+                  >
+                    {useNetwork(el.id).icon}
+                    {el.name}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
           </div>
           {isReady ? (
             <Link href="/user/my-nft/?tab=4">

@@ -17,14 +17,13 @@
     right: 10px;
     width: 32px;
     height: 32px;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 100%;
     padding: 5px;
-    img {
-      width: 100%;
+    svg {
       height: 100%;
-      object-fit: cover;
-      border-radius: 100%;
+      width: 100%;
+      object-fit: contain;
     }
   }
   .nft-image {

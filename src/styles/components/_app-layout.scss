@@ -52,6 +52,7 @@
         width: 45%;
         height: 100%;
         display: flex;
+        gap: 10px;
         align-items: center;
         justify-content: flex-end;
         animation: slideInRight 0.5s;
@@ -74,21 +75,18 @@
           }
         }
         .noti-button {
-          margin-left: 20px;
           font-size: 40px;
           cursor: pointer;
           animation: fadein 0.1s;
         }
         .user {
           font-size: 50px;
-          margin-left: 20px;
           cursor: pointer;
         }
         .spinner {
           width: 50px;
           height: 50px;
           position: relative;
-          margin-left: 20px;
           .user {
             margin-left: 0;
           }
@@ -135,17 +133,20 @@
           }
         }
         .network {
-          .nav-bar {
-            .nav-item {
-              background: transparent;
-              padding-right: 0;
-              width: 60px;
-              .img-network {
-                width: 100%;
-              }
-              .chakra-button__icon {
-                margin-left: 0;
-              }
+          .network-nav {
+            background: transparent;
+            svg {
+              width: 20px;
+              height: 20px;
+            }
+          }
+          .network-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            svg {
+              height: 30px;
+              width: 30px;
             }
           }
           .menu-item {
