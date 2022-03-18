@@ -9,7 +9,7 @@ export type TNftItem = {
   blockchain_id?: number
   network?: string
   is_verified?: boolean
-  aucPrice?: number
+  inventory_status?: number
   endTime?: string
   hidePrice?: boolean
   topAuc?: number

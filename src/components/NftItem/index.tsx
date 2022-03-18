@@ -47,18 +47,18 @@ export const NftItem = observer((props: IProps) => {
             {info.is_verified ? <Verified /> : null}
           </div>
           <div>
-            {info.aucPrice ? (
+            {info.inventory_status === 2 ? (
               <img src="/icons/auction.png" alt="" />
-            ) : (
+            ) : info.inventory_status === 1 ? (
               <img src="/icons/dollar.png" alt="" />
-            )}
+            ) : null}
           </div>
         </div>
         <span className="name" onClick={() => router.push("/nft/" + info.id)}>
           {info.name}
         </span>
         <div className="end-in">
-          {info.aucPrice ? (
+          {info.inventory_status === 2 ? (
             <div>
               <span>END IN</span> {dayjs(info.endTime).format("HH:mm:ss")}
             </div>
@@ -69,13 +69,11 @@ export const NftItem = observer((props: IProps) => {
           onClick={() => router.push("/nft/" + info.id)}
         >
           <span>
-            <BNBSymbol />{" "}
-            {formatNftPrice(info.topAuc ?? info.aucPrice ?? info.price ?? null)}{" "}
-            BNB
+            <BNBSymbol /> {formatNftPrice(info.price ?? null)} BNB
           </span>
-          {info.owner === address ? null : info.aucPrice ? (
+          {info.owner === address ? null : info.inventory_status === 2 ? (
             <Button>AUC</Button>
-          ) : info.price ? (
+          ) : info.inventory_status === 1 ? (
             <Button>BUY</Button>
           ) : null}
         </div>

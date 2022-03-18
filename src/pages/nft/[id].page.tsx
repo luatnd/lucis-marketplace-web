@@ -91,7 +91,7 @@ const DetailsPage = observer((props: any) => {
           </div>
           {info.owner === address ? (
             <OwnerTray info={info} />
-          ) : info.aucPrice ? (
+          ) : info.inventory_status === 2 ? (
             <AucTray info={info} />
           ) : (
             <BuyTray info={info} />
