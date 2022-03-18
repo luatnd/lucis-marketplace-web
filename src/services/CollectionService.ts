@@ -43,6 +43,18 @@ class CollectionService {
     }
     return null
   }
+
+  async searchCollections(data) {
+    const res = await apiClient.req({
+      method: "POST",
+      url: "/collection/search",
+      data,
+    })
+    if (res?.data?.error_code === "") {
+      return res?.data?.data?.data
+    }
+    return null
+  }
 }
 
 export const collectionService = new CollectionService()

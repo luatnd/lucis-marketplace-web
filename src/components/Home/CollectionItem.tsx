@@ -16,7 +16,7 @@ export const CollectionItem = (props: IProps) => {
           <Img src={info.photo} />
         </div>
         <span>{info.name}</span>
-        <div className="network">{useNetwork(info.blockchain_id).icon}</div>
+        <div className="network">{useNetwork(info.blockchain_id)?.icon}</div>
       </div>
     </Link>
   )

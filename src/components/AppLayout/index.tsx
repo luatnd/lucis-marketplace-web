@@ -22,6 +22,7 @@ import * as Icons from "react-feather"
 import { networks, useNetwork } from "src/hooks/useNetwork"
 import { useStore } from "src/hooks/useStore"
 import { UserTray } from "../UserTray"
+import { SearchBar } from "./SearchBar"
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
@@ -273,9 +274,7 @@ export const AppLayout = observer(({ children }) => {
           </div>
         </div>
         <div className="nav-right">
-          <div className="search-bar">
-            <Input placeholder="Collection/ User/ address" />
-          </div>
+          <SearchBar />
           <div className="network">
             <Menu>
               <MenuButton
