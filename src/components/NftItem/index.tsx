@@ -2,13 +2,14 @@ import { Button } from "@chakra-ui/react"
 import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import Verified from "@static/icons/verified.svg"
 import dayjs from "dayjs"
+import { BigNumber, ethers } from "ethers"
 import { observer } from "mobx-react-lite"
-import Router, { useRouter } from "next/router"
-import { useStore } from "src/hooks/useStore"
-import { isImg, isVideo } from "src/utils/format"
-import { currency } from "src/utils/Number"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { TNftItem } from "src/@types/nft"
+import { useStore } from "src/hooks/useStore"
+import { isVideo } from "src/utils/format"
+import { formatNftPrice } from "src/utils/Number"
 
 interface IProps {
   info: TNftItem
@@ -70,7 +71,8 @@ export const NftItem = observer((props: IProps) => {
         >
           <span>
             <BNBSymbol />{" "}
-            {currency(info.topAuc ?? info.aucPrice ?? info.price ?? null)} BNB
+            {formatNftPrice(info.topAuc ?? info.aucPrice ?? info.price ?? null)}{" "}
+            BNB
           </span>
           {info.owner === address ? null : info.aucPrice ? (
             <Button>AUC</Button>

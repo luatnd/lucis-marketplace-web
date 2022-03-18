@@ -14,7 +14,7 @@ import {
 import { observer } from "mobx-react-lite"
 import { useState } from "react"
 import { useStore } from "src/hooks/useStore"
-import { currency } from "src/utils/Number"
+import { currency, formatNftPrice } from "src/utils/Number"
 
 interface IProps {
   info: any
@@ -59,8 +59,8 @@ export const BuyTray = observer((props: IProps) => {
           <div className="price">
             <span>Price:</span>
             <div className="price-col">
-              <h1>{currency(info.price)} BNB</h1>
-              <span>(${currency(info.price * 376)})</span>
+              <h1>{formatNftPrice(info.price)} BNB</h1>
+              <span>(${formatNftPrice(info.price * 376)})</span>
             </div>
           </div>
           <Button onClick={handleBuy}>Apply</Button>
@@ -94,10 +94,10 @@ export const BuyTray = observer((props: IProps) => {
       <div className="buy-tray-body">
         <div className="price">
           <span>Price</span>
-          <span>{info.price ? currency(info.price) + " BNB" : "-"} </span>
+          <span>{info.price ? formatNftPrice(info.price) + " BNB" : "-"} </span>
           <span>
             {info.price
-              ? `(${currency(info.price * 376)})`
+              ? `($${formatNftPrice(info.price * 376)})`
               : "Waiting first offer"}
           </span>
         </div>

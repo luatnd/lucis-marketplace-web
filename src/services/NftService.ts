@@ -9,6 +9,8 @@ type TGetNftParams = {
   nft_item_id: number
 }
 
+type TGetHotAuctions = TPaginateParams
+
 class NftService {
   async getNfts(params?: TGetNftsParams) {
     const res = await apiClient.req({
@@ -34,7 +36,7 @@ class NftService {
     return null
   }
 
-  async getHotAuctions(params) {
+  async getHotAuctions(params?: TGetHotAuctions) {
     const res = await apiClient.req({
       method: "GET",
       url: "/nft-item/hot-auction",
