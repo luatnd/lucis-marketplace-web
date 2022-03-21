@@ -23,6 +23,7 @@ import { getNetwork, networks } from "src/utils/getNetwork"
 import { useStore } from "src/hooks/useStore"
 import { UserTray } from "../UserTray"
 import { SearchBar } from "./SearchBar"
+import { SearchBarMobile } from "./SearchBarMobile"
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
@@ -186,10 +187,7 @@ export const AppLayout = observer(({ children }) => {
         </DrawerHeader>
         <DrawerCloseButton />
         <DrawerBody className="mobile-menu-body">
-          <Input
-            placeholder="Collection/ User/ address"
-            className="search-bar"
-          />
+          <SearchBarMobile />
           {navItems.map((nav) => (
             <Stack key={nav.key} className="mobile-menu-stack">
               <Button

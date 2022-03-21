@@ -80,11 +80,19 @@
               background: $dark-purple;
               border-radius: 16px;
               width: 100%;
+              max-height: 700px;
+              overflow-y: scroll;
+              &::-webkit-scrollbar {
+                display: none;
+              }
+              -ms-overflow-style: none;
+              scrollbar-width: none;
               height: fit-content;
               padding: 20px;
               display: flex;
               flex-direction: column;
-              justify-content: center;
+
+              justify-content: flex-start;
               .app-spinner {
                 margin-top: -80px;
               }
@@ -311,7 +319,7 @@
     rgba(255, 255, 255, 0.3) -26.88%,
     rgba(255, 255, 255, 0.2) 73.85%
   ) !important;
-  @include blurBack(40px);
+  @include blurBackUnder(40px);
   .mobile-menu-header {
     .logo {
       height: 50px;
@@ -321,10 +329,42 @@
   }
   .mobile-menu-body {
     width: 100%;
+    position: relative;
     .search-bar {
-      border-radius: 16px;
-      margin-bottom: 10px;
+      .input {
+        border-radius: 16px;
+        margin-bottom: 10px;
+      }
+      .result-box {
+        position: absolute;
+        width: 90%;
+        top: 60px;
+        left: 5%;
+        background: rgba($dark-purple, 0.2);
+        border-radius: 16px;
+        height: fit-content;
+        max-height: 500px;
+        overflow: scroll;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        z-index: 99;
+        @include blurBack(40px);
+        .app-spinner {
+          margin-top: -80px;
+        }
+        .collection-item:not(:last-child) {
+          margin-bottom: 10px;
+        }
+      }
     }
+
     .mobile-menu-stack {
       margin-bottom: 20px;
       .mobile-menu-nav {

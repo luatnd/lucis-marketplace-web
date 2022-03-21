@@ -1,23 +1,45 @@
 import { Button, Icon } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
+import BoxIcon from "@static/icons/item-box.svg"
+import { useState } from "react"
+import { ExternalLink } from "react-feather"
 import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
 import { AppTable } from "src/components/AppTable"
-import BoxIcon from "@static/icons/item-box.svg"
-import { ExternalLink } from "react-feather"
+import { nftService } from "src/services/NftService"
+import { formatNftPrice } from "src/utils/Number"
 
-const Activities = () => {
+interface IProps {
+  id?: number
+  preData?: any
+}
+
+const Activities = (props: IProps) => {
+  const { preData, id } = props
+
+  const [data, setData] = useState<any>(preData.data)
   const [offset, setOffset] = useState(0)
-  const [pageSize, setPageSize] = useState(5)
-  const [total, setTotal] = useState(21)
+  const [limit, setLimit] = useState(5)
+  const [total, setTotal] = useState(preData.total)
 
-  const fetchData = () => {
-    console.log(offset, pageSize)
+  const fetchData = async () => {
+    const activities = await nftService.getNftActivities({
+      nft_item_id: +id,
+      offset,
+      limit,
+    })
+    setData(activities?.data)
+    setTotal(activities?.total)
   }
 
-  useEffect(() => {
+  const handleChangeOffset = (value) => {
+    setOffset(value)
     fetchData()
-  }, [offset, pageSize])
+  }
+
+  const handleChangeLimit = (value) => {
+    setLimit(value)
+    fetchData()
+  }
 
   const columns = [
     {
@@ -39,25 +61,26 @@ const Activities = () => {
     {
       title: "Price",
       dataIndex: "price",
+      render: ({ price }) => formatNftPrice(price) + " BNB",
     },
     {
       title: "From",
-      dataIndex: "from",
-      render: ({ from }) => (
+      dataIndex: "seller",
+      render: ({ seller }) => (
         <a
           href="/user/1"
           target={"_blank"}
           rel="noreferrer"
           className="date-column"
         >
-          {from}
+          {seller?.slice(0, 2)}...{seller?.slice(-4)}
         </a>
       ),
     },
     {
       title: "To",
-      dataIndex: "to",
-      render: ({ to, type }) =>
+      dataIndex: "buyer",
+      render: ({ buyer, type }) =>
         type != "Listing" ? (
           <a
             href="/user/1"
@@ -66,7 +89,7 @@ const Activities = () => {
             className="date-column"
             style={{ color: "#0BEBD6" }}
           >
-            {to}
+            {buyer?.slice(0, 2)}...{buyer?.slice(-4)}
           </a>
         ) : (
           ""
@@ -90,89 +113,6 @@ const Activities = () => {
         ),
     },
   ]
-
-  const data = [
-    {
-      type: "Sale",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Listing",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Offer",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Auction",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Sale",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Auction",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Offer",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Listing",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Sale",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Sale",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-  ]
   return (
     <>
       <div className="filter-row">
@@ -194,9 +134,9 @@ const Activities = () => {
       <AppPagination
         total={total}
         offset={offset}
-        limit={pageSize}
-        onChangeOffset={(value) => setOffset(value)}
-        onChangeLimit={(value) => setPageSize(value)}
+        limit={limit}
+        onChangeOffset={handleChangeOffset}
+        onChangeLimit={handleChangeLimit}
       />
     </>
   )

@@ -21,6 +21,8 @@ export const NftItem = observer((props: IProps) => {
   const { address } = WalletController
   const router = useRouter()
 
+  console.log("detail: ", info.inventory_status === 2 ? info : null)
+
   const { icon: Network } = getNetwork(info.blockchain_id)
 
   return (

@@ -8,7 +8,7 @@ import { CollectionItem } from "../Home/CollectionItem"
 
 let searchTimer
 
-export const SearchBar = observer(() => {
+export const SearchBarMobile = observer(() => {
   const BlockchainStore = useStore("BlockchainStore")
   const { blockchain_id } = BlockchainStore
 
@@ -41,7 +41,6 @@ export const SearchBar = observer(() => {
       fetchData(value)
     }, 1000)
   }
-
   const handleBlur = () => {
     setTimeout(() => {
       setResultVisible(false)
@@ -60,23 +59,21 @@ export const SearchBar = observer(() => {
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
-      {resultVisible ? (
-        <div className="result-box-wrapper">
-          <div className="result-box">
-            {loading ? (
-              <AppSpinner />
-            ) : (
-              <div>
-                {result?.length ? (
-                  result.map((collection) => (
-                    <CollectionItem key={collection.id} info={collection} />
-                  ))
-                ) : (
-                  <img src="/common/nodata.png" />
-                )}
-              </div>
-            )}
-          </div>
+      {searchText ? (
+        <div className="result-box">
+          {loading ? (
+            <AppSpinner />
+          ) : (
+            <div>
+              {result?.length ? (
+                result.map((collection) => (
+                  <CollectionItem key={collection.id} info={collection} />
+                ))
+              ) : (
+                <img src="/common/nodata.png" />
+              )}
+            </div>
+          )}
         </div>
       ) : null}
     </div>
