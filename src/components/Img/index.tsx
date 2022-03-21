@@ -1,14 +1,14 @@
 import Image, { ImageProps } from "next/image"
 
 export const Img = (props: ImageProps) => {
-  return (
+  return props.src ? (
     <Image
       layout="fill"
       placeholder="blur"
       {...props}
       blurDataURL={`data:image/png;base64,${placeholder}`}
     />
-  )
+  ) : null
 }
 
 const placeholder =

@@ -20,6 +20,7 @@ import { favoriteActivitiUser, mineActivitiUser } from "src/services/nft"
 import { formatAddress } from "./FormatAddress"
 import { formatTime } from "src/hooks/useCountdown"
 import { useRouter } from "next/router"
+import { set } from "mobx"
 const Activities = () => {
   const router = useRouter()
   const { id } = router.query
@@ -33,6 +34,7 @@ const Activities = () => {
     reverse: true,
     order_by: "created_time",
   })
+  const [blockchain_id, setBlockchain_id] = useState(0)
 
   const [data1, setData1] = useState([])
   const [total1, setTotal1] = useState(0)
@@ -42,7 +44,8 @@ const Activities = () => {
     reverse: true,
     order_by: "created_time",
   })
-  
+  const [blockchain_id1, setBlockchain_id1] = useState(0)
+
   const typeSort = [
     {
       value: {
@@ -71,9 +74,9 @@ const Activities = () => {
     if (id) {
       const res = await favoriteActivitiUser(
         id,
-        null,
+        blockchain_id,
         pageSize,
-        offset-1,
+        offset - 1,
         order.reverse,
         order.order_by
       )
@@ -83,13 +86,13 @@ const Activities = () => {
   }
   useEffect(() => {
     getdata()
-  }, [id, pageSize, offset,order])
+  }, [id, pageSize, offset, order, blockchain_id])
   // ==== load data mine tab
   const getdata1 = async () => {
     if (id) {
       const res = await mineActivitiUser(
         id,
-        null,
+        blockchain_id1,
         pagesize1,
         offset1 - 1,
         order1.reverse,
@@ -101,7 +104,7 @@ const Activities = () => {
   }
   useEffect(() => {
     getdata1()
-  }, [id, pagesize1, offset1, order1])
+  }, [id, pagesize1, offset1, order1, blockchain_id1])
 
   const handleChange = (el) => {
     switch (tab) {
@@ -115,6 +118,20 @@ const Activities = () => {
         break
     }
   }
+
+  const handleChangeNetwork = (el) => {
+    switch (tab) {
+      case 0:
+        setBlockchain_id(el.value)
+        break
+      case 1:
+        setBlockchain_id1(el.value)
+        break
+      default:
+        break
+    }
+  }
+
   return (
     <div className="tab">
       <Tabs align="center">
@@ -146,6 +163,7 @@ const Activities = () => {
                   All network
                 </div>
               }
+              onChange={(el) => handleChangeNetwork(el)}
             />
             <AppSelect
               isSearchable={false}

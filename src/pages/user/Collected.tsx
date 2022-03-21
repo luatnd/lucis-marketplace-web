@@ -16,6 +16,8 @@ import { observer } from "mobx-react-lite"
 import { AppPagination } from "src/components/AppPagination"
 import { useRouter } from "next/router"
 
+let searchTimer
+
 const Collected = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
@@ -28,18 +30,20 @@ const Collected = observer(() => {
   const [totalData, setTotalData] = useState(0)
   const [offset, setOffset] = useState(1)
   const [order, setOrder] = useState(null)
+  const [blockchain_id, setBlockchain_id] = useState(0)
 
   const router = useRouter()
   const { id } = router.query
 
   const getdata = async () => {
-    if (id) {
+    if (id && !loading) {
       const res = await collectedUser(
         id,
         pageSize,
         offset - 1,
-        null,
-        order
+        blockchain_id,
+        order,
+        search
       )
       setData(res.data)
       setTotalData(res.total)
@@ -47,7 +51,7 @@ const Collected = observer(() => {
   }
   useEffect(() => {
     getdata()
-  }, [pageSize, offset, id, order])
+  }, [pageSize, offset, id, order, blockchain_id, loading])
 
   const typeSort = [
     {
@@ -67,15 +71,29 @@ const Collected = observer(() => {
       label: "Not sold",
     },
   ]
+
+  const handleBlockchain_id = (el) => {
+    setBlockchain_id(el.value)
+  }
+
   const handleChange = (el) => {
     setOrder(el.value)
+  }
+
+  const onSearch = async ({ target: { value } }) => {
+    setLoading(true)
+    setSearch(value)
+    clearTimeout(searchTimer)
+    searchTimer = setTimeout(() => {
+      setLoading(false)
+    }, 1000)
   }
 
   return (
     <div className="tab-collected">
       <div className="sort">
         <InputGroup className="group-search">
-          <Input size="md" placeholder="" value={search} />
+          <Input size="md" placeholder="" value={search} onChange={onSearch} />
           <InputRightElement>
             <Icon as={loading ? Spinner : Icons.Search} />
           </InputRightElement>
@@ -84,6 +102,7 @@ const Collected = observer(() => {
           options={networkType}
           isSearchable={false}
           className="network"
+          onChange={(el) => handleBlockchain_id(el)}
           placeholder={
             <div className="placeholder">
               <img src="/common/all-network.png" alt="" />
@@ -107,7 +126,19 @@ const Collected = observer(() => {
             <div className="grid-custom">
               {data.map((auction) => (
                 <div className="grid-item" key={auction.id}>
-                  <NftItem info={auction} />
+                  <NftItem
+                    info={{
+                      id: auction.token_id,
+                      name: auction.name,
+                      price: auction.price,
+                      photo: auction.photo,
+                      owner: auction.owner_address,
+                      contract_name: auction.contract_name,
+                      collection_id: auction.collection_id,
+                      blockchain_id: auction.blockchain_id,
+                      inventory_status: auction.inventory_status,
+                    }}
+                  />
                 </div>
               ))}
             </div>

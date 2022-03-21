@@ -15,8 +15,19 @@ import { useRouter } from "next/router"
 import { observer } from "mobx-react-lite"
 import { useStore } from "src/hooks/useStore"
 import { formatAddress } from "./FormatAddress"
+import { getProfileOther } from "src/services/nft"
+import { useEffect, useState } from "react"
 
 const MyNft = observer(() => {
+  const [data, setData] = useState({
+    name: "",
+    avatar: "",
+    ranking: "",
+    social_network: {
+      youtube: "",
+      facebook: "",
+    },
+  })
   const router = useRouter()
   const toast = useToast()
   const WalletController = useStore("WalletController")
@@ -28,17 +39,26 @@ const MyNft = observer(() => {
     router.query.tab = value
     router.push(router)
   }
+  const getData = async () => {
+    if (id) {
+      const res = await getProfileOther(id)
+      setData({ ...res[0] })
+    }
+  }
+  useEffect(() => {
+    getData()
+  }, [id])
   return (
     <div className="my-nft">
       {myNft ? (
         <div className="account">
           <div className="left-border">
-            <img className="left" src="/common/my-nft/account.png" alt="" />
+            <img className="left" src={data.avatar?data.avatar:"/common/user.png"} alt="" />
           </div>
           <div className="right">
             <div className="top">
-              <h2>DONG CUONG</h2>
-              <img src="/common/my-nft/account-rank.png" alt="" />
+              <h2>{data.name}</h2>
+              <img src={data.ranking} alt="" />
             </div>
             <div className="border">
               <div
@@ -69,11 +89,11 @@ const MyNft = observer(() => {
         <div className="account-other">
           <div className="info">
             <div className="left-border">
-              <img className="left" src="/common/my-nft/account.png" alt="" />
+              <img className="left" src={data.avatar?data.avatar:"/common/user.png"} alt="" />
             </div>
             <div className="right">
               <div className="name-id">
-                <h2>DONG CUONG</h2>
+                <h2>{data.name}</h2>
                 <div className="border">
                   <div
                     className="bottom"
@@ -88,22 +108,22 @@ const MyNft = observer(() => {
                       })
                     }}
                   >
-                    <span>
-                      {formatAddress(id,8,4)}
-                    </span>
+                    <span>{formatAddress(id, 8, 4)}</span>
                     <img src="/common/my-nft/copy.png" alt="" />
                   </div>
                 </div>
               </div>
               <div className="social">
-                <img
-                  src="/common/my-nft/account-rank.png"
-                  alt=""
-                  className="vip"
-                />
+                <img src={data.ranking} alt="" className="vip" />
                 <div className="list">
                   <img src="/icons/tele1.png" alt="" />
-                  <img src="/icons/face.png" alt="" />
+                  <a
+                    href={data?.social_network?.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src="/icons/face.png" alt="" />
+                  </a>
                   <img src="/icons/inta.png" alt="" />
                 </div>
               </div>
@@ -134,7 +154,7 @@ const MyNft = observer(() => {
               <Collected />
             </TabPanel>
             <TabPanel>
-              <Favorite/>
+              <Favorite />
             </TabPanel>
             <TabPanel>
               <Activities />

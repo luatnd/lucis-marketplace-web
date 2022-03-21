@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Marquee from "react-fast-marquee"
+import { getNetwork } from "src/utils/getNetwork"
 import { Img } from "../Img"
 
 export const Banners = (props) => {
@@ -18,7 +19,7 @@ export const Banners = (props) => {
                   objectFit="cover"
                 />
                 <div className="network">
-                  <img src={item.network} />
+                  {() => getNetwork(item.blockchain_id).icon}
                 </div>
               </div>
             </Link>

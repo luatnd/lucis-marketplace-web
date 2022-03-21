@@ -52,10 +52,12 @@
         width: 45%;
         height: 100%;
         display: flex;
+        gap: 10px;
         align-items: center;
         justify-content: flex-end;
         animation: slideInRight 0.5s;
         .search-bar {
+          position: relative;
           margin-left: 20px;
           @include to(md) {
             display: none;
@@ -64,6 +66,33 @@
           border-radius: 16px;
           padding: 1px;
           width: 100%;
+          .result-box-wrapper {
+            position: absolute;
+            width: 100%;
+            top: 50px;
+            left: 0;
+            border-radius: 16px;
+            background: linear-gradient(99.92deg, #cd28e8 0%, #0bebd6 100%);
+            padding: 1px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.4);
+            animation: fadeIn 0.2s;
+            .result-box {
+              background: $dark-purple;
+              border-radius: 16px;
+              width: 100%;
+              height: fit-content;
+              padding: 20px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              .app-spinner {
+                margin-top: -80px;
+              }
+              .collection-item:not(:last-child) {
+                margin-bottom: 10px;
+              }
+            }
+          }
           input {
             border-radius: 16px;
             background: #180f5c;
@@ -74,21 +103,18 @@
           }
         }
         .noti-button {
-          margin-left: 20px;
           font-size: 40px;
           cursor: pointer;
           animation: fadein 0.1s;
         }
         .user {
           font-size: 50px;
-          margin-left: 20px;
           cursor: pointer;
         }
         .spinner {
           width: 50px;
           height: 50px;
           position: relative;
-          margin-left: 20px;
           .user {
             margin-left: 0;
           }
@@ -135,17 +161,20 @@
           }
         }
         .network {
-          .nav-bar {
-            .nav-item {
-              background: transparent;
-              padding-right: 0;
-              width: 60px;
-              .img-network {
-                width: 100%;
-              }
-              .chakra-button__icon {
-                margin-left: 0;
-              }
+          .network-nav {
+            background: transparent;
+            svg {
+              width: 20px;
+              height: 20px;
+            }
+          }
+          .network-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            svg {
+              height: 30px;
+              width: 30px;
             }
           }
           .menu-item {

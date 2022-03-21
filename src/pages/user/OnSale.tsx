@@ -61,6 +61,9 @@ const OnSale = observer(() => {
   const [totalData, setTotalData] = useState(0)
   const [totalData1, setTotalData1] = useState(0)
   const [totalData2, setTotalData2] = useState(0)
+  const [blockchain_id, setBlockchain_id] = useState(0)
+  const [blockchain_id1, setBlockchain_id1] = useState(0)
+  const [blockchain_id2, setBlockchain_id2] = useState(0)
   const router = useRouter()
   const { id } = router.query
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -98,7 +101,7 @@ const OnSale = observer(() => {
         order.order_by,
         id,
         1,
-        null
+        blockchain_id
       )
       setData(res.data)
       setTotalData(res.total)
@@ -106,7 +109,7 @@ const OnSale = observer(() => {
   }
   useEffect(() => {
     getdata()
-  }, [id, pageSize, offset, order])
+  }, [id, pageSize, offset, order,blockchain_id])
   // ==== lấy và lọc dữ liệu auction với địa chỉ id (address của người dùng)
   const getdata1 = async () => {
     if (id) {
@@ -117,7 +120,7 @@ const OnSale = observer(() => {
         order1.order_by,
         id,
         3,
-        null
+        blockchain_id1
       )
       setData1(res.data)
       setTotalData1(res.total)
@@ -125,7 +128,7 @@ const OnSale = observer(() => {
   }
   useEffect(() => {
     getdata1()
-  }, [id, pageSize1, offset1, order1])
+  }, [id, pageSize1, offset1, order1, blockchain_id1])
   // ==== lấy và lọc dữ liệu offer với địa chỉ id (address của người dùng)
   const getdata2 = async () => {
     if (id) {
@@ -136,7 +139,7 @@ const OnSale = observer(() => {
         order2.order_by,
         id,
         2,
-        null
+        blockchain_id2
       )
       setData2(res.data)
       setTotalData2(res.total)
@@ -144,7 +147,7 @@ const OnSale = observer(() => {
   }
   useEffect(() => {
     getdata2()
-  }, [id, pageSize2, offset2, order2])
+  }, [id, pageSize2, offset2, order2, blockchain_id2])
   // ==== Thay đổi bộ lọc giá của các tabs
   const handleChange = (el, i) => {
     switch (i) {
@@ -156,6 +159,22 @@ const OnSale = observer(() => {
         break
       case 3:
         setOrder2(el.value)
+        break
+      default:
+        break
+    }
+  }
+
+  const handleBlockchain_id = (el, i) => {
+    switch (i) {
+      case 0:
+        setBlockchain_id(el.value)
+        break
+      case 1:
+        setBlockchain_id1(el.value)
+        break
+      case 2:
+        setBlockchain_id2(el.value)
         break
       default:
         break
@@ -177,6 +196,7 @@ const OnSale = observer(() => {
                 options={networkType}
                 isSearchable={false}
                 className="network"
+                onChange={(el) => handleBlockchain_id(el, 0)}
                 placeholder={
                   <div className="placeholder">
                     <img src="/common/all-network.png" alt="" />
@@ -191,7 +211,7 @@ const OnSale = observer(() => {
                 onChange={(el) => handleChange(el, 1)}
               />
             </div>
-            {data.length == 0 ? (
+            {!totalData ? (
               <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
             ) : (
               <>
@@ -199,7 +219,20 @@ const OnSale = observer(() => {
                   <div className="grid-custom">
                     {data.map((auction) => (
                       <div className="grid-item" key={auction.id}>
-                        <NftItem info={auction} />
+                        <NftItem
+                          info={{
+                            id: auction.nft_item_id,
+                            name: auction.name,
+                            price: auction.price,
+                            photo: auction.photo,
+                            owner: auction.address,
+                            contract_name: auction.contract_name,
+                            collection_id: auction.inventory_id,
+                            blockchain_id: auction.blockchain_id,
+                            inventory_status: 1,
+                            endTime: auction.deadline,
+                          }}
+                        />
                       </div>
                     ))}
                   </div>
@@ -220,6 +253,7 @@ const OnSale = observer(() => {
                 options={networkType}
                 isSearchable={false}
                 className="network"
+                onChange={(el) => handleBlockchain_id(el, 1)}
                 placeholder={
                   <div className="placeholder">
                     <img src="/common/all-network.png" alt="" />
@@ -234,7 +268,7 @@ const OnSale = observer(() => {
                 onChange={(el) => handleChange(el, 2)}
               />
             </div>
-            {data1.length == 0 ? (
+            {!totalData1 ? (
               <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
             ) : (
               <>
@@ -242,7 +276,20 @@ const OnSale = observer(() => {
                   <div className="grid-custom">
                     {data1.map((auction) => (
                       <div className="grid-item" key={auction.id}>
-                        <NftItem info={auction} />
+                        <NftItem
+                          info={{
+                            id: auction.nft_item_id,
+                            name: auction.name,
+                            price: auction.price,
+                            photo: auction.photo,
+                            owner: auction.address,
+                            contract_name: auction.contract_name,
+                            collection_id: auction.inventory_id,
+                            blockchain_id: auction.blockchain_id,
+                            inventory_status: 2,
+                            endTime: auction.deadline,
+                          }}
+                        />
                       </div>
                     ))}
                   </div>
@@ -263,6 +310,7 @@ const OnSale = observer(() => {
                 options={networkType}
                 isSearchable={false}
                 className="network"
+                onChange={(el) => handleBlockchain_id(el, 2)}
                 placeholder={
                   <div className="placeholder">
                     <img src="/common/all-network.png" alt="" />
@@ -277,7 +325,7 @@ const OnSale = observer(() => {
                 onChange={(el) => handleChange(el, 3)}
               />
             </div>
-            {totalData2 == 0 ? (
+            {!totalData2 ? (
               <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
             ) : (
               <>
@@ -325,9 +373,9 @@ const OnSale = observer(() => {
                                 <a>{formatAddress(el.buyer, 6, 4)}</a>
                               </Link>
                             </Td>
-                            <Td>{formatTime(el.deadline,true)}</Td>
+                            <Td>{formatTime(el.deadline, true)}</Td>
                             <Td>
-                              <span>{formatTime(el.created_time,false)}</span>
+                              <span>{formatTime(el.created_time, false)}</span>
                             </Td>
                             <Td>
                               <div>

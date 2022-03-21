@@ -47,6 +47,7 @@ const Offering = observer(() => {
   const [totalAuc, setTotalAuc] = useState(0)
   const [offset, setOffset] = useState(1)
   const [pageSize, setPageSize] = useState(20)
+  const [blockchain_id, setBlockchain_id] = useState(0)
   const [order, setOrder] = useState({
     reverse: true,
     order_by: "created_time",
@@ -56,6 +57,7 @@ const Offering = observer(() => {
   const [totalMake, setTotalMake] = useState(0)
   const [offset1, setOffset1] = useState(1)
   const [pageSize1, setPageSize1] = useState(10)
+  const [blockchain_id1, setBlockchain_id1] = useState(0)
   const [order1, setOrder1] = useState({
     reverse: true,
     order_by: "created_time",
@@ -97,16 +99,31 @@ const Offering = observer(() => {
         break
     }
   }
+
+  const handleBlockchain_id = (el) => {
+    switch (tab) {
+      case 0:
+        setBlockchain_id(el.value)
+        break
+      case 1:
+        setBlockchain_id1(el.value)
+        break
+      default:
+        break
+    }
+  }
+
   // ==== load data make offer
   const getdata1 = async () => {
     if (id) {
       const res = await offeringUser(
         2,
         pageSize1,
-        offset1-1,
+        offset1 - 1,
         id,
         order1.reverse,
-        order1.order_by
+        order1.order_by,
+        blockchain_id1
       )
       setMakeOffer(res.data)
       setTotalMake(res.total)
@@ -114,26 +131,26 @@ const Offering = observer(() => {
   }
   useEffect(() => {
     getdata1()
-  }, [id, pageSize1, offset1, order1])
+  }, [id, pageSize1, offset1, order1, blockchain_id1])
   // ==== load data auction
   const getdata = async () => {
     if (id) {
       const res = await offeringUser(
         3,
         pageSize,
-        offset-1,
+        offset - 1,
         id,
         order.reverse,
-        order.order_by
+        order.order_by,
+        blockchain_id
       )
       setAuctions(res.data)
       setTotalAuc(res.total)
-      console.log(totalAuc)
     }
   }
   useEffect(() => {
     getdata()
-  }, [id, pageSize, offset, order])
+  }, [id, pageSize, offset, order, blockchain_id])
 
   return (
     <div className="tab">
@@ -160,6 +177,7 @@ const Offering = observer(() => {
               options={networkType}
               isSearchable={false}
               className="network"
+              onChange={el=>handleBlockchain_id(el)}
               placeholder={
                 <div className="placeholder">
                   <img src="/common/all-network.png" alt="" />

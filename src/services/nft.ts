@@ -79,22 +79,14 @@ export const mineActivitiUser = async (
     const { data } = await axios({
       method: "POST",
       url: "http://192.168.1.148:9000" + "/nft-event/mine",
-      data: blockchain_id
-        ? {
-            address: String(userAddress),
-            blockchain_id: blockchain_id,
-            limit: limit,
-            offset: offset,
-            reverse: reverse,
-            order_by: order_by,
-          }
-        : {
-            address: String(userAddress),
-            limit: limit,
-            offset: offset,
-            reverse: reverse,
-            order_by: order_by,
-          },
+      data: {
+        address: String(userAddress),
+        blockchain_id: blockchain_id,
+        limit: limit,
+        offset: offset,
+        reverse: reverse,
+        order_by: order_by,
+      },
     })
     return data.data
   } catch (error) {
@@ -114,22 +106,14 @@ export const favoriteActivitiUser = async (
     const { data } = await axios({
       method: "POST",
       url: "http://192.168.1.148:9000" + "/nft-event/my-favorite",
-      data: blockchain_id
-        ? {
-            address: String(userAddress),
-            blockchain_id: blockchain_id,
-            limit: limit,
-            offset: offset,
-            reverse: reverse,
-            order_by: order_by,
-          }
-        : {
-            address: String(userAddress),
-            limit: limit,
-            offset: offset,
-            reverse: reverse,
-            order_by: order_by,
-          },
+      data: {
+        address: String(userAddress),
+        blockchain_id: blockchain_id,
+        limit: limit,
+        offset: offset,
+        reverse: reverse,
+        order_by: order_by,
+      },
     })
     return data.data
   } catch (error) {
@@ -137,7 +121,12 @@ export const favoriteActivitiUser = async (
   }
 }
 
-export const favoriteUser = async (userAddress, blockchain_id) => {
+export const favoriteUser = async (
+  userAddress,
+  blockchain_id,
+  limit,
+  offset
+) => {
   try {
     const { data } = await axios({
       method: "POST",
@@ -148,6 +137,8 @@ export const favoriteUser = async (userAddress, blockchain_id) => {
       data: {
         address: String(userAddress),
         blockchain_id: blockchain_id,
+        limit: limit,
+        offset: offset,
       },
     })
     return data.data
@@ -161,19 +152,29 @@ export const collectedUser = async (
   limit,
   offset,
   blockchain_id,
-  inventory_status
+  inventory_status,
+  search
 ) => {
   try {
     const { data } = await axios({
       method: "GET",
       url: "http://192.168.1.148:9000" + "/nft-item/list",
-      params: {
-        owner_address: String(userAddress),
-        limit: limit,
-        offset: offset,
-        blockchain_id: blockchain_id,
-        inventory_status: inventory_status,
-      },
+      params: search
+        ? {
+            owner_address: String(userAddress),
+            limit: limit,
+            offset: offset,
+            blockchain_id: blockchain_id,
+            inventory_status: inventory_status,
+            search: search,
+          }
+        : {
+            owner_address: String(userAddress),
+            limit: limit,
+            offset: offset,
+            blockchain_id: blockchain_id,
+            inventory_status: inventory_status,
+          },
     })
     return data.data
   } catch (error) {
@@ -194,24 +195,15 @@ export const onsaleUser = async (
     const { data } = await axios({
       method: "GET",
       url: "http://192.168.1.148:9000" + "/nft-item/onsale",
-      params: blockchain_id
-        ? {
-            limit: limit,
-            offset: offset,
-            reverse: reverse,
-            order_by: order_by,
-            seller: userAddress,
-            kind: kind,
-            blockchain_id: blockchain_id,
-          }
-        : {
-            limit: limit,
-            offset: offset,
-            reverse: reverse,
-            order_by: order_by,
-            seller: userAddress,
-            kind: kind,
-          },
+      params: {
+        limit: limit,
+        offset: offset,
+        reverse: reverse,
+        order_by: order_by,
+        seller: userAddress,
+        kind: kind,
+        blockchain_id: blockchain_id,
+      },
     })
     return data.data
   } catch (error) {
@@ -225,7 +217,8 @@ export const offeringUser = async (
   offset,
   userAddress,
   reverse,
-  order_by
+  order_by,
+  blockchain_id
 ) => {
   try {
     const { data } = await axios({
@@ -238,11 +231,27 @@ export const offeringUser = async (
         order_by: order_by,
         buyer: userAddress,
         kind: kind,
+        blockchain_id: blockchain_id,
       },
     })
     return data.data
   } catch (error) {
     return { data: [], total: 0 }
+  }
+}
+
+export const getProfileOther = async (userAddress) => {
+  try {
+    const { data } = await axios({
+      method: "GET",
+      url: "http://192.168.1.148:9000" + "/user/get-user-by-address",
+      params: {
+        address: userAddress,
+      },
+    })
+    return data.data
+  } catch (error) {
+    return null
   }
 }
 
