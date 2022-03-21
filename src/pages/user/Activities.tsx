@@ -23,75 +23,117 @@ import { useRouter } from "next/router"
 const Activities = () => {
   const router = useRouter()
   const { id } = router.query
+  const [tab, setTab] = useState(0)
 
   const [data, setData] = useState([])
   const [total, setTotal] = useState(0)
-  const [offset, setOffset] = useState(0)
+  const [offset, setOffset] = useState(1)
   const [pageSize, setPageSize] = useState(10)
+  const [order, setOrder] = useState({
+    reverse: true,
+    order_by: "created_time",
+  })
 
   const [data1, setData1] = useState([])
   const [total1, setTotal1] = useState(0)
-  const [offset1, setOffset1] = useState(0)
+  const [offset1, setOffset1] = useState(1)
   const [pagesize1, setPageSize1] = useState(10)
-
-  const madeSort = [
-    {
-      img: "",
-      name: "Recently listed",
-    },
-    {
-      img: "",
-      name: "Price: Min to Max",
-    },
-    {
-      img: "",
-      name: "Price: Max to Min",
-    },
-  ]
+  const [order1, setOrder1] = useState({
+    reverse: true,
+    order_by: "created_time",
+  })
+  
   const typeSort = [
     {
-      value: "",
+      value: {
+        reverse: true,
+        order_by: "created_time",
+      },
       label: "Recently listed",
     },
     {
-      value: "asc",
+      value: {
+        reverse: false,
+        order_by: "price",
+      },
       label: "Price: Min to Max",
     },
     {
-      value: "desc",
+      value: {
+        reverse: true,
+        order_by: "price",
+      },
       label: "Price: Max to Min",
     },
   ]
   // ====load data favotite tab
   const getdata = async () => {
     if (id) {
-      const res = await favoriteActivitiUser(id,1)
+      const res = await favoriteActivitiUser(
+        id,
+        null,
+        pageSize,
+        offset-1,
+        order.reverse,
+        order.order_by
+      )
       setData(res.data)
       setTotal(res.total)
     }
   }
   useEffect(() => {
     getdata()
-  }, [id, pageSize, offset])
+  }, [id, pageSize, offset,order])
   // ==== load data mine tab
   const getdata1 = async () => {
     if (id) {
-      const res = await mineActivitiUser(id,1)
+      const res = await mineActivitiUser(
+        id,
+        null,
+        pagesize1,
+        offset1 - 1,
+        order1.reverse,
+        order1.order_by
+      )
       setData1(res.data)
       setTotal1(res.total)
     }
   }
   useEffect(() => {
     getdata1()
-  }, [id, pagesize1, offset1])
+  }, [id, pagesize1, offset1, order1])
 
+  const handleChange = (el) => {
+    switch (tab) {
+      case 0:
+        setOrder(el.value)
+        break
+      case 1:
+        setOrder1(el.value)
+        break
+      default:
+        break
+    }
+  }
   return (
     <div className="tab">
       <Tabs align="center">
         <div className="tab-sort">
           <TabList>
-            <Tab>Favorites</Tab>
-            <Tab>mine</Tab>
+            <Tab
+              onClick={() => {
+                setTab(0)
+              }}
+            >
+              Favorites
+            </Tab>
+            <Tab
+              onClick={() => {
+                setTab(1)
+              }}
+            >
+              mine
+            </Tab>
           </TabList>
           <div className="right">
             <AppSelect
@@ -109,6 +151,9 @@ const Activities = () => {
               isSearchable={false}
               options={typeSort}
               placeholder="Recently listed"
+              onChange={(el) => {
+                handleChange(el)
+              }}
             />
           </div>
         </div>
@@ -128,8 +173,8 @@ const Activities = () => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {data.map((data) => (
-                      <Tr key={data.key}>
+                    {data.map((data, index) => (
+                      <Tr key={index}>
                         <Td>
                           {data.kind == 1
                             ? "Sale"
@@ -140,7 +185,7 @@ const Activities = () => {
                             : "Listing"}
                         </Td>
                         <Td className="item">
-                          <Link href={"/nft/" + data.key}>
+                          <Link href={"/nft/" + data.nft_item_id}>
                             <a>
                               <img src={data.photo} alt="" /> {data.name}
                             </a>
@@ -148,14 +193,16 @@ const Activities = () => {
                         </Td>
                         <Td isNumeric>{data.price}</Td>
                         <Td>
-                          <Link href={"/user/" + data.from}>
-                            <a>{data.seller_name}</a>
+                          <Link href={"/user/" + data.seller_address}>
+                            <a>{data.seller_name + ""}</a>
                           </Link>
                         </Td>
                         <Td className="to">
-                          <Link href={"/user/" + data.transaction_id}>
-                            <a>{formatAddress(data.transaction_id, 6, 4)}</a>
-                          </Link>
+                          {data.buyer_address ? (
+                            <Link href={"/user/" + data.buyer_address}>
+                              <a>{formatAddress(data.buyer_address, 6, 4)}</a>
+                            </Link>
+                          ) : null}
                         </Td>
                         <Td className="date">
                           {formatTime(data.created_time, false)}{" "}
@@ -205,8 +252,8 @@ const Activities = () => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    {data1.map((data) => (
-                      <Tr key={data.key}>
+                    {data1.map((data, index) => (
+                      <Tr key={index}>
                         <Td>
                           {data.kind == 1
                             ? "Sale"
@@ -217,7 +264,7 @@ const Activities = () => {
                             : "Listing"}
                         </Td>
                         <Td className="item">
-                          <Link href={"/nft/" + data.key}>
+                          <Link href={"/nft/" + data.nft_item_id}>
                             <a>
                               <img src={data.photo} alt="" /> {data.name}
                             </a>
@@ -225,14 +272,16 @@ const Activities = () => {
                         </Td>
                         <Td isNumeric>{data.price}</Td>
                         <Td>
-                          <Link href={"/user/" + data.from}>
-                            <a>{data.seller_name}</a>
+                          <Link href={"/user/" + data.seller_address}>
+                            <a>{data.seller_name + ""}</a>
                           </Link>
                         </Td>
                         <Td className="to">
-                          <Link href={"/user/" + data.transaction_id}>
-                            <a>{formatAddress(data.transaction_id, 6, 4)}</a>
-                          </Link>
+                          {data.buyer_address ? (
+                            <Link href={"/user/" + data.buyer_address}>
+                              <a>{formatAddress(data.buyer_address, 6, 4)}</a>
+                            </Link>
+                          ) : null}
                         </Td>
                         <Td className="date">
                           {formatTime(data.created_time, false)}{" "}

@@ -67,22 +67,34 @@ export const getCollectionItems = async (
   }
 }
 
-export const getNfts = async (params) => {
-  const { data, headers } = await axios.get(BASE_URL + "/nft", {
-    params,
-  })
-  return { data, total: +headers["x-total-count"] }
-}
-
-export const mineActivitiUser = async (userAddress, blockchain_id) => {
+export const mineActivitiUser = async (
+  userAddress,
+  blockchain_id,
+  limit,
+  offset,
+  reverse,
+  order_by
+) => {
   try {
     const { data } = await axios({
       method: "POST",
-      url: "https://lucis-api-testnet.lucis.pro" + "/nft-event/mine",
-      data: {
-        address: String(userAddress),
-        blockchain_id: blockchain_id,
-      },
+      url: "http://192.168.1.148:9000" + "/nft-event/mine",
+      data: blockchain_id
+        ? {
+            address: String(userAddress),
+            blockchain_id: blockchain_id,
+            limit: limit,
+            offset: offset,
+            reverse: reverse,
+            order_by: order_by,
+          }
+        : {
+            address: String(userAddress),
+            limit: limit,
+            offset: offset,
+            reverse: reverse,
+            order_by: order_by,
+          },
     })
     return data.data
   } catch (error) {
@@ -90,15 +102,34 @@ export const mineActivitiUser = async (userAddress, blockchain_id) => {
   }
 }
 
-export const favoriteActivitiUser = async (userAddress, blockchain_id) => {
+export const favoriteActivitiUser = async (
+  userAddress,
+  blockchain_id,
+  limit,
+  offset,
+  reverse,
+  order_by
+) => {
   try {
     const { data } = await axios({
       method: "POST",
-      url: "https://lucis-api-testnet.lucis.pro" + "/nft-event/my-favorite",
-      data: {
-        address: String(userAddress),
-        blockchain_id: blockchain_id,
-      },
+      url: "http://192.168.1.148:9000" + "/nft-event/my-favorite",
+      data: blockchain_id
+        ? {
+            address: String(userAddress),
+            blockchain_id: blockchain_id,
+            limit: limit,
+            offset: offset,
+            reverse: reverse,
+            order_by: order_by,
+          }
+        : {
+            address: String(userAddress),
+            limit: limit,
+            offset: offset,
+            reverse: reverse,
+            order_by: order_by,
+          },
     })
     return data.data
   } catch (error) {
@@ -110,7 +141,7 @@ export const favoriteUser = async (userAddress, blockchain_id) => {
   try {
     const { data } = await axios({
       method: "POST",
-      url: "https://lucis-api-testnet.lucis.pro" + "/nft-item/favorite/get",
+      url: "http://192.168.1.148:9000" + "/nft-item/favorite/get",
       headers: {
         "Content-Type": "application/json",
       },
@@ -129,17 +160,19 @@ export const collectedUser = async (
   userAddress,
   limit,
   offset,
-  blockchain_id
+  blockchain_id,
+  inventory_status
 ) => {
   try {
     const { data } = await axios({
       method: "GET",
-      url: "https://lucis-api-testnet.lucis.pro" + "/nft-item/list",
+      url: "http://192.168.1.148:9000" + "/nft-item/list",
       params: {
         owner_address: String(userAddress),
         limit: limit,
         offset: offset,
         blockchain_id: blockchain_id,
+        inventory_status: inventory_status,
       },
     })
     return data.data
@@ -154,20 +187,31 @@ export const onsaleUser = async (
   reverse,
   order_by,
   userAddress,
-  kind
+  kind,
+  blockchain_id
 ) => {
   try {
     const { data } = await axios({
       method: "GET",
-      url: "https://lucis-api-testnet.lucis.pro" + "/nft-item/onsale",
-      params: {
-        limit: limit,
-        offset: offset,
-        reverse: reverse,
-        order_by: order_by,
-        seller: userAddress,
-        kind: kind,
-      },
+      url: "http://192.168.1.148:9000" + "/nft-item/onsale",
+      params: blockchain_id
+        ? {
+            limit: limit,
+            offset: offset,
+            reverse: reverse,
+            order_by: order_by,
+            seller: userAddress,
+            kind: kind,
+            blockchain_id: blockchain_id,
+          }
+        : {
+            limit: limit,
+            offset: offset,
+            reverse: reverse,
+            order_by: order_by,
+            seller: userAddress,
+            kind: kind,
+          },
     })
     return data.data
   } catch (error) {
@@ -175,17 +219,24 @@ export const onsaleUser = async (
   }
 }
 
-export const offeringUser = async (kind, limit, offset,userAddress,reverse,order_by) => {
+export const offeringUser = async (
+  kind,
+  limit,
+  offset,
+  userAddress,
+  reverse,
+  order_by
+) => {
   try {
     const { data } = await axios({
       method: "GET",
-      url: "https://lucis-api-testnet.lucis.pro" + "/nft-item/offering",
+      url: "http://192.168.1.148:9000" + "/nft-item/offering",
       params: {
         limit: limit,
         offset: offset,
         reverse: reverse,
         order_by: order_by,
-        buyer: String(userAddress),
+        buyer: userAddress,
         kind: kind,
       },
     })

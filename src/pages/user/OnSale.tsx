@@ -32,6 +32,8 @@ import { useStore } from "src/hooks/useStore"
 import { observer } from "mobx-react-lite"
 import { AppPagination } from "src/components/AppPagination"
 import { useRouter } from "next/router"
+import { formatAddress } from "./FormatAddress"
+import { formatTime } from "src/hooks/useCountdown"
 const OnSale = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
@@ -53,9 +55,9 @@ const OnSale = observer(() => {
   const [pageSize, setPageSize] = useState(20)
   const [pageSize1, setPageSize1] = useState(20)
   const [pageSize2, setPageSize2] = useState(10)
-  const [offset, setOffset] = useState(0)
-  const [offset1, setOffset1] = useState(0)
-  const [offset2, setOffset2] = useState(0)
+  const [offset, setOffset] = useState(1)
+  const [offset1, setOffset1] = useState(1)
+  const [offset2, setOffset2] = useState(1)
   const [totalData, setTotalData] = useState(0)
   const [totalData1, setTotalData1] = useState(0)
   const [totalData2, setTotalData2] = useState(0)
@@ -91,11 +93,12 @@ const OnSale = observer(() => {
     if (id) {
       const res = await onsaleUser(
         pageSize,
-        offset,
+        offset - 1,
         order.reverse,
         order.order_by,
         id,
-        1
+        1,
+        null
       )
       setData(res.data)
       setTotalData(res.total)
@@ -109,11 +112,12 @@ const OnSale = observer(() => {
     if (id) {
       const res = await onsaleUser(
         pageSize1,
-        offset1,
+        offset1 - 1,
         order1.reverse,
         order1.order_by,
         id,
-        3
+        3,
+        null
       )
       setData1(res.data)
       setTotalData1(res.total)
@@ -127,11 +131,12 @@ const OnSale = observer(() => {
     if (id) {
       const res = await onsaleUser(
         pageSize2,
-        offset2,
+        offset2 - 1,
         order2.reverse,
         order2.order_by,
         id,
-        2
+        2,
+        null
       )
       setData2(res.data)
       setTotalData2(res.total)
@@ -139,7 +144,7 @@ const OnSale = observer(() => {
   }
   useEffect(() => {
     getdata2()
-  }, [id, pageSize2, offset2])
+  }, [id, pageSize2, offset2, order2])
   // ==== Thay đổi bộ lọc giá của các tabs
   const handleChange = (el, i) => {
     switch (i) {
@@ -295,53 +300,55 @@ const OnSale = observer(() => {
                             <Td>
                               <div className="align-center item">
                                 <div>
-                                  <img src="/icons/item.png" alt="" />
+                                  <img src={el.photo} alt="" />
                                 </div>
                                 <div className="name-item">
-                                  <Link href={"/collection/1"}>
+                                  <Link href={"/collection/" + el.parent_id}>
                                     <a>
                                       <p className="animverse">
-                                        Animverse
+                                        {el.contract_name}
                                         <Verified />
                                       </p>
                                     </a>
                                   </Link>
-                                  <Link href={"/nft/1"}>
+                                  <Link href={"/nft/" + el.nft_item_id}>
                                     <a>
-                                      <p>CUONG DOLLA NFT</p>
+                                      <p>{el.name}</p>
                                     </a>
                                   </Link>
                                 </div>
                               </div>
                             </Td>
-                            <Td>{el.price}</Td>
+                            <Td>{el.current_price}</Td>
                             <Td className="to">
-                              <Link href={"/user/1"}>
-                                <a>{el.to}</a>
+                              <Link href={"/user/" + el.buyer}>
+                                <a>{formatAddress(el.buyer, 6, 4)}</a>
                               </Link>
                             </Td>
-                            <Td>in 2 days</Td>
+                            <Td>{formatTime(el.deadline,true)}</Td>
                             <Td>
-                              <span>{el.date}</span>
+                              <span>{formatTime(el.created_time,false)}</span>
                             </Td>
                             <Td>
-                              {el.action == null ? (
-                                <>
-                                  <Button className="accept">Accept</Button>
-                                  <Button
-                                    className="cancel"
-                                    onClick={() => {
-                                      onOpen()
-                                    }}
-                                  >
-                                    <span>Cancel</span>
-                                  </Button>
-                                </>
-                              ) : el.action == true ? (
-                                "Accepted"
-                              ) : (
-                                "Canceled"
-                              )}
+                              <div>
+                                {el.action == null ? (
+                                  <>
+                                    <Button className="accept">Accept</Button>
+                                    <Button
+                                      className="cancel"
+                                      onClick={() => {
+                                        onOpen()
+                                      }}
+                                    >
+                                      <span>Cancel</span>
+                                    </Button>
+                                  </>
+                                ) : el.action == true ? (
+                                  "Accepted"
+                                ) : (
+                                  "Canceled"
+                                )}
+                              </div>
                             </Td>
                           </Tr>
                         ))}

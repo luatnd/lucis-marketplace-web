@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { useStore } from "src/hooks/useStore"
-import { favoriteUser, getNfts } from "src/services/nft"
+import { favoriteUser } from "src/services/nft"
 import { NftItem } from "../../components/NftItem"
 import { observer } from "mobx-react-lite"
 import { AppPagination } from "src/components/AppPagination"
@@ -11,13 +10,13 @@ import { useRouter } from "next/router"
 const Favorite = observer(() => {
   const router = useRouter()
   const [data, setData] = useState([])
-  const [offset, setOffset] = useState(0)
+  const [offset, setOffset] = useState(1)
   const [pageSize, setPageSize] = useState(20)
   const [totalData, setTotalData] = useState(0)
   const { id } = router.query
   const getdata = async () => {
     if (id) {
-      const res = await favoriteUser(id,2)
+      const res = await favoriteUser(id, 2)
       setData(res.data)
       setTotalData(res.total)
     }
@@ -41,7 +40,7 @@ const Favorite = observer(() => {
           }
         />
       </div>
-      {data.length == 0 ? (
+      {!totalData ? (
         <img className="nodata" src="/common/my-nft/nodata.png" alt="" />
       ) : (
         <>

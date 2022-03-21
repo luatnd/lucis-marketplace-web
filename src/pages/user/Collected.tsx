@@ -1,8 +1,14 @@
-import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
+import {
+  Icon,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Spinner,
+} from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
 import { useStore } from "src/hooks/useStore"
-import { collectedUser, getNfts } from "src/services/nft"
+import { collectedUser } from "src/services/nft"
 import { NftItem } from "../../components/NftItem"
 import { AppSelect } from "src/components/AppSelect"
 import { networkType } from "../data/networkType"
@@ -14,51 +20,64 @@ const Collected = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
 
+  const [search, setSearch] = useState("")
+  const [loading, setLoading] = useState(false)
+
   const [data, setData] = useState([])
   const [pageSize, setPageSize] = useState(20)
   const [totalData, setTotalData] = useState(0)
-  const [offset, setOffset] = useState(0)
+  const [offset, setOffset] = useState(1)
+  const [order, setOrder] = useState(null)
 
   const router = useRouter()
   const { id } = router.query
 
   const getdata = async () => {
     if (id) {
-      const res = await collectedUser(id, pageSize, offset,null)
+      const res = await collectedUser(
+        id,
+        pageSize,
+        offset - 1,
+        null,
+        order
+      )
       setData(res.data)
       setTotalData(res.total)
     }
   }
   useEffect(() => {
     getdata()
-  }, [pageSize, offset,id])
+  }, [pageSize, offset, id, order])
 
   const typeSort = [
     {
-      value: "",
+      value: null,
       label: "All",
     },
     {
-      value: "",
+      value: 1,
       label: "Selling",
     },
     {
-      value: "asc",
+      value: 2,
       label: "Auction",
     },
     {
-      value: "desc",
+      value: 0,
       label: "Not sold",
     },
   ]
+  const handleChange = (el) => {
+    setOrder(el.value)
+  }
 
   return (
     <div className="tab-collected">
       <div className="sort">
         <InputGroup className="group-search">
-          <Input size="md" placeholder="" />
+          <Input size="md" placeholder="" value={search} />
           <InputRightElement>
-            <Icon as={Icons.Search} />
+            <Icon as={loading ? Spinner : Icons.Search} />
           </InputRightElement>
         </InputGroup>
         <AppSelect
@@ -72,7 +91,12 @@ const Collected = observer(() => {
             </div>
           }
         />
-        <AppSelect isSearchable={false} options={typeSort} placeholder="All" />
+        <AppSelect
+          isSearchable={false}
+          options={typeSort}
+          placeholder="All"
+          onChange={(el) => handleChange(el)}
+        />
       </div>
       {data.length == 0 ? (
         <img className="nodata" src="/common/my-nft/nodata.png" alt="" />

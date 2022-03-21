@@ -24,7 +24,7 @@ import { UserTray } from "../UserTray"
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
-  const { isReady } = WalletController
+  const { isReady ,address} = WalletController
 
   const [canScroll, setCanScroll] = useState(false)
   const [selectNetwork, setSelectNetwork] = useState("/common/all-network.png")
@@ -336,7 +336,7 @@ export const AppLayout = observer(({ children }) => {
             </div>
           </div>
           {isReady ? (
-            <Link href="/user/my-nft/?tab=4">
+            <Link href={"/user/"+address+"/?tab=4"}>
               <Icon as={BellIcon} className="noti-button" />
             </Link>
           ) : null}

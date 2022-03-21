@@ -437,6 +437,18 @@
       }
     }
     .tab-on-sale {
+      .table-activity{
+        td{
+          padding: 16px 12px;
+        }
+        .align-center.item{
+          img{
+            width: 50px;
+            height: 40px;
+            border-radius: 8px;
+          }
+        }
+      }
       .to {
         color: #0bebd6;
       }

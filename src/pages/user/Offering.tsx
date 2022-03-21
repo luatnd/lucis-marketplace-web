@@ -25,14 +25,13 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import Link from "next/link"
-import { getNfts, offeringUser } from "src/services/nft"
+import { offeringUser } from "src/services/nft"
 import { useStore } from "src/hooks/useStore"
 import { networkType } from "../data/networkType"
 import { observer } from "mobx-react-lite"
 import { AppSelect } from "src/components/AppSelect"
 import { formatTime } from "src/hooks/useCountdown"
 import { useRouter } from "next/router"
-import { constants } from "buffer"
 const Offering = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
@@ -46,7 +45,7 @@ const Offering = observer(() => {
 
   const [auctions, setAuctions] = useState([])
   const [totalAuc, setTotalAuc] = useState(0)
-  const [offset, setOffset] = useState(0)
+  const [offset, setOffset] = useState(1)
   const [pageSize, setPageSize] = useState(20)
   const [order, setOrder] = useState({
     reverse: true,
@@ -55,7 +54,7 @@ const Offering = observer(() => {
 
   const [makeOffer, setMakeOffer] = useState([])
   const [totalMake, setTotalMake] = useState(0)
-  const [offset1, setOffset1] = useState(0)
+  const [offset1, setOffset1] = useState(1)
   const [pageSize1, setPageSize1] = useState(10)
   const [order1, setOrder1] = useState({
     reverse: true,
@@ -104,7 +103,7 @@ const Offering = observer(() => {
       const res = await offeringUser(
         2,
         pageSize1,
-        offset1,
+        offset1-1,
         id,
         order1.reverse,
         order1.order_by
@@ -122,7 +121,7 @@ const Offering = observer(() => {
       const res = await offeringUser(
         3,
         pageSize,
-        offset,
+        offset-1,
         id,
         order.reverse,
         order.order_by
