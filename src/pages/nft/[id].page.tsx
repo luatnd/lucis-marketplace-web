@@ -121,7 +121,7 @@ const DetailsPage = observer((props: any) => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Activities preData={activities} id={+id} />
+            <Activities/>
           </TabPanel>
           <TabPanel>
             {info.inventory_status === 2 ? (
