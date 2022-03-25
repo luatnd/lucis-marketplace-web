@@ -22,7 +22,7 @@ export const AppTable = (props: IProps) => {
       <Table className={tableClassName}>
         <Thead>
           <Tr>
-            {columns.map((column, index) => (
+            {columns?.map((column, index) => (
               <Th key={index}>{column?.title}</Th>
             ))}
           </Tr>

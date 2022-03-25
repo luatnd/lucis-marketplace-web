@@ -69,6 +69,7 @@ const Activities = () => {
     {
       title: "Price",
       dataIndex: "price",
+      render: ({ price }) => price + " BNB",
     },
     {
       title: "From",
@@ -80,23 +81,23 @@ const Activities = () => {
           rel="noreferrer"
           className="date-column"
         >
-          {from}
+          {seller?.slice(0, 2)}...{seller?.slice(-4)}
         </a>
       ),
     },
     {
       title: "To",
-      dataIndex: "to",
-      render: ({ to, type }) =>
+      dataIndex: "buyer",
+      render: ({ buyer, type }) =>
         type != "Listing" ? (
           <a
-            href={"/user/1" + to}
+            href={"/user/1" + buyer}
             target={"_blank"}
             rel="noreferrer"
             className="date-column"
             style={{ color: "#0BEBD6" }}
           >
-            {formatAddress(to, 6, 4)}
+            {formatAddress(buyer, 6, 4)}
           </a>
         ) : (
           ""
@@ -138,13 +139,7 @@ const Activities = () => {
         />
       </div>
       <AppTable className="data-table" columns={columns} data={data} />
-      <AppPagination
-        total={total}
-        offset={offset}
-        limit={pageSize}
-        onChangeOffset={(value) => setOffset(value)}
-        onChangeLimit={(value) => setPageSize(value)}
-      />
+      <AppPagination total={total} offset={offset} limit={pageSize} />
     </>
   )
 }

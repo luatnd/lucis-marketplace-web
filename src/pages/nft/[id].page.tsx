@@ -28,12 +28,10 @@ import { OwnerTray } from "./OwnerTray"
 import ReceivedOffer from "./ReceivedOffer"
 
 const DetailsPage = observer((props: any) => {
-  const { data } = props
+  const { data, activities, id } = props
   const WalletController = useStore("WalletController")
   const { address } = WalletController
   const [info, setInfo] = useState(data)
-
-  console.log(info)
 
   const [resultVisible, setResultVisible] = useState(false)
 
@@ -118,15 +116,19 @@ const DetailsPage = observer((props: any) => {
         <TabList>
           <Tab className="tab-item">ACTIVITIES</Tab>
           <Tab className="tab-item">
-            {info.aucPrice ? "AUCTION" : "RECEIVED OFFER"}
+            {info.inventory_status === 2 ? "AUCTION" : "RECEIVED OFFER"}
           </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Activities />
+            <Activities preData={activities} id={+id} />
           </TabPanel>
           <TabPanel>
-            {info.aucPrice ? <Auction /> : <ReceivedOffer info={info} />}
+            {info.inventory_status === 2 ? (
+              <Auction />
+            ) : (
+              <ReceivedOffer info={info} />
+            )}
           </TabPanel>
         </TabPanels>
       </Tabs>
@@ -170,52 +172,16 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const data = await nftService.getNft({
     nft_item_id: +id,
   })
+  const activities = await nftService.getNftActivities({
+    nft_item_id: +id,
+    offset: 0,
+    limit: 5,
+  })
   return {
     props: {
       data,
+      activities,
+      id,
     },
   }
 }
-
-const detailsStats = [
-  {
-    key: "Staking Score",
-    value: "Staking Score",
-  },
-  {
-    key: "Type",
-    value: "Type",
-  },
-  {
-    key: "Horn",
-    value: "Horn",
-  },
-  {
-    key: "Color",
-    value: "Color",
-  },
-  {
-    key: "Background",
-    value: "Background",
-  },
-  {
-    key: "Opening Network",
-    value: "Opening Network",
-  },
-  {
-    key: "Specical",
-    value: "Specical",
-  },
-  {
-    key: "Glitter",
-    value: "Glitter",
-  },
-  {
-    key: "Birthday",
-    value: "Birthday",
-  },
-  {
-    key: "Booster",
-    value: "Booster",
-  },
-]

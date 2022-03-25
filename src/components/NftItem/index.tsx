@@ -1,5 +1,4 @@
 import { Button } from "@chakra-ui/react"
-import BNBSymbol from "@static/icons/bnb-symbol.svg"
 import Verified from "@static/icons/verified.svg"
 import dayjs from "dayjs"
 import { observer } from "mobx-react-lite"
