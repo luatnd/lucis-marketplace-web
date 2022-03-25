@@ -11,7 +11,6 @@ import { useStore } from "src/hooks/useStore"
 import { collectedUser } from "src/services/nft"
 import { NftItem } from "../../components/NftItem"
 import { AppSelect } from "src/components/AppSelect"
-import { networkType } from "../data/networkType"
 import { observer } from "mobx-react-lite"
 import { AppPagination } from "src/components/AppPagination"
 import { useRouter } from "next/router"
@@ -19,8 +18,8 @@ import { useRouter } from "next/router"
 let searchTimer
 
 const Collected = observer(() => {
-  const WalletController = useStore("WalletController")
-  const { address } = WalletController
+  const BlockchainStore = useStore("BlockchainStore")
+  const { blockchain_Array, blockchain_id } = BlockchainStore
 
   const [search, setSearch] = useState("")
   const [loading, setLoading] = useState(false)
@@ -30,18 +29,19 @@ const Collected = observer(() => {
   const [totalData, setTotalData] = useState(0)
   const [offset, setOffset] = useState(1)
   const [order, setOrder] = useState(null)
-  const [blockchain_id, setBlockchain_id] = useState(0)
+  const [blockchain_id1, setBlockchain_id1] = useState(0)
 
   const router = useRouter()
   const { id } = router.query
 
   const getdata = async () => {
     if (id && !loading) {
+      const chainID = blockchain_id ? blockchain_id : blockchain_id1
       const res = await collectedUser(
         id,
         pageSize,
         offset - 1,
-        blockchain_id,
+        chainID,
         order,
         search
       )
@@ -51,7 +51,7 @@ const Collected = observer(() => {
   }
   useEffect(() => {
     getdata()
-  }, [pageSize, offset, id, order, blockchain_id, loading])
+  }, [pageSize, offset, id, order, blockchain_id1, loading, blockchain_id])
 
   const typeSort = [
     {
@@ -73,7 +73,7 @@ const Collected = observer(() => {
   ]
 
   const handleBlockchain_id = (el) => {
-    setBlockchain_id(el.value)
+    setBlockchain_id1(el.value)
   }
 
   const handleChange = (el) => {
@@ -99,9 +99,9 @@ const Collected = observer(() => {
           </InputRightElement>
         </InputGroup>
         <AppSelect
-          options={networkType}
+          options={blockchain_Array}
           isSearchable={false}
-          className="network"
+          className={blockchain_id ? "network hidden" : "network"}
           onChange={(el) => handleBlockchain_id(el)}
           placeholder={
             <div className="placeholder">
@@ -137,6 +137,8 @@ const Collected = observer(() => {
                       collection_id: auction.collection_id,
                       blockchain_id: auction.blockchain_id,
                       inventory_status: auction.inventory_status,
+                      symbol:blockchain_Array[auction.blockchain_id].symbol,
+                      is_verified:auction.is_verified
                     }}
                   />
                 </div>

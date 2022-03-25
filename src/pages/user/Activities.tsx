@@ -15,13 +15,15 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
-import { networkType } from "../data/networkType"
 import { favoriteActivitiUser, mineActivitiUser } from "src/services/nft"
 import { formatAddress } from "./FormatAddress"
 import { formatTime } from "src/hooks/useCountdown"
 import { useRouter } from "next/router"
-import { set } from "mobx"
-const Activities = () => {
+import { useStore } from "src/hooks/useStore"
+import { observer } from "mobx-react-lite"
+const Activities = observer(() => {
+  const BlockchainStore = useStore("BlockchainStore")
+  const { blockchain_Array, blockchain_id } = BlockchainStore
   const router = useRouter()
   const { id } = router.query
   const [tab, setTab] = useState(0)
@@ -34,7 +36,7 @@ const Activities = () => {
     reverse: true,
     order_by: "created_time",
   })
-  const [blockchain_id, setBlockchain_id] = useState(0)
+  const [blockchain_id2, setBlockchain_id2] = useState(0)
 
   const [data1, setData1] = useState([])
   const [total1, setTotal1] = useState(0)
@@ -72,9 +74,10 @@ const Activities = () => {
   // ====load data favotite tab
   const getdata = async () => {
     if (id) {
+      const chainID = blockchain_id != 0 ? blockchain_id : blockchain_id2
       const res = await favoriteActivitiUser(
         id,
-        blockchain_id,
+        chainID,
         pageSize,
         offset - 1,
         order.reverse,
@@ -86,13 +89,14 @@ const Activities = () => {
   }
   useEffect(() => {
     getdata()
-  }, [id, pageSize, offset, order, blockchain_id])
+  }, [id, pageSize, offset, order, blockchain_id, blockchain_id2, tab])
   // ==== load data mine tab
   const getdata1 = async () => {
     if (id) {
+      const chainID = blockchain_id != 0 ? blockchain_id : blockchain_id1
       const res = await mineActivitiUser(
         id,
-        blockchain_id1,
+        chainID,
         pagesize1,
         offset1 - 1,
         order1.reverse,
@@ -104,7 +108,7 @@ const Activities = () => {
   }
   useEffect(() => {
     getdata1()
-  }, [id, pagesize1, offset1, order1, blockchain_id1])
+  }, [id, pagesize1, offset1, order1, blockchain_id, blockchain_id1, tab])
 
   const handleChange = (el) => {
     switch (tab) {
@@ -122,7 +126,7 @@ const Activities = () => {
   const handleChangeNetwork = (el) => {
     switch (tab) {
       case 0:
-        setBlockchain_id(el.value)
+        setBlockchain_id2(el.value)
         break
       case 1:
         setBlockchain_id1(el.value)
@@ -154,9 +158,9 @@ const Activities = () => {
           </TabList>
           <div className="right">
             <AppSelect
-              options={networkType}
+              options={blockchain_Array}
               isSearchable={false}
-              className="network"
+              className={blockchain_id ? "network hidden" : "network"}
               placeholder={
                 <div className="placeholder">
                   <img src="/common/all-network.png" alt="" />
@@ -209,7 +213,10 @@ const Activities = () => {
                             </a>
                           </Link>
                         </Td>
-                        <Td isNumeric>{data.price}</Td>
+                        <Td isNumeric>
+                          {data.price}{" "}
+                          {blockchain_Array[data.blockchain_id].symbol}
+                        </Td>
                         <Td>
                           <Link href={"/user/" + data.seller_address}>
                             <a>{data.seller_name + ""}</a>
@@ -288,7 +295,10 @@ const Activities = () => {
                             </a>
                           </Link>
                         </Td>
-                        <Td isNumeric>{data.price}</Td>
+                        <Td isNumeric>
+                          {data.price}{" "}
+                          {blockchain_Array[data.blockchain_id].symbol}
+                        </Td>
                         <Td>
                           <Link href={"/user/" + data.seller_address}>
                             <a>{data.seller_name + ""}</a>
@@ -338,5 +348,5 @@ const Activities = () => {
       </Tabs>
     </div>
   )
-}
+})
 export default Activities

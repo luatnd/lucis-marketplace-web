@@ -20,6 +20,7 @@
 }
 .table-activity {
   margin-top: 30px;
+  margin-bottom: 30px;
   border: 1px solid #d7d7d7;
   box-sizing: border-box;
   box-shadow: 0px 4px 20px 1px rgba(0, 0, 0, 0.2);
@@ -78,49 +79,24 @@
 .sort {
   display: flex;
   justify-content: flex-end;
-
-  .select-sort {
-    box-sizing: border-box;
-    border-radius: 8px;
-    border: 1px solid #d7d7d7;
-    float: right;
-
-    &.price-sort {
-      margin-right: 8px;
-
-      .select-button,
-      .select-list {
-        img {
-          width: 20px;
-          margin-right: 8px;
-        }
+  gap: 8px;
+  .app-select.network {
+    .placeholder {
+      flex-wrap: nowrap;
+      display: flex;
+      align-items: center;
+      img {
+        width: 20px;
+        margin-right: 12px;
       }
     }
-
-    .select-button {
-      span {
-        display: flex;
-      }
-    }
-
-    .select-list {
-      background: linear-gradient(
-        126.08deg,
-        rgba(255, 255, 255, 0.3) 13.84%,
-        rgba(255, 255, 255, 0.1) 74.14%
-      );
-      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(40px);
-
-      &::after {
-        content: "";
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        top: 0;
-        right: 0;
-        background: url(/common/menu-corner.png);
-        border-top-right-radius: 5px;
+    .network {
+      display: flex;
+      align-items: center;
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 20px;
       }
     }
   }

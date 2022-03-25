@@ -6,7 +6,6 @@ import { observer } from "mobx-react-lite"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { TNftItem } from "src/@types/nft"
-import { getNetwork } from "src/utils/getNetwork"
 import { useStore } from "src/hooks/useStore"
 import { isVideo } from "src/utils/format"
 import { formatNftPrice } from "src/utils/Number"
@@ -18,10 +17,10 @@ interface IProps {
 export const NftItem = observer((props: IProps) => {
   const { info } = props
   const WalletController = useStore("WalletController")
+  const BlockchainStore = useStore("BlockchainStore")
+  const { blockchain_Array } = BlockchainStore
   const { address } = WalletController
   const router = useRouter()
-
-  const { icon: Network } = getNetwork(info.blockchain_id)
 
   return (
     <div className="nft-item">
@@ -34,7 +33,9 @@ export const NftItem = observer((props: IProps) => {
           <img src={info.photo} />
         )}
       </div>
-      <div className="network">{Network}</div>
+      <div className="network">
+        <img src={blockchain_Array[info.blockchain_id]?.url} alt="" />
+      </div>
       <div className="nft-body">
         <div className="provider">
           <div
@@ -69,7 +70,8 @@ export const NftItem = observer((props: IProps) => {
           onClick={() => router.push("/nft/" + info.id)}
         >
           <span>
-            <BNBSymbol /> {formatNftPrice(info.price ?? null)} BNB
+            <img src={blockchain_Array[info.blockchain_id]?.rpc_url} alt="" />
+            {formatNftPrice(info.price ?? null)} {info.symbol}
           </span>
           {info.owner === address ? null : info.inventory_status === 2 ? (
             <Button>AUC</Button>

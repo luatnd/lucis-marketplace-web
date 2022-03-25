@@ -10,9 +10,29 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    grid-gap: 8px;
+    .app-select.network {
+      .placeholder {
+        flex-wrap: nowrap;
+        display: flex;
+        align-items: center;
+        img {
+          width: 20px;
+          margin-right: 12px;
+        }
+      }
+      .network {
+        display: flex;
+        align-items: center;
+        img {
+          width: 20px;
+          height: 20px;
+          margin-right: 20px;
+        }
+      }
+    }
   }
   .chakra-table {
-    // margin-top: 38px;
     tbody {
       tr {
         .collection {
@@ -37,5 +57,8 @@
         }
       }
     }
+  }
+  .app-pagination{
+    margin-top: 30px;
   }
 }

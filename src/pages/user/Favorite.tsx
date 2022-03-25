@@ -4,39 +4,42 @@ import { NftItem } from "../../components/NftItem"
 import { observer } from "mobx-react-lite"
 import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
-import { networkType } from "../data/networkType"
 import { useRouter } from "next/router"
+import { useStore } from "src/hooks/useStore"
 
 const Favorite = observer(() => {
+  const BlockchainStore = useStore("BlockchainStore")
+  const { blockchain_Array, blockchain_id } = BlockchainStore
   const router = useRouter()
   const [data, setData] = useState([])
   const [offset, setOffset] = useState(1)
   const [pageSize, setPageSize] = useState(20)
   const [totalData, setTotalData] = useState(0)
-  const [blockchain_id, setBlockchain_id] = useState(0)
+  const [blockchain_id1, setBlockchain_id1] = useState(0)
   const { id } = router.query
   const getdata = async () => {
     if (id) {
-      const res = await favoriteUser(id, blockchain_id, pageSize, offset - 1)
+      const chainID = blockchain_id ? blockchain_id : blockchain_id1
+      const res = await favoriteUser(id, chainID, pageSize, offset - 1)
       setData(res.data)
       setTotalData(res.total)
     }
   }
   useEffect(() => {
     getdata()
-  }, [pageSize, offset, id, blockchain_id])
+  }, [pageSize, offset, id, blockchain_id, blockchain_id1])
 
   const handleBlockchain_id = (el) => {
-    setBlockchain_id(el.value)
+    setBlockchain_id1(el.value)
   }
 
   return (
     <div className="tab-favorite">
       <div className="sort">
         <AppSelect
-          options={networkType}
+          options={blockchain_Array}
           isSearchable={false}
-          className="network"
+          className={blockchain_id ? "network hidden" : "network"}
           onChange={(el) => handleBlockchain_id(el)}
           placeholder={
             <div className="placeholder">
@@ -60,12 +63,13 @@ const Favorite = observer(() => {
                       name: auction.name,
                       price: auction.price,
                       photo: auction.photo,
-                      owner:auction.owner_address,
+                      owner: auction.owner_address,
                       contract_name: auction.collection_name,
-                      collection_id:auction.collection_id,
+                      collection_id: auction.collection_id,
                       blockchain_id: auction.blockchain_id,
-                      is_verified:auction.is_verified,
-                      inventory_status:auction.inventory_status,
+                      is_verified: auction.is_verified,
+                      inventory_status: auction.inventory_status,
+                      symbol: blockchain_Array[auction.blockchain_id].symbol,
                     }}
                   />
                 </div>

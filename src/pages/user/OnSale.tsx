@@ -22,7 +22,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import { AppSelect } from "src/components/AppSelect"
-import { networkType } from "../data/networkType"
 import { NftItem } from "../../components/NftItem"
 import { useEffect, useState } from "react"
 import Verified from "@static/icons/verified.svg"
@@ -35,8 +34,8 @@ import { useRouter } from "next/router"
 import { formatAddress } from "./FormatAddress"
 import { formatTime } from "src/hooks/useCountdown"
 const OnSale = observer(() => {
-  const WalletController = useStore("WalletController")
-  const { address } = WalletController
+  const BlockchainStore = useStore("BlockchainStore")
+  const { blockchain_Array, blockchain_id } = BlockchainStore
   const [order, setOrder] = useState({
     reverse: true,
     order_by: "created_time",
@@ -61,7 +60,7 @@ const OnSale = observer(() => {
   const [totalData, setTotalData] = useState(0)
   const [totalData1, setTotalData1] = useState(0)
   const [totalData2, setTotalData2] = useState(0)
-  const [blockchain_id, setBlockchain_id] = useState(0)
+  const [blockchain_id0, setBlockchain_id0] = useState(0)
   const [blockchain_id1, setBlockchain_id1] = useState(0)
   const [blockchain_id2, setBlockchain_id2] = useState(0)
   const router = useRouter()
@@ -94,6 +93,7 @@ const OnSale = observer(() => {
   // ==== lấy và lọc dữ liệu selling với địa chỉ id (address của người dùng)
   const getdata = async () => {
     if (id) {
+      const chainID = blockchain_id ? blockchain_id : blockchain_id0
       const res = await onsaleUser(
         pageSize,
         offset - 1,
@@ -101,7 +101,7 @@ const OnSale = observer(() => {
         order.order_by,
         id,
         1,
-        blockchain_id
+        chainID
       )
       setData(res.data)
       setTotalData(res.total)
@@ -109,10 +109,11 @@ const OnSale = observer(() => {
   }
   useEffect(() => {
     getdata()
-  }, [id, pageSize, offset, order,blockchain_id])
+  }, [id, pageSize, offset, order, blockchain_id0, blockchain_id])
   // ==== lấy và lọc dữ liệu auction với địa chỉ id (address của người dùng)
   const getdata1 = async () => {
     if (id) {
+      const chainID = blockchain_id ? blockchain_id : blockchain_id1
       const res = await onsaleUser(
         pageSize1,
         offset1 - 1,
@@ -120,7 +121,7 @@ const OnSale = observer(() => {
         order1.order_by,
         id,
         3,
-        blockchain_id1
+        chainID
       )
       setData1(res.data)
       setTotalData1(res.total)
@@ -128,10 +129,11 @@ const OnSale = observer(() => {
   }
   useEffect(() => {
     getdata1()
-  }, [id, pageSize1, offset1, order1, blockchain_id1])
+  }, [id, pageSize1, offset1, order1, blockchain_id1, blockchain_id])
   // ==== lấy và lọc dữ liệu offer với địa chỉ id (address của người dùng)
   const getdata2 = async () => {
     if (id) {
+      const chainID = blockchain_id ? blockchain_id : blockchain_id2
       const res = await onsaleUser(
         pageSize2,
         offset2 - 1,
@@ -139,7 +141,7 @@ const OnSale = observer(() => {
         order2.order_by,
         id,
         2,
-        blockchain_id2
+        chainID
       )
       setData2(res.data)
       setTotalData2(res.total)
@@ -147,7 +149,7 @@ const OnSale = observer(() => {
   }
   useEffect(() => {
     getdata2()
-  }, [id, pageSize2, offset2, order2, blockchain_id2])
+  }, [id, pageSize2, offset2, order2, blockchain_id2, blockchain_id])
   // ==== Thay đổi bộ lọc giá của các tabs
   const handleChange = (el, i) => {
     switch (i) {
@@ -168,7 +170,7 @@ const OnSale = observer(() => {
   const handleBlockchain_id = (el, i) => {
     switch (i) {
       case 0:
-        setBlockchain_id(el.value)
+        setBlockchain_id0(el.value)
         break
       case 1:
         setBlockchain_id1(el.value)
@@ -193,9 +195,9 @@ const OnSale = observer(() => {
           <TabPanel>
             <div className="sort">
               <AppSelect
-                options={networkType}
+                options={blockchain_Array}
                 isSearchable={false}
-                className="network"
+                className={blockchain_id ? "network hidden" : "network"}
                 onChange={(el) => handleBlockchain_id(el, 0)}
                 placeholder={
                   <div className="placeholder">
@@ -231,6 +233,8 @@ const OnSale = observer(() => {
                             blockchain_id: auction.blockchain_id,
                             inventory_status: 1,
                             endTime: auction.deadline,
+                            symbol:
+                              blockchain_Array[auction.blockchain_id].symbol,
                           }}
                         />
                       </div>
@@ -250,9 +254,9 @@ const OnSale = observer(() => {
           <TabPanel>
             <div className="sort">
               <AppSelect
-                options={networkType}
+                options={blockchain_Array}
                 isSearchable={false}
-                className="network"
+                className={blockchain_id ? "network hidden" : "network"}
                 onChange={(el) => handleBlockchain_id(el, 1)}
                 placeholder={
                   <div className="placeholder">
@@ -280,7 +284,7 @@ const OnSale = observer(() => {
                           info={{
                             id: auction.nft_item_id,
                             name: auction.name,
-                            price: auction.price,
+                            price: auction.current_price,
                             photo: auction.photo,
                             owner: auction.address,
                             contract_name: auction.contract_name,
@@ -288,6 +292,8 @@ const OnSale = observer(() => {
                             blockchain_id: auction.blockchain_id,
                             inventory_status: 2,
                             endTime: auction.deadline,
+                            symbol:
+                              blockchain_Array[auction.blockchain_id].symbol,
                           }}
                         />
                       </div>
@@ -307,9 +313,9 @@ const OnSale = observer(() => {
           <TabPanel>
             <div className="sort">
               <AppSelect
-                options={networkType}
+                options={blockchain_Array}
                 isSearchable={false}
-                className="network"
+                className={blockchain_id ? "network hidden" : "network"}
                 onChange={(el) => handleBlockchain_id(el, 2)}
                 placeholder={
                   <div className="placeholder">
@@ -367,7 +373,10 @@ const OnSale = observer(() => {
                                 </div>
                               </div>
                             </Td>
-                            <Td>{el.current_price}</Td>
+                            <Td>
+                              {el.current_price}{" "}
+                              {blockchain_Array[el.blockchain_id].symbol}
+                            </Td>
                             <Td className="to">
                               <Link href={"/user/" + el.buyer}>
                                 <a>{formatAddress(el.buyer, 6, 4)}</a>

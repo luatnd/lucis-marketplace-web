@@ -1,23 +1,53 @@
 import { Button, Icon } from "@chakra-ui/react"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
 import { AppTable } from "src/components/AppTable"
 import BoxIcon from "@static/icons/item-box.svg"
 import { ExternalLink } from "react-feather"
+import { getActivitiesItem } from "src/services/nft"
+import { formatAddress } from "../user/FormatAddress"
+import { formatTime } from "src/hooks/useCountdown"
 
 const Activities = () => {
-  const [offset, setOffset] = useState(0)
-  const [pageSize, setPageSize] = useState(5)
-  const [total, setTotal] = useState(21)
+  const router = useRouter()
+  const { id } = router.query
+  const [data, setData] = useState([])
+  const [offset, setOffset] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+  const [total, setTotal] = useState()
 
-  const fetchData = () => {
-    console.log(offset, pageSize)
+  const getData = async () => {
+    if (id) {
+      const res = await getActivitiesItem(id, pageSize, offset - 1)
+      setTotal(res.total)
+      setData(
+        res.data.map((el) => {
+          return {
+            type:
+              el.kind == 1
+                ? "Sale"
+                : el.kind == 2
+                ? "Offer"
+                : el.kind == 3
+                ? "Auction"
+                : "Listing",
+            item: "Animverse",
+            price: el.price,
+            from: "Dong Van Cuong",
+            to: el.currency,
+            date: formatTime(el.created_time, false),
+            transaction_id: el.transaction_id,
+            seller: el.seller,
+          }
+        })
+      )
+    }
   }
-
   useEffect(() => {
-    fetchData()
-  }, [offset, pageSize])
+    getData()
+  }, [offset, pageSize, id])
 
   const columns = [
     {
@@ -43,9 +73,9 @@ const Activities = () => {
     {
       title: "From",
       dataIndex: "from",
-      render: ({ from }) => (
+      render: ({ from, seller }) => (
         <a
-          href="/user/1"
+          href={"/user/1" + seller}
           target={"_blank"}
           rel="noreferrer"
           className="date-column"
@@ -60,13 +90,13 @@ const Activities = () => {
       render: ({ to, type }) =>
         type != "Listing" ? (
           <a
-            href="/user/1"
+            href={"/user/1" + to}
             target={"_blank"}
             rel="noreferrer"
             className="date-column"
             style={{ color: "#0BEBD6" }}
           >
-            {to}
+            {formatAddress(to, 6, 4)}
           </a>
         ) : (
           ""
@@ -75,10 +105,10 @@ const Activities = () => {
     {
       title: "Date",
       dataIndex: "date",
-      render: ({ date, type }) =>
+      render: ({ date, type, transaction_id }) =>
         type != "Listing" ? (
           <a
-            href="https://testnet.bscscan.com/tx/0x138be73463337df5d12e2a4106c48a501f8c6589bcb62b0affa4e5333ec04b6a"
+            href={"https://testnet.bscscan.com/tx/" + transaction_id}
             target={"_blank"}
             rel="noreferrer"
             className="date-column"
@@ -88,89 +118,6 @@ const Activities = () => {
         ) : (
           <span className="date-column">{date}</span>
         ),
-    },
-  ]
-
-  const data = [
-    {
-      type: "Sale",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Listing",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Offer",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Auction",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Sale",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Auction",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Offer",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Listing",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Sale",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
-    },
-    {
-      type: "Sale",
-      item: "Animverse",
-      price: "26.94 BNB",
-      from: "Dong Van Cuong",
-      to: "0x531b…fFf8",
-      date: "1 days ago",
     },
   ]
   return (

@@ -1,283 +1,32 @@
 import { Button, Icon, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
-import receivedList from "../data/activities.json"
 import Verified from "@static/icons/verified.svg"
 import Pagination from "src/components/Pagination"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ExternalLink } from "react-feather"
+import { useRouter } from "next/router"
+import { getAuctionItem } from "src/services/nft"
+import { AppPagination } from "src/components/AppPagination"
+import { formatAddress } from "../user/FormatAddress"
+import { formatTime } from "src/hooks/useCountdown"
 
 const Auction = () => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(20)
-  const [totalData, setTotalData] = useState(Number(receivedList.length))
+  const router = useRouter()
+  const { id } = router.query
+  const [pageSize, setPageSize] = useState(10)
+  const [offset, setOffset] = useState(1)
+  const [data, setData] = useState([])
+  const [totalData, setTotalData] = useState(0)
 
-  const data = [
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-    {
-      img: "/common/nft/item0.png",
-      address: "0x531b…fFf8",
-      auc: "0.1 BNB",
-      usd: "($39.95)",
-      lead: "41 seconds ago",
-    },
-  ]
+  const getData = async () => {
+    if (id) {
+      const res = await getAuctionItem(id, pageSize, offset - 1)
+      setData(res.data)
+    }
+  }
+  useEffect(() => {
+    getData()
+  }, [id, offset, pageSize])
+
   return (
     <>
       <div className="table-activity">
@@ -295,13 +44,15 @@ const Auction = () => {
                 <Td>
                   <div className="align-center item">
                     <div>
-                      <img src={el.img} alt="" />
+                      <img src={el.photo} alt="" />
                     </div>
-                    <div className="name-item">{el.address}</div>
+                    <div className="name-item">
+                      {formatAddress(el.currency, 6, 4)}
+                    </div>
                   </div>
                 </Td>
                 <Td>
-                  <p>{el.auc}</p>
+                  <p>{el.price}</p>
                   <p>{el.usd}</p>
                 </Td>
                 <Td isNumeric>
@@ -312,22 +63,26 @@ const Auction = () => {
                     rel="noreferrer"
                     style={{ justifyContent: "flex-end" }}
                   >
-                    {el.lead} <Icon as={ExternalLink} />
+                    {formatTime(el.created_time, false)}{" "}
+                    <Icon as={ExternalLink} />
                   </a>
                 </Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
+        <AppPagination
+          total={totalData}
+          limit={pageSize}
+          offset={offset}
+          onChangeLimit={(pageSize) => {
+            setPageSize(pageSize)
+          }}
+          onChangeOffset={(offset) => {
+            setOffset(offset)
+          }}
+        />
       </div>
-      <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={totalData}
-        pageSize={pageSize}
-        onPageChange={(page) => setCurrentPage(page)}
-        onPageSizeChange={(pageSize) => setPageSize(pageSize)}
-      />
     </>
   )
 }

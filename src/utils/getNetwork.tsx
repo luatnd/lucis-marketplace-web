@@ -11,7 +11,7 @@ type TNetwork = {
 
 export const networks: TNetwork[] = [
   {
-    id: null,
+    id: 0,
     name: "All",
     icon: <NetworkAll />,
   },

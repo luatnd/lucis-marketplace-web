@@ -35,6 +35,8 @@ import { useRouter } from "next/router"
 const Offering = observer(() => {
   const WalletController = useStore("WalletController")
   const { address } = WalletController
+  const BlockchainStore = useStore("BlockchainStore")
+  const { blockchain_Array, blockchain_id } = BlockchainStore
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -47,7 +49,7 @@ const Offering = observer(() => {
   const [totalAuc, setTotalAuc] = useState(0)
   const [offset, setOffset] = useState(1)
   const [pageSize, setPageSize] = useState(20)
-  const [blockchain_id, setBlockchain_id] = useState(0)
+  const [blockchain_id0, setBlockchain_id0] = useState(0)
   const [order, setOrder] = useState({
     reverse: true,
     order_by: "created_time",
@@ -103,7 +105,7 @@ const Offering = observer(() => {
   const handleBlockchain_id = (el) => {
     switch (tab) {
       case 0:
-        setBlockchain_id(el.value)
+        setBlockchain_id0(el.value)
         break
       case 1:
         setBlockchain_id1(el.value)
@@ -112,10 +114,10 @@ const Offering = observer(() => {
         break
     }
   }
-
   // ==== load data make offer
   const getdata1 = async () => {
     if (id) {
+      const chainID = blockchain_id ? blockchain_id : blockchain_id1
       const res = await offeringUser(
         2,
         pageSize1,
@@ -123,7 +125,7 @@ const Offering = observer(() => {
         id,
         order1.reverse,
         order1.order_by,
-        blockchain_id1
+        chainID
       )
       setMakeOffer(res.data)
       setTotalMake(res.total)
@@ -131,10 +133,11 @@ const Offering = observer(() => {
   }
   useEffect(() => {
     getdata1()
-  }, [id, pageSize1, offset1, order1, blockchain_id1])
+  }, [id, pageSize1, offset1, order1, blockchain_id1, blockchain_id])
   // ==== load data auction
   const getdata = async () => {
     if (id) {
+      const chainID = blockchain_id ? blockchain_id : blockchain_id0
       const res = await offeringUser(
         3,
         pageSize,
@@ -142,7 +145,7 @@ const Offering = observer(() => {
         id,
         order.reverse,
         order.order_by,
-        blockchain_id
+        chainID
       )
       setAuctions(res.data)
       setTotalAuc(res.total)
@@ -150,7 +153,7 @@ const Offering = observer(() => {
   }
   useEffect(() => {
     getdata()
-  }, [id, pageSize, offset, order, blockchain_id])
+  }, [id, pageSize, offset, order, blockchain_id, blockchain_id0])
 
   return (
     <div className="tab">
@@ -174,10 +177,10 @@ const Offering = observer(() => {
           </TabList>
           <div className="right">
             <AppSelect
-              options={networkType}
+              options={blockchain_Array}
               isSearchable={false}
-              className="network"
-              onChange={el=>handleBlockchain_id(el)}
+              className={blockchain_id ? "network hidden" : "network"}
+              onChange={(el) => handleBlockchain_id(el)}
               placeholder={
                 <div className="placeholder">
                   <img src="/common/all-network.png" alt="" />
@@ -207,7 +210,19 @@ const Offering = observer(() => {
                   {" "}
                   <div className="list">
                     {auctions.map((auction) => (
-                      <NftItem key={auction.id} info={auction} />
+                      <NftItem key={auction.id} info={{
+                        id:auction.nft_item_id,
+                        name:auction.name,
+                        price:auction.current_price,
+                        photo:auction.photo,
+                        owner:auction.address,
+                        contract_name:auction.contract_name,
+                        collection_id:auction.parent_id,
+                        inventory_status:auction.inventory_id,
+                        endTime:auction.deadline,
+                        symbol:blockchain_Array[auction.blockchain_id].symbol
+                      }
+                      } />
                     ))}
                   </div>
                   <AppPagination
@@ -264,7 +279,7 @@ const Offering = observer(() => {
                               </div>
                             </div>
                           </Td>
-                          <Td isNumeric>{data.price}</Td>
+                          <Td isNumeric>{data.current_price} {blockchain_Array[data.blockchain_id].symbol}</Td>
                           <Td>
                             <Link href={"/user/" + data.transaction_id}>
                               <a>Nhi</a>

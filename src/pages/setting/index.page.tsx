@@ -8,8 +8,54 @@ import {
   FormLabel,
   Input,
   Switch,
+  useToast,
 } from "@chakra-ui/react"
-const Setting = () => {
+import { observer } from "mobx-react-lite"
+import { useEffect, useState } from "react"
+import { useStore } from "src/hooks/useStore"
+import { getProfileOther, updateUserInfo } from "src/services/nft"
+const Setting = observer(() => {
+  const toast = useToast()
+  const WalletController = useStore("WalletController")
+
+  const [file, setFile] = useState(null)
+  const [url, setUrl] = useState("/common/user.png")
+  const [userName, setUserName] = useState(null)
+  const [youtube, setYoutube] = useState(null)
+  const [face, setFace] = useState(null)
+
+  const onFileChange = (el) => {
+    setFile(el.target.files[0])
+    setUrl(URL.createObjectURL(el.target.files[0]))
+  }
+
+  const getInfo = async () => {
+    const res = await getProfileOther(WalletController.address)
+  }
+  useEffect(() => {
+    getInfo()
+  }, [])
+
+  const saveInfo = async () => {
+    const token = await WalletController.getAuth()
+    const res = await updateUserInfo(token, userName, file, youtube, face)
+    if (res) {
+      toast({
+        description: "Update successful !",
+        status: "success",
+        duration: 3000,
+        isClosable: false,
+      })
+    } else {
+      toast({
+        description: "Update failed !",
+        status: "error",
+        duration: 3000,
+        isClosable: false,
+      })
+    }
+  }
+
   return (
     <Tabs className="setting" align="center">
       <TabList>
@@ -24,14 +70,29 @@ const Setting = () => {
         <TabPanel className="profile">
           <h1>Profile</h1>
           <div className="info">
-            <img src="/icons/cuongdong.png" alt="" />
+            <div className="border">
+              <img src={url} alt="" />
+            </div>
             <p>
-              <button>Click here</button> to choose a image
+              <input
+                type={"file"}
+                id="file"
+                onChange={onFileChange}
+                style={{ display: "none" }}
+              ></input>
+              <label htmlFor="file">Click here</label> to choose a image
             </p>
           </div>
           <FormControl>
             <FormLabel>Username</FormLabel>
-            <Input type={"text"} placeholder={"Username"}></Input>
+            <Input
+              type={"text"}
+              placeholder={"Username"}
+              value={userName}
+              onChange={(el) => {
+                setUserName(el.target.value)
+              }}
+            ></Input>
             <FormLabel>Intro</FormLabel>
             <Input type={"text"} placeholder={"Username"}></Input>
             <div className="social">
@@ -46,12 +107,19 @@ const Setting = () => {
             <FormLabel>Twitter</FormLabel>
             <Input type={"url"} placeholder={"Link"}></Input>
             <FormLabel>Youtube</FormLabel>
-            <Input type={"url"} placeholder={"Link"}></Input>
+            <Input
+              type={"url"}
+              placeholder={"Link"}
+              value={youtube}
+              onChange={(el) => {
+                setYoutube(el.target.value)
+              }}
+            ></Input>
             <FormLabel>Instagram</FormLabel>
             <Input type={"url"} placeholder={"Link"}></Input>
             <FormLabel>Homepage</FormLabel>
             <Input type={"url"} placeholder={"Link"}></Input>
-            <Input type={"submit"} value={"Save"}></Input>
+            <Input type={"submit"} value={"Save"} onClick={saveInfo}></Input>
           </FormControl>
         </TabPanel>
         <TabPanel className="notification">
@@ -195,5 +263,5 @@ const Setting = () => {
       </TabPanels>
     </Tabs>
   )
-}
+})
 export default Setting

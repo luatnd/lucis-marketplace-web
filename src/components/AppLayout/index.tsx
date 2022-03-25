@@ -19,20 +19,52 @@ import { observer } from "mobx-react-lite"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
-import { getNetwork, networks } from "src/utils/getNetwork"
 import { useStore } from "src/hooks/useStore"
 import { UserTray } from "../UserTray"
 import { SearchBar } from "./SearchBar"
+import { getBlockchain } from "src/services/nft"
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
-  const { isReady ,address} = WalletController
+  const { isReady, address } = WalletController
   const BlockchainStore = useStore("BlockchainStore")
-  const { blockchain_id } = BlockchainStore
+  const { blockchain_id, blockchain_Array } = BlockchainStore
 
   const [canScroll, setCanScroll] = useState(false)
 
+  const getBlockchainData = async () => {
+    const res = await getBlockchain()
+    BlockchainStore.setBlockchain_Array([
+      {
+        label: (
+          <div className="network">
+            <img src="/common/all-network.png" alt="" />
+            All network
+          </div>
+        ),
+        value: 0,
+        name: "All network",
+        symbol: "",
+        url: "/common/all-network.png",
+      },
+      ...res.map((el) => {
+        return {
+          label: (
+            <div className="network">
+              <img src={el.rpc_url} alt="" />
+              {el.name}
+            </div>
+          ),
+          value: el.id,
+          symbol: el.symbol,
+          url: el.rpc_url,
+          name: el.name,
+        }
+      }),
+    ])
+  }
   useEffect(() => {
+    getBlockchainData()
     window.onscroll = () => {
       setCanScroll(window.pageYOffset > 100)
     }
@@ -287,16 +319,16 @@ export const AppLayout = observer(({ children }) => {
                 rightIcon={<Icon as={Icons.ChevronDown} />}
                 className="network-nav"
               >
-                {getNetwork(blockchain_id).icon}
+                {blockchain_Array.map((el)=>el.value==blockchain_id?<img src={el.url} alt="" />:null)}
               </MenuButton>
               <MenuList className="network-list">
-                {networks.map((el, key) => (
+                {blockchain_Array.map((el, key) => (
                   <MenuItem
                     key={key}
                     className="network-item"
-                    onClick={() => BlockchainStore.setBlockchainId(el.id)}
+                    onClick={() => BlockchainStore.setBlockchainId(el.value)}
                   >
-                    {getNetwork(el.id).icon}
+                    <img src={el.url} alt="" />
                     {el.name}
                   </MenuItem>
                 ))}
@@ -304,7 +336,7 @@ export const AppLayout = observer(({ children }) => {
             </Menu>
           </div>
           {isReady ? (
-            <Link href={"/user/"+address+"/?tab=4"}>
+            <Link href={"/user/" + address + "/?tab=4"}>
               <Icon as={BellIcon} className="noti-button" />
             </Link>
           ) : null}

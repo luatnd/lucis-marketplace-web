@@ -42,7 +42,9 @@ const MyNft = observer(() => {
   const getData = async () => {
     if (id) {
       const res = await getProfileOther(id)
-      setData({ ...res[0] })
+      if (res.length) {
+        setData({ ...res[0] })
+      }
     }
   }
   useEffect(() => {
@@ -53,7 +55,11 @@ const MyNft = observer(() => {
       {myNft ? (
         <div className="account">
           <div className="left-border">
-            <img className="left" src={data.avatar?data.avatar:"/common/user.png"} alt="" />
+            <img
+              className="left"
+              src={data.avatar ? data.avatar : "/common/user.png"}
+              alt=""
+            />
           </div>
           <div className="right">
             <div className="top">
@@ -89,7 +95,11 @@ const MyNft = observer(() => {
         <div className="account-other">
           <div className="info">
             <div className="left-border">
-              <img className="left" src={data.avatar?data.avatar:"/common/user.png"} alt="" />
+              <img
+                className="left"
+                src={data.avatar ? data.avatar : "/common/user.png"}
+                alt=""
+              />
             </div>
             <div className="right">
               <div className="name-id">
@@ -116,7 +126,7 @@ const MyNft = observer(() => {
               <div className="social">
                 <img src={data.ranking} alt="" className="vip" />
                 <div className="list">
-                  <img src="/icons/tele1.png" alt="" />
+                  {/* <img src="/icons/tele1.png" alt="" /> */}
                   <a
                     href={data?.social_network?.facebook}
                     target="_blank"
@@ -124,7 +134,7 @@ const MyNft = observer(() => {
                   >
                     <img src="/icons/face.png" alt="" />
                   </a>
-                  <img src="/icons/inta.png" alt="" />
+                  {/* <img src="/icons/inta.png" alt="" /> */}
                 </div>
               </div>
             </div>
