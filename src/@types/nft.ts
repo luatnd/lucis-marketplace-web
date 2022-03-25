@@ -13,4 +13,5 @@ export type TNftItem = {
   endTime?: string
   hidePrice?: boolean
   topAuc?: number
+  symbol?: string
 }

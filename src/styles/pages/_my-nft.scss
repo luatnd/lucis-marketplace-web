@@ -81,7 +81,6 @@
             padding: 0 15px;
             cursor: pointer;
             @include to(md) {
-              margin-top: 13px;
               height: 44px;
               min-width: 200px;
             }
@@ -438,6 +437,18 @@
       }
     }
     .tab-on-sale {
+      .table-activity{
+        td{
+          padding: 16px 12px;
+        }
+        .align-center.item{
+          img{
+            width: 50px;
+            height: 40px;
+            border-radius: 8px;
+          }
+        }
+      }
       .to {
         color: #0bebd6;
       }
@@ -504,6 +515,8 @@
           }
           .item {
             img {
+              width: 50px;
+              height: 40px;
               display: inline-block;
               padding: 6x 13px;
               background: rgba(125, 117, 208, 0.5);
@@ -651,7 +664,7 @@
         td {
           .name-item {
             margin-left: 10px;
-
+            color: #0bebd6;
             .animverse {
               display: flex;
               align-items: center;

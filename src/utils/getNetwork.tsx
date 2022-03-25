@@ -11,7 +11,7 @@ type TNetwork = {
 
 export const networks: TNetwork[] = [
   {
-    id: null,
+    id: 0,
     name: "All",
     icon: <NetworkAll />,
   },
@@ -28,5 +28,5 @@ export const networks: TNetwork[] = [
 ]
 
 export const getNetwork = (id: number | string) => {
-  return id ? networks.find((network) => network.id === +id) : networks[0]
+  return id ? networks.find((network) => network.id === +id)??networks[0] : networks[0]
 }

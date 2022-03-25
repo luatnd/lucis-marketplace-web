@@ -19,21 +19,56 @@ import { observer } from "mobx-react-lite"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import * as Icons from "react-feather"
-import { getNetwork, networks } from "src/utils/getNetwork"
 import { useStore } from "src/hooks/useStore"
 import { UserTray } from "../UserTray"
 import { SearchBar } from "./SearchBar"
+<<<<<<< HEAD
+import { getBlockchain } from "src/services/nft"
+=======
 import { SearchBarMobile } from "./SearchBarMobile"
+>>>>>>> 94de0449eecd1968eeddc0f3f5ad545106c6c3a8
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
-  const { isReady } = WalletController
+  const { isReady, address } = WalletController
   const BlockchainStore = useStore("BlockchainStore")
-  const { blockchain_id } = BlockchainStore
+  const { blockchain_id, blockchain_Array } = BlockchainStore
 
   const [canScroll, setCanScroll] = useState(false)
 
+  const getBlockchainData = async () => {
+    const res = await getBlockchain()
+    BlockchainStore.setBlockchain_Array([
+      {
+        label: (
+          <div className="network">
+            <img src="/common/all-network.png" alt="" />
+            All network
+          </div>
+        ),
+        value: 0,
+        name: "All network",
+        symbol: "",
+        url: "/common/all-network.png",
+      },
+      ...res.map((el) => {
+        return {
+          label: (
+            <div className="network">
+              <img src={el.rpc_url} alt="" />
+              {el.name}
+            </div>
+          ),
+          value: el.id,
+          symbol: el.symbol,
+          url: el.rpc_url,
+          name: el.name,
+        }
+      }),
+    ])
+  }
   useEffect(() => {
+    getBlockchainData()
     window.onscroll = () => {
       setCanScroll(window.pageYOffset > 100)
     }
@@ -130,7 +165,7 @@ export const AppLayout = observer(({ children }) => {
     {
       key: "4",
       image: "/common/footer/nav4.png",
-      href: "",
+      href: null,
     },
     {
       key: "5",
@@ -148,22 +183,27 @@ export const AppLayout = observer(({ children }) => {
     {
       key: "1",
       name: "Term of service",
+      href: null,
     },
     {
       key: "2",
       name: "Privacy",
+      href: "/",
     },
     {
       key: "3",
       name: "Copyright",
+      href: "/",
     },
     {
       key: "4",
       name: "Help center",
+      href: "/",
     },
     {
       key: "5",
       name: "Blog",
+      href: "/",
     },
   ]
 
@@ -280,16 +320,16 @@ export const AppLayout = observer(({ children }) => {
                 rightIcon={<Icon as={Icons.ChevronDown} />}
                 className="network-nav"
               >
-                {getNetwork(blockchain_id).icon}
+                {blockchain_Array.map((el)=>el.value==blockchain_id?<img src={el.url} alt="" />:null)}
               </MenuButton>
               <MenuList className="network-list">
-                {networks.map((el, key) => (
+                {blockchain_Array.map((el, key) => (
                   <MenuItem
                     key={key}
                     className="network-item"
-                    onClick={() => BlockchainStore.setBlockchainId(el.id)}
+                    onClick={() => BlockchainStore.setBlockchainId(el.value)}
                   >
-                    {getNetwork(el.id).icon}
+                    <img src={el.url} alt="" />
                     {el.name}
                   </MenuItem>
                 ))}
@@ -297,7 +337,7 @@ export const AppLayout = observer(({ children }) => {
             </Menu>
           </div>
           {isReady ? (
-            <Link href="/user/my-nft/?tab=4">
+            <Link href={"/user/" + address + "/?tab=4"}>
               <Icon as={BellIcon} className="noti-button" />
             </Link>
           ) : null}
@@ -322,7 +362,9 @@ export const AppLayout = observer(({ children }) => {
           <div className="footer-socials">
             {footerSocials.map((nav) => (
               <div key={nav.key} className="footer-socials-item-wrapper">
-                <div className="footer-social-item">
+                <div
+                  className={"footer-social-item" + (nav.href ? "" : " none")}
+                >
                   <a href={nav.href} target="_blank" rel="noopener noreferrer">
                     <img src={nav.image} />
                   </a>
@@ -332,7 +374,10 @@ export const AppLayout = observer(({ children }) => {
           </div>
           {/* <div className="footer-navs">
             {footerNavs.map((nav) => (
-              <div key={nav.key} className="footer-nav-item">
+              <div
+                key={nav.key}
+                className={"footer-nav-item" + (nav.href ? " " : " none")}
+              >
                 {nav.name}
               </div>
             ))}

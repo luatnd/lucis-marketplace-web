@@ -30,3 +30,58 @@ export const useCountdown = (timestamp: string) => {
   const seconds = sec < 10 ? "0" + sec : sec
   return { days, hours, minutes, seconds }
 }
+
+// ==== Expiration (end:true) and Offered (end:false) in table
+export const formatTime = (timestamp: any, end: boolean) => {
+  const current = dayjs()
+  let secs
+  if (!end) {
+    const inputTime = dayjs(timestamp)
+    const duration = dayjs.duration(inputTime.diff(current)).asMilliseconds()
+    secs = -duration / 1000
+  } else {
+    const inputTime = dayjs(timestamp * 1000)
+    const duration = dayjs.duration(inputTime.diff(current)).asMilliseconds()
+    secs = duration / 1000
+  }
+  if (end && secs <= 0) {
+    return "--:--"
+  }
+  const day = parseInt(`${secs / 60 / 60 / 24}`, 10)
+  const hou = parseInt(`${(secs / 60 / 60) % day}`, 10)
+  const min = parseInt(`${(secs / 60) % hou}`, 10)
+  const sec = parseInt(`${secs % 60}`, 10)
+
+  if (day) {
+    return (
+      (!end ? "" : "in ") +
+      day +
+      (day > 1 ? " days" : " day") +
+      (!end ? " ago" : "")
+    )
+  }
+  if (hou) {
+    return (
+      (!end ? "" : "in ") +
+      hou +
+      (hou > 1 ? " hours" : " hour") +
+      (!end ? " ago" : "")
+    )
+  }
+  if (min) {
+    return (
+      (!end ? "" : "in ") +
+      min +
+      (min > 1 ? " minutes" : " minute") +
+      (!end ? " ago" : "")
+    )
+  }
+  if (sec) {
+    return (
+      (!end ? "" : "in ") +
+      sec +
+      (sec > 1 ? " seconds" : " second") +
+      (!end ? " ago" : "")
+    )
+  }
+}

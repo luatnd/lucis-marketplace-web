@@ -17,7 +17,7 @@ let connectCountdownInterval
 export const UserTray = observer(() => {
   const [cancelVisible, setCancelVisible] = useState(false)
   const WalletController = useStore("WalletController")
-  const { provider, web3Modal, loading, isReady } = WalletController
+  const { provider, web3Modal, loading, isReady ,address} = WalletController
 
   const connect = useCallback(async () => {
     let timeLeft = 60
@@ -68,7 +68,7 @@ export const UserTray = observer(() => {
           <img src="/common/my-nft/account.png" />
         </MenuButton>
         <MenuList>
-          <Link href="/user/my-nft">
+          <Link href={"/user/"+address}>
             <MenuItem>My NFTs</MenuItem>
           </Link>
           <Link href="/setting">

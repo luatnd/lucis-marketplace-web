@@ -1,18 +1,34 @@
 import { Button, Icon } from "@chakra-ui/react"
 import BoxIcon from "@static/icons/item-box.svg"
-import { useState } from "react"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 import { ExternalLink } from "react-feather"
 import { AppPagination } from "src/components/AppPagination"
 import { AppSelect } from "src/components/AppSelect"
 import { AppTable } from "src/components/AppTable"
 import { BSC_SCAN_TRANSACTION } from "src/configs"
+import { formatTime } from "src/hooks/useCountdown"
+import { getActivitiesCollection } from "src/services/nft"
+import { formatAddress } from "../user/FormatAddress"
 
 export const CollectionActivities = () => {
+  const router = useRouter()
+  const { id } = router.query
   const [data, setData] = useState<any>()
   const [total, setTotal] = useState(0)
-  const [offset, setOffset] = useState(0)
-  const [limit, setLimit] = useState(20)
+  const [offset, setOffset] = useState(1)
+  const [limit, setLimit] = useState(10)
 
+  const getData = async () => {
+    if (id) {
+      const res = await getActivitiesCollection(id, limit, offset - 1)
+      setData(res.data)
+      setTotal(res.total)
+    }
+  }
+  useEffect(() => {
+    getData()
+  }, [limit, offset])
   return (
     <div className="collection-activities">
       <div className="filter-row">
@@ -58,17 +74,28 @@ export const CollectionActivities = () => {
 const columns = [
   {
     title: "Type",
-    dataIndex: "type",
+    dataIndex: "kind",
+    render: ({ kind }) => (
+      <>
+        {kind == 1
+          ? "Sale"
+          : kind == 2
+          ? "Offer"
+          : kind == 3
+          ? "Auction"
+          : "Listing"}
+      </>
+    ),
   },
   {
     title: "Item",
     dataIndex: "item",
-    render: ({ item }) => (
+    render: ({ item, nft_item_id }) => (
       <span className="item-column">
         <Button>
           <BoxIcon />
         </Button>
-        <a href="/nft/53" rel="noreferrer" target={"_blank"}>
+        <a href={"/nft/" + nft_item_id} rel="noreferrer" target={"_blank"}>
           <span>{item}</span>
         </a>
       </span>
@@ -89,16 +116,16 @@ const columns = [
   {
     title: "To",
     dataIndex: "to",
-    render: ({ to, type }) =>
-      type != "Listing" ? (
+    render: ({ kind, currency }) =>
+      kind != 4 ? (
         <a
-          href="/user/1"
+          href={"/user/"+currency}
           target={"_blank"}
           rel="noreferrer"
           className="date-column"
           style={{ color: "#0BEBD6" }}
         >
-          {to?.slice(0, 5)}...${to?.slice(-4)}
+          {formatAddress(currency, 6, 4)}
         </a>
       ) : (
         ""
@@ -107,18 +134,18 @@ const columns = [
   {
     title: "Date",
     dataIndex: "date",
-    render: ({ date, type, to }) =>
-      type != "Listing" ? (
+    render: ({ kind, transaction_id, created_time }) =>
+      kind != 4 ? (
         <a
-          href={BSC_SCAN_TRANSACTION + to}
+          href={BSC_SCAN_TRANSACTION + transaction_id}
           target={"_blank"}
           rel="noreferrer"
           className="date-column"
         >
-          {date} <Icon as={ExternalLink} />
+          {formatTime(created_time, false)} <Icon as={ExternalLink} />
         </a>
       ) : (
-        <span className="date-column">{date}</span>
+        <span className="date-column">{formatTime(created_time, false)}</span>
       ),
   },
 ]

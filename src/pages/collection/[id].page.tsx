@@ -23,6 +23,8 @@ interface IProps {
 
 const CollectionDetails = (props: IProps) => {
   const { data } = props
+  console.log(data);
+  
   const [isExpanded, setIsExpanded] = useState(false)
 
   const handleExpand = () => {

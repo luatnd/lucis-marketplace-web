@@ -171,7 +171,9 @@
         .network {
           .network-nav {
             background: transparent;
-            svg {
+            svg,img {
+              display: block;
+              max-width: fit-content;
               width: 20px;
               height: 20px;
             }
@@ -180,9 +182,9 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            svg {
-              height: 30px;
-              width: 30px;
+            svg,img {
+              height: 25px;
+              width: 25px;
             }
           }
           .menu-item {
@@ -262,6 +264,13 @@
                 width: 50%;
               }
             }
+            .footer-social-item.none{
+              opacity: 0.6;
+              cursor: auto;
+              &:hover{
+                transform: scale(1);
+              }
+            }
           }
         }
         .footer-navs {
@@ -288,6 +297,10 @@
             @include to(xs) {
               font-size: 10px;
             }
+          }
+          .footer-nav-item.none{
+            cursor: auto;
+            color: $purple2;
           }
         }
       }
