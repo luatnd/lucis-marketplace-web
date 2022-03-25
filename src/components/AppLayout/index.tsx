@@ -22,11 +22,8 @@ import * as Icons from "react-feather"
 import { useStore } from "src/hooks/useStore"
 import { UserTray } from "../UserTray"
 import { SearchBar } from "./SearchBar"
-<<<<<<< HEAD
 import { getBlockchain } from "src/services/nft"
-=======
 import { SearchBarMobile } from "./SearchBarMobile"
->>>>>>> 94de0449eecd1968eeddc0f3f5ad545106c6c3a8
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
