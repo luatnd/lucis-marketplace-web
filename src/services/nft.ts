@@ -319,7 +319,13 @@ export const updateUserInfo = async (
   }
 }
 
-export const getActivitiesItem = async (nft_item_id, limit, offset) => {
+export const getActivitiesItem = async (
+  nft_item_id,
+  limit,
+  offset,
+  // kind,
+  // status
+) => {
   try {
     const { data } = await axios({
       method: "GET",
@@ -328,6 +334,8 @@ export const getActivitiesItem = async (nft_item_id, limit, offset) => {
         nft_item_id: nft_item_id,
         limit: limit,
         offset: offset,
+        // kind,
+        // status,
       },
     })
 
@@ -358,8 +366,7 @@ export const getReceivedOfferItem = async (nft_item_id, limit, offset) => {
   try {
     const { data } = await axios({
       method: "GET",
-      url:
-        API_URL + "nft-event/get-received-offer",
+      url: API_URL + "nft-event/get-received-offer",
       params: {
         nft_item_id: nft_item_id,
         limit: limit,
@@ -403,9 +410,7 @@ export const getActivitiesCollection = async (id, limit, offset) => {
   try {
     const { data } = await axios({
       method: "GET",
-      url:
-        API_URL +
-        "nft-event/get-activity-by-collection",
+      url: API_URL + "nft-event/get-activity-by-collection",
       params: {
         id: id,
         limit: limit,
@@ -418,18 +423,90 @@ export const getActivitiesCollection = async (id, limit, offset) => {
   }
 }
 
-export const getNftEventList = async (nft_item_id) => {
+export const getNftEventList = async (
+  nft_item_id,
+  chainID,
+  type,
+  pageSize,
+  offset,
+  status
+) => {
   try {
     const { data } = await axios({
       method: "GET",
       url: API_URL + "nft-event/list",
       params: {
-        nft_item_id: nft_item_id,
+        nft_item_id,
+        blockchain_id: chainID,
+        kind: type,
+        limit: pageSize,
+        offset,
+        status,
       },
     })
     return data.data
   } catch (error) {
     return { data: [], total: 0 }
+  }
+}
+
+export const nftItemGetLike = async (nft_item_id, address) => {
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: API_URL + "nft-item/favorite/get-like",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        nft_item_id: +nft_item_id,
+        address: address,
+      },
+    })
+    return data.data
+  } catch (error) {
+    return {
+      getlike: 0,
+      islike: false,
+    }
+  }
+}
+
+export const nftItemUnlike = async (nft_item_id, address) => {
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: API_URL + "nft-item/unfavorite",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        nft_item_id: +nft_item_id,
+        address: address,
+      },
+    })
+    return data.data
+  } catch (error) {
+    return null
+  }
+}
+
+export const nftItemLike = async (nft_item_id, address) => {
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: API_URL + "nft-item/favorite",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        nft_item_id: +nft_item_id,
+        address: address,
+      },
+    })
+    return data.data
+  } catch (error) {
+    return null
   }
 }
 

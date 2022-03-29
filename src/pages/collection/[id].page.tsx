@@ -23,8 +23,8 @@ interface IProps {
 
 const CollectionDetails = (props: IProps) => {
   const { data } = props
-  console.log(data);
-  
+  console.log(data)
+
   const [isExpanded, setIsExpanded] = useState(false)
 
   const handleExpand = () => {
@@ -81,7 +81,7 @@ const CollectionDetails = (props: IProps) => {
     <div className="collection-details-page">
       <div className="provider-name">
         {data?.name}
-        <VerifiedIcon />
+        {data?.is_verified && <VerifiedIcon />}
       </div>
       <div className="provider-socials">
         {providerSocials.map((item) => (

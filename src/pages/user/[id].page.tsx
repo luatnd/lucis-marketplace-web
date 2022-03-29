@@ -63,7 +63,7 @@ const MyNft = observer(() => {
           </div>
           <div className="right">
             <div className="top">
-              <h2>{data.name}</h2>
+              <h2>{data.name ? data.name : formatAddress(id, 6, 4)}</h2>
               <img src={data.ranking} alt="" />
             </div>
             <div className="border">
@@ -103,7 +103,9 @@ const MyNft = observer(() => {
             </div>
             <div className="right">
               <div className="name-id">
-                <h2>{data.name}</h2>
+                <h2>
+                  {data.name ? data.name : formatAddress(id, 6, 4)}
+                </h2>
                 <div className="border">
                   <div
                     className="bottom"

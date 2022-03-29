@@ -18,34 +18,59 @@ const ActivitiesPage = observer(() => {
   const [pageSize, setPageSize] = useState(10)
   const [data, setData] = useState([])
   const [totalData, setTotalData] = useState(0)
-  const [type, setType] = useState(0)
+  const [type, setType] = useState({
+    kind: 0,
+    status: 0,
+  })
   const [blockchain_id0, setBlockchain_id0] = useState(0)
   const typeSort = [
     {
-      value: 0,
+      value: {
+        kind: 0,
+        status: 0,
+      },
       label: "All",
     },
     {
-      value: 4,
+      value: {
+        kind: 1,
+        status: 0,
+      },
       label: "Listing",
     },
     {
-      value: 2,
+      value: {
+        kind: 2,
+        status: 0,
+      },
       label: "Offer",
     },
     {
-      value: 3,
+      value: {
+        kind: 3,
+        status: 0,
+      },
       label: "Auction",
     },
     {
-      value: 1,
+      value: {
+        kind: 1,
+        status: 1,
+      },
       label: "Sale",
     },
   ]
 
   const getData = async () => {
     const chainID = blockchain_id ? blockchain_id : blockchain_id0
-    const res = await getNftEventList(3806)
+    const res = await getNftEventList(
+      0,
+      chainID,
+      type.kind,
+      pageSize,
+      offset - 1,
+      type.status
+    )
     setData(res.data)
     setTotalData(res.total)
   }
@@ -103,47 +128,79 @@ const ActivitiesPage = observer(() => {
                 <Tr key={index}>
                   <Td>
                     {" "}
-                    {el.type == 1
-                      ? "Sale"
-                      : el.type == 2
+                    {el.kind == 1
+                      ? el.status
+                        ? "Sale"
+                        : "Listing"
+                      : el.kind == 2
                       ? "Offer"
-                      : el.type == 3
-                      ? "Auction"
-                      : "Listing"}
+                      : "Auction"}
                   </Td>
                   <Td>
-                    <div className="align-center type">
-                      <img src="/icons/item.png" alt="" />
+                    <div className="align-center type bold">
+                      <img src={el.photo} alt="" />
                       <Link href={"/nft/" + el.nft_item_id}>
-                        <span>{el.item}</span>
+                        <span>{el.name}</span>
                       </Link>
                     </div>
                   </Td>
-                  <Td>{el.price}</Td>
                   <Td>
-                    <a
-                      target="_blank"
-                      rel="noreferrer"
-                      className="align-center date"
-                      href={"/user/" + el.from_address}
-                    >
-                      {formatAddress(el.from_address, 6, 4)}
-                    </a>
+                    {el.price ? el.price : "--"}{" "}
+                    {blockchain_Array[el.blockchain_id]?.symbol}
                   </Td>
                   <Td>
-                    {el.type != 4 && (
-                      <>
-                        <a
-                          target="_blank"
-                          rel="noreferrer"
-                          className="align-center date"
-                          href={"/user/" + el.to_address}
-                          style={{ color: "rgba(11, 235, 214, 1)" }}
-                        >
-                          {formatAddress(el.to_address, 6, 4)}
-                        </a>
-                      </>
-                    )}
+                    {el.kind == 1
+                      ? el.seller && (
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            className="align-center date"
+                            href={"/user/" + el.seller}
+                          >
+                            {el.seller_name
+                              ? el.seller_name
+                              : formatAddress(el.seller, 6, 4)}
+                          </a>
+                        )
+                      : el.buyer && (
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            className="align-center date"
+                            href={"/user/" + el.buyer}
+                          >
+                            {el.buyer_name
+                              ? el.buyer_name
+                              : formatAddress(el.buyer, 6, 4)}
+                          </a>
+                        )}
+                  </Td>
+                  <Td>
+                    {el.kind == 1
+                      ? el.status == 1 && (
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            className="align-center date"
+                            href={"/user/" + el.buyer}
+                          >
+                            {el.buyer_name
+                              ? el.buyer_name
+                              : formatAddress(el.buyer, 6, 4)}
+                          </a>
+                        )
+                      : el.seller && (
+                          <a
+                            target="_blank"
+                            rel="noreferrer"
+                            className="align-center date"
+                            href={"/user/" + el.seller}
+                          >
+                            {el.seller_name
+                              ? el.seller_name
+                              : formatAddress(el.seller, 6, 4)}
+                          </a>
+                        )}
                   </Td>
                   <Td>
                     <a
