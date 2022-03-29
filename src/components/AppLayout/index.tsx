@@ -24,6 +24,7 @@ import { UserTray } from "../UserTray"
 import { SearchBar } from "./SearchBar"
 import { getBlockchain } from "src/services/nft"
 import { SearchBarMobile } from "./SearchBarMobile"
+import { getNetwork } from "src/utils/getNetwork"
 
 export const AppLayout = observer(({ children }) => {
   const WalletController = useStore("WalletController")
@@ -53,7 +54,7 @@ export const AppLayout = observer(({ children }) => {
           label: (
             <div className="network">
               <img src={el.rpc_url} alt="" />
-              {el.name}
+              {el.name} - {el.id}
             </div>
           ),
           value: el.id,
@@ -317,7 +318,7 @@ export const AppLayout = observer(({ children }) => {
                 rightIcon={<Icon as={Icons.ChevronDown} />}
                 className="network-nav"
               >
-                {blockchain_Array.map((el)=>el.value==blockchain_id?<img src={el.url} alt="" />:null)}
+                {blockchain_Array.map((el) => el.value == blockchain_id ?  getNetwork(el.value).icon :null)}
               </MenuButton>
               <MenuList className="network-list">
                 {blockchain_Array.map((el, key) => (
@@ -326,7 +327,8 @@ export const AppLayout = observer(({ children }) => {
                     className="network-item"
                     onClick={() => BlockchainStore.setBlockchainId(el.value)}
                   >
-                    <img src={el.url} alt="" />
+                    {getNetwork(el.value).icon}
+                    {/* <img src={el.url} alt="" /> */}
                     {el.name}
                   </MenuItem>
                 ))}

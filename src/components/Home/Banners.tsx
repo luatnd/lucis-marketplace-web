@@ -19,7 +19,7 @@ export const Banners = (props) => {
                   objectFit="cover"
                 />
                 <div className="network">
-                  {() => getNetwork(item.blockchain_id).icon}
+                  {getNetwork(item.blockchain_id).icon}
                 </div>
               </div>
             </Link>

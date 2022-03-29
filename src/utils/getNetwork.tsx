@@ -2,6 +2,8 @@ import { ReactNode } from "react"
 import BSC from "@static/networks/bsc.svg"
 import NetworkAll from "@static/networks/network-all.svg"
 import BSCTestnet from "@static/networks/bsc-testnet.svg"
+import Polygon from "@static/networks/polygon-matic.svg"
+import Ethereum from "@static/networks/ethereum-eth.svg"
 
 type TNetwork = {
   id?: number
@@ -24,6 +26,16 @@ export const networks: TNetwork[] = [
     id: 2,
     name: "BSC Mainnet",
     icon: <BSC />,
+  },
+  {
+    id: 3,
+    name: "Polygon Testnet",
+    icon: <Polygon />,
+  },
+  {
+    id: 4,
+    name: "Ethereum Testnet",
+    icon: <Ethereum />,
   },
 ]
 

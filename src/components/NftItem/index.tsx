@@ -8,6 +8,7 @@ import { TNftItem } from "src/@types/nft"
 import { useStore } from "src/hooks/useStore"
 import { isVideo } from "src/utils/format"
 import { formatNftPrice } from "src/utils/Number"
+import { getNetwork } from "src/utils/getNetwork"
 
 interface IProps {
   info: TNftItem
@@ -33,7 +34,8 @@ export const NftItem = observer((props: IProps) => {
         )}
       </div>
       <div className="network">
-        <img src={blockchain_Array[info.blockchain_id]?.url} alt="" />
+        {getNetwork(info.blockchain_id).icon}
+        {/* <img src={blockchain_Array[info.blockchain_id]?.url} alt="" /> */}
       </div>
       <div className="nft-body">
         <div className="provider">
