@@ -80,9 +80,9 @@ const DetailsPage = observer((props: any) => {
         <div className="details-content">
           <div className="collection">
             <div className="collection-logo">
-              <img src={data?.collection?.logo} />
+              <img src={data?.logo} />
             </div>
-            <Link href={"/collection/" + data?.collection?.id}>
+            <Link href={"/collection/" + data?.collection_id}>
               <a>{data?.contract_name}</a>
             </Link>
           </div>

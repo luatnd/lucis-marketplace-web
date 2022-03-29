@@ -9,6 +9,7 @@ import { ExternalLink } from "react-feather"
 import { getActivitiesItem } from "src/services/nft"
 import { formatAddress } from "../user/FormatAddress"
 import { formatTime } from "src/hooks/useCountdown"
+import { formatNftPrice } from "src/utils/Number"
 
 const Activities = () => {
   const router = useRouter()
@@ -80,14 +81,14 @@ const Activities = () => {
     {
       title: "Price",
       dataIndex: "price",
-      render: ({ price }) => price,
+      render: ({ price }) => formatNftPrice(price)
     },
     {
       title: "From",
       dataIndex: "from",
       render: ({ seller, type, buyer, currency }) => (
         <a
-          href={"/user/1" + seller}
+          href={"/user/1"}
           target={"_blank"}
           rel="noreferrer"
           className="date-column"

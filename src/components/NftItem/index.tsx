@@ -71,8 +71,8 @@ export const NftItem = observer((props: IProps) => {
           onClick={() => router.push("/nft/" + info.id)}
         >
           <span>
-            <img src={blockchain_Array[info.blockchain_id]?.rpc_url} alt="" />
-            {formatNftPrice(info.price ?? null)} {info.symbol}
+            {getNetwork(info.blockchain_id).icon}
+            {formatNftPrice(info.price ?? null)} {getNetwork(info.blockchain_id).symbol}
           </span>
           {info.owner === address ? null : info.inventory_status === 2 ? (
             <Button>AUC</Button>

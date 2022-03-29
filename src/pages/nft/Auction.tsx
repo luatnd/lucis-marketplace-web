@@ -8,6 +8,7 @@ import { getAuctionItem } from "src/services/nft"
 import { AppPagination } from "src/components/AppPagination"
 import { formatAddress } from "../user/FormatAddress"
 import { formatTime } from "src/hooks/useCountdown"
+import { formatNftPrice } from "src/utils/Number"
 
 const Auction = () => {
   const router = useRouter()
@@ -29,12 +30,12 @@ const Auction = () => {
 
   return (
     <>
-      <div className="table-activity">
+      <div className="table-activity auction">
         <Table variant="simple">
           <Thead>
             <Tr>
               <Th>Address</Th>
-              <Th>Auc</Th>
+              <Th>Auction</Th>
               <Th isNumeric>Lead</Th>
             </Tr>
           </Thead>
@@ -42,7 +43,7 @@ const Auction = () => {
             {data.map((el, index) => (
               <Tr key={index}>
                 <Td>
-                  <div className="align-center item">
+                  <div className="align-center item address">
                     <div>
                       <img src={el.photo} alt="" />
                     </div>
@@ -52,7 +53,7 @@ const Auction = () => {
                   </div>
                 </Td>
                 <Td>
-                  <p>{el.price}</p>
+                  <p>{formatNftPrice(el.price)}</p>
                   <p>{el.usd}</p>
                 </Td>
                 <Td isNumeric>

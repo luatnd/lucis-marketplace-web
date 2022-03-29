@@ -9,6 +9,7 @@ type TNetwork = {
   id?: number
   name?: string
   icon?: ReactNode
+  symbol?: string
 }
 
 export const networks: TNetwork[] = [
@@ -16,26 +17,31 @@ export const networks: TNetwork[] = [
     id: 0,
     name: "All",
     icon: <NetworkAll />,
+    symbol: 'All'
   },
   {
     id: 1,
     name: "BSC Testnet",
     icon: <BSCTestnet />,
+    symbol: 'TBNB'
   },
   {
     id: 2,
     name: "BSC Mainnet",
     icon: <BSC />,
+    symbol: 'BNB'
   },
   {
     id: 3,
     name: "Polygon Testnet",
     icon: <Polygon />,
+    symbol: 'TMATIC'
   },
   {
     id: 4,
     name: "Ethereum Testnet",
     icon: <Ethereum />,
+    symbol: 'TETH'
   },
 ]
 
