@@ -16,9 +16,10 @@ import Success from "@static/icons/success.svg"
 import { observer } from "mobx-react-lite"
 import { GetServerSidePropsContext } from "next"
 import Link from "next/link"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { ExternalLink, Eye, Heart } from "react-feather"
 import { useStore } from "src/hooks/useStore"
+import { nftItemGetLike, nftItemLike, nftItemUnlike } from "src/services/nft"
 import { nftService } from "src/services/NftService"
 import Activities from "./Activities"
 import Auction from "./Auction"
@@ -34,6 +35,26 @@ const DetailsPage = observer((props: any) => {
   const [info, setInfo] = useState(data)
 
   const [resultVisible, setResultVisible] = useState(false)
+  const [dataLike, setDataLike] = useState(null)
+
+  const getDatalike = async (id, address) => {
+    const data = await nftItemGetLike(id, address)
+    setDataLike(data)
+  }
+
+  const handLike = async () => {
+    if (dataLike?.islike) {
+      const res = await nftItemUnlike(id, address)
+      setDataLike({ ...dataLike, getlike: dataLike.getlike - 1, islike: false })
+    } else {
+      const res = await nftItemLike(id, address)
+      setDataLike({ ...dataLike, getlike: dataLike?.getlike + 1, islike: true })
+    }
+  }
+
+  useEffect(() => {
+    getDatalike(id, address)
+  }, [address])
 
   const _renderDetails = () => {
     return (
@@ -48,8 +69,9 @@ const DetailsPage = observer((props: any) => {
               <img src={data?.photo} />
             )}
             <Icon
+              onClick={handLike}
               as={Heart}
-              className={`heart ${info.liked ? "heart-liked" : ""}`}
+              className={`heart ${dataLike?.islike ? "heart-liked" : ""}`}
             />
           </div>
 
@@ -82,7 +104,7 @@ const DetailsPage = observer((props: any) => {
               </span>
             )}
             <div className="owner-stat">
-              <span>{info.liked}</span> <Icon as={Heart} />
+              <span>{0+dataLike?.getlike}</span> <Icon as={Heart} />
               <span>{info.views}</span> <Icon as={Eye} />
             </div>
           </div>
@@ -121,7 +143,7 @@ const DetailsPage = observer((props: any) => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Activities/>
+            <Activities />
           </TabPanel>
           <TabPanel>
             {info.inventory_status === 2 ? (

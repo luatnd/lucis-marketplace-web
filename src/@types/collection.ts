@@ -5,4 +5,5 @@ export type TCollection = {
   cover_photo?: string
   description?: string
   stats?: any
+  is_verified?:number
 }

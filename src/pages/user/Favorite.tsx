@@ -59,7 +59,7 @@ const Favorite = observer(() => {
                 <div className="grid-item" key={auction.id}>
                   <NftItem
                     info={{
-                      id: auction.token_id,
+                      id: auction.id,
                       name: auction.name,
                       price: auction.price,
                       photo: auction.photo,

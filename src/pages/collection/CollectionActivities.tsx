@@ -75,15 +75,15 @@ const columns = [
   {
     title: "Type",
     dataIndex: "kind",
-    render: ({ kind }) => (
+    render: ({ kind, status }) => (
       <>
         {kind == 1
-          ? "Sale"
+          ? status
+            ? "Sale"
+            : "Listing"
           : kind == 2
           ? "Offer"
-          : kind == 3
-          ? "Auction"
-          : "Listing"}
+          : "Auction"}
       </>
     ),
   },
@@ -119,7 +119,7 @@ const columns = [
     render: ({ kind, currency }) =>
       kind != 4 ? (
         <a
-          href={"/user/"+currency}
+          href={"/user/" + currency}
           target={"_blank"}
           rel="noreferrer"
           className="date-column"

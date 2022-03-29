@@ -105,7 +105,7 @@ export const CollectionItems = () => {
         {data?.map((item) => (
           <NftItem
             info={{
-              id: item.token_id,
+              id: item.id,
               name: item.name,
               price: item.price,
               photo: item.photo,

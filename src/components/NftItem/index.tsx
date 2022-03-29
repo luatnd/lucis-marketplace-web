@@ -46,7 +46,7 @@ export const NftItem = observer((props: IProps) => {
             <Link href={"/collection/" + info.collection_id}>
               <a>{info.contract_name}</a>
             </Link>
-            {info.is_verified ? <Verified /> : null}
+            {info.is_verified ? <Verified /> : <img src="/icons/unverified.png"></img>}
           </div>
           <div>
             {info.inventory_status === 2 ? (

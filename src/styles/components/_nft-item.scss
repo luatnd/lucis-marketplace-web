@@ -20,7 +20,7 @@
     background: rgba(255, 255, 255, 0.2);
     border-radius: 100%;
     padding: 5px;
-    svg {
+    svg,img{
       height: 100%;
       width: 100%;
       object-fit: contain;
@@ -65,12 +65,13 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      svg {
-        height: 16px;
+      svg,img {
+        height: 12px;
         margin-left: 5px;
       }
     }
     .name {
+      text-align: left;
       font-size: 20px;
       font-weight: 500;
       @include to(xs) {
@@ -103,8 +104,9 @@
       span {
         display: flex;
         align-items: center;
-        svg {
+        svg,img {
           height: 16px;
+          width: 16px;
           margin-right: 5px;
         }
       }
