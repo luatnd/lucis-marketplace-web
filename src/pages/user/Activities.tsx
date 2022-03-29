@@ -199,12 +199,12 @@ const Activities = observer(() => {
                       <Tr key={index}>
                         <Td>
                           {data.kind == 1
-                            ? "Sale"
+                            ? !data.buyer_address
+                              ? "Listing"
+                              : "Sale"
                             : data.kind == 2
                             ? "Offer"
-                            : data.kind == 3
-                            ? "Auction"
-                            : "Listing"}
+                            : "Auction"}
                         </Td>
                         <Td className="item">
                           <Link href={"/nft/" + data.nft_item_id}>
@@ -218,20 +218,58 @@ const Activities = observer(() => {
                           {blockchain_Array[data.blockchain_id].symbol}
                         </Td>
                         <Td>
-                          <Link href={"/user/" + data.seller_address}>
-                            <a>{data.seller_name + ""}</a>
-                          </Link>
+                          {data.kind == 3 || data.kind == 2
+                            ? data.buyer_address && (
+                                <Link href={"/user/" + data.buyer_address}>
+                                  <a>
+                                    {data.buyer_name
+                                      ? data.buyer_name
+                                      : formatAddress(data.buyer_address, 6, 4)}
+                                  </a>
+                                </Link>
+                              )
+                            : data.seller_address && (
+                                <Link href={"/user/" + data.seller_address}>
+                                  <a>
+                                    {data.seller_name
+                                      ? data.seller_name
+                                      : formatAddress(
+                                          data.seller_address,
+                                          6,
+                                          4
+                                        )}
+                                  </a>
+                                </Link>
+                              )}
                         </Td>
                         <Td className="to">
-                          {data.buyer_address ? (
-                            <Link href={"/user/" + data.buyer_address}>
-                              <a>{formatAddress(data.buyer_address, 6, 4)}</a>
-                            </Link>
-                          ) : null}
+                          {data.kind != 3 && data.kind != 2
+                            ? data.buyer_address && (
+                                <Link href={"/user/" + data.buyer_address}>
+                                  <a>
+                                    {data.buyer_name
+                                      ? data.buyer_name
+                                      : formatAddress(data.buyer_address, 6, 4)}
+                                  </a>
+                                </Link>
+                              )
+                            : data.seller_address && (
+                                <Link href={"/user/" + data.seller_address}>
+                                  <a>
+                                    {data.seller_name
+                                      ? data.seller_name
+                                      : formatAddress(
+                                          data.seller_address,
+                                          6,
+                                          4
+                                        )}
+                                  </a>
+                                </Link>
+                              )}
                         </Td>
                         <Td className="date">
                           {formatTime(data.created_time, false)}{" "}
-                          {data.kind != 4 ? (
+                          {data.kind == 1 && !data.buyer_address ? null : (
                             <a
                               href={
                                 "https://testnet.bscscan.com/tx/" +
@@ -242,7 +280,7 @@ const Activities = observer(() => {
                             >
                               <img src="/icons/open-new.png" alt="" />
                             </a>
-                          ) : null}
+                          )}
                         </Td>
                       </Tr>
                     ))}
@@ -281,12 +319,12 @@ const Activities = observer(() => {
                       <Tr key={index}>
                         <Td>
                           {data.kind == 1
-                            ? "Sale"
+                            ? !data.buyer_address
+                              ? "Listing"
+                              : "Sale"
                             : data.kind == 2
                             ? "Offer"
-                            : data.kind == 3
-                            ? "Auction"
-                            : "Listing"}
+                            : "Auction"}
                         </Td>
                         <Td className="item">
                           <Link href={"/nft/" + data.nft_item_id}>
@@ -300,20 +338,58 @@ const Activities = observer(() => {
                           {blockchain_Array[data.blockchain_id].symbol}
                         </Td>
                         <Td>
-                          <Link href={"/user/" + data.seller_address}>
-                            <a>{data.seller_name + ""}</a>
-                          </Link>
+                          {data.kind == 3 || data.kind == 2
+                            ? data.buyer_address && (
+                                <Link href={"/user/" + data.buyer_address}>
+                                  <a>
+                                    {data.buyer_name
+                                      ? data.buyer_name
+                                      : formatAddress(data.buyer_address, 6, 4)}
+                                  </a>
+                                </Link>
+                              )
+                            : data.seller_address && (
+                                <Link href={"/user/" + data.seller_address}>
+                                  <a>
+                                    {data.seller_name
+                                      ? data.seller_name
+                                      : formatAddress(
+                                          data.seller_address,
+                                          6,
+                                          4
+                                        )}
+                                  </a>
+                                </Link>
+                              )}
                         </Td>
                         <Td className="to">
-                          {data.buyer_address ? (
-                            <Link href={"/user/" + data.buyer_address}>
-                              <a>{formatAddress(data.buyer_address, 6, 4)}</a>
-                            </Link>
-                          ) : null}
+                          {data.kind != 3 && data.kind != 2
+                            ? data.buyer_address && (
+                                <Link href={"/user/" + data.buyer_address}>
+                                  <a>
+                                    {data.buyer_name
+                                      ? data.buyer_name
+                                      : formatAddress(data.buyer_address, 6, 4)}
+                                  </a>
+                                </Link>
+                              )
+                            : data.seller_address && (
+                                <Link href={"/user/" + data.seller_address}>
+                                  <a>
+                                    {data.seller_name
+                                      ? data.seller_name
+                                      : formatAddress(
+                                          data.seller_address,
+                                          6,
+                                          4
+                                        )}
+                                  </a>
+                                </Link>
+                              )}
                         </Td>
                         <Td className="date">
                           {formatTime(data.created_time, false)}{" "}
-                          {data.kind != 4 ? (
+                          {data.kind == 1 && !data.buyer_address ? null : (
                             <a
                               href={
                                 "https://testnet.bscscan.com/tx/" +
@@ -324,7 +400,7 @@ const Activities = observer(() => {
                             >
                               <img src="/icons/open-new.png" alt="" />
                             </a>
-                          ) : null}
+                          )}
                         </Td>
                       </Tr>
                     ))}

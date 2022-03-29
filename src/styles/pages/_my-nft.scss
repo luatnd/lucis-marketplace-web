@@ -437,12 +437,18 @@
       }
     }
     .tab-on-sale {
-      .table-activity{
-        td{
+      .table-activity {
+        td {
           padding: 16px 12px;
         }
-        .align-center.item{
-          img{
+        .align-center.item {
+          p {
+            color: #fff;
+          }
+          p.animverse {
+            color: #0bebd6;
+          }
+          img {
             width: 50px;
             height: 40px;
             border-radius: 8px;

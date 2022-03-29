@@ -94,10 +94,15 @@ export const RankingList = observer(() => {
                     </div>
                   </Link>
                 </Td>
-                <Td isNumeric>{el.rank_vol}</Td>
+                <Td isNumeric>
+                  {el.rank_vol} {blockchain_Array[el.blockchain_id]?.symbol}
+                </Td>
                 {/* <Td>{Math.floor(Math.random() * 100)}%</Td> */}
                 {/* <Td>{Math.floor(Math.random() * 100)}%</Td> */}
-                <Td isNumeric>{el.rank_floor_price}</Td>
+                <Td isNumeric>
+                  {el.rank_floor_price}{" "}
+                  {blockchain_Array[el.blockchain_id]?.symbol}
+                </Td>
                 <Td isNumeric>{el.player}</Td>
                 <Td isNumeric>{el.rank_item}</Td>
               </Tr>

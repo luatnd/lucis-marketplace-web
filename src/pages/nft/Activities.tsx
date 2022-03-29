@@ -17,22 +17,32 @@ const Activities = () => {
   const [offset, setOffset] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [total, setTotal] = useState()
+  // const [type, setType] = useState({
+  //   kind: 0,
+  //   status: 0,
+  // })
 
   const getData = async () => {
     if (id) {
-      const res = await getActivitiesItem(id, pageSize, offset - 1)
+      const res = await getActivitiesItem(
+        id,
+        pageSize,
+        offset - 1,
+        // type.kind,
+        // type.status
+      )
       setTotal(res.total)
       setData(
         res.data.map((el) => {
           return {
             type:
               el.kind == 1
-                ? "Sale"
+                ? el.status
+                  ? "Sale"
+                  : "Listing"
                 : el.kind == 2
                 ? "Offer"
-                : el.kind == 3
-                ? "Auction"
-                : "Listing",
+                : "Auction",
             item: "Animverse",
             price: el.price,
             from: "Dong Van Cuong",
@@ -40,6 +50,7 @@ const Activities = () => {
             date: formatTime(el.created_time, false),
             transaction_id: el.transaction_id,
             seller: el.seller,
+            currency: el.currency,
           }
         })
       )
@@ -69,26 +80,29 @@ const Activities = () => {
     {
       title: "Price",
       dataIndex: "price",
-      render: ({ price }) => price + " BNB",
+      render: ({ price }) => price,
     },
     {
       title: "From",
       dataIndex: "from",
-      render: ({ from, seller }) => (
+      render: ({ seller, type, buyer, currency }) => (
         <a
           href={"/user/1" + seller}
           target={"_blank"}
           rel="noreferrer"
           className="date-column"
         >
-          {seller?.slice(0, 2)}...{seller?.slice(-4)}
+          {type == "Offer" && formatAddress(currency, 6, 4)}
+          {type == "Auction" && formatAddress(currency, 6, 4)}
+          {type == "Sale" && formatAddress(seller, 6, 4)}
+          {type == "Listing" && formatAddress(seller, 6, 4)}
         </a>
       ),
     },
     {
       title: "To",
       dataIndex: "buyer",
-      render: ({ buyer, type }) =>
+      render: ({ buyer, type, seller }) =>
         type != "Listing" ? (
           <a
             href={"/user/1" + buyer}
@@ -97,7 +111,10 @@ const Activities = () => {
             className="date-column"
             style={{ color: "#0BEBD6" }}
           >
-            {formatAddress(buyer, 6, 4)}
+            {type == "Offer" && formatAddress(seller, 6, 4)}
+            {type == "Auction" && formatAddress(seller, 6, 4)}
+            {type == "Sale" && formatAddress(buyer, 6, 4)}
+            {type == "Listing" && formatAddress(buyer, 6, 4)}
           </a>
         ) : (
           ""
@@ -130,11 +147,41 @@ const Activities = () => {
           placeholder="All"
           isSearchable={false}
           options={[
-            { label: "All", value: "1" },
-            { label: "Listing", value: "2" },
-            { label: "Offer", value: "3" },
-            { label: "Auction", value: "4" },
-            { label: "Sale", value: "5" },
+            {
+              value: {
+                kind: 0,
+                status: 0,
+              },
+              label: "All",
+            },
+            {
+              value: {
+                kind: 1,
+                status: 0,
+              },
+              label: "Listing",
+            },
+            {
+              value: {
+                kind: 2,
+                status: 0,
+              },
+              label: "Offer",
+            },
+            {
+              value: {
+                kind: 3,
+                status: 0,
+              },
+              label: "Auction",
+            },
+            {
+              value: {
+                kind: 1,
+                status: 1,
+              },
+              label: "Sale",
+            },
           ]}
         />
       </div>
