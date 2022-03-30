@@ -10,6 +10,7 @@ import { getActivitiesItem } from "src/services/nft"
 import { formatAddress } from "../user/FormatAddress"
 import { formatTime } from "src/hooks/useCountdown"
 import Link from "next/link"
+import { formatNftPrice } from "src/utils/Number"
 
 const Activities = () => {
   const router = useRouter()
@@ -53,6 +54,7 @@ const Activities = () => {
             seller: el.seller,
             currency: el.currency,
             photo: el.photo,
+            symbol: el.symbol
           }
         })
       )
@@ -84,14 +86,18 @@ const Activities = () => {
     {
       title: "Price",
       dataIndex: "price",
-      render: ({ price }) => price,
+      render: ({ price, symbol }) => (
+          <>
+            {formatNftPrice(price)} {symbol}
+          </>
+        )
     },
     {
       title: "From",
       dataIndex: "from",
       render: ({ seller, type, buyer, currency }) => (
         <a
-          href={"/user/1" + seller}
+          href={"/user/1"}
           target={"_blank"}
           rel="noreferrer"
           className="date-column"

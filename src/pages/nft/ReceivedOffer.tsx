@@ -26,6 +26,7 @@ import { getReceivedOfferItem } from "src/services/nft"
 import { useRouter } from "next/router"
 import { formatAddress } from "../user/FormatAddress"
 import { formatTime } from "src/hooks/useCountdown"
+import { formatNftPrice } from "src/utils/Number"
 
 const ReceivedOffer = (props) => {
   const router = useRouter()
@@ -122,7 +123,7 @@ const ReceivedOffer = (props) => {
                     </div>
                   </div>
                 </Td>
-                <Td>{el.price}</Td>
+                <Td>{formatNftPrice(el?.price)}</Td>
                 <Td className="to">
                   <Link href={"/user/"+el.buyer}>
                     <a>{formatAddress(el.buyer,6,4)}</a>

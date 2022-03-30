@@ -8,6 +8,7 @@ import { TNftItem } from "src/@types/nft"
 import { useStore } from "src/hooks/useStore"
 import { isVideo } from "src/utils/format"
 import { formatNftPrice } from "src/utils/Number"
+import { getNetwork } from "src/utils/getNetwork"
 
 interface IProps {
   info: TNftItem
@@ -33,7 +34,8 @@ export const NftItem = observer((props: IProps) => {
         )}
       </div>
       <div className="network">
-        <img src={blockchain_Array[info.blockchain_id]?.url} alt="" />
+        {getNetwork(info.blockchain_id).icon}
+        {/* <img src={blockchain_Array[info.blockchain_id]?.url} alt="" /> */}
       </div>
       <div className="nft-body">
         <div className="provider">
@@ -69,8 +71,8 @@ export const NftItem = observer((props: IProps) => {
           onClick={() => router.push("/nft/" + info.id)}
         >
           <span>
-            <img src={blockchain_Array[info.blockchain_id]?.rpc_url} alt="" />
-            {formatNftPrice(info.price ?? null)} {info.symbol}
+            {getNetwork(info.blockchain_id).icon}
+            {formatNftPrice(info.price ?? null)} {getNetwork(info.blockchain_id).symbol}
           </span>
           {info.owner === address ? null : info.inventory_status === 2 ? (
             <Button>AUC</Button>

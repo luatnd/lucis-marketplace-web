@@ -80,9 +80,9 @@ const DetailsPage = observer((props: any) => {
         <div className="details-content">
           <div className="collection">
             <div className="collection-logo">
-              <img src={data?.collection?.logo} />
+              <img src={data?.logo} />
             </div>
-            <Link href={"/collection/" + data?.collection?.id}>
+            <Link href={"/collection/" + data?.collection_id}>
               <a>{data?.contract_name}</a>
             </Link>
           </div>
@@ -117,8 +117,8 @@ const DetailsPage = observer((props: any) => {
           )}
           <div className="details-stats">
             <h1>Detail</h1>
-            {info?.metadata?.attributes?.map((stat) => (
-              <div className="stat" key={stat.key}>
+            {info?.metadata?.attributes?.map((stat, index) => (
+              <div className="stat" key={index}>
                 <span>{stat.trait_type}</span>
                 <span>
                   {stat.value}
@@ -194,6 +194,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const data = await nftService.getNft({
     nft_item_id: +id,
   })
+  console.log(data);
+  
   const activities = await nftService.getNftActivities({
     nft_item_id: +id,
     offset: 0,

@@ -8,8 +8,9 @@ import { getAuctionItem } from "src/services/nft"
 import { AppPagination } from "src/components/AppPagination"
 import { formatAddress } from "../user/FormatAddress"
 import { formatTime } from "src/hooks/useCountdown"
-import { observer } from "mobx-react-lite"
+import { formatNftPrice } from "src/utils/Number"
 import { useStore } from "src/hooks/useStore"
+import { observer } from "mobx-react-lite"
 
 const Auction = observer(() => {
   const BlockchainStore = useStore("BlockchainStore")
@@ -33,12 +34,12 @@ const Auction = observer(() => {
 
   return (
     <>
-      <div className="table-activity">
+      <div className="table-activity auction">
         <Table variant="simple">
           <Thead>
             <Tr>
               <Th>Address</Th>
-              <Th>Auc</Th>
+              <Th>Auction</Th>
               <Th isNumeric>Lead</Th>
             </Tr>
           </Thead>
@@ -46,7 +47,7 @@ const Auction = observer(() => {
             {data.map((el, index) => (
               <Tr key={index}>
                 <Td>
-                  <div className="align-center item">
+                  <div className="align-center item address">
                     <div>
                       <img src={el.photo} alt="" />
                     </div>
@@ -56,9 +57,7 @@ const Auction = observer(() => {
                   </div>
                 </Td>
                 <Td>
-                  <p>
-                    {el.price} {blockchain_Array[el.blockchain_id]?.symbol}
-                  </p>
+                  <p>{formatNftPrice(el.price)}</p>
                   <p>{el.usd}</p>
                 </Td>
                 <Td isNumeric>
