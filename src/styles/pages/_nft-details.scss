@@ -413,6 +413,12 @@
     }
   }
   .tables {
+    .align-center.item {
+      img {
+        width: 54px;
+        height: 54px;
+      }
+    }
     .app-pagination {
       margin-top: 25px;
     }
@@ -434,6 +440,9 @@
       .item-column {
         display: flex;
         align-items: center;
+        img {
+          width: 54px;
+        }
         button {
           padding: 5px;
           margin-right: 10px;

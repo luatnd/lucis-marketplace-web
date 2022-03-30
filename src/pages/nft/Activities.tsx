@@ -9,6 +9,7 @@ import { ExternalLink } from "react-feather"
 import { getActivitiesItem } from "src/services/nft"
 import { formatAddress } from "../user/FormatAddress"
 import { formatTime } from "src/hooks/useCountdown"
+import Link from "next/link"
 
 const Activities = () => {
   const router = useRouter()
@@ -17,10 +18,10 @@ const Activities = () => {
   const [offset, setOffset] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [total, setTotal] = useState()
-  // const [type, setType] = useState({
-  //   kind: 0,
-  //   status: 0,
-  // })
+  const [type, setType] = useState({
+    kind: 0,
+    status: 0,
+  })
 
   const getData = async () => {
     if (id) {
@@ -28,8 +29,8 @@ const Activities = () => {
         id,
         pageSize,
         offset - 1,
-        // type.kind,
-        // type.status
+        type.kind,
+        type.status
       )
       setTotal(res.total)
       setData(
@@ -43,7 +44,7 @@ const Activities = () => {
                 : el.kind == 2
                 ? "Offer"
                 : "Auction",
-            item: "Animverse",
+            item: el.name,
             price: el.price,
             from: "Dong Van Cuong",
             to: el.currency,
@@ -51,6 +52,7 @@ const Activities = () => {
             transaction_id: el.transaction_id,
             seller: el.seller,
             currency: el.currency,
+            photo: el.photo,
           }
         })
       )
@@ -58,7 +60,11 @@ const Activities = () => {
   }
   useEffect(() => {
     getData()
-  }, [offset, pageSize, id])
+  }, [offset, pageSize, id, type])
+
+  const handleType = (el) => {
+    setType(el.value)
+  }
 
   const columns = [
     {
@@ -68,11 +74,9 @@ const Activities = () => {
     {
       title: "Item",
       dataIndex: "item",
-      render: ({ item }) => (
+      render: ({ item, photo }) => (
         <span className="item-column">
-          <Button>
-            <BoxIcon />
-          </Button>
+          <img src={photo} alt="" />
           {item}
         </span>
       ),
@@ -146,6 +150,7 @@ const Activities = () => {
           defaultValue={"1"}
           placeholder="All"
           isSearchable={false}
+          onChange={(el) => handleType(el)}
           options={[
             {
               value: {

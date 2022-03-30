@@ -8,8 +8,12 @@ import { getAuctionItem } from "src/services/nft"
 import { AppPagination } from "src/components/AppPagination"
 import { formatAddress } from "../user/FormatAddress"
 import { formatTime } from "src/hooks/useCountdown"
+import { observer } from "mobx-react-lite"
+import { useStore } from "src/hooks/useStore"
 
-const Auction = () => {
+const Auction = observer(() => {
+  const BlockchainStore = useStore("BlockchainStore")
+  const { blockchain_Array} = BlockchainStore
   const router = useRouter()
   const { id } = router.query
   const [pageSize, setPageSize] = useState(10)
@@ -52,7 +56,9 @@ const Auction = () => {
                   </div>
                 </Td>
                 <Td>
-                  <p>{el.price}</p>
+                  <p>
+                    {el.price} {blockchain_Array[el.blockchain_id]?.symbol}
+                  </p>
                   <p>{el.usd}</p>
                 </Td>
                 <Td isNumeric>
@@ -85,6 +91,6 @@ const Auction = () => {
       </div>
     </>
   )
-}
+})
 
 export default Auction

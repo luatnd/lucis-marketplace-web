@@ -30,12 +30,6 @@ export const getHotAuctions = async () => {
   return data
 }
 
-export const getDiscovers = async () => {
-  const { data } = await axios.get(BASE_URL + "/nft")
-  const res = data.filter((item) => item.price || item.aucPrice)
-  return res
-}
-
 export const getGettingStarted = async () => {
   const { data } = await axios.get(BASE_URL + "/gettingStarted")
   return data
@@ -323,8 +317,8 @@ export const getActivitiesItem = async (
   nft_item_id,
   limit,
   offset,
-  // kind,
-  // status
+  kind,
+  status
 ) => {
   try {
     const { data } = await axios({
@@ -334,8 +328,8 @@ export const getActivitiesItem = async (
         nft_item_id: nft_item_id,
         limit: limit,
         offset: offset,
-        // kind,
-        // status,
+        kind,
+        status,
       },
     })
 
@@ -508,6 +502,41 @@ export const nftItemLike = async (nft_item_id, address) => {
   } catch (error) {
     return null
   }
+}
+
+export const getDisvover = async (
+  limit,
+  offset,
+  blockchain_id,
+  inventory_status,
+  reverse,
+  order_by
+) => {
+  try {
+    const { data } = await axios({
+      method: "GET",
+      url: API_URL + "nft-item/list",
+      params:
+        inventory_status < 0
+          ? {
+              limit,
+              offset,
+              blockchain_id,
+              reverse,
+              order_by,
+            }
+          : {
+              limit,
+              offset,
+              blockchain_id,
+              inventory_status,
+              reverse,
+              order_by,
+            },
+    })
+    return data.data
+  } catch (error) {}
+  return { data: [], total: 0 }
 }
 
 export const getNft = async (id: number, params?: any) => {
