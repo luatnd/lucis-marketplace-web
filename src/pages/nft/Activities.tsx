@@ -52,6 +52,7 @@ const Activities = () => {
             transaction_id: el.transaction_id,
             seller: el.seller,
             currency: el.currency,
+            symbol: el.symbol
           }
         })
       )
@@ -81,7 +82,11 @@ const Activities = () => {
     {
       title: "Price",
       dataIndex: "price",
-      render: ({ price }) => formatNftPrice(price)
+      render: ({ price, symbol }) => (
+          <>
+            {formatNftPrice(price)} {symbol}
+          </>
+        )
     },
     {
       title: "From",

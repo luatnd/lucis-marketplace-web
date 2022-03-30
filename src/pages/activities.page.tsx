@@ -7,6 +7,7 @@ import { AppSelect } from "src/components/AppSelect"
 import { formatTime } from "src/hooks/useCountdown"
 import { useStore } from "src/hooks/useStore"
 import { getNftEventList } from "src/services/nft"
+import { formatNftPrice } from "src/utils/Number"
 import { ListingBar } from "../components/Home/ListingBar"
 import { formatAddress } from "./user/FormatAddress"
 
@@ -145,7 +146,7 @@ const ActivitiesPage = observer(() => {
                     </div>
                   </Td>
                   <Td>
-                    {el.price ? el.price : "--"}{" "}
+                    {el.price ? formatNftPrice(el.price) : "--"}{" "}
                     {blockchain_Array[el.blockchain_id]?.symbol}
                   </Td>
                   <Td>
