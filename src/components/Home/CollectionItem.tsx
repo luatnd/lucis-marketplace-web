@@ -15,12 +15,11 @@ export const CollectionItem = (props: IProps) => {
   }
 
   return (
-    <div className="collection-item" onClick={() => handleClick()}>
+    <div className="collection-item" onClick={handleClick}>
       <div className="collection-image">
         <Img src={info.photo} />
       </div>
       <span>{info.name}</span>
-      {info.id}
       <div className="network">{getNetwork(info.blockchain_id)?.icon}</div>
     </div>
   )

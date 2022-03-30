@@ -44,7 +44,7 @@ export const SearchBarMobile = observer(() => {
   const handleBlur = () => {
     setTimeout(() => {
       setResultVisible(false)
-    }, 100)
+    }, 500)
   }
   const handleFocus = () => {
     if (searchText) setResultVisible(true)

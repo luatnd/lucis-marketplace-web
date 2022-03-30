@@ -65,6 +65,14 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      .algin-center {
+        width: 100%;
+        a {
+          word-break: break-all;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
       svg,img {
         height: 12px;
         margin-left: 5px;
@@ -74,6 +82,10 @@
       text-align: left;
       font-size: 20px;
       font-weight: 500;
+      word-break: break-all;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       @include to(xs) {
         font-size: 16px;
         align-self: center;
