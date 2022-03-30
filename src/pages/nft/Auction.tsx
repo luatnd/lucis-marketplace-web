@@ -9,8 +9,12 @@ import { AppPagination } from "src/components/AppPagination"
 import { formatAddress } from "../user/FormatAddress"
 import { formatTime } from "src/hooks/useCountdown"
 import { formatNftPrice } from "src/utils/Number"
+import { useStore } from "src/hooks/useStore"
+import { observer } from "mobx-react-lite"
 
-const Auction = () => {
+const Auction = observer(() => {
+  const BlockchainStore = useStore("BlockchainStore")
+  const { blockchain_Array} = BlockchainStore
   const router = useRouter()
   const { id } = router.query
   const [pageSize, setPageSize] = useState(10)
@@ -86,6 +90,6 @@ const Auction = () => {
       </div>
     </>
   )
-}
+})
 
 export default Auction

@@ -31,14 +31,28 @@
     }
     .sorts {
       display: flex;
+      gap: 8px;
       @include to(xs) {
         display: block;
       }
-      .type-sort {
-        margin-right: 8px;
-        @include to(xs) {
-          margin-top: 10px;
-          margin-bottom: 10px;
+      .app-select.network {
+        .placeholder {
+          flex-wrap: nowrap;
+          display: flex;
+          align-items: center;
+          img {
+            width: 20px;
+            margin-right: 12px;
+          }
+        }
+        .network {
+          display: flex;
+          align-items: center;
+          img {
+            width: 20px;
+            height: 20px;
+            margin-right: 20px;
+          }
         }
       }
     }
@@ -46,11 +60,11 @@
 }
 .grid-custom {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  // grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(5,1fr);
   grid-gap: 1rem;
   grid-auto-flow: row;
   width: 100%;
   flex-direction: column;
   margin-top: 35px;
+  margin-bottom: 35px;
 }
